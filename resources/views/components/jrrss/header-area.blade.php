@@ -8,11 +8,14 @@
                             <div class="header-row">
                                 <nav class="header-nav-top">
                                     <ul class="nav nav-pills text-uppercase text-2">
-                                        <li class="nav-item nav-item-anim-icon">
-                                            <a class="nav-link ps-0 text-light opacity-7" href=""><i class="fas fa-angle-right"></i> Jesús Rey de Reyes y Señor de Señores</a>
+                                        <li class="nav-item nav-item-anim-icon" style="padding: 0px 10px;">
+                                            <a class="nav-link pe-0 text-light opacity-7" href=""><i class="far fa-play-circle"></i> EN VIVO</a>
                                         </li>
-                                        <li class="nav-item nav-item-anim-icon">
-                                            <a class="nav-link text-light opacity-7 pe-0" href=""><i class="fas fa-angle-right"></i> Contact Us</a>
+                                        <li class="nav-item nav-item-anim-icon" style="padding: 0px 10px;">
+                                            <a class="nav-link pe-0 text-light opacity-7" href=""><i class="fas fa-university"></i> CAMPUS VIRTUAL</a>
+                                        </li>
+                                        <li class="nav-item nav-item-anim-icon" style="padding: 0px 10px;">
+                                            <a class="nav-link pe-0 text-light opacity-7" href=""><i class="fa fa-key"></i> Intranet</a>
                                         </li>
                                     </ul>
                                 </nav>
@@ -24,8 +27,7 @@
                                     <li class="social-icons-facebook"><a href="http://www.facebook.com/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
                                     <li class="social-icons-instagram"><a href="http://www.instagram.com/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a></li>
                                     <li class="social-icons-youtube"><a href="http://www.youtube.com/" target="_blank" title="youtube"><i class="fab fa-youtube"></i></a></li>
-                                    <li class="social-icons-twitter"><a href="http://www.twitter.com/" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a></li>
-                                    <li class="social-icons-linkedin"><a href="http://www.linkedin.com/" target="_blank" title="Linkedin"><i class="fab fa-linkedin-in"></i></a></li>
+                                    <li class="social-icons-twitter"><a href="http://www.twitter.com/" target="_blank" title="Twitter"><i class="fab fa-tiktok"></i></a></li>
                                 </ul>
                             </div>
                         </div>
