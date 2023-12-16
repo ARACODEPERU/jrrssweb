@@ -28,6 +28,8 @@ Route::get('/test-image/{content}/{fecha?}', [WebController::class, 'testimage']
 
 Route::get('/jrrss', [WebController::class, 'index'])->name('cms_principal');
 Route::get('/sedes', [WebController::class, 'sedes'])->name('web_sedes');
+Route::get('/cobertura', [WebController::class, 'cobertura'])->name('web_cobertura');
+Route::get('/eventos', [WebController::class, 'eventos'])->name('web_eventos');
 Route::get('/contacto', [WebController::class, 'contacto'])->name('web_contacto');
 
 

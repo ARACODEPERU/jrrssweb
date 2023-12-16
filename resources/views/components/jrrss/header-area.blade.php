@@ -61,12 +61,12 @@
                                                         </a>
                                                     </li>
                                                     <li class="dropdown">
-                                                        <a class="dropdown-item" href="">
+                                                        <a class="dropdown-item" href="{{ route('web_cobertura') }}">
                                                             Cobertura
                                                         </a>
                                                     </li>
                                                     <li class="dropdown">
-                                                        <a class="dropdown-item" href="">
+                                                        <a class="dropdown-item" href="{{ route('web_eventos') }}">
                                                             Eventos
                                                         </a>
                                                     </li>

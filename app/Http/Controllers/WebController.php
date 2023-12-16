@@ -27,6 +27,16 @@ class WebController extends Controller
         return view('jrrss/sedes');
     }
 
+    public function cobertura()
+    {
+        return view('jrrss/cobertura');
+    }
+
+    public function eventos()
+    {
+        return view('jrrss/eventos');
+    }
+
     public function testimage($content, $fecha = null)
     {
 
