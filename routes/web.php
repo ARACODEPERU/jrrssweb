@@ -26,7 +26,7 @@ use Modules\Blog\Http\Controllers\BlogController;
 Route::get('/test-image/{content}/{fecha?}', [WebController::class, 'testimage'])->name('test-image');
 
 
-Route::get('/jrrss', [WebController::class, 'index'])->name('cms_principal');
+Route::get('/', [WebController::class, 'index'])->name('cms_principal');
 Route::get('/sedes', [WebController::class, 'sedes'])->name('web_sedes');
 Route::get('/cobertura', [WebController::class, 'cobertura'])->name('web_cobertura');
 Route::get('/eventos', [WebController::class, 'eventos'])->name('web_eventos');
@@ -92,7 +92,7 @@ Route::get('/email', function () {
     return 'mensaje enviado';
 });
 
-Route::get('/', function () {
+Route::get('/jrrss', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
