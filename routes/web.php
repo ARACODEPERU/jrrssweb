@@ -36,7 +36,6 @@ Route::get('/contacto', [WebController::class, 'contacto'])->name('web_contacto'
 
 
 
-Route::get('/capperu', [WebController::class, 'capperu'])->name('cms_principal');
 Route::get('/nosotros', [CapperuController::class, 'nosotros'])->name('web_nosotros');
 Route::get('/categoria-sector/{sector}', [CapperuController::class, 'categoriasector'])->name('web_categoria_sector');
 Route::get('/categoria-modalidad', [CapperuController::class, 'categoriamodalidad'])->name('web_categoria_modalidad');
@@ -92,7 +91,7 @@ Route::get('/email', function () {
     return 'mensaje enviado';
 });
 
-Route::get('/jrrss', function () {
+Route::get('/aracode', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
