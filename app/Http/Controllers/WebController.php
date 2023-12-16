@@ -14,8 +14,12 @@ class WebController extends Controller
 {
     public function index()
     {
-        //return view('kentha/index');
         return view('jrrss/index');
+    }
+
+    public function contacto()
+    {
+        return view('jrrss/contacto');
     }
 
     public function testimage($content, $fecha = null)

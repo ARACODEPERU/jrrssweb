@@ -27,6 +27,7 @@ Route::get('/test-image/{content}/{fecha?}', [WebController::class, 'testimage']
 
 
 Route::get('/jrrss', [WebController::class, 'index'])->name('cms_principal');
+Route::get('/contacto', [WebController::class, 'contacto'])->name('web_contacto');
 
 
 

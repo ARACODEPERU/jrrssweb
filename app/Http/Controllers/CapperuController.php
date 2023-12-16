@@ -257,7 +257,7 @@ class CapperuController extends Controller
 
     public function contacto()
     {
-        return view('capperu/contacto');
+        return view('jrrss/contacto');
     }
 
     public function convenios()
