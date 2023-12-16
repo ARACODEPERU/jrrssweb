@@ -56,7 +56,7 @@
                                                         </a>
                                                     </li>
                                                     <li class="dropdown">
-                                                        <a class="dropdown-item" href="">
+                                                        <a class="dropdown-item" href="{{ route('web_sedes') }}">
                                                             Sedes
                                                         </a>
                                                     </li>

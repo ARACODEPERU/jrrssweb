@@ -45,13 +45,14 @@
 		<link id="skinCSS" rel="stylesheet" href="{{ asset('hemes/jrrss/assets/css/skins/default.css') }}">
 		<link id="skinCSS" rel="stylesheet" href="{{ asset('themes/jrrss/assets/css/skins/skin-corporate-8.css') }}">
 		<link id="skinCSS" rel="stylesheet" href="{{ asset('themes/jrrss/assets/css/skins/skin-medical.css') }}">
+		<link id="skinCSS" rel="stylesheet" href="{{ asset('themes/jrrss/assets/css/skins/skin-construction-2.css') }}">
 
         
 		<!-- Demo CSS -->
 		<link rel="stylesheet" href="{{ asset('themes/jrrss/assets/css/demos/demo-medical.css') }}">
+		<link rel="stylesheet" href="{{ asset('themes/jrrss/assets/css/demos/demo-construction-2.css') }}">
 
 
-		<!-- Skin CSS -->
 		<!-- Theme Custom CSS -->
 		<link rel="stylesheet" href="{{ asset('themes/jrrss/assets/css/custom.css') }}">
 

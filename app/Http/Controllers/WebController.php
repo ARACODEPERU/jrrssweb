@@ -22,6 +22,11 @@ class WebController extends Controller
         return view('jrrss/contacto');
     }
 
+    public function sedes()
+    {
+        return view('jrrss/sedes');
+    }
+
     public function testimage($content, $fecha = null)
     {
 

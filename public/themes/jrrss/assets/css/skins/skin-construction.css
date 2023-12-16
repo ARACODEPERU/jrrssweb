@@ -6,7 +6,8 @@
 }
 /* Skin Colors */
 :root {
-	--primary: #E04622;
+	--primary: #ffc600;
+	/*--primary: #E04622;*/
 	--primary-100: #cc3e1d;
 	--primary-200: #c13a1b;
 	--primary-300: #b63719;
