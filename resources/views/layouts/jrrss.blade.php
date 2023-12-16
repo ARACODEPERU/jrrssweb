@@ -59,9 +59,12 @@
 	</head>
 	<body data-plugin-page-transition>
 		@yield('content')
-
+		
 		<!-- Vendor -->
 		<script src="{{ asset('themes/jrrss/assets/vendor/plugins/js/plugins.min.js') }}"></script>
+
+		<!-- sweetalert2 -->
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 		<!-- Theme Base, Components and Settings -->
 		<script src="{{ asset('themes/jrrss/assets/js/theme.js') }}"></script>

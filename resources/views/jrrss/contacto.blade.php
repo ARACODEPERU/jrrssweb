@@ -44,38 +44,33 @@
 								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lectus lacus, rutrum sit amet placerat et, bibendum nec mauris. Duis molestie purus eget placerat viverra.
 							</p>
 
-							<form class="contact-form custom-form-style-1" action="php/contact-form.php" method="POST">
-								<div class="contact-form-success alert alert-success d-none mt-4">
-									<strong>Success!</strong> Your message has been sent to us.
-								</div>
-
-								<div class="contact-form-error alert alert-danger d-none mt-4">
-									<strong>Error!</strong> There was an error sending your message.
-									<span class="mail-error-message text-1 d-block"></span>
-								</div>
+							<form class="contact-form custom-form-style-1" method="POST" action="{{ route('apisubscriber') }}" id="pageContactForm">
+							
+								
 								<div class="row">
 									<div class="form-group col">
-										<input type="text" placeholder="Your Name" value="" data-msg-required="Please enter your name." maxlength="100" class="form-control bg-color-tertiary" name="name" id="name" required>
+										<input type="text" placeholder="Nombres" value="" data-msg-required="Por favor ingresa tus nombres completos." maxlength="125" class="form-control bg-color-tertiary" name="full_name" id="full_name" required>
 									</div>
 								</div>
 								<div class="row">
 									<div class="form-group col">
-										<input type="text" placeholder="Phone Number" value="" data-msg-required="Please enter your phone number." maxlength="100" class="form-control bg-color-tertiary"  name="phone" id="phone" required>
+										<input type="text" placeholder="Número de teléfono" value="" data-msg-required="Por favor ingresa tu número de teléfono." maxlength="100" class="form-control bg-color-tertiary"  name="phone" id="phone" required>
 									</div>
 								</div>
 								<div class="row">
 									<div class="form-group col">
-										<input type="email" placeholder="E-mail Address" value="" data-msg-required="Please enter your email address." data-msg-email="Please enter a valid email address." maxlength="100" class="form-control bg-color-tertiary" name="email" id="email" required>
+										<input type="email" placeholder="Dirección E-mail" value="" data-msg-required="Por favor ingresa tu correo electrónico." data-msg-email="Please enter a valid email address." maxlength="100" class="form-control bg-color-tertiary" name="email" id="email" required>
 									</div>
 								</div>
 								<div class="row">
 									<div class="form-group col">
-										<textarea maxlength="5000" placeholder="Message" data-msg-required="Please enter your message." rows="5" class="form-control bg-color-tertiary" name="message" id="message" required></textarea>
+										<textarea maxlength="5000" placeholder="Tu mensaje aqui..." data-msg-required="Por favor ingresa el mensaje." rows="5" class="form-control bg-color-tertiary" name="message" id="message" required></textarea>
 									</div>
 								</div>
 								<div class="row">
 									<div class="form-group col">
-										<input type="submit" value="ENVIAR AHORA" class="btn btn-outline btn-primary rounded-0 py-3 px-5 font-weight-semibold" data-loading-text="Loading...">
+										<button data-loading-text="Loading..." id="submitPageContactButton" class="btn btn-outline btn-primary rounded-0 py-3 px-5 font-weight-semibold" >Enviar Ahora</button>
+										
 									</div>
 								</div>
 							</form>
@@ -129,7 +124,64 @@
 				<div id="googlemaps" class="google-map custom-map" style="text-align: center;">
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3901.7585025642!2d-77.13881422513082!3d-12.060130142149312!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105cb908f14800b%3A0x9d3dece06a24733!2sAv%20Saenz%20Pe%C3%B1a%20870%2C%20Callao%2007001!5e0!3m2!1ses-419!2spe!4v1702736452376!5m2!1ses-419!2spe" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
-
+				<script>
+					let form = document.getElementById('pageContactForm');
+					form.addEventListener('submit', function(e) {
+						e.preventDefault();
+			
+						var formulario = document.getElementById('pageContactForm');
+						var formData = new FormData(formulario);
+			
+						// Deshabilitar el botón
+						var submitButton = document.getElementById('submitPageContactButton');
+						submitButton.disabled = true;
+						submitButton.style.opacity = 0.25;
+			
+						// Crear una nueva solicitud XMLHttpRequest
+						var xhr = new XMLHttpRequest();
+			
+						// Configurar la solicitud POST al servidor
+						xhr.open('POST', "{{ route('apisubscriber') }}", true);
+			
+						// Configurar la función de callback para manejar la respuesta
+						xhr.onload = function() {
+							// Habilitar nuevamente el botón
+							submitButton.disabled = false;
+							submitButton.style.opacity = 1;
+							if (xhr.status === 200) {
+								var response = JSON.parse(xhr.responseText);
+								Swal.fire({
+									icon: 'success',
+									title: 'Enhorabuena',
+									text: response.message,
+									customClass: {
+										container: 'sweet-modal-zindex' // Clase personalizada para controlar el z-index
+									}
+								});
+								formulario.reset();
+							} else if (xhr.status === 422) {
+								var errorResponse = JSON.parse(xhr.responseText);
+								// Maneja los errores de validación aquí, por ejemplo, mostrando los mensajes de error en algún lugar de tu página.
+								var errorMessages = errorResponse.errors;
+								var errorMessageContainer = document.getElementById('messagePageContact');
+								errorMessageContainer.innerHTML = 'Errores de validación:<br>';
+								for (var field in errorMessages) {
+									if (errorMessages.hasOwnProperty(field)) {
+										errorMessageContainer.innerHTML += field + ': ' + errorMessages[field].join(', ') +
+											'<br>';
+									}
+								}
+							} else {
+								console.error('Error en la solicitud: ' + xhr.status);
+							}
+			
+			
+						};
+			
+						// Enviar la solicitud al servidor
+						xhr.send(formData);
+					});
+				</script>
 
         </div>
 
