@@ -35,7 +35,7 @@
                 </div>
             </div>
             <div class="header-container">
-                <img src="{{ asset('themes/jrrss/assets/img/cabecera-WEB.jpg') }}" alt="">
+                <img style="height: 150px;" src="{{ asset('themes/jrrss/assets/img/cabecera-WEB.jpg') }}" alt="">
             </div>
             <div class="header-nav-bar header-nav-bar-top-border bg-light">
                 <div class="header-container ">
@@ -49,47 +49,47 @@
                                                 <ul class="nav nav-pills flex-column flex-lg-row" id="mainNav">
                                                     <li class="dropdown">
                                                         <a class="dropdown-item active" href="{{ route('cms_principal') }}">
-                                                            Home
+                                                            HOME
                                                         </a>
                                                     </li>
                                                     <li class="dropdown">
                                                         <a class="dropdown-item" href="">
-                                                            ¿Quienes Somos?
+                                                            ¿QUIENES SOMOS?
                                                         </a>
                                                     </li>
                                                     <li class="dropdown">
                                                         <a class="dropdown-item" href="{{ route('web_sedes') }}">
-                                                            Sedes
+                                                            SEDES
                                                         </a>
                                                     </li>
                                                     <li class="dropdown">
                                                         <a class="dropdown-item" href="{{ route('web_cobertura') }}">
-                                                            Cobertura
+                                                            COBERTURA
                                                         </a>
                                                     </li>
                                                     <li class="dropdown">
                                                         <a class="dropdown-item" href="{{ route('web_eventos') }}">
-                                                            Eventos
+                                                            EVENTOS
                                                         </a>
                                                     </li>
                                                     <li class="dropdown">
                                                         <a class="dropdown-item" href="">
-                                                            Escuela Sobrenatural
+                                                            ESCUELA SOBRENATURAL
                                                         </a>
                                                     </li>
                                                     <li class="dropdown">
                                                         <a class="dropdown-item" href="">
-                                                            Remanente
+                                                            RMNT
                                                         </a>
                                                     </li>
                                                     <li class="dropdown">
                                                         <a class="dropdown-item" href="">
-                                                            Kids
+                                                            KIDS
                                                         </a>
                                                     </li>
                                                     <li class="dropdown">
                                                         <a class="dropdown-item" href="{{ route('web_contacto') }}">
-                                                            Contacto
+                                                            CONTACTO
                                                         </a>
                                                     </li>
                                                 </ul>
