@@ -91,7 +91,7 @@
 .medical-schedules .box-four {
 		z-index: 1;
 }
-
+/*
 .medical-schedules .box-one::after {
 		content: '';
 		display: block;
@@ -103,11 +103,11 @@
 		border-top: 47px solid transparent;
 		border-bottom: 47px solid transparent;
 		border-left: 40px solid #ffc600;
-		/*border-left: 40px solid #008fe2;*/
+		/*border-left: 40px solid #008fe2;
 		z-index: 5;
-}
+}*/
 
-/*ARACODE*/
+/*ARACODE
 .medical-schedules .box-two::after {
 	content: '';
 	display: block;
@@ -119,10 +119,11 @@
 	border-top: 47px solid transparent;
 	border-bottom: 47px solid transparent;
 	border-left: 40px solid #212529;
-	/*border-left: 40px solid #008fe2;*/
+	/*border-left: 40px solid #008fe2;
 	z-index: 4;
-}
+}*/
 
+/*
 .medical-schedules .box-three::after {
 	content: '';
 	display: block;
@@ -134,9 +135,9 @@
 	border-top: 47px solid transparent;
 	border-bottom: 47px solid transparent;
 	border-left: 40px solid #ffc600;
-	/*border-left: 40px solid #008fe2;*/
+	/*border-left: 40px solid #008fe2;
 	z-index: 1;
-}
+}*/
 
 /* -- */
 
@@ -146,7 +147,7 @@
 }*/
 
 /* ARACODE*/
-.medical-schedules .box-two, .medical-schedules .box-three, .medical-schedules .box-four{
+.medical-schedules .box-one, .medical-schedules .box-two, .medical-schedules .box-three, .medical-schedules .box-four{
 		padding: 38px 38px 38px 70px;
 }
 /* -- */

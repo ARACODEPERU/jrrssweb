@@ -63,13 +63,8 @@
                 <div class="container">
                     <div class="row medical-schedules">
                         <div class="col-xl-3 box-one bg-color-primary appear-animation" data-appear-animation="fadeInLeft" data-appear-animation-delay="0">
-                            <div class="feature-box feature-box-style-2 align-items-center p-4">
-                                <div class="feature-box-icon p-0">
-                                    <img src="{{ asset('themes/jrrss/assets/img/demos/medical/icons/medical-icon-heart.png') }}" alt class="img-fluid pt-1" />
-                                </div>
-                                <div class="feature-box-info">
-                                    <h4 class="m-0 p-0">Evangelizar</h4>
-                                </div>
+                            <div class="feature-box-info">
+                                <h4 class="m-0 p-0">Evangelizar</h4>
                             </div>
                         </div>
                         <div class="col-xl-3 box-two bg-color-dark appear-animation" data-appear-animation="fadeInLeft" data-appear-animation-delay="600">
