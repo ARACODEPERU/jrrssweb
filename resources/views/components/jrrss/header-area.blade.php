@@ -35,7 +35,7 @@
                 </div>
             </div>
             <div class="header-container">
-                <img src="{{ asset('themes/jrrss/assets/img/bienvenida.jpg') }}" alt="">
+                <img src="{{ asset('themes/jrrss/assets/img/cabecera-WEB.jpg') }}" alt="">
             </div>
             <div class="header-nav-bar header-nav-bar-top-border bg-light">
                 <div class="header-container ">
