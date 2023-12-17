@@ -96,8 +96,6 @@
                             <br>
                             <br>
                             <br>
-                            <br>
-                            <br>
                         </div>
                         <div class="col-md-4">
                             <img src="img/demos/medical/gallery/gallery-1.jpg" alt class="img-fluid box-shadow-custom" /> 
