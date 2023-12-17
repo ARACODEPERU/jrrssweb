@@ -17,7 +17,7 @@
                     <div class="owl-stage">
 
                         <!-- Carousel Slide 1 -->
-                        <div class="owl-item position-relative overlay overlay-show overlay-op-3" style="background-image: url(themes/jrrss/assets/img/slider/SLIDE-01.jpg); background-size: cover; background-position: center;">
+                        <div  class="owl-item position-relative overlay overlay-show overlay-op-3" style="background-image: url(themes/jrrss/assets/img/slider/SLIDE-01.jpg); background-size: cover; background-position: center;">
                             <!--
                             <div class="container position-relative z-index-3 h-100">
                                 <div class="row align-items-center h-100">
@@ -34,7 +34,7 @@
                         </div>
 
                         <!-- Carousel Slide 2 -->
-                        <div class="owl-item position-relative overlay overlay-show overlay-op-3" style="background-image: url(themes/jrrss/assets/img/slider/SLIDE-02.jpg); background-size: cover; background-position: center;">
+                        <div  class="owl-item position-relative overlay overlay-show overlay-op-3" style="background-image: url(themes/jrrss/assets/img/slider/SLIDE-02.jpg); background-size: cover; background-position: center;">
                             <!--
                             <div class="container position-relative z-index-3 h-100">
                                 <div class="row align-items-center h-100">

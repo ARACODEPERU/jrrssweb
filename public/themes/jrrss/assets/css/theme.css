@@ -101,6 +101,12 @@ li {
 	transition: ease height 300ms;
 }
 
+#header .bienvenido {
+	display: flex;
+	justify-content: center; /* Centrar horizontalmente */
+	align-items: center; /* Centrar verticalmente */
+}
+
 @media (max-width: 991px) {
 	#header .header-container:not(.container):not(.container-fluid) .header-nav-main {
 		padding: 0 0.75rem;

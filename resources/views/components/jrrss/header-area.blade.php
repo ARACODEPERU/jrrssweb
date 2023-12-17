@@ -34,8 +34,9 @@
                     </div>
                 </div>
             </div>
-            <div class="header-container">
-                <img style="height: 150px;" src="{{ asset('themes/jrrss/assets/img/cabecera-WEB.jpg') }}" alt="">
+            <div class="bienvenido">
+                <img style="max-width: 100%;
+                height: auto;" src="{{ asset('themes/jrrss/assets/img/cabecera-WEB.jpg') }}" alt="">
             </div>
             <div class="header-nav-bar header-nav-bar-top-border bg-light">
                 <div class="header-container ">
