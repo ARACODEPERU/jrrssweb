@@ -6,7 +6,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
-		<title>Somos JRRSS | Sitio Web</title>	
+		<title>JRRSS | Sitio Web</title>	
 
 		<meta name="keywords" content="Jesus Rey de Reyes y Señor de Señores" />
 		<meta name="description" content="Iglesia Biblica Internacional">
