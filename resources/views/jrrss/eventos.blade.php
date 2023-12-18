@@ -10,24 +10,84 @@
         
 
         <div role="main" class="main">
-            
-            <section class="page-header bg-color-tertiary custom-page-header page-header-modern page-header-background page-header-background-sm parallax mt-0" 
-                     data-plugin-parallax data-plugin-options="{'speed': 1.2}" 
-                     data-image-src="{{ asset('themes/jrrss/assets/img/demos/construction-2/page-header.jpg') }}">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12 align-self-center">
-                            <ul class="breadcrumb custom-breadcrumb d-block text-center text-4">
-                                <li><a href="{{ route('cms_principal') }}">Home</a></li>
-                                <li class="active">Eventos</li>
-                            </ul>
-                        </div>
-                        <div class="col-md-12 align-self-center p-static text-center mt-2">
-                            <h1 class="font-weight-bold text-color-secondary text-11">Eventos</h1>
-                        </div>
-                    </div>
-                </div>
+            <section>
+                <img style="height: 500px; width: 1920px;" src="{{ asset('themes/jrrss/assets/img/portada-eventos.jpg') }}">
             </section>
+            
+            
+				<div class="container container-xl-custom pt-5">
+					<div class="row">
+						<div class="col">
+							<p class="mb-1">#CONFERENCIA</p>
+							<h3 class="text-secondary font-weight-bold text-capitalize text-7 mb-3">CONGRESO APOSTÓLICO Y PROFETICO</h3>
+						</div>
+					</div>
+					<div class="row pb-4">
+						<div class="col-md-7 pb-5">
+
+							<p>
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lectus lacus, rutrum sit amet placerat et, bibendum nec mauris. Duis molestie purus eget placerat viverra.
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lectus lacus, rutrum sit amet placerat et, bibendum n
+                            </p>
+							<p>
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lectus lacus, rutrum sit amet placerat et, bibendum nec mauris. Duis molestie purus eget placerat viverra.
+							</p>
+							<p>
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lectus lacus, rutrum sit amet placerat et, bibendum nec mauris. Duis molestie purus eget placerat viverra.
+							</p>
+							<p>
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lectus lacus, rutrum sit amet placerat et, bibendum nec mauris. Duis molestie purus eget placerat viverra.
+							</p>
+							<p>
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lectus lacus, rutrum sit amet placerat et, bibendum nec mauris. Duis molestie purus eget placerat viverra.
+							</p>
+
+
+						</div>
+						<div class="col-lg-5">
+							<div class="custom-card-style-2 card-contact-us mb-5">
+								<div class="m-4">
+									<div class="row flex-column px-5 pt-3 pb-4">
+										<div class="row px-3 mb-3">
+											<h3 class="text-secondary font-weight-bold text-capitalize my-3">Registro Online</h3>
+											<p>Lorem inpsum dolor sit amet, consectetur adipiscing elit. Sed eget risus pora, tincidunt turpis at, intermedum tortor.</p>
+										</div>
+                                        <form class="contact-form custom-form-style-1" method="POST" action="{{ route('apisubscriber') }}" id="pageContactForm">
+                                        
+                                            
+                                            <div class="row">
+                                                <div class="form-group col">
+                                                    <input type="text" placeholder="Nombres" value="" data-msg-required="Por favor ingresa tus nombres completos." maxlength="125" class="form-control bg-color-tertiary" name="full_name" id="full_name" required>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col">
+                                                    <input type="text" placeholder="Número de teléfono" value="" data-msg-required="Por favor ingresa tu número de teléfono." maxlength="100" class="form-control bg-color-tertiary"  name="phone" id="phone" required>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col">
+                                                    <input type="email" placeholder="Dirección E-mail" value="" data-msg-required="Por favor ingresa tu correo electrónico." data-msg-email="Please enter a valid email address." maxlength="100" class="form-control bg-color-tertiary" name="email" id="email" required>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col">
+                                                    <textarea maxlength="5000" placeholder="Tu mensaje aqui..." data-msg-required="Por favor ingresa el mensaje." rows="5" class="form-control bg-color-tertiary" name="message" id="message" required></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col">
+                                                    <button data-loading-text="Loading..." id="submitPageContactButton" class="btn btn-outline btn-primary rounded-0 py-3 px-5 font-weight-semibold" >Enviar Ahora</button>
+                                                    
+                                                </div>
+                                            </div>
+                                        </form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 
             
 

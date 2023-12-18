@@ -17,9 +17,9 @@ class WebController extends Controller
         return view('jrrss/index');
     }
 
-    public function contacto()
+    public function quienessomos()
     {
-        return view('jrrss/contacto');
+        return view('jrrss/quienes-somos');
     }
 
     public function sedes()
@@ -35,6 +35,16 @@ class WebController extends Controller
     public function eventos()
     {
         return view('jrrss/eventos');
+    }
+
+    public function testimonios()
+    {
+        return view('jrrss/testimonios');
+    }
+
+    public function contacto()
+    {
+        return view('jrrss/contacto');
     }
 
     public function testimage($content, $fecha = null)

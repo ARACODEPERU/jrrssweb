@@ -54,7 +54,7 @@
                                                         </a>
                                                     </li>
                                                     <li class="dropdown">
-                                                        <a class="dropdown-item" href="">
+                                                        <a class="dropdown-item" href="{{ route('web_quienes_somos') }}">
                                                             ¿QUIENES SOMOS?
                                                         </a>
                                                     </li>
@@ -80,6 +80,11 @@
                                                     </li>
                                                     <li class="dropdown">
                                                         <a class="dropdown-item" href="">
+                                                            ECELT
+                                                        </a>
+                                                    </li>
+                                                    <li class="dropdown">
+                                                        <a class="dropdown-item" href="">
                                                             RMNT
                                                         </a>
                                                     </li>
@@ -89,8 +94,18 @@
                                                         </a>
                                                     </li>
                                                     <li class="dropdown">
+                                                        <a class="dropdown-item" href="{{ route('web_testimonios') }}">
+                                                            TESTIMONIOS
+                                                        </a>
+                                                    </li>
+                                                    <li class="dropdown">
                                                         <a class="dropdown-item" href="{{ route('web_contacto') }}">
                                                             CONTACTO
+                                                        </a>
+                                                    </li>
+                                                    <li class="dropdown">
+                                                        <a class="dropdown-item" href="{{ route('web_contacto') }}">
+                                                            DONAR
                                                         </a>
                                                     </li>
                                                 </ul>
