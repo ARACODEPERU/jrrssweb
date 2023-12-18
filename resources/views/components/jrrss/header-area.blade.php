@@ -34,7 +34,7 @@
                     </div>
                 </div>
             </div>
-            <div class="bienvenido">
+            <div class="ara_centrado_total">
                 <img style="max-width: 100%;
                 height: auto;" src="{{ asset('themes/jrrss/assets/img/cabecera-WEB.jpg') }}" alt="">
             </div>

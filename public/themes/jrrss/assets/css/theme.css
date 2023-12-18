@@ -46,6 +46,14 @@ body a {
 	background-color: var(--light);
 }
 
+/*aracode*/
+.ara_centrado_total {
+	display: flex;
+	justify-content: center; /* Centrar horizontalmente */
+	align-items: center; /* Centrar verticalmente */
+}
+/* end */
+
 html.safari:not(.no-safari-overflow-x-fix) .body {
 	overflow-x: hidden;
 }
@@ -99,12 +107,6 @@ li {
 	flex-flow: row wrap;
 	align-items: center;
 	transition: ease height 300ms;
-}
-
-#header .bienvenido {
-	display: flex;
-	justify-content: center; /* Centrar horizontalmente */
-	align-items: center; /* Centrar verticalmente */
 }
 
 @media (max-width: 991px) {

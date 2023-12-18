@@ -10,9 +10,10 @@
         
 
         <div role="main" class="main">
-            <section>
-                <img style="height: 500px; width: 1920px;" src="{{ asset('themes/jrrss/assets/img/portada-eventos.jpg') }}">
-            </section>
+            
+            <div class="ara_centrado_total">
+                <img style="max-width: 100%; height: auto;" src="{{ asset('themes/jrrss/assets/img/page-header/evento-1.jpg') }}">
+            </div>
             
             
 				<div class="container container-xl-custom pt-5">
