@@ -89,7 +89,7 @@
                                                         </a>
                                                     </li>
                                                     <li class="dropdown">
-                                                        <a class="dropdown-item {{ request()->routeIs('escueloa') ? 'active' : '' }}" href="">
+                                                        <a class="dropdown-item {{ request()->routeIs('web_kids') ? 'active' : '' }}" href="{{ route('web_kids') }}">
                                                             KIDS
                                                         </a>
                                                     </li>

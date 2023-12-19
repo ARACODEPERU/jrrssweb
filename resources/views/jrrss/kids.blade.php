@@ -19,11 +19,11 @@
                         <div class="col-md-12 align-self-center">
                             <ul class="breadcrumb custom-breadcrumb d-block text-center text-4">
                                 <li><a href="{{ route('cms_principal') }}">Home</a></li>
-                                <li class="active">¿Quienes Somos?</li>
+                                <li class="active">Sobrenatural Kids</li>
                             </ul>
                         </div>
                         <div class="col-md-12 align-self-center p-static text-center mt-2">
-                            <h1 class="font-weight-bold text-color-secondary text-11">¿Quienes Somos?</h1>
+                            <h1 class="font-weight-bold text-color-secondary text-11">Sobrenatural Kids</h1>
                         </div>
                     </div>
                 </div>
@@ -32,17 +32,26 @@
             <div class="container pt-4">
                 <div class="row">
                     <div class="col-md-6">
-                        <h3>Juntos llevamos la visión de Dios</h3>
+                        <h3>AYUDÁNDOLE A
+                            ENSEÑAR A SUS HIJOS
+                            ACERCA DE JESÚS</h3>
                         <p>
-                            Juntos llevamos la visión de Dios El Ministerio Internacional El Rey Jesús es una de las iglesias multiculturales de más 
-                            rápido crecimiento en Estados Unidos, y es reconocida por sus visibles manifestaciones del poder sobrenatural de Dios.
+                            ¡Usted está llamado a formar a sus hijos
+                            en el camino que deben seguir y ese
+                            camino es JESÚS! Tal vez no sabe por
+                            dónde comenzar, ¡pero estamos aquí
+                            para ayudarle!
                         </p>
                         <p>
-                            El pastor principal de ERJ es el Apóstol Guillermo Maldonado, quien da cobertura a 500 iglesias en 70 países, que forman la Red Global Sobrenatural. Es también fundador de la Universidad del Ministerio Sobrenatural (USM) y autor de más de 50 libros con récord de ventas en Estados Unidos.
+                            En Supernatural Kidz Church, usted tiene
+                            acceso a eventos para la familia y de
+                            entrenamiento, videos de consejos
+                            semanales, recursos y más para
+                            caminar con el Señor.
                         </p>
                     </div>
                     <div class="col-md-6 ara_centrado_total">
-                        <img width="100%;" src="{{ asset('themes/jrrss/assets/img/papa-y-mama.jpg') }}" alt="">
+                        <iframe width="100%" height="380" src="https://www.youtube.com/embed/LczqYRhdp9s" title="One Way (Jesús Es El camino) - Rey de Reyes Kids" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
