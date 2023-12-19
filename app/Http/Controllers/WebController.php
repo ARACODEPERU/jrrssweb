@@ -47,6 +47,11 @@ class WebController extends Controller
         return view('jrrss/contacto');
     }
 
+    public function donar()
+    {
+        return view('jrrss/donar');
+    }
+
     public function testimage($content, $fecha = null)
     {
 

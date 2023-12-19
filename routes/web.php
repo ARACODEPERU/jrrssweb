@@ -33,6 +33,7 @@ Route::get('/cobertura', [WebController::class, 'cobertura'])->name('web_cobertu
 Route::get('/eventos', [WebController::class, 'eventos'])->name('web_eventos');
 Route::get('/testimonios', [WebController::class, 'testimonios'])->name('web_testimonios');
 Route::get('/contacto', [WebController::class, 'contacto'])->name('web_contacto');
+Route::get('/donar', [WebController::class, 'donar'])->name('web_donar');
 
 
 

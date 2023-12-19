@@ -104,7 +104,7 @@
                                                         </a>
                                                     </li>
                                                     <li class="dropdown">
-                                                        <a class="dropdown-item" href="{{ route('web_contacto') }}">
+                                                        <a class="dropdown-item" href="{{ route('web_donar') }}">
                                                             DONAR
                                                         </a>
                                                     </li>
