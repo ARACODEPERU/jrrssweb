@@ -103,9 +103,8 @@
                                                             CONTACTO
                                                         </a>
                                                     </li>
-                                                    <li class="dropdown">hh
+                                                    <li class="dropdown">
                                                         <a class="dropdown-item" href="{{ route('web_donar') }}">
-                                                        <a class="dropdown-item {{ request()->routeIs('donar_falta') ? 'active' : '' }}" href="">h
                                                             DONAR
                                                         </a>
                                                     </li>
