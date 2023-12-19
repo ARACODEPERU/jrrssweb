@@ -49,62 +49,63 @@
                                             <nav class="collapse">
                                                 <ul class="nav nav-pills flex-column flex-lg-row" id="mainNav">
                                                     <li class="dropdown">
-                                                        <a class="dropdown-item active" href="{{ route('cms_principal') }}">
+                                                        <a class="dropdown-item {{ request()->routeIs('cms_principal') ? 'active' : '' }}" href="{{ route('cms_principal') }}">
                                                             HOME
                                                         </a>
                                                     </li>
                                                     <li class="dropdown">
-                                                        <a class="dropdown-item" href="{{ route('web_quienes_somos') }}">
+                                                        <a class="dropdown-item {{ request()->routeIs('web_quienes_somos') ? 'active' : '' }}" href="{{ route('web_quienes_somos') }}">
                                                             ¿QUIENES SOMOS?
                                                         </a>
                                                     </li>
                                                     <li class="dropdown">
-                                                        <a class="dropdown-item" href="{{ route('web_sedes') }}">
+                                                        <a class="dropdown-item {{ request()->routeIs('web_sedes') ? 'active' : '' }}" href="{{ route('web_sedes') }}">
                                                             SEDES
                                                         </a>
                                                     </li>
                                                     <li class="dropdown">
-                                                        <a class="dropdown-item" href="{{ route('web_cobertura') }}">
+                                                        <a class="dropdown-item {{ request()->routeIs('web_cobertura') ? 'active' : '' }}" href="{{ route('web_cobertura') }}">
                                                             COBERTURA
                                                         </a>
                                                     </li>
                                                     <li class="dropdown">
-                                                        <a class="dropdown-item" href="{{ route('web_eventos') }}">
+                                                        <a class="dropdown-item {{ request()->routeIs('web_eventos') ? 'active' : '' }}" href="{{ route('web_eventos') }}">
                                                             EVENTOS
                                                         </a>
                                                     </li>
                                                     <li class="dropdown">
-                                                        <a class="dropdown-item" href="">
+                                                        <a class="dropdown-item {{ request()->routeIs('escueloa') ? 'active' : '' }}" href="">
                                                             ESCUELA SOBRENATURAL
                                                         </a>
                                                     </li>
                                                     <li class="dropdown">
-                                                        <a class="dropdown-item" href="">
+                                                        <a class="dropdown-item {{ request()->routeIs('escueloa') ? 'active' : '' }}" href="">
                                                             ECELT
                                                         </a>
                                                     </li>
                                                     <li class="dropdown">
-                                                        <a class="dropdown-item" href="">
+                                                        <a class="dropdown-item {{ request()->routeIs('escueloa') ? 'active' : '' }}" href="">
                                                             RMNT
                                                         </a>
                                                     </li>
                                                     <li class="dropdown">
-                                                        <a class="dropdown-item" href="">
+                                                        <a class="dropdown-item {{ request()->routeIs('escueloa') ? 'active' : '' }}" href="">
                                                             KIDS
                                                         </a>
                                                     </li>
                                                     <li class="dropdown">
-                                                        <a class="dropdown-item" href="{{ route('web_testimonios') }}">
+                                                        <a class="dropdown-item {{ request()->routeIs('web_testimonios') ? 'active' : '' }}" href="{{ route('web_testimonios') }}">
                                                             TESTIMONIOS
                                                         </a>
                                                     </li>
                                                     <li class="dropdown">
-                                                        <a class="dropdown-item" href="{{ route('web_contacto') }}">
+                                                        <a class="dropdown-item {{ request()->routeIs('web_contacto') ? 'active' : '' }}" href="{{ route('web_contacto') }}">
                                                             CONTACTO
                                                         </a>
                                                     </li>
-                                                    <li class="dropdown">
+                                                    <li class="dropdown">hh
                                                         <a class="dropdown-item" href="{{ route('web_donar') }}">
+                                                        <a class="dropdown-item {{ request()->routeIs('donar_falta') ? 'active' : '' }}" href="">h
                                                             DONAR
                                                         </a>
                                                     </li>
