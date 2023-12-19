@@ -104,7 +104,7 @@
                                                         </a>
                                                     </li>
                                                     <li class="dropdown">
-                                                        <a class="dropdown-item" href="{{ route('web_donar') }}">
+                                                        <a class="dropdown-item {{ request()->routeIs('web_donar') ? 'active' : '' }}" href="{{ route('web_donar') }}">
                                                             DONAR
                                                         </a>
                                                     </li>
