@@ -37,6 +37,11 @@ class WebController extends Controller
         return view('jrrss/eventos');
     }
 
+    public function rmnt()
+    {
+        return view('jrrss/rmnt');
+    }
+
     public function kids()
     {
         return view('jrrss/kids');
