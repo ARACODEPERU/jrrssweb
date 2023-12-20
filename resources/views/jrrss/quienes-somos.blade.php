@@ -116,7 +116,7 @@
             
             <section class="section section-parallax section-height-5 overlay overlay-show overlay-op-7 border-0 m-0 appear-animation animated fadeIn appear-animation-visible" 
                     data-appear-animation="fadeIn" data-plugin-parallax="" data-plugin-options="{'speed': 1.5, 'parallaxHeight': '138%'}" 
-                    data-image-src="{{ asset('themes/jrrss/assets/img/parallax_nosotros.jpg') }}" style="position: relative; overflow: hidden; animation-delay: 100ms;">
+                    data-image-src="{{ asset('themes/jrrss/assets/img/parallax/parallax_nosotros.jpg') }}" style="position: relative; overflow: hidden; animation-delay: 100ms;">
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-lg-9 text-center">
