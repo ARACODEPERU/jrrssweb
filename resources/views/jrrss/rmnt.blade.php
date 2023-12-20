@@ -184,11 +184,11 @@
                             <div class="col-lg-9 text-center">
                                 <h2 class="text-color-light font-weight-bold custom-tertiary-font ls-0 mb-4 appear-animation animated fadeInUpShorter appear-animation-visible" 
                                     data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200" style="animation-delay: 200ms;">
-                                    Jesús dijo: «Dejad que los niños vengan a mí, y no se. lo impidáis, porque el Reino de los Cielos es de quienes. son como ellos»
+                                    Que nadie te menosprecie por ser joven. Al contrario, que los creyentes vean en ti un ejemplo a seguir en la manera de hablar, en la conducta, y en amor, fe y pureza.
                                 </h2>
                                 <p class="text-color-light opacity-7 text-3 px-5 mx-5 mb-0 appear-animation animated fadeInUpShorter appear-animation-visible" 
                                    data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400" style="animation-delay: 400ms;">
-                                   Mateo 19:14
+                                   1 Timoteo 4:12
                                 </p>
                             </div>
                         </div>

@@ -48,8 +48,6 @@
                                     </p>
 
                                     <form class="contact-form custom-form-style-1" method="POST" action="{{ route('apisubscriber') }}" id="pageContactForm">
-                                    
-                                        
                                         <div class="row">
                                             <div class="form-group col">
                                                 <input type="text" placeholder="Nombres Completos" value="" data-msg-required="Por favor ingresa tus nombres completos." maxlength="125" class="form-control bg-color-tertiary" name="full_name" id="full_name" required>
@@ -62,14 +60,13 @@
                                                     <option value="1">Diezmos</option>
                                                     <option value="2">Ofrenda</option>
                                                     <option value="2">Pacto</option>
-                                                    <option value="3">Niños</option>
+                                                    <option value="3">Primicias</option>
                                                   </select>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="form-group col">
                                                 <button data-loading-text="Loading..." id="submitPageContactButton" class="btn btn-outline btn-primary rounded-0 py-3 px-5 font-weight-semibold" >Donar Ahora</button>
-                                                
                                             </div>
                                         </div>
                                     </form>
