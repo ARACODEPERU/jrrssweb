@@ -4,6 +4,7 @@ namespace Modules\Socialevents\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Modules\Socialevents\Database\factories\EvenEventFactory;
 
@@ -45,5 +46,10 @@ class EvenEvent extends Model
     public function exhibitors(): HasMany
     {
         return $this->hasMany(EvenEventExhibitor::class, 'event_id');
+    }
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(EvenCategory::class, 'category_id');
     }
 }

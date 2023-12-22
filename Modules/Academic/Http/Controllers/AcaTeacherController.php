@@ -111,6 +111,7 @@ class AcaTeacherController extends Controller
                 'names'             => 'required|max:255',
                 'father_lastname'   => 'required|max:255',
                 'mother_lastname'   => 'required|max:255',
+                'presentacion'      => 'required'
             ]
         );
 
@@ -150,7 +151,8 @@ class AcaTeacherController extends Controller
             'birthdate'             => $request->get('birthdate'),
             'names'                 => $request->get('names'),
             'father_lastname'       => $request->get('father_lastname'),
-            'mother_lastname'       => $request->get('mother_lastname')
+            'mother_lastname'       => $request->get('mother_lastname'),
+            'presentacion'          => $request->get('presentacion')
         ]);
 
         $user = User::create([
@@ -240,12 +242,13 @@ class AcaTeacherController extends Controller
                 'names'             => 'required|max:255',
                 'father_lastname'   => 'required|max:255',
                 'mother_lastname'   => 'required|max:255',
+                'presentacion'      => 'required'
             ]
         );
 
         // $path = 'img' . DIRECTORY_SEPARATOR . 'imagen-no-disponible.jpeg';
         // $destination = 'uploads' . DIRECTORY_SEPARATOR . 'products';
-        $path = null;
+        $path = $request->get('image_preview');
         $destination = 'uploads/students';
         $file = $request->file('image');
         if ($file) {
@@ -258,8 +261,9 @@ class AcaTeacherController extends Controller
                 $file_name,
                 'public'
             );
+            $path = asset("storage/" . $path); //RUTA COMPLETA
         }
-        $path = asset("storage/" . $path); //RUTA COMPLETA
+
         Person::find($person_id)->update([
             'document_type_id'      => $request->get('document_type_id'),
             'short_name'            => $request->get('names'),
@@ -276,7 +280,8 @@ class AcaTeacherController extends Controller
             'birthdate'             => $request->get('birthdate'),
             'names'                 => $request->get('names'),
             'father_lastname'       => $request->get('father_lastname'),
-            'mother_lastname'       => $request->get('mother_lastname')
+            'mother_lastname'       => $request->get('mother_lastname'),
+            'presentacion'          => $request->get('presentacion')
         ]);
 
         User::where('person_id', $person_id)->update([

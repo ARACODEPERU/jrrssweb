@@ -34,7 +34,8 @@ const form = useForm({
     names: null,
     father_lastname: null,
     mother_lastname: null,
-    ubigeo_description: null
+    ubigeo_description: null,
+    presentacion: null
 });
 
 const createTeacher = () => {
@@ -231,6 +232,17 @@ const loadFile = (event) => {
                     
                 />
                 <InputError :message="form.errors.email" class="mt-2" />
+            </div>
+            <div class="col-span-6">
+                <InputLabel for="presentacion" value="Presentación *" />
+                <textarea
+                    id="presentacion"
+                    v-model="form.presentacion"
+                    rows="4" 
+                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                >
+                </textarea>
+                <InputError :message="form.errors.presentacion" class="mt-2" />
             </div>
         </template>
 
