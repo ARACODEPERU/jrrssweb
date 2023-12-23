@@ -14,6 +14,7 @@ use Inertia\Inertia;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WebController;
+use App\Http\Controllers\PaypalController;
 use App\Mail\StudentRegistrationMailable;
 use App\Models\District;
 use App\Models\Person;
@@ -36,6 +37,11 @@ Route::get('/kids', [WebController::class, 'kids'])->name('web_kids');
 Route::get('/testimonios', [WebController::class, 'testimonios'])->name('web_testimonios');
 Route::get('/contacto', [WebController::class, 'contacto'])->name('web_contacto');
 Route::get('/donar', [WebController::class, 'donar'])->name('web_donar');
+
+/* PayPal */
+Route::post('/paypal/donate', [PaypalController::class, 'payment'])->name('paypal_donate');
+Route::get('/paypal/success', [PaypalController::class, 'success'])->name('paypal_success');
+Route::get('/paypal/cancel', [PaypalController::class, 'cancel'])->name('paypal_cancel');
 
 
 
