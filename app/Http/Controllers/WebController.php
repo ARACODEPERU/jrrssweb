@@ -9,6 +9,7 @@ use Intervention\Image\Facades\Image;
 use Intervention\Image\Font;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
+use Modules\Socialevents\Entities\EvenEvent;
 
 class WebController extends Controller
 {
@@ -34,7 +35,15 @@ class WebController extends Controller
 
     public function eventos()
     {
-        return view('jrrss/eventos');
+        $event = EvenEvent::with('exhibitors.exhibitor')
+            ->with('category')
+            ->where('status', 'PE')
+            ->orderBy('date_start', 'DESC')
+            ->first();
+
+        return view('jrrss/eventos', [
+            'event' => $event
+        ]);
     }
 
     public function escuelasobrenatural()

@@ -47,10 +47,16 @@
                                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lectus lacus, rutrum sit amet placerat et, bibendum nec mauris. Duis molestie purus eget placerat viverra.
                                     </p>
 
-                                    <form class="contact-form custom-form-style-1" method="POST" action="{{ route('apisubscriber') }}" id="pageContactForm">
+                                    <form class="contact-form custom-form-style-1" method="POST" action="{{ route('paypal_donate') }}" id="pageContactForm">
+                                        @csrf
                                         <div class="row">
                                             <div class="form-group col">
                                                 <input type="text" placeholder="Nombres Completos" value="" data-msg-required="Por favor ingresa tus nombres completos." maxlength="125" class="form-control bg-color-tertiary" name="full_name" id="full_name" required>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col">
+                                                USD <input type="number" placeholder="Monto a donar" value="" data-msg-required="Por favor ingresa el monto que deseas donar." maxlength="125" class="form-control bg-color-tertiary" name="amount" id="amount" required>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -66,11 +72,15 @@
                                         </div>
                                         <div class="row">
                                             <div class="form-group col">
-                                                <button data-loading-text="Loading..." id="submitPageContactButton" class="btn btn-outline btn-primary rounded-0 py-3 px-5 font-weight-semibold" >Donar Ahora</button>
+                                                <button submit data-loading-text="Loading..." id="submitPageContactButton" class="btn btn-outline btn-primary rounded-0 py-3 px-5 font-weight-semibold" >Donar con Paypal</button>
+                                                
+                                            </div>
+                                            <div class="form-group col">
+                                                <button data-loading-text="Loading..." id="submitPageContactButton" class="btn btn-outline btn-primary rounded-0 py-3 px-5 font-weight-semibold" >Donar con Mercado Pago</button>
+                                                
                                             </div>
                                         </div>
                                     </form>
-
                                 </div>
                             </div>
                         </div>

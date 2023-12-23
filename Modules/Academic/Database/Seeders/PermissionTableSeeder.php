@@ -46,7 +46,8 @@ class PermissionTableSeeder extends Seeder
         foreach ($permissions as $permission) {
             $role->givePermissionTo($permission->name);
         }
-
+        Role::create(['name' => 'Docente']);
+        Role::create(['name' => 'Alumno']);
         // $user = User::find(1);
 
         // $user->assignRole('webAdmin');
