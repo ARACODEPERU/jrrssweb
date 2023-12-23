@@ -31,6 +31,8 @@ Route::get('/quienes-somos', [WebController::class, 'quienessomos'])->name('web_
 Route::get('/sedes', [WebController::class, 'sedes'])->name('web_sedes');
 Route::get('/cobertura', [WebController::class, 'cobertura'])->name('web_cobertura');
 Route::get('/eventos', [WebController::class, 'eventos'])->name('web_eventos');
+Route::get('/escuela', [WebController::class, 'escuelasobrenatura'])->name('web_escuela_sobrenatural');
+Route::get('/ecelt', [WebController::class, 'ecelt'])->name('web_ecelt');
 Route::get('/rmnt', [WebController::class, 'rmnt'])->name('web_rmnt');
 Route::get('/kids', [WebController::class, 'kids'])->name('web_kids');
 Route::get('/testimonios', [WebController::class, 'testimonios'])->name('web_testimonios');
