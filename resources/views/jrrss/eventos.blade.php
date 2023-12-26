@@ -126,6 +126,15 @@
                                             </div>
                                             <div class="row">
                                                 <div class="form-group col">
+                                                    <label for="exampleDataList" class="form-label">Datalist example</label>
+<input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
+<datalist id="datalistOptions">
+  <option value="San Francisco">
+  <option value="New York">
+  <option value="Seattle">
+  <option value="Los Angeles">
+  <option value="Chicago">
+</datalist>
                                                     <select class="form-select form-control bg-color-tertiary"
                                                         aria-label="Default select example" maxlength="125" name="tipo"
                                                         id="tipo" required>
