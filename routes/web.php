@@ -46,7 +46,7 @@ Route::get('/paypal/success', [PaypalController::class, 'success'])->name('paypa
 Route::get('/paypal/cancel', [PaypalController::class, 'cancel'])->name('paypal_cancel');
 
 
-
+Route::get('/event/ubigeo', [WebController::class, 'getUbigeo'])->name('web_getubigeo');
 
 
 Route::get('/nosotros', [CapperuController::class, 'nosotros'])->name('web_nosotros');

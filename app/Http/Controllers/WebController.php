@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
+use App\Models\District;
+use App\Models\Province;
 use Illuminate\Http\Request;
 use Modules\Onlineshop\Entities\OnliItem;
 
@@ -37,12 +40,16 @@ class WebController extends Controller
     {
         $event = EvenEvent::with('exhibitors.exhibitor')
             ->with('category')
+            ->with('prices.type')
             ->where('status', 'PE')
             ->orderBy('date_start', 'DESC')
             ->first();
 
+        $ubigeo = Department::with('provinces.districts')->get();
+
         return view('jrrss/eventos', [
-            'event' => $event
+            'event' => $event,
+            'ubigeo' => $ubigeo
         ]);
     }
 
@@ -54,6 +61,37 @@ class WebController extends Controller
     public function ecelt()
     {
         return view('jrrss/ecelt');
+    }
+    
+    public function getUbigeo()
+    {
+        $departments = Department::get();
+        $ubigeo = [];
+        foreach ($departments as $k => $department) {
+            $provinces = Province::where('department_id', $department->id)->get();
+            $pro = [];
+            foreach ($provinces as $province) {
+                $districts = District::where('province_id', $province->id)->get();
+                $dis = [];
+                foreach ($districts as $district) {
+                    array_push($dis, [
+                        'id' => $district->id,
+                        'title' => $district->name,
+                    ]);
+                }
+                array_push($pro, [
+                    'id' => $department->id,
+                    'title' => $department->name,
+                    'subs'  => $dis
+                ]);
+            }
+            array_push($ubigeo, [
+                'id' => $department->id,
+                'title' => $department->name,
+                'subs'  => $pro
+            ]);
+        }
+        return response()->json(['ubigeo' => $ubigeo]);
     }
 
     public function rmnt()

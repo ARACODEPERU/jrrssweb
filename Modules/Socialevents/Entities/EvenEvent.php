@@ -30,7 +30,8 @@ class EvenEvent extends Model
         'number_days',
         'tickets_quantity',
         'status',
-        'broadcast'
+        'broadcast',
+        'tickets_available'
     ];
 
     protected static function newFactory(): EvenEventFactory
@@ -46,6 +47,11 @@ class EvenEvent extends Model
     public function exhibitors(): HasMany
     {
         return $this->hasMany(EvenEventExhibitor::class, 'event_id');
+    }
+
+    public function prices(): HasMany
+    {
+        return $this->hasMany(EvenEventTicketPrice::class, 'event_id');
     }
 
     public function category(): BelongsTo

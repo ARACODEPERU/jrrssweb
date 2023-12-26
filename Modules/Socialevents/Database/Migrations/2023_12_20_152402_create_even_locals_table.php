@@ -23,7 +23,6 @@ return new class extends Migration
             $table->integer('maximum_capacity')->default(100);
             $table->boolean('status')->default(true);
             $table->string('ubigeo')->nullable();
-            $table->timestamps();
         });
     }
 
