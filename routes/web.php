@@ -38,7 +38,7 @@ Route::get('/contacto', [WebController::class, 'contacto'])->name('web_contacto'
 Route::get('/donar', [WebController::class, 'donar'])->name('web_donar');
 
 
-
+Route::get('/event/ubigeo', [WebController::class, 'getUbigeo'])->name('web_getubigeo');
 
 
 Route::get('/nosotros', [CapperuController::class, 'nosotros'])->name('web_nosotros');

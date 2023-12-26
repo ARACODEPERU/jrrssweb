@@ -127,25 +127,27 @@
                                             <div class="row">
                                                 <div class="form-group col">
                                                     <select class="form-select form-control bg-color-tertiary"
-                                                        aria-label="Default select example" maxlength="125" name="tipo"
-                                                        id="tipo" required>
-                                                        <option selected>Desde donde viene? </option>
-                                                        <option value="1">Lima</option>
-                                                        <option value="2">Chimbote</option>
-                                                        <option value="2">Tacna</option>
-                                                        <option value="3">etc</option>
+                                                        name="ubigeo" id="ubigeo" required>
+                                                        <option selected>Desde donde viene?</option>
+                                                        @foreach ($event->prices as $row)
+                                                            <option value="{{ $row->id }}">
+                                                                {{ $row->type->description }} S/.
+                                                                {{ $row->price }}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="form-group col">
                                                     <select class="form-select form-control bg-color-tertiary"
-                                                        aria-label="Default select example" maxlength="125" name="tipo"
-                                                        id="tipo" required>
+                                                        aria-label="Default select example" name="tipo" id="tipo"
+                                                        required>
                                                         <option selected>Tipo de ticket </option>
-                                                        <option value="1">General S/. 50.00</option>
-                                                        <option value="2">Preferencial S/. 70</option>
-                                                        <option value="2">Vip S/. 100.00</option>
+                                                        @foreach ($event->prices as $row)
+                                                            <option value="{{ $row->id }}">
+                                                                {{ $row->type->description }} S/.
+                                                                {{ $row->price }}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>
@@ -164,17 +166,11 @@
                         </div>
                     </div>
                 </div>
-
-
-
-
             </div>
         @endif
         <!-- Footer - area start -->
         <x-jrrss.footer-area></x-jrrss.footer-area>
         <!-- Footer - area end -->
-
-
-
     </div>
+
 @endsection
