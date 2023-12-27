@@ -32,7 +32,7 @@ const form = useForm({
     number: props.teacher.number,
     telephone: props.teacher.telephone,
     email: props.teacher.email,
-    image: props.teacher.image,
+    image: null,
     image_preview: props.teacher.image_preview,
     address: props.teacher.address,
     ubigeo: props.teacher.ubigeo,
@@ -145,13 +145,7 @@ const loadFile = (event) => {
                     </div>
                     <label class="block ml-1">
                         <span class="sr-only">Elige foto</span>
-                        <input  type="file" @change="loadFile" class="block w-full text-sm text-slate-500
-                            mr-4 py-2 px-4
-                            rounded-full border-0
-                            text-sm font-semibold
-                            bg-violet-50 text-violet-700
-                            hover:bg-violet-100
-                        " />
+                        <input @change="loadFile" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file">
                     </label>
                 </div>
             </div>
