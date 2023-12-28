@@ -246,7 +246,7 @@
                                                     <li class="dropdown">
                                                         <a class="dropdown-item {{ request()->routeIs('web_donar') ? 'active' : '' }}"
                                                             href="{{ route('web_donar') }}">
-                                                            DONAR
+                                                            <i class="fa fa-heart" aria-hidden="true"></i>&nbsp; DONAR
                                                         </a>
                                                     </li>
                                                 </ul>
