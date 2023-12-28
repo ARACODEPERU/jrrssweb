@@ -23,7 +23,7 @@
                             </ul>
                         </div>
                         <div class="col-md-12 align-self-center p-static text-center mt-2">
-                            <h1 class="font-weight-bold text-color-secondary text-11">ECELT</h1>
+                            <h1 class="font-weight-bold text-color-secondary text-11">EL CIERLO EN LA TIERRA</h1>
                         </div>
                     </div>
                 </div>

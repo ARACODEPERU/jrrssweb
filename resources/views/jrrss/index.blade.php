@@ -43,12 +43,12 @@
                         </div>
                         <div class="col-xl-3 box-two bg-color-dark appear-animation" data-appear-animation="fadeInLeft" data-appear-animation-delay="600">
                             <div class="feature-box-info">
-                                <h4 class="m-0 p-0">Discipular</h4>
+                                <h4 class="m-0 p-0">Afirmar</h4>
                             </div>
                         </div>
                         <div class="col-xl-3 box-three bg-color-primary appear-animation" data-appear-animation="fadeInLeft" data-appear-animation-delay="1200">
                             <div class="feature-box-info">
-                                <h4 class="m-0 p-0">Afirmar</h4>
+                                <h4 class="m-0 p-0">Discipular</h4>
                             </div>
                         </div>
                         <div class="col-xl-3 box-four bg-color-dark appear-animation" data-appear-animation="fadeInLeft" data-appear-animation-delay="1800">
