@@ -101,7 +101,7 @@
 
                                             <div class="row">
                                                 <div class="form-group col">
-                                                    <input type="text" placeholder="Nombres" value=""
+                                                    <input type="text" placeholder="Nombres Completos" value=""
                                                         data-msg-required="Por favor ingresa tus nombres completos."
                                                         maxlength="125" class="form-control bg-color-tertiary"
                                                         name="full_name" id="full_name" required>
@@ -109,7 +109,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="form-group col">
-                                                    <input type="text" placeholder="Número de teléfono" value=""
+                                                    <input type="text" placeholder="Teléfono" value=""
                                                         data-msg-required="Por favor ingresa tu número de teléfono."
                                                         maxlength="100" class="form-control bg-color-tertiary"
                                                         name="phone" id="phone" required>
@@ -126,8 +126,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="form-group col">
-                                                    <label for="exampleDataList" class="form-label">Datalist example</label>
-                                                        <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
+                                                        <input class="form-control bg-color-tertiary" list="datalistOptions" id="exampleDataList" placeholder="Desde que ciudad viene?">
                                                         <datalist id="datalistOptions">
                                                             <option value="San Francisco">
                                                             <option value="New York">
@@ -135,15 +134,6 @@
                                                             <option value="Los Angeles">
                                                             <option value="Chicago">
                                                         </datalist>
-                                                    <select class="form-select form-control bg-color-tertiary"
-                                                        name="ubigeo" id="ubigeo" required>
-                                                        <option selected>Desde donde viene?</option>
-                                                        @foreach ($event->prices as $row)
-                                                            <option value="{{ $row->id }}">
-                                                                {{ $row->type->description }} S/.
-                                                                {{ $row->price }}</option>
-                                                        @endforeach
-                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="row">
