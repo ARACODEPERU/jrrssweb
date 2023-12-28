@@ -112,19 +112,18 @@
                             <div class="header-row">
                                 <nav class="header-nav-top">
                                     <ul class="nav nav-pills text-uppercase text-2">
-                                        <li class="nav-item nav-item-anim-icon" style="padding: 0px 10px;">
-                                            <a class="nav-link pe-0 text-light opacity-7" href=""><i
-                                                    class="far fa-play-circle"></i> EN VIVO</a>
+                                        <li style="padding: 0px 10px;">
+                                            <button type="button" class="btn btn-outline-danger"  data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="fa fa-rss" aria-hidden="true"></i> EN VIVO</button>
                                         </li>
                                         <li class="nav-item nav-item-anim-icon" style="padding: 0px 10px;">
                                             <a class="nav-link pe-0 text-light opacity-7" href=""><i
                                                     class="fas fa-university"></i> CAMPUS VIRTUAL</a>
                                         </li>
-                                        <li class="nav-item nav-item-anim-icon" style="padding: 0px 10px;">
+                                        <li class="nav-item nav-item-anim-icon" style="padding: 0px 20px 0 10px;">
                                             <a class="nav-link pe-0 text-light opacity-7" href=""><i
                                                     class="fa fa-key"></i> Intranet</a>
                                         </li>
-                                        <li class="switch">
+                                        <li class="switch" style="margin-top: 5px;">
                                             <i class="bx bxs-sun"></i>
                                             <i class="bx bxs-moon"></i>
                                         </li>
@@ -134,16 +133,27 @@
                         </div>
                         <div class="header-column justify-content-end">
                             <div class="header-row">
-                                <ul
-                                    class="header-social-icons social-icons d-none d-sm-block social-icons-clean social-icons-icon-light">
-                                    <li class="social-icons-facebook"><a href="http://www.facebook.com/" target="_blank"
-                                            title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
-                                    <li class="social-icons-instagram"><a href="http://www.instagram.com/"
-                                            target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a></li>
-                                    <li class="social-icons-youtube"><a href="http://www.youtube.com/" target="_blank"
-                                            title="youtube"><i class="fab fa-youtube"></i></a></li>
-                                    <li class="social-icons-twitter"><a href="http://www.twitter.com/" target="_blank"
-                                            title="Twitter"><i class="fab fa-tiktok"></i></a></li>
+                                <ul class="header-social-icons social-icons d-none d-sm-block social-icons-clean social-icons-icon-light">
+                                    <li class="social-icons-facebook" style="padding: 5px;">
+                                        <a href="http://www.facebook.com/" target="_blank"
+                                            title="Facebook"  style="font-size: 16px;"><i class="fab fa-facebook-f"></i>
+                                        </a>
+                                    </li>
+                                    <li class="social-icons-instagram" style="padding: 5px;">
+                                        <a href="http://www.instagram.com/"
+                                            target="_blank" t  style="font-size: 16px;"itle="Instagram"><i class="fab fa-instagram"></i>
+                                        </a>
+                                    </li>
+                                    <li class="social-icons-youtube" style="padding: 5px;">
+                                        <a href="http://www.youtube.com/" target="_blank"
+                                            title="youtube"  style="font-size: 16px;"><i class="fab fa-youtube"></i>
+                                        </a>
+                                    </li>
+                                    <li class="social-icons-twitter" style="padding: 5px;">
+                                        <a href="http://www.twitter.com/" target="_blank"
+                                            title="Twitter"  style="font-size: 16px;"><i class="fab fa-tiktok"></i>
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -255,4 +265,21 @@
             </div>
         </div>
     </header>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">El titulo del en vivo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <iframe width="100%" height="315" src="https://www.youtube.com/embed/M5cme71g00Y?si=H0fyYfQ5WKUD7uig" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+        </div>
+    </div>
 </div>

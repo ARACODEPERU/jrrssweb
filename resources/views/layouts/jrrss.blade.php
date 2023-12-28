@@ -90,7 +90,19 @@
     <script src="{{ asset('themes/jrrss/assets/js/views/view.contact.js') }}"></script>
     <!-- Theme Initialization Files -->
     <script src="{{ asset('themes/jrrss/assets/js/theme.init.js') }}"></script>
+
+
+    <script>
+        var myModal = document.getElementById('myModal')
+        var myInput = document.getElementById('myInput')
+
+        myModal.addEventListener('shown.bs.modal', function () {
+        myInput.focus()
+        })
+    </script>
+
     @yield('scripts')
+
 </body>
 
 </html>
