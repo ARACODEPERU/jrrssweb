@@ -62,7 +62,7 @@
 
             <br><br><br>
 
-            <section>
+            <section style="padding-bottom: 90px;">
                 <div class="container">
                     <div class="row">
                         <div class="container mt-4">
@@ -163,6 +163,115 @@
                     </div>
                 </div>
             </section>
+
+            
+
+            <section class="section section-parallax section-height-5 overlay overlay-show overlay-op-7 border-0 m-0 appear-animation animated fadeIn appear-animation-visible" 
+                    data-appear-animation="fadeIn" data-plugin-parallax="" data-plugin-options="{'speed': 1.5, 'parallaxHeight': '138%'}" 
+                    data-image-src="{{ asset('themes/jrrss/assets/img/parallax/parallax_index.jpg') }}" style="position: relative; overflow: hidden; animation-delay: 100ms;">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-9 text-center">
+                                <h2 class="text-color-light font-weight-bold custom-tertiary-font ls-0 mb-4 appear-animation animated fadeInUpShorter appear-animation-visible" 
+                                    data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200" style="animation-delay: 200ms;">
+                                    Y en su vestidura y en su muslo tiene escrito este nombre: REY DE REYES Y SEÑOR DE SEÑORES.
+                                </h2>
+                                <p class="text-color-light opacity-7 text-3 px-5 mx-5 mb-0 appear-animation animated fadeInUpShorter appear-animation-visible" 
+                                    data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400" style="animation-delay: 400ms;">
+                                    Apocalipsis 19:16
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+            </section>
+
+            
+
+            <section style="padding: 90px 0px 90px 0px;">
+                <div class="container">
+                    <div class="row">
+                        <div class="container mt-4">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-11 col-xl-10 text-center">
+                                    <h2 class="custom-highlight-text-1 d-inline-block line-height-5 
+                                                text-4 positive-ls-3 font-weight-medium text-color-primary 
+                                                mb-2 appear-animation animated fadeInUpShorter appear-animation-visible" 
+                                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1300" 
+                                                style="animation-delay: 1300ms;">
+                                                #SOMOSJRRSS
+                                    </h2>
+                                    <h3 class="text-9 line-height-3 text-transform-none font-weight-semibold mb-4 
+                                        appear-animation animated fadeInUpShorter appear-animation-visible" 
+                                        data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1500" 
+                                        style="animation-delay: 1500ms;">
+                                        Ministerios
+                                    </h3>
+                                    <p class="text-3-5 pb-3 mb-4 appear-animation animated fadeInUpShorter appear-animation-visible" 
+                                        data-appear-animation="fadeInUpShorter" 
+                                        data-appear-animation-delay="1900" 
+                                        style="animation-delay: 1900ms;">
+                                        Cras a elit sit amet leo accumsan volutpat. Suspendisse hendreriast ehicula leo, vel efficitur felis ultrices non. Cras a elit sit amet leo acun volutpat. Suspendisse hendrerit vehicula leo, vel efficitur fel. 
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4" style="padding: 15px;">
+                            <div class="ih-item square colored effect8 scale_down">
+                                <a href="{{ route('web_rmnt') }}">
+                                    <div class="img">
+                                        <img src="{{ asset('themes/jrrss/assets/img/servicios/03.jpg') }}" alt="img">
+                                    </div>
+                                    <div class="info">
+                                        <h3>RMNT</h3>
+                                        <br>
+                                        <p style="margin-top: -25px;">
+                                            <b>Ministerio de Jovenes y Adolescentes</b>
+                                        </p>
+                                        <button class="btn btn-dark">Ingresar</button>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-4" style="padding: 15px;">
+                            <div class="ih-item square colored effect8 scale_down">
+                                <a href="{{ route('web_kids') }}">
+                                    <div class="img">
+                                        <img src="{{ asset('themes/jrrss/assets/img/kids/04.jpg') }}" alt="img">
+                                    </div>
+                                    <div class="info">
+                                        <h3>KIDS</h3>
+                                        <br>
+                                        <p style="margin-top: -25px;">
+                                            <b>Ministerio de Niños</b>
+                                        </p>
+                                        <button class="btn btn-dark">Ingresar</button>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-4" style="padding: 15px;">
+                            <div class="ih-item square colored effect8 scale_down">
+                                <a href="{{ route('web_ecelt') }}">
+                                    <div class="img">
+                                        <img src="{{ asset('themes/jrrss/assets/img/ecelt/01.jpg') }}" alt="img">
+                                    </div>
+                                    <div class="info">
+                                        <h3>EL CIELO EN LA TIERRA</h3>
+                                        <br>
+                                        <p style="margin-top: -25px;">
+                                            <b>Ministerio de Alabanza</b>
+                                        </p>
+                                        <button class="btn btn-dark">Ingresar</button>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
 
 
 
