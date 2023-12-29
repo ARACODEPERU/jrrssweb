@@ -23,7 +23,7 @@
                                         <div class="row px-3 mb-3">
                                             <h3 class="text-secondary font-weight-bold text-capitalize my-3">Título del Congreso
                                             </h3>
-                                            <p>Estimado(a) <b>Jesús Anaya Aguirre</b> esta a punto de adquirir una entrada <b>Vip S/.100</b>, dar clic en el siguiente botón para pagar. Gracias ! </p>
+                                            <p>Estimado(a) <b>Jesús Anaya Aguirre</b> estas a punto de adquirir <b>03 Vip a S/.300</b>, dar clic en el siguiente botón para pagar. Gracias ! </p>
                                         </div>
                                         <form class="contact-form custom-form-style-1" method="POST"
                                             action="{{ route('apisubscriber') }}" id="pageContactForm">

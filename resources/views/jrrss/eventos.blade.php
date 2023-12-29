@@ -137,7 +137,7 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="form-group col">
+                                                <div class="form-group col-md-7">
                                                     <select class="form-select form-control bg-color-tertiary"
                                                         aria-label="Default select example" name="tipo" id="tipo"
                                                         required>
@@ -148,6 +148,9 @@
                                                                 {{ $row->price }}</option>
                                                         @endforeach
                                                     </select>
+                                                </div>
+                                                <div class="form-group col-md-5">
+                                                     <input type="number" placeholder="Cantidad" value="" data-msg-required="Por favor ingresa la cantidad de entrada." maxlength="125" class="form-control bg-color-tertiary" name="amount" id="amount" required>
                                                 </div>
                                             </div>
                                             <div class="row">
