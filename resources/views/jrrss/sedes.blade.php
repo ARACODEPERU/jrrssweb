@@ -50,7 +50,7 @@
                                     <br>
                                     <b>Teléfono:</b> (+51) 977627207
                                     <br>
-                                    <b>Correo Electrónico:</b> (+51) 977627207
+                                    <b>Correo Electrónico:</b> contacto@somosjrrss.org
                                     <br>
                                     <b>Horario de Reunión:</b> Domingos 09:00 pm
                                 </p>

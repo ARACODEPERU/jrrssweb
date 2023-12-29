@@ -94,52 +94,68 @@
                     <div class="row">
                         <div class="col-md-6" style="padding: 15px;">
                             <div class="ih-item square colored effect8 scale_down">
-                                <a href="#">
+                                <a href="" data-bs-toggle="modal" data-bs-target="#reuniones">
                                     <div class="img">
                                         <img src="{{ asset('themes/jrrss/assets/img/servicios/01.jpg') }}" alt="img">
                                     </div>
                                     <div class="info">
-                                        <h3>Heading here</h3>
-                                        <p>Description goes here</p>
+                                        <h3>CASA DE ORACIÓN PARA LAS NACIONES</h3>
+                                        <br>
+                                        <h4 style="padding: 10px;"><b>Sede Principal: Av. Gral. Salaverry 2599, San Isidro 15076</b> </h4>
+                                        <p style="margin-top: -25px;">
+                                            <b>Horario de Reunión:</b> Lunes 07:00 pm
+                                        </p>
                                     </div>
                                 </a>
                             </div>
                         </div>
                         <div class="col-md-6" style="padding: 15px;">
                             <div class="ih-item square colored effect8 scale_down">
-                                <a href="#">
+                                <a href="" data-bs-toggle="modal" data-bs-target="#reuniones">
                                     <div class="img">
                                         <img src="{{ asset('themes/jrrss/assets/img/servicios/02.jpg') }}" alt="img">
                                     </div>
                                     <div class="info">
-                                        <h3>Heading here</h3>
-                                        <p>Description goes here</p>
+                                        <h3>NOCHES DE AVIVAMIENTO</h3>
+                                        <br>
+                                        <h4 style="padding: 10px;"><b>Sede Principal: Av. Gral. Salaverry 2599, San Isidro 15076</b> </h4>
+                                        <p style="margin-top: -25px;">
+                                            <b>Horario de Reunión:</b> Miercoles 07:00 pm
+                                        </p>
                                     </div>
                                 </a>
                             </div>
                         </div>
                         <div class="col-md-6" style="padding: 15px;">
                             <div class="ih-item square colored effect8 scale_down">
-                                <a href="#">
+                                <a href="" data-bs-toggle="modal" data-bs-target="#reuniones">
                                     <div class="img">
                                         <img src="{{ asset('themes/jrrss/assets/img/servicios/03.jpg') }}" alt="img">
                                     </div>
                                     <div class="info">
-                                        <h3>Heading here</h3>
-                                        <p>Description goes here</p>
+                                        <h3>RMNT</h3>
+                                        <br>
+                                        <h4 style="padding: 10px;"><b>Sede Principal: Av. Gral. Salaverry 2599, San Isidro 15076</b> </h4>
+                                        <p style="margin-top: -25px;">
+                                            <b>Horario de Reunión:</b> Viernes 07:00 pm
+                                        </p>
                                     </div>
                                 </a>
                             </div>
                         </div>
                         <div class="col-md-6" style="padding: 15px;">
                             <div class="ih-item square colored effect8 scale_down">
-                                <a href="#">
+                                <a href="" data-bs-toggle="modal" data-bs-target="#reuniones">
                                     <div class="img">
                                         <img src="{{ asset('themes/jrrss/assets/img/servicios/04.jpg') }}" alt="img">
                                     </div>
                                     <div class="info">
-                                        <h3>Heading here</h3>
-                                        <p>Description goes here</p>
+                                        <h3>DOMINGOS DE GLORIA</h3>
+                                        <br>
+                                        <h4 style="padding: 10px;"><b>Sede Principal: Av. Gral. Salaverry 2599, San Isidro 15076</b> </h4>
+                                        <p style="margin-top: -25px;">
+                                            <b>Horario de Reunión:</b> Domingos: 10:00 am | 06:00 pm
+                                        </p>
                                     </div>
                                 </a>
                             </div>
