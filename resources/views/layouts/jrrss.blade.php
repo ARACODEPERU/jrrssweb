@@ -59,6 +59,12 @@
 
     <!-- Theme Custom CSS -->
     <link rel="stylesheet" href="{{ asset('themes/jrrss/assets/css/custom.css') }}">
+
+    <!-- ihover -->
+    <link rel="stylesheet" href="{{ asset('themes/jrrss/assets/css/ihover-aracode.css') }}">
+
+
+
     @yield('styles')
 </head>
 
