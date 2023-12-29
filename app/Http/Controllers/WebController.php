@@ -53,6 +53,11 @@ class WebController extends Controller
         ]);
     }
 
+    public function eventospagar()
+    {
+        return view('jrrss/eventos-pagar');
+    }
+
     public function escuelasobrenatural()
     {
         return view('jrrss/escuela-sobrenatural');
