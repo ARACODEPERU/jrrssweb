@@ -153,8 +153,9 @@
                                             <div class="row">
                                                 <div class="form-group col">
                                                     <button data-loading-text="Loading..." id="submitPageContactButton"
-                                                        class="btn btn-outline btn-primary rounded-0 py-3 px-5 font-weight-semibold">
-                                                        <i class="fa fa-cart-plus" aria-hidden="true"></i> Comprar Ahora
+                                                        class="btn btn-outline btn-primary rounded-0 py-3 px-5 font-weight-semibold"
+                                                        style="font-size: 14px;">
+                                                        <i class="fa fa-edit" aria-hidden="true"></i> Inscripción
                                                     </button>
                                                 </div>
                                             </div>
