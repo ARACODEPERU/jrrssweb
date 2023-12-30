@@ -36,24 +36,24 @@
             <section class="section-custom-medical">
                 <div class="container">
                     <div class="row medical-schedules">
-                        <div class="col-xl-3 box-one bg-color-primary appear-animation" data-appear-animation="fadeInLeft" data-appear-animation-delay="0">
+                        <div class="col-xl-3 box-two bg-color-primary appear-animation" data-appear-animation="fadeInLeft" data-appear-animation-delay="0">
                             <div class="feature-box-info">
-                                <h4 class="m-0 p-0">Evangelizar</h4>
+                                <h3 class="m-0 p-0" style="color: #fff;">Evangelizar</h3>
                             </div>
                         </div>
                         <div class="col-xl-3 box-two bg-color-dark appear-animation" data-appear-animation="fadeInLeft" data-appear-animation-delay="600">
                             <div class="feature-box-info">
-                                <h4 class="m-0 p-0">Afirmar</h4>
+                                <h3 class="m-0 p-0" style="color: #fff;">Afirmar</h3>
                             </div>
                         </div>
-                        <div class="col-xl-3 box-three bg-color-primary appear-animation" data-appear-animation="fadeInLeft" data-appear-animation-delay="1200">
+                        <div class="col-xl-3 box-two bg-color-primary appear-animation" data-appear-animation="fadeInLeft" data-appear-animation-delay="1200">
                             <div class="feature-box-info">
-                                <h4 class="m-0 p-0">Discipular</h4>
+                                <h3 class="m-0 p-0" style="color: #fff;">Discipular</h3>
                             </div>
                         </div>
-                        <div class="col-xl-3 box-four bg-color-dark appear-animation" data-appear-animation="fadeInLeft" data-appear-animation-delay="1800">
+                        <div class="col-xl-3 box-two bg-color-dark appear-animation" data-appear-animation="fadeInLeft" data-appear-animation-delay="1800">
                             <div class="feature-box-info">
-                                <h4 class="m-0 p-0">Enviar</h4>
+                                <h3 class="m-0 p-0" style="color: #fff;">Enviar</h3>
                             </div>
                         </div>
                     </div>
