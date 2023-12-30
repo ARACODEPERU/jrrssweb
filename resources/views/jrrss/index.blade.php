@@ -164,8 +164,6 @@
                 </div>
             </section>
 
-            
-
             <section class="section section-parallax section-height-5 overlay overlay-show overlay-op-7 border-0 m-0 appear-animation animated fadeIn appear-animation-visible" 
                     data-appear-animation="fadeIn" data-plugin-parallax="" data-plugin-options="{'speed': 1.5, 'parallaxHeight': '138%'}" 
                     data-image-src="{{ asset('themes/jrrss/assets/img/parallax/parallax_index.jpg') }}" style="position: relative; overflow: hidden; animation-delay: 100ms;">
@@ -184,8 +182,6 @@
                         </div>
                     </div>
             </section>
-
-            
 
             <section style="padding: 90px 0px 90px 0px;">
                 <div class="container">
@@ -272,7 +268,64 @@
                 </div>
             </section>
 
+            <section class="section section-parallax section-height-5 overlay overlay-show overlay-op-7 border-0 m-0 appear-animation animated fadeIn appear-animation-visible" 
+                    data-appear-animation="fadeIn" data-plugin-parallax="" data-plugin-options="{'speed': 1.5, 'parallaxHeight': '138%'}" 
+                    data-image-src="{{ asset('themes/jrrss/assets/img/parallax/parallax_index.jpg') }}" style="position: relative; overflow: hidden; animation-delay: 100ms;">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-9 text-center">
+                                <h2 class="text-color-light font-weight-bold custom-tertiary-font ls-0 mb-4 appear-animation animated fadeInUpShorter appear-animation-visible" 
+                                    data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200" style="animation-delay: 200ms;">
+                                    UN ENCUENTRO CON DIOS
+                                </h2>
+                                <p class="text-color-light opacity-7  px-5 mx-5 mb-0 appear-animation animated fadeInUpShorter appear-animation-visible" 
+                                    data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400" style="animation-delay: 400ms; font-size: 18px;">
+                                    Si eres nuevo en la iglesia y te gustaría conocer más de Dios.
+                                </p>
+                                <br>
+                                <button class="btn btn-primary" style="font-size: 16px;">
+                                    <i class="fa fa-edit"></i> Escribenos
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+            </section>
 
+            
+            <section style="padding: 90px 0px 90px 0px;">
+                <div class="container">
+                    <div class="row">
+                        <div class="container mt-4">
+                            <div class="row justify-content-center">
+                                <div class="col-md-6" style="padding: 15px;">
+                                    <h2 class="custom-highlight-text-1 d-inline-block line-height-5 
+                                                text-4 positive-ls-3 font-weight-medium text-color-primary 
+                                                mb-2 appear-animation animated fadeInUpShorter appear-animation-visible" 
+                                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1300" 
+                                                style="animation-delay: 1300ms;">
+                                                #SOMOSJRRSS
+                                    </h2>
+                                    <h3 class="text-9 line-height-3 text-transform-none font-weight-semibold mb-4 
+                                        appear-animation animated fadeInUpShorter appear-animation-visible" 
+                                        data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1500" 
+                                        style="animation-delay: 1500ms;">
+                                        Suscribete a la agenda JRRSS
+                                    </h3>
+                                    <p class="text-3-5 pb-3 mb-4 appear-animation animated fadeInUpShorter appear-animation-visible" 
+                                        data-appear-animation="fadeInUpShorter" 
+                                        data-appear-animation-delay="1900" 
+                                        style="animation-delay: 1900ms;">
+                                        Cras a elit sit amet leo accumsan volutpat. Suspendisse hendreriast ehicula leo, vel efficitur felis ultrices non. Cras a elit sit amet leo acun volutpat. Suspendisse hendrerit vehicula leo, vel efficitur fel. 
+                                    </p>
+                                </div>
+                                <div class="col-md-6" style="padding: 15px;">
+                                    hola
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
 
 
