@@ -183,7 +183,7 @@
                     </div>
             </section>
 
-            <section style="padding: 90px 0px 90px 0px;">
+            <section style="padding: 100px 0px 100px 0px;">
                 <div class="container">
                     <div class="row">
                         <div class="container mt-4">
@@ -283,7 +283,7 @@
                                     Si eres nuevo en la iglesia y te gustaría conocer más de Dios.
                                 </p>
                                 <br>
-                                <button class="btn btn-primary" style="font-size: 16px;">
+                                <button class="btn btn-primary" style="font-size: 16px;"  data-bs-toggle="modal" data-bs-target="#contacto">
                                     <i class="fa fa-edit"></i> Escribenos
                                 </button>
                             </div>
@@ -315,11 +315,29 @@
                                         data-appear-animation="fadeInUpShorter" 
                                         data-appear-animation-delay="1900" 
                                         style="animation-delay: 1900ms;">
-                                        Cras a elit sit amet leo accumsan volutpat. Suspendisse hendreriast ehicula leo, vel efficitur felis ultrices non. Cras a elit sit amet leo acun volutpat. Suspendisse hendrerit vehicula leo, vel efficitur fel. 
+                                        ¡Te enviaremos todo lo que sucede cada semana en JRRSS para que no te pierdas de nada! 
                                     </p>
+                                    
+                                    <form class="contact-form custom-form-style-1" method="POST" action="{{ route('apisubscriber') }}" id="pageContactForm">
+                                        <div class="row">
+                                            <div class="form-group col">
+                                                <input type="text" placeholder="Nombres Completos" value="" data-msg-required="Por favor ingresa tus nombres completos." maxlength="125" class="form-control bg-color-tertiary" name="full_name" id="full_name" required>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col">
+                                                <input type="email" placeholder="Dirección E-mail" value="" data-msg-required="Por favor ingresa tu correo electrónico." data-msg-email="Please enter a valid email address." maxlength="100" class="form-control bg-color-tertiary" name="email" id="email" required>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col">
+                                                <button data-loading-text="Loading..." id="submitPageContactButton" class="btn btn-outline btn-primary rounded-0 py-3 px-5 font-weight-semibold" style="font-size: 14px;" >Enviar Ahora</button>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
-                                <div class="col-md-6" style="padding: 15px;">
-                                    hola
+                                <div class="col-md-6 ara_centrado_total" style="padding: 15px;">
+                                    <img style="width: 98%" src="{{ asset('themes/jrrss/assets/img/celular.png') }}" alt="">
                                 </div>
                             </div>
                         </div>
