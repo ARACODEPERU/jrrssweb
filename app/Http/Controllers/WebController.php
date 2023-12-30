@@ -5,14 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\Department;
 use App\Models\District;
 use App\Models\Province;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Modules\Onlineshop\Entities\OnliItem;
-
+use MercadoPago\MercadoPagoConfig;
+use MercadoPago\Client\Preference\PreferenceClient;
 use Intervention\Image\Facades\Image;
 use Intervention\Image\Font;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
 use Modules\Socialevents\Entities\EvenEvent;
+use Modules\Socialevents\Entities\EvenEventTicketClient;
 
 class WebController extends Controller
 {
@@ -45,7 +49,13 @@ class WebController extends Controller
             ->orderBy('date_start', 'DESC')
             ->first();
 
-        $ubigeo = Department::with('provinces.districts')->get();
+        $ubigeo = District::join('provinces', 'province_id', 'provinces.id')
+            ->join('departments', 'provinces.department_id', 'departments.id')
+            ->select(
+                'districts.id AS district_id',
+                DB::raw("CONCAT(departments.name, ' - ',provinces.name,' - ',districts.name) AS city_name")
+            )
+            ->get();
 
         return view('jrrss/eventos', [
             'event' => $event,
@@ -53,9 +63,66 @@ class WebController extends Controller
         ]);
     }
 
-    public function eventospagar()
+    public function eventospagar($id)
     {
-        return view('jrrss/eventos-pagar');
+        $ticket = EvenEventTicketClient::with('event')
+            ->with('type')
+            ->where('id', $id)
+            ->where('status', false)
+            ->first();
+
+        $preference_id = null;
+
+        if ($ticket) {
+            try {
+                MercadoPagoConfig::setAccessToken(env('MERCADOPAGO_TOKEN'));
+                $client = new PreferenceClient();
+
+                //dd($mp_items);
+                $preference = $client->create([
+                    "items" => array(
+                        array(
+                            'id' => $ticket->event->id,
+                            'category_id' => $ticket->type->type_id,
+                            'title' => $ticket->event->title,
+                            'quantity'      => $ticket->quantity,
+                            'currency_id'   => 'PEN',
+                            'unit_price'    => floatval($ticket->type->price)
+                        )
+                    ),
+                    "back_urls" =>  array(
+                        'success' => route('web_gracias', $ticket->id),
+                        // 'failure' => route('onlineshop_response_mercadopago'),
+                        // 'pending' => route('onlineshop_response_mercadopago')
+                    )
+                ]);
+                $preference_id =  $preference->id;
+            } catch (\MercadoPago\Exceptions\MPApiException $e) {
+                // Manejar la excepción
+                $response = $e->getApiResponse();
+                dd($response); // Mostrar la respuesta para obtener más detalles
+            }
+        }
+        return view('jrrss/eventos-pagar', [
+            'ticket' => $ticket,
+            'preference_id' => $preference_id
+        ]);
+    }
+
+    public function gracias(Request $request, $id)
+    {
+        $ticket = EvenEventTicketClient::where('id', $id)
+            ->where('status', false)
+            ->first();
+
+        $ticket->status = true;
+        $ticket->response_status = $request->get('collection_status');
+        $ticket->response_id = $request->get('collection_id');
+        $ticket->response_date_approved = Carbon::now()->format('Y-m-d');
+        $ticket->response_payer = json_encode($request->all());
+        $ticket->response_payment_method_id = $request->get('payment_type');
+        $ticket->save();
+        // $ticket = $ticket->with('event')->with('type');
     }
 
     public function escuelasobrenatural()
@@ -66,37 +133,6 @@ class WebController extends Controller
     public function ecelt()
     {
         return view('jrrss/ecelt');
-    }
-    
-    public function getUbigeo()
-    {
-        $departments = Department::get();
-        $ubigeo = [];
-        foreach ($departments as $k => $department) {
-            $provinces = Province::where('department_id', $department->id)->get();
-            $pro = [];
-            foreach ($provinces as $province) {
-                $districts = District::where('province_id', $province->id)->get();
-                $dis = [];
-                foreach ($districts as $district) {
-                    array_push($dis, [
-                        'id' => $district->id,
-                        'title' => $district->name,
-                    ]);
-                }
-                array_push($pro, [
-                    'id' => $department->id,
-                    'title' => $department->name,
-                    'subs'  => $dis
-                ]);
-            }
-            array_push($ubigeo, [
-                'id' => $department->id,
-                'title' => $department->name,
-                'subs'  => $pro
-            ]);
-        }
-        return response()->json(['ubigeo' => $ubigeo]);
     }
 
     public function rmnt()

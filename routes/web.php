@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Modules\Blog\Http\Controllers\BlogController;
-
+use Modules\Socialevents\Http\Controllers\EvenEventTickeClientController;
 
 Route::get('/test-image/{content}/{fecha?}', [WebController::class, 'testimage'])->name('test-image');
 
@@ -32,7 +32,7 @@ Route::get('/quienes-somos', [WebController::class, 'quienessomos'])->name('web_
 Route::get('/sedes', [WebController::class, 'sedes'])->name('web_sedes');
 Route::get('/cobertura', [WebController::class, 'cobertura'])->name('web_cobertura');
 Route::get('/eventos', [WebController::class, 'eventos'])->name('web_eventos');
-Route::get('/eventos-pagar', [WebController::class, 'eventospagar'])->name('web_eventos_pagar');
+Route::get('/eventos-pagar/{id}/evento', [WebController::class, 'eventospagar'])->name('web_eventos_pagar');
 Route::get('/escuela', [WebController::class, 'escuelasobrenatura'])->name('web_escuela_sobrenatural');
 Route::get('/ecelt', [WebController::class, 'ecelt'])->name('web_ecelt');
 Route::get('/rmnt', [WebController::class, 'rmnt'])->name('web_rmnt');
@@ -40,6 +40,10 @@ Route::get('/kids', [WebController::class, 'kids'])->name('web_kids');
 Route::get('/testimonios', [WebController::class, 'testimonios'])->name('web_testimonios');
 Route::get('/contacto', [WebController::class, 'contacto'])->name('web_contacto');
 Route::get('/donar', [WebController::class, 'donar'])->name('web_donar');
+
+Route::get('/gracias/{id}/pagado', [WebController::class, 'gracias'])->name('web_gracias');
+// eventos
+Route::post('/eventos/registrar/store', [EvenEventTickeClientController::class, 'store'])->name('web_eventos_registrarse');
 
 /* PayPal */
 Route::post('/paypal/donate', [PaypalController::class, 'payment'])->name('paypal_donate');
@@ -64,7 +68,8 @@ Route::get('/descripcion-e-learning', [CapperuController::class, 'descripcionele
 Route::get('/perfil-docente/{teacher_id}', [CapperuController::class, 'perfildocente'])->name('web_perfil_docente');
 Route::get('/carrito', [CapperuController::class, 'carrito'])->name('web_carrito');
 Route::get('/pagar', [CapperuController::class, 'pagar'])->name('web_pagar');
-Route::get('/gracias/{sale_id}', [CapperuController::class, 'gracias'])->name('web_gracias');
+
+
 
 Route::get('/convenios', [CapperuController::class, 'convenios'])->name('web_convenios');
 Route::get('/contacto', [CapperuController::class, 'contacto'])->name('web_contacto');
