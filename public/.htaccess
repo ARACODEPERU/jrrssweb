@@ -1,9 +1,3 @@
-<IfModule mod_headers.c>
-    Header set Access-Control-Allow-Origin "http://jrrssweb.test"
-    Header set Access-Control-Allow-Methods "GET, POST, OPTIONS"
-    Header set Access-Control-Allow-Headers "Origin, X-Requested-With, Content-Type, Accept"
-
-    # Resto de las reglas existentes...
     <IfModule mod_rewrite.c>
         <IfModule mod_negotiation.c>
             Options -MultiViews -Indexes
@@ -25,4 +19,3 @@
         RewriteCond %{REQUEST_FILENAME} !-f
         RewriteRule ^ index.php [L]
     </IfModule>
-</IfModule>
