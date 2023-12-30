@@ -95,13 +95,14 @@
                                                 pora,
                                                 tincidunt turpis at, intermedum tortor.</p>
                                         </div>
-                                        <form class="contact-form custom-form-style-1" method="POST"
-                                            action="{{ route('apisubscriber') }}" id="pageContactForm">
-
-
+                                        <form class=" custom-form-style-1" method="POST"
+                                            action="{{ route('web_eventos_registrarse') }}" id="pageContactForm">
+                                            @csrf
+                                            <input type="hidden" value="{{ $event->id }}" name="event_id" />
                                             <div class="row">
                                                 <div class="form-group col">
-                                                    <input type="text" placeholder="Nombres Completos" value=""
+                                                    <input type="text" placeholder="Nombres Completos"
+                                                        value="{{ old('full_name') }}"
                                                         data-msg-required="Por favor ingresa tus nombres completos."
                                                         maxlength="125" class="form-control bg-color-tertiary"
                                                         name="full_name" id="full_name" required>
@@ -109,7 +110,17 @@
                                             </div>
                                             <div class="row">
                                                 <div class="form-group col">
-                                                    <input type="text" placeholder="Teléfono" value=""
+                                                    <input type="text" placeholder="Número de identificación"
+                                                        value="{{ old('identification_number') }}"
+                                                        data-msg-required="Por favor ingresa Número de identificación."
+                                                        maxlength="100" class="form-control bg-color-tertiary"
+                                                        name="identification_number" id="identification_number" required>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col">
+                                                    <input type="text" placeholder="Teléfono"
+                                                        value="{{ old('phone') }}"
                                                         data-msg-required="Por favor ingresa tu número de teléfono."
                                                         maxlength="100" class="form-control bg-color-tertiary"
                                                         name="phone" id="phone" required>
@@ -117,7 +128,8 @@
                                             </div>
                                             <div class="row">
                                                 <div class="form-group col">
-                                                    <input type="email" placeholder="Dirección E-mail" value=""
+                                                    <input type="email" placeholder="Dirección E-mail"
+                                                        value="{{ old('email') }}"
                                                         data-msg-required="Por favor ingresa tu correo electrónico."
                                                         data-msg-email="Please enter a valid email address." maxlength="100"
                                                         class="form-control bg-color-tertiary" name="email" id="email"
@@ -126,14 +138,15 @@
                                             </div>
                                             <div class="row">
                                                 <div class="form-group col">
-                                                        <input class="form-control bg-color-tertiary" list="datalistOptions" id="exampleDataList" placeholder="Desde que ciudad viene?">
-                                                        <datalist id="datalistOptions">
-                                                            <option value="San Francisco">
-                                                            <option value="New York">
-                                                            <option value="Seattle">
-                                                            <option value="Los Angeles">
-                                                            <option value="Chicago">
-                                                        </datalist>
+                                                    <input class="form-control bg-color-tertiary" list="datalistOptions"
+                                                        name="lugar" id="exampleDataList"
+                                                        placeholder="Desde que ciudad viene?"
+                                                        value="{{ old('lugar') }}">
+                                                    <datalist id="datalistOptions">
+                                                        @foreach ($ubigeo as $row)
+                                                            <option value="{{ $row->city_name }}" />
+                                                        @endforeach
+                                                    </datalist>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -150,9 +163,22 @@
                                                     </select>
                                                 </div>
                                                 <div class="form-group col-md-5">
-                                                     <input type="number" placeholder="Cantidad" value="" data-msg-required="Por favor ingresa la cantidad de entrada." maxlength="125" class="form-control bg-color-tertiary" name="amount" id="amount" required>
+                                                    <input type="number" placeholder="Cantidad"
+                                                        value="{{ old('quantity') }}"
+                                                        data-msg-required="Por favor ingresa la cantidad de entrada."
+                                                        maxlength="125" class="form-control bg-color-tertiary"
+                                                        name="quantity" id="quantity" required>
                                                 </div>
                                             </div>
+                                            @if ($errors->any())
+                                                <div class="alert alert-danger">
+                                                    <ul>
+                                                        @foreach ($errors->all() as $error)
+                                                            <li>{{ $error }}</li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                            @endif
                                             <div class="row">
                                                 <div class="form-group col">
                                                     <button data-loading-text="Loading..." id="submitPageContactButton"
