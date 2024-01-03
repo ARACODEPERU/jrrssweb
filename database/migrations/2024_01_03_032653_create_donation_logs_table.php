@@ -19,7 +19,9 @@ return new class extends Migration
             $table->decimal('net_amount', 10, 2)->comment('Monto neto que queda para la entidad o empresa');
             $table->decimal('commission', 10, 2)->comment('lo que se cobra paypal o mercadopago');
             $table->enum('status_order', ['PE', 'CA', 'SU'])->comment('PENDING, CANCELED o SUCCESSFUL');
-            $table->text('email')->comment('Email del donador');
+            $table->text('email')->comment('Email del donador')->nullable();
+            $table->text('name')->comment('nombre del donador')->nullable();            
+            $table->text('country_origin')->comment('país del donador')->nullable();
             $table->unsignedBigInteger('donation_destinity_id');
             $table->foreign('donation_destinity_id', 'foraing_key_destinity_donation_id')->references('id')->on('donation_destinity')->onDelete('cascade');
             $table->timestamps();

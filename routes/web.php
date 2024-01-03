@@ -47,8 +47,8 @@ Route::post('/eventos/registrar/store', [EvenEventTickeClientController::class, 
 
 /* PayPal */
 Route::post('/paypal/donate', [PaypalController::class, 'payment'])->name('paypal_donate');
-Route::get('/paypal/success', [PaypalController::class, 'success'])->name('paypal_success');
-Route::get('/paypal/cancel', [PaypalController::class, 'cancel'])->name('paypal_cancel');
+Route::get('/paypal/success/{donationId}', [PaypalController::class, 'success'])->name('paypal_success');
+Route::get('/paypal/cancel/{donationId}', [PaypalController::class, 'cancel'])->name('paypal_cancel');
 
 
 Route::get('/event/ubigeo', [WebController::class, 'getUbigeo'])->name('web_getubigeo');

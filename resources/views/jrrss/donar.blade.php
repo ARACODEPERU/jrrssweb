@@ -71,7 +71,7 @@
                                     <div class="row">
                                         <div class="form-group col">
                                             <select class="form-select form-control bg-color-tertiary"
-                                                aria-label="Default select example" maxlength="125" name="tipo"
+                                                aria-label="Default select example" maxlength="125" name="donation_destinity_id"
                                                 id="tipo" required>
                                                 <option selected>Seleccionar Tipo de Siembra </option>
                                                 <option value="1">Diezmos</option>

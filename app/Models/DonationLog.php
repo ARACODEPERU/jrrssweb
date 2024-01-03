@@ -17,6 +17,8 @@ class DonationLog extends Model
         'commission',
         'status_order',
         'email',
+        'name',
+        'country_origin',
         'donation_destinity_id'
     ];
 
