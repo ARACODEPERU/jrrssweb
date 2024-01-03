@@ -15,6 +15,8 @@ class PaypalController extends Controller
         $provider = \PayPal::setProvider();
         $currency = env('PAYPAL_CURRENCY');
         //$provider->setCurrency('PEN'); //si desea pagar en soles debe habilitarse esto en un if
+
+        // Desde Aquí se debe registrar y poner en pendiente en la tabla de donations_logs
         $paypalToken = $provider->getAccessToken();
 
         $data = array(

@@ -17,5 +17,11 @@ class DonationLog extends Model
         'commission',
         'status_order',
         'email',
+        'donation_destinity_id'
     ];
+
+    public function donationDestinity()
+    {
+        return $this->belongsTo(DonationDestinity::class);
+    }
 }
