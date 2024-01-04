@@ -1,5 +1,7 @@
 <div>
     <footer id="footer" class="border-0" style="background: url('{{ asset('themes/jrrss/assets/img/parallax/parallax-9.jpg') }}'); background-size:cover; background-position: 0 0;">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="/js/contacto_footer.js"></script>
         <div class="container py-4">
             <div class="row justify-content-md-center py-5">
                 <div class="col-lg-7 mb-5 mb-lg-0">
@@ -36,35 +38,32 @@
                 </div>
                 <div class="col-lg-5">
                     <h2 class="text-6 font-weight-bold mb-1">Envianos un mensaje</h2>
-                    <p class="pe-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu pulvinar magna. Phasellus semper scelerisque purus.</p>
-                    <form class="contact-form form-errors-light" action="php/contact-form.php" method="POST">
-                        <input type="hidden" value="Contact Form" name="subject" id="subject">
-                        <div class="form-group col-lg-12 ms-auto my-0">
-                            <div class="contact-form-success alert alert-success d-none">
-                                Message has been sent to us.
-                            </div>
-
-                            <div class="contact-form-error alert alert-danger d-none">
-                                Error sending your message.
-                                <span class="mail-error-message text-1 d-block"></span>
+                    <p class="pe-1">Envía un mensaje para comunicarte con nosotros, deja tu información si deseas que nos comuniquemos contigo.</p>
+                    <form class="contact-form form-errors-light" method="POST" action="{{ route('apisubscriber') }}" id="pageContactForm2">                       
+                        <div class="row">
+                            <div class="form-group col">
+                                <input type="text" placeholder="Nombres" value="" data-msg-required="Por favor ingresa tus nombres completos." maxlength="125" class="form-control bg-color-tertiary" name="full_name" id="full_name" required>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col">
-                                <input type="text" value="" data-msg-required="Please enter your name." maxlength="100" class="form-control text-3 h-auto py-2" placeholder="Nombre Completo..." name="name" id="name" required>
+                                <input type="text" placeholder="Número de teléfono" value="" data-msg-required="Por favor ingresa tu número de teléfono." maxlength="100" class="form-control bg-color-tertiary"  name="phone" id="phone" required>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" value="" data-msg-required="Please enter your email address." data-msg-email="Please enter a valid email address." maxlength="100" class="form-control text-3 h-auto py-2" placeholder="Correo Electrónico" name="email" id="email" required>
                         </div>
                         <div class="row">
                             <div class="form-group col">
-                                <textarea maxlength="5000" data-msg-required="Please enter your message." rows="4" class="form-control text-3 h-auto py-2" placeholder="Tu Mensaje..." name="message" id="message" required></textarea>
+                                <input type="email" placeholder="Dirección E-mail" value="" data-msg-required="Por favor ingresa tu correo electrónico." data-msg-email="Please enter a valid email address." maxlength="100" class="form-control bg-color-tertiary" name="email" id="email" required>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="form-group col" style="font-size: 13px;">
-                                <input type="submit" value="Enviar Ahora" class="btn btn-primary box-shadow-2 font-weight-semi-bold px-4 py-3 text-3" data-loading-text="Loading...">
+                            <div class="form-group col">
+                                <textarea maxlength="5000" placeholder="Tu mensaje aqui..." data-msg-required="Por favor ingresa el mensaje." rows="5" class="form-control bg-color-tertiary" name="message" id="message" required></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col">
+                                <button data-loading-text="Loading..." id="submitPageContactButton2" class="btn btn-outline btn-primary rounded-0 py-3 px-5 font-weight-semibold" >Enviar Ahora</button>
+                                
                             </div>
                         </div>
                     </form>

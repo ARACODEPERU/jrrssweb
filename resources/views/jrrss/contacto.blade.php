@@ -41,7 +41,7 @@
 						<div class="col-lg-7 pb-5">
 
 							<p>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lectus lacus, rutrum sit amet placerat et, bibendum nec mauris. Duis molestie purus eget placerat viverra.
+								Envía un mensaje para comunicarte con nosotros, deja tu información si deseas que nos comuniquemos contigo o si solo deseas informarnos algo.
 							</p>
 
 							<form class="contact-form custom-form-style-1" method="POST" action="{{ route('apisubscriber') }}" id="pageContactForm">
@@ -124,7 +124,7 @@
 				<div id="googlemaps" class="google-map custom-map" style="text-align: center;">
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3901.7585025642!2d-77.13881422513082!3d-12.060130142149312!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105cb908f14800b%3A0x9d3dece06a24733!2sAv%20Saenz%20Pe%C3%B1a%20870%2C%20Callao%2007001!5e0!3m2!1ses-419!2spe!4v1702736452376!5m2!1ses-419!2spe" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
-				
+				<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 				<script>
 					let form = document.getElementById('pageContactForm');
 					form.addEventListener('submit', function(e) {
@@ -149,7 +149,7 @@
 							// Habilitar nuevamente el botón
 							submitButton.disabled = false;
 							submitButton.style.opacity = 1;
-							if (xhr.status === 200) {
+							if (xhr.status === 200) {								
 								var response = JSON.parse(xhr.responseText);
 								Swal.fire({
 									icon: 'success',
