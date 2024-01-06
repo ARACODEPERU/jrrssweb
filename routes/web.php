@@ -41,6 +41,7 @@ Route::get('/testimonios', [WebController::class, 'testimonios'])->name('web_tes
 Route::get('/contacto', [WebController::class, 'contacto'])->name('web_contacto');
 Route::get('/donar', [WebController::class, 'donar'])->name('web_donar');
 Route::get('/gracias-por-donar', [WebController::class, 'graciaspordonar'])->name('web_gracias_por_donar');
+Route::get('/gracias-por-comprar-tu-entrada', [WebController::class, 'graciasporcomprartuentrada'])->name('web_gracias_por_comprar_tu_entrada');
 
 
 

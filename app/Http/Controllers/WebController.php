@@ -165,6 +165,11 @@ class WebController extends Controller
         return view('jrrss/gracias-por-donar');
     }
 
+    public function graciasporcomprartuentrada()
+    {
+        return view('jrrss/gracias-por-comprar-tu-entrada');
+    }
+
     public function testimage($content, $fecha = null)
     {
 
