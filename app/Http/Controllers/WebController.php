@@ -160,9 +160,9 @@ class WebController extends Controller
         return view('jrrss/donar');
     }
 
-    public function graciaspordonar()
+    public function gracias_por_donar($donador)
     {
-        return view('jrrss/gracias-por-donar');
+        return view('jrrss/gracias-por-donar', compact('donador'));
     }
 
     public function graciasporcomprartuentrada()

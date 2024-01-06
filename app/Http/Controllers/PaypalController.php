@@ -62,10 +62,10 @@ class PaypalController extends Controller
         }else{
           return $redirect()->route('paypal_cancel');
         }
-       
 
 
-        
+
+
     }
 
     public function success($donation_id, Request $request){
@@ -83,23 +83,19 @@ class PaypalController extends Controller
         $donation->email = $email;
         $donation->country_origin = $countryCode;
         $donation->save();
-        return "Payment is successful";
+        return redirect()->route('web_gracias_por_donar', ['donador' => $donation->name]);
       }else{
         $donation = DonationLog::find($donation_id);
         $donation->status_order = "CA"; //Cancelado transacción no llevada a cabo
-        $donation->email = $email;
-        $donation->country_origin = $countryCode;
         $donation->save();
-        return $redirect()->route('paypal_cancel');      
+        return redirect()->route('cms_principal');
       }
     }
 
     public function cancel($donation_id){
         $donation = DonationLog::find($donation_id);
         $donation->status_order = "CA"; //Cancelado transacción no llevada a cabo
-        $donation->email = $email;
-        $donation->country_origin = $countryCode;
         $donation->save();
-      return redirect()->away('https://www.google.com.co');
+        return redirect()->route('cms_principal');
     }
 }

@@ -40,8 +40,12 @@ Route::get('/kids', [WebController::class, 'kids'])->name('web_kids');
 Route::get('/testimonios', [WebController::class, 'testimonios'])->name('web_testimonios');
 Route::get('/contacto', [WebController::class, 'contacto'])->name('web_contacto');
 Route::get('/donar', [WebController::class, 'donar'])->name('web_donar');
+<<<<<<< HEAD
 Route::get('/gracias-por-donar', [WebController::class, 'graciaspordonar'])->name('web_gracias_por_donar');
 Route::get('/gracias-por-comprar-tu-entrada', [WebController::class, 'graciasporcomprartuentrada'])->name('web_gracias_por_comprar_tu_entrada');
+=======
+Route::get('/gracias-por-donar/{donador}', [WebController::class, 'gracias_por_donar'])->name('web_gracias_por_donar');
+>>>>>>> 9955bca1b65a96db3d5dcff90ceb5d3ce0d73a02
 
 
 
