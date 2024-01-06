@@ -40,7 +40,7 @@ Route::get('/kids', [WebController::class, 'kids'])->name('web_kids');
 Route::get('/testimonios', [WebController::class, 'testimonios'])->name('web_testimonios');
 Route::get('/contacto', [WebController::class, 'contacto'])->name('web_contacto');
 Route::get('/donar', [WebController::class, 'donar'])->name('web_donar');
-Route::get('/gracias-por-donar', [WebController::class, 'graciaspordonar'])->name('web_gracias_por_donar');
+Route::get('/gracias-por-donar/{donador}', [WebController::class, 'gracias_por_donar'])->name('web_gracias_por_donar');
 
 
 
