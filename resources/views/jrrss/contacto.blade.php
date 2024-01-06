@@ -44,7 +44,7 @@
 								Envía un mensaje para comunicarte con nosotros, deja tu información si deseas que nos comuniquemos contigo o si solo deseas informarnos algo.
 							</p>
 
-							<form class="contact-form custom-form-style-1" method="POST" action="{{ route('apisubscriber') }}" id="pageContactForm">
+							<form class="contact-form custom-form-style-1" method="head" id="pageContactForm">
 							
 								
 								<div class="row">
