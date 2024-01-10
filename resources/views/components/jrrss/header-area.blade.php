@@ -70,7 +70,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
           const sswitch = document.querySelector(".switch");
-      
+
           if (localStorage.getItem('darkMode') === 'true') {
             sswitch.classList.add("active");
             document.body.classList.add("dark");
@@ -79,20 +79,20 @@
               a_tag.classList.add("dark");
             });
           }
-      
+
           sswitch.addEventListener("click", e => {
             darkMode(sswitch);
           });
-      
+
           function darkMode(sswitch) {
             let darkMode = localStorage.getItem('darkMode');
-      
+
             if (darkMode === 'true') {
               localStorage.setItem('darkMode', 'false');
             } else {
               localStorage.setItem('darkMode', 'true');
             }
-      
+
             sswitch.classList.toggle("active");
             document.body.classList.toggle("dark");
             const a_tags = document.querySelectorAll(".dropdown-item");
@@ -214,7 +214,7 @@
                                                         </a>
                                                     </li>
                                                     <li class="dropdown">
-                                                        <a class="dropdown-item {{ request()->routeIs('ecelt') ? 'active' : '' }}"
+                                                        <a class="dropdown-item {{ request()->routeIs('web_ecelt') ? 'active' : '' }}"
                                                             href="{{ route('web_ecelt') }}">
                                                             ECELT
                                                         </a>
@@ -282,7 +282,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Modal -->
     <div class="modal fade" id="reuniones" tabindex="-1" aria-labelledby="reunionesLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -309,7 +309,7 @@
         </div>
     </div>
 
-    
+
     <!-- Modal -->
     <div class="modal fade" id="contacto" tabindex="-1" aria-labelledby="contactoLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -321,7 +321,7 @@
                 <div class="modal-body">
                     <div class="col-md-12 pb-5">
                         <form class="contact-form custom-form-style-1" method="POST" action="{{ route('apisubscriber') }}" id="pageContactForm">
-                        
+
                             <div class="row">
                                 <div class="form-group col">
                                     <input type="text" placeholder="Nombres" value="" data-msg-required="Por favor ingresa tus nombres completos." maxlength="125" class="form-control bg-color-tertiary" name="full_name" id="full_name" required>
@@ -345,11 +345,11 @@
                             <div class="row">
                                 <div class="form-group col">
                                     <button data-loading-text="Loading..." id="submitPageContactButton" class="btn btn-outline btn-primary rounded-0 py-3 px-5 font-weight-semibold" >Enviar Ahora</button>
-                                    
+
                                 </div>
                             </div>
                         </form>
-                
+
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -359,5 +359,5 @@
         </div>
     </div>
 
-    
+
 </div>
