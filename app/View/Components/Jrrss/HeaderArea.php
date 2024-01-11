@@ -5,15 +5,15 @@ namespace App\View\Components\Jrrss;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
+use Modules\Socialevents\Entities\EvenEvent;
 
 class HeaderArea extends Component
 {
-    /**
-     * Create a new component instance.
-     */
+    protected $transmissions;
+
     public function __construct()
     {
-        //
+        $this->transmissions = EvenEvent::where('broadcast', true)->first();
     }
 
     /**
@@ -21,6 +21,8 @@ class HeaderArea extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.jrrss.header-area');
+        return view('components.jrrss.header-area',[
+            'transmissions' => $this->transmissions
+        ]);
     }
 }
