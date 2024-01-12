@@ -3,17 +3,17 @@
 @section('content')
 
     <div class="body">
-        
+
         <!-- Header - area start -->
         <x-jrrss.header-area></x-jrrss.header-area>
         <!-- Header - area end -->
-        
+
 
         <div role="main" class="main">
-            
-            <section class="page-header bg-color-tertiary custom-page-header page-header-modern page-header-background page-header-background-sm parallax mt-0" 
-                     data-plugin-parallax data-plugin-options="{'speed': 1.2}" 
-                     data-image-src="{{ asset('themes/jrrss/assets/img/demos/construction-2/page-header.jpg') }}">
+
+            <section class="page-header bg-color-tertiary custom-page-header page-header-modern page-header-background page-header-background-sm parallax mt-0"
+                     data-plugin-parallax data-plugin-options="{'speed': 1.2}"
+                     data-image-src="{{ $banner->content }}">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12 align-self-center">
@@ -32,56 +32,56 @@
             <div class="container pt-4">
                 <div class="row">
                     <div class="col-md-4">
-                        <iframe width="100%" height="250" src="https://www.youtube.com/embed/WrqGQa7O9Pw" 
-                         title="DIOS MULTIPLICÓ SUS FINANZAS" 
+                        <iframe width="100%" height="250" src="https://www.youtube.com/embed/WrqGQa7O9Pw"
+                         title="DIOS MULTIPLICÓ SUS FINANZAS"
                          frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
                         </iframe>
                     </div>
                     <div class="col-md-4">
-                        <iframe width="100%" height="250" src="https://www.youtube.com/embed/WrqGQa7O9Pw" 
-                         title="DIOS MULTIPLICÓ SUS FINANZAS" 
+                        <iframe width="100%" height="250" src="https://www.youtube.com/embed/WrqGQa7O9Pw"
+                         title="DIOS MULTIPLICÓ SUS FINANZAS"
                          frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
                         </iframe>
                     </div>
                     <div class="col-md-4">
-                        <iframe width="100%" height="250" src="https://www.youtube.com/embed/WrqGQa7O9Pw" 
-                         title="DIOS MULTIPLICÓ SUS FINANZAS" 
+                        <iframe width="100%" height="250" src="https://www.youtube.com/embed/WrqGQa7O9Pw"
+                         title="DIOS MULTIPLICÓ SUS FINANZAS"
                          frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
                         </iframe>
                     </div>
                     <div class="col-md-4">
-                        <iframe width="100%" height="250" src="https://www.youtube.com/embed/WrqGQa7O9Pw" 
-                         title="DIOS MULTIPLICÓ SUS FINANZAS" 
+                        <iframe width="100%" height="250" src="https://www.youtube.com/embed/WrqGQa7O9Pw"
+                         title="DIOS MULTIPLICÓ SUS FINANZAS"
                          frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
                         </iframe>
                     </div>
                     <div class="col-md-4">
-                        <iframe width="100%" height="250" src="https://www.youtube.com/embed/WrqGQa7O9Pw" 
-                         title="DIOS MULTIPLICÓ SUS FINANZAS" 
+                        <iframe width="100%" height="250" src="https://www.youtube.com/embed/WrqGQa7O9Pw"
+                         title="DIOS MULTIPLICÓ SUS FINANZAS"
                          frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
                         </iframe>
                     </div>
                     <div class="col-md-4">
-                        <iframe width="100%" height="250" src="https://www.youtube.com/embed/WrqGQa7O9Pw" 
-                         title="DIOS MULTIPLICÓ SUS FINANZAS" 
+                        <iframe width="100%" height="250" src="https://www.youtube.com/embed/WrqGQa7O9Pw"
+                         title="DIOS MULTIPLICÓ SUS FINANZAS"
                          frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
                         </iframe>
                     </div>
                     <div class="col-md-4">
-                        <iframe width="100%" height="250" src="https://www.youtube.com/embed/WrqGQa7O9Pw" 
-                         title="DIOS MULTIPLICÓ SUS FINANZAS" 
+                        <iframe width="100%" height="250" src="https://www.youtube.com/embed/WrqGQa7O9Pw"
+                         title="DIOS MULTIPLICÓ SUS FINANZAS"
                          frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
                         </iframe>
                     </div>
                     <div class="col-md-4">
-                        <iframe width="100%" height="250" src="https://www.youtube.com/embed/WrqGQa7O9Pw" 
-                         title="DIOS MULTIPLICÓ SUS FINANZAS" 
+                        <iframe width="100%" height="250" src="https://www.youtube.com/embed/WrqGQa7O9Pw"
+                         title="DIOS MULTIPLICÓ SUS FINANZAS"
                          frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
                         </iframe>
                     </div>
                     <div class="col-md-4">
-                        <iframe width="100%" height="250" src="https://www.youtube.com/embed/WrqGQa7O9Pw" 
-                         title="DIOS MULTIPLICÓ SUS FINANZAS" 
+                        <iframe width="100%" height="250" src="https://www.youtube.com/embed/WrqGQa7O9Pw"
+                         title="DIOS MULTIPLICÓ SUS FINANZAS"
                          frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
                         </iframe>
                     </div>
@@ -111,7 +111,7 @@
 
             </div>
 
-            
+
 
 
         </div>
@@ -119,7 +119,7 @@
         <!-- Footer - area start -->
         <x-jrrss.footer-area></x-jrrss.footer-area>
         <!-- Footer - area end -->
-        
+
 
 
     </div>

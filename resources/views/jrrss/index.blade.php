@@ -12,23 +12,26 @@
         <div role="main" class="main">
 
 
-            <div class="owl-carousel owl-carousel-light owl-carousel-light-init-fadeIn owl-theme manual dots-inside dots-vertical-center dots-align-right dots-orientation-portrait custom-dots-style-1 show-dots-hover show-dots-xs nav-style-1 nav-inside nav-inside-plus nav-dark nav-lg nav-font-size-lg show-nav-hover mb-0" data-plugin-options="{'autoplayTimeout': 7000}" data-dynamic-height="['650px','650px','650px','550px','500px']" style="height: 650px;">
+            <div class="owl-carousel owl-carousel-light owl-carousel-light-init-fadeIn owl-theme manual dots-inside dots-vertical-center dots-align-right dots-orientation-portrait custom-dots-style-1 show-dots-hover show-dots-xs nav-style-1 nav-inside nav-inside-plus nav-dark nav-lg nav-font-size-lg show-nav-hover mb-0" data-plugin-options="{'autoplayTimeout': 6500}" data-dynamic-height="['650px','650px','650px','550px','500px']" style="height: 650px;">
                 <div class="owl-stage-outer">
                     <div class="owl-stage ara_centrado_total">
 
-                        <div  class="owl-item position-relative overlay overlay-show overlay-op-3" style="background-image: url({{ asset('themes/jrrss/assets/img/slider/SLIDE-01.jpg') }}); background-size: cover; background-position: center;">
+                        @foreach ($sliders as $slide)
+                        <div  class="owl-item position-relative overlay overlay-show overlay-op-3" style="background-image: url({{ $slide->content }}); background-size: cover; background-position: center;">
 
                         </div>
-
-                        <div  class="owl-item position-relative overlay overlay-show overlay-op-3" style="background-image: url({{ asset('themes/jrrss/assets/img/slider/SLIDE-02.jpg') }}); background-size: cover; background-position: center;">
-
-                        </div>
+                        @endforeach
 
                     </div>
                 </div>
                 <div class="owl-dots mb-5">
-                    <button role="button" class="owl-dot active"><span></span></button>
-                    <button role="button" class="owl-dot"><span></span></button>
+                    @foreach ($sliders as $key => $slide)
+                        @if ($key==0)
+                        <button role="button" class="owl-dot active"><span></span></button>
+                        @else
+                        <button role="button" class="owl-dot"><span></span></button>
+                        @endif
+                    @endforeach
                 </div>
             </div>
 

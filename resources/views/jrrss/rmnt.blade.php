@@ -3,17 +3,17 @@
 @section('content')
 
     <div class="body">
-        
+
         <!-- Header - area start -->
         <x-jrrss.header-area></x-jrrss.header-area>
         <!-- Header - area end -->
-        
+
 
         <div role="main" class="main">
-            
-            <section class="page-header bg-color-tertiary custom-page-header page-header-modern page-header-background page-header-background-sm parallax mt-0" 
-                     data-plugin-parallax data-plugin-options="{'speed': 1.2}" 
-                     data-image-src="{{ asset('themes/jrrss/assets/img/demos/construction-2/page-header.jpg') }}">
+
+            <section class="page-header bg-color-tertiary custom-page-header page-header-modern page-header-background page-header-background-sm parallax mt-0"
+                     data-plugin-parallax data-plugin-options="{'speed': 1.2}"
+                     data-image-src="{{ $banner->content }}">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12 align-self-center">
@@ -176,17 +176,17 @@
 
             </div>
 
-            <section class="section section-parallax section-height-5 overlay overlay-show overlay-op-7 border-0 m-0 appear-animation animated fadeIn appear-animation-visible" 
-                    data-appear-animation="fadeIn" data-plugin-parallax="" data-plugin-options="{'speed': 1.5, 'parallaxHeight': '138%'}" 
+            <section class="section section-parallax section-height-5 overlay overlay-show overlay-op-7 border-0 m-0 appear-animation animated fadeIn appear-animation-visible"
+                    data-appear-animation="fadeIn" data-plugin-parallax="" data-plugin-options="{'speed': 1.5, 'parallaxHeight': '138%'}"
                     data-image-src="{{ asset('themes/jrrss/assets/img/parallax/parallax_rmnt.jpg') }}" style="position: relative; overflow: hidden; animation-delay: 100ms;">
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-lg-9 text-center">
-                                <h2 class="text-color-light font-weight-bold custom-tertiary-font ls-0 mb-4 appear-animation animated fadeInUpShorter appear-animation-visible" 
+                                <h2 class="text-color-light font-weight-bold custom-tertiary-font ls-0 mb-4 appear-animation animated fadeInUpShorter appear-animation-visible"
                                     data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200" style="animation-delay: 200ms;">
                                     Que nadie te menosprecie por ser joven. Al contrario, que los creyentes vean en ti un ejemplo a seguir en la manera de hablar, en la conducta, y en amor, fe y pureza.
                                 </h2>
-                                <p class="text-color-light opacity-7 text-3 px-5 mx-5 mb-0 appear-animation animated fadeInUpShorter appear-animation-visible" 
+                                <p class="text-color-light opacity-7 text-3 px-5 mx-5 mb-0 appear-animation animated fadeInUpShorter appear-animation-visible"
                                    data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400" style="animation-delay: 400ms;">
                                    1 Timoteo 4:12
                                 </p>
@@ -196,7 +196,7 @@
             </section>
 
             <br><br>
-            
+
             <div class="container py-4">
 
                 <div class="row">
@@ -248,7 +248,7 @@
                 </div>
 
             </div>
-            
+
 
 
         </div>
@@ -256,7 +256,7 @@
         <!-- Footer - area start -->
         <x-jrrss.footer-area></x-jrrss.footer-area>
         <!-- Footer - area end -->
-        
+
 
 
     </div>

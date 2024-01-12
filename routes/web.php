@@ -58,33 +58,6 @@ Route::get('/paypal/cancel/{donationId}', [PaypalController::class, 'cancel'])->
 Route::get('/event/ubigeo', [WebController::class, 'getUbigeo'])->name('web_getubigeo');
 
 
-Route::get('/nosotros', [CapperuController::class, 'nosotros'])->name('web_nosotros');
-Route::get('/categoria-sector/{sector}', [CapperuController::class, 'categoriasector'])->name('web_categoria_sector');
-Route::get('/categoria-modalidad', [CapperuController::class, 'categoriamodalidad'])->name('web_categoria_modalidad');
-Route::get('/categoria-modalidad-en-vivo', [CapperuController::class, 'categoriamodalidadenvivo'])->name('web_categoria_modalidad_en_vivo');
-Route::get('/categoria-modalidad-e-learning', [CapperuController::class, 'categoriamodalidadelearning'])->name('web_categoria_modalidad_e_learning');
-Route::get('/categoria-programa-cursos', [CapperuController::class, 'categoriaprogramacursos'])->name('web_categoria_programa_cursos');
-Route::get('/categoria-programa-diplomados', [CapperuController::class, 'categoriaprogramadiplomados'])->name('web_categoria_programa_diplomados');
-Route::get('/modalidad-presencial', [CapperuController::class, 'modalidadpresencial'])->name('web_modalidad_presencial');
-Route::get('/sectors/{sector}/{tipo}', [CapperuController::class, 'sector_programs'])->name('web_sectors');
-Route::get('/descripcion-programa/{id}', [CapperuController::class, 'descripcionPrograma'])->name('web_descripcion_programa'); //describe cursos, diplomados, e-learning o en vivo
-Route::get('/descripcion-e-learning', [CapperuController::class, 'descripcionelearning'])->name('web_descripcion_e_learning');
-Route::get('/perfil-docente/{teacher_id}', [CapperuController::class, 'perfildocente'])->name('web_perfil_docente');
-Route::get('/carrito', [CapperuController::class, 'carrito'])->name('web_carrito');
-Route::get('/pagar', [CapperuController::class, 'pagar'])->name('web_pagar');
-
-
-
-Route::get('/convenios', [CapperuController::class, 'convenios'])->name('web_convenios');
-Route::get('/contacto', [CapperuController::class, 'contacto'])->name('web_contacto');
-
-
-Route::get('/categorias', [CapperuController::class, 'categorias'])->name('web_categorias');
-
-
-
-Route::get('/download/brochure/{id}', [CapperuController::class, 'download_brochure'])->name('download_brochure');
-
 Route::get('/blog/home', [BlogController::class, 'index'])->name('blog_principal');
 Route::get('/article/{url}', [BlogController::class, 'article'])->name('blog_article_by_url');
 Route::get('/category/{id}', [BlogController::class, 'category'])->name('blog_category');
