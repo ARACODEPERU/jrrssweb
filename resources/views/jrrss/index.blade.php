@@ -3,25 +3,25 @@
 @section('content')
 
     <div class="body">
-        
+
         <!-- Header - area start -->
         <x-jrrss.header-area></x-jrrss.header-area>
         <!-- Header - area end -->
-        
+
 
         <div role="main" class="main">
 
-            
+
             <div class="owl-carousel owl-carousel-light owl-carousel-light-init-fadeIn owl-theme manual dots-inside dots-vertical-center dots-align-right dots-orientation-portrait custom-dots-style-1 show-dots-hover show-dots-xs nav-style-1 nav-inside nav-inside-plus nav-dark nav-lg nav-font-size-lg show-nav-hover mb-0" data-plugin-options="{'autoplayTimeout': 7000}" data-dynamic-height="['650px','650px','650px','550px','500px']" style="height: 650px;">
                 <div class="owl-stage-outer">
                     <div class="owl-stage ara_centrado_total">
 
                         <div  class="owl-item position-relative overlay overlay-show overlay-op-3" style="background-image: url({{ asset('themes/jrrss/assets/img/slider/SLIDE-01.jpg') }}); background-size: cover; background-position: center;">
-                            
+
                         </div>
 
                         <div  class="owl-item position-relative overlay overlay-show overlay-op-3" style="background-image: url({{ asset('themes/jrrss/assets/img/slider/SLIDE-02.jpg') }}); background-size: cover; background-position: center;">
-                            
+
                         </div>
 
                     </div>
@@ -32,28 +32,28 @@
                 </div>
             </div>
 
-            
+
             <section class="section-custom-medical">
                 <div class="container">
                     <div class="row medical-schedules">
                         <div class="col-xl-3 box-two bg-color-primary appear-animation" data-appear-animation="fadeInLeft" data-appear-animation-delay="0">
                             <div class="feature-box-info">
-                                <h3 class="m-0 p-0" style="color: #fff;">Evangelizar</h3>
+                                <h3 class="m-0 p-0" style="color: #fff;">{{ $home[0]->content }}</h3>
                             </div>
                         </div>
                         <div class="col-xl-3 box-two bg-color-dark appear-animation" data-appear-animation="fadeInLeft" data-appear-animation-delay="600">
                             <div class="feature-box-info">
-                                <h3 class="m-0 p-0" style="color: #fff;">Afirmar</h3>
+                                <h3 class="m-0 p-0" style="color: #fff;">{{ $home[1]->content }}</h3>
                             </div>
                         </div>
                         <div class="col-xl-3 box-two bg-color-primary appear-animation" data-appear-animation="fadeInLeft" data-appear-animation-delay="1200">
                             <div class="feature-box-info">
-                                <h3 class="m-0 p-0" style="color: #fff;">Discipular</h3>
+                                <h3 class="m-0 p-0" style="color: #fff;">{{ $home[2]->content }}</h3>
                             </div>
                         </div>
                         <div class="col-xl-3 box-two bg-color-dark appear-animation" data-appear-animation="fadeInLeft" data-appear-animation-delay="1800">
                             <div class="feature-box-info">
-                                <h3 class="m-0 p-0" style="color: #fff;">Enviar</h3>
+                                <h3 class="m-0 p-0" style="color: #fff;">{{ $home[3]->content }}</h3>
                             </div>
                         </div>
                     </div>
@@ -68,24 +68,24 @@
                         <div class="container mt-4">
                             <div class="row justify-content-center">
                                 <div class="col-lg-11 col-xl-10 text-center">
-                                    <h2 class="custom-highlight-text-1 d-inline-block line-height-5 
-                                                text-4 positive-ls-3 font-weight-medium text-color-primary 
-                                                mb-2 appear-animation animated fadeInUpShorter appear-animation-visible" 
-                                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1300" 
+                                    <h2 class="custom-highlight-text-1 d-inline-block line-height-5
+                                                text-4 positive-ls-3 font-weight-medium text-color-primary
+                                                mb-2 appear-animation animated fadeInUpShorter appear-animation-visible"
+                                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1300"
                                                 style="animation-delay: 1300ms;">
                                                 #SOMOSJRRSS
                                     </h2>
-                                    <h3 class="text-9 line-height-3 text-transform-none font-weight-semibold mb-4 
-                                        appear-animation animated fadeInUpShorter appear-animation-visible" 
-                                        data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1500" 
+                                    <h3 class="text-9 line-height-3 text-transform-none font-weight-semibold mb-4
+                                        appear-animation animated fadeInUpShorter appear-animation-visible"
+                                        data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1500"
                                         style="animation-delay: 1500ms;">
                                         Nuestras Reuniones
                                     </h3>
-                                    <p class="text-3-5 pb-3 mb-4 appear-animation animated fadeInUpShorter appear-animation-visible" 
-                                        data-appear-animation="fadeInUpShorter" 
-                                        data-appear-animation-delay="1900" 
+                                    <p class="text-3-5 pb-3 mb-4 appear-animation animated fadeInUpShorter appear-animation-visible"
+                                        data-appear-animation="fadeInUpShorter"
+                                        data-appear-animation-delay="1900"
                                         style="animation-delay: 1900ms;">
-                                        Cras a elit sit amet leo accumsan volutpat. Suspendisse hendreriast ehicula leo, vel efficitur felis ultrices non. Cras a elit sit amet leo acun volutpat. Suspendisse hendrerit vehicula leo, vel efficitur fel. 
+                                        Cras a elit sit amet leo accumsan volutpat. Suspendisse hendreriast ehicula leo, vel efficitur felis ultrices non. Cras a elit sit amet leo acun volutpat. Suspendisse hendrerit vehicula leo, vel efficitur fel.
                                     </p>
                                 </div>
                             </div>
@@ -164,17 +164,17 @@
                 </div>
             </section>
 
-            <section class="section section-parallax section-height-5 overlay overlay-show overlay-op-7 border-0 m-0 appear-animation animated fadeIn appear-animation-visible" 
-                    data-appear-animation="fadeIn" data-plugin-parallax="" data-plugin-options="{'speed': 1.5, 'parallaxHeight': '138%'}" 
+            <section class="section section-parallax section-height-5 overlay overlay-show overlay-op-7 border-0 m-0 appear-animation animated fadeIn appear-animation-visible"
+                    data-appear-animation="fadeIn" data-plugin-parallax="" data-plugin-options="{'speed': 1.5, 'parallaxHeight': '138%'}"
                     data-image-src="{{ asset('themes/jrrss/assets/img/parallax/parallax_index.jpg') }}" style="position: relative; overflow: hidden; animation-delay: 100ms;">
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-lg-9 text-center">
-                                <h2 class="text-color-light font-weight-bold custom-tertiary-font ls-0 mb-4 appear-animation animated fadeInUpShorter appear-animation-visible" 
+                                <h2 class="text-color-light font-weight-bold custom-tertiary-font ls-0 mb-4 appear-animation animated fadeInUpShorter appear-animation-visible"
                                     data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200" style="animation-delay: 200ms;">
                                     Y en su vestidura y en su muslo tiene escrito este nombre: REY DE REYES Y SEÑOR DE SEÑORES.
                                 </h2>
-                                <p class="text-color-light opacity-7 text-3 px-5 mx-5 mb-0 appear-animation animated fadeInUpShorter appear-animation-visible" 
+                                <p class="text-color-light opacity-7 text-3 px-5 mx-5 mb-0 appear-animation animated fadeInUpShorter appear-animation-visible"
                                     data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400" style="animation-delay: 400ms;">
                                     Apocalipsis 19:16
                                 </p>
@@ -189,24 +189,24 @@
                         <div class="container mt-4">
                             <div class="row justify-content-center">
                                 <div class="col-lg-11 col-xl-10 text-center">
-                                    <h2 class="custom-highlight-text-1 d-inline-block line-height-5 
-                                                text-4 positive-ls-3 font-weight-medium text-color-primary 
-                                                mb-2 appear-animation animated fadeInUpShorter appear-animation-visible" 
-                                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1300" 
+                                    <h2 class="custom-highlight-text-1 d-inline-block line-height-5
+                                                text-4 positive-ls-3 font-weight-medium text-color-primary
+                                                mb-2 appear-animation animated fadeInUpShorter appear-animation-visible"
+                                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1300"
                                                 style="animation-delay: 1300ms;">
                                                 #SOMOSJRRSS
                                     </h2>
-                                    <h3 class="text-9 line-height-3 text-transform-none font-weight-semibold mb-4 
-                                        appear-animation animated fadeInUpShorter appear-animation-visible" 
-                                        data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1500" 
+                                    <h3 class="text-9 line-height-3 text-transform-none font-weight-semibold mb-4
+                                        appear-animation animated fadeInUpShorter appear-animation-visible"
+                                        data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1500"
                                         style="animation-delay: 1500ms;">
                                         Ministerios
                                     </h3>
-                                    <p class="text-3-5 pb-3 mb-4 appear-animation animated fadeInUpShorter appear-animation-visible" 
-                                        data-appear-animation="fadeInUpShorter" 
-                                        data-appear-animation-delay="1900" 
+                                    <p class="text-3-5 pb-3 mb-4 appear-animation animated fadeInUpShorter appear-animation-visible"
+                                        data-appear-animation="fadeInUpShorter"
+                                        data-appear-animation-delay="1900"
                                         style="animation-delay: 1900ms;">
-                                        Cras a elit sit amet leo accumsan volutpat. Suspendisse hendreriast ehicula leo, vel efficitur felis ultrices non. Cras a elit sit amet leo acun volutpat. Suspendisse hendrerit vehicula leo, vel efficitur fel. 
+                                        Cras a elit sit amet leo accumsan volutpat. Suspendisse hendreriast ehicula leo, vel efficitur felis ultrices non. Cras a elit sit amet leo acun volutpat. Suspendisse hendrerit vehicula leo, vel efficitur fel.
                                     </p>
                                 </div>
                             </div>
@@ -268,17 +268,17 @@
                 </div>
             </section>
 
-            <section class="section section-parallax section-height-5 overlay overlay-show overlay-op-7 border-0 m-0 appear-animation animated fadeIn appear-animation-visible" 
-                    data-appear-animation="fadeIn" data-plugin-parallax="" data-plugin-options="{'speed': 1.5, 'parallaxHeight': '138%'}" 
+            <section class="section section-parallax section-height-5 overlay overlay-show overlay-op-7 border-0 m-0 appear-animation animated fadeIn appear-animation-visible"
+                    data-appear-animation="fadeIn" data-plugin-parallax="" data-plugin-options="{'speed': 1.5, 'parallaxHeight': '138%'}"
                     data-image-src="{{ asset('themes/jrrss/assets/img/parallax/parallax_index.jpg') }}" style="position: relative; overflow: hidden; animation-delay: 100ms;">
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-lg-9 text-center">
-                                <h2 class="text-color-light font-weight-bold custom-tertiary-font ls-0 mb-4 appear-animation animated fadeInUpShorter appear-animation-visible" 
+                                <h2 class="text-color-light font-weight-bold custom-tertiary-font ls-0 mb-4 appear-animation animated fadeInUpShorter appear-animation-visible"
                                     data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200" style="animation-delay: 200ms;">
                                     UN ENCUENTRO CON DIOS
                                 </h2>
-                                <p class="text-color-light opacity-7  px-5 mx-5 mb-0 appear-animation animated fadeInUpShorter appear-animation-visible" 
+                                <p class="text-color-light opacity-7  px-5 mx-5 mb-0 appear-animation animated fadeInUpShorter appear-animation-visible"
                                     data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400" style="animation-delay: 400ms; font-size: 18px;">
                                     Si eres nuevo en la iglesia y te gustaría conocer más de Dios.
                                 </p>
@@ -291,33 +291,33 @@
                     </div>
             </section>
 
-            
+
             <section style="padding: 90px 0px 90px 0px;">
                 <div class="container">
                     <div class="row">
                         <div class="container mt-4">
                             <div class="row justify-content-center">
                                 <div class="col-md-6" style="padding: 15px;">
-                                    <h2 class="custom-highlight-text-1 d-inline-block line-height-5 
-                                                text-4 positive-ls-3 font-weight-medium text-color-primary 
-                                                mb-2 appear-animation animated fadeInUpShorter appear-animation-visible" 
-                                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1300" 
+                                    <h2 class="custom-highlight-text-1 d-inline-block line-height-5
+                                                text-4 positive-ls-3 font-weight-medium text-color-primary
+                                                mb-2 appear-animation animated fadeInUpShorter appear-animation-visible"
+                                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1300"
                                                 style="animation-delay: 1300ms;">
                                                 #SOMOSJRRSS
                                     </h2>
-                                    <h3 class="text-9 line-height-3 text-transform-none font-weight-semibold mb-4 
-                                        appear-animation animated fadeInUpShorter appear-animation-visible" 
-                                        data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1500" 
+                                    <h3 class="text-9 line-height-3 text-transform-none font-weight-semibold mb-4
+                                        appear-animation animated fadeInUpShorter appear-animation-visible"
+                                        data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1500"
                                         style="animation-delay: 1500ms;">
                                         Suscribete a la agenda JRRSS
                                     </h3>
-                                    <p class="text-3-5 pb-3 mb-4 appear-animation animated fadeInUpShorter appear-animation-visible" 
-                                        data-appear-animation="fadeInUpShorter" 
-                                        data-appear-animation-delay="1900" 
+                                    <p class="text-3-5 pb-3 mb-4 appear-animation animated fadeInUpShorter appear-animation-visible"
+                                        data-appear-animation="fadeInUpShorter"
+                                        data-appear-animation-delay="1900"
                                         style="animation-delay: 1900ms;">
-                                        ¡Te enviaremos todo lo que sucede cada semana en JRRSS para que no te pierdas de nada! 
+                                        ¡Te enviaremos todo lo que sucede cada semana en JRRSS para que no te pierdas de nada!
                                     </p>
-                                    
+
                                     <form class="contact-form custom-form-style-1" method="POST" action="{{ route('apisubscriber') }}" id="pageContactForm">
                                         <div class="row">
                                             <div class="form-group col">
@@ -352,7 +352,7 @@
         <!-- Footer - area start -->
         <x-jrrss.footer-area></x-jrrss.footer-area>
         <!-- Footer - area end -->
-        
+
 
 
     </div>

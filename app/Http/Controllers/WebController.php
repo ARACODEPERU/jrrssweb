@@ -17,17 +17,39 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
 use Modules\Socialevents\Entities\EvenEvent;
 use Modules\Socialevents\Entities\EvenEventTicketClient;
+use Modules\CMS\Entities\CmsSection;
+use Modules\CMS\Entities\CmsSectionItem;
 
 class WebController extends Controller
 {
+
     public function index()
     {
-        return view('jrrss/index');
+        $home = CmsSection::where('component_id', 'intro_home_18')  //siempre cambiar el id del componente
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+            ->orderBy('cms_section_items.position')
+            ->get();
+
+        return view(('jrrss/index'), [
+            'home' => $home,
+        ]);
     }
 
     public function quienessomos()
     {
-        return view('jrrss/quienes-somos');
+        $resenas = CmsSectionItem::with('item.items')->where('section_id', 17)
+        ->orderBy('position')
+        ->get();
+        //dd($resenas);
+
+    return view(('jrrss/quienes-somos'), [
+        'resenas' => $resenas,
+    ]);
     }
 
     public function sedes()
