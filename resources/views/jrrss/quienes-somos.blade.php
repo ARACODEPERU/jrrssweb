@@ -32,17 +32,13 @@
             <div class="container pt-4">
                 <div class="row">
                     <div class="col-md-6">
-                        <h3>Juntos llevamos la visión de Dios</h3>
+                        <h3>{{ $presentacion[0]->content }}</h3>
                         <p>
-                            Juntos llevamos la visión de Dios El Ministerio Internacional El Rey Jesús es una de las iglesias multiculturales de más
-                            rápido crecimiento en Estados Unidos, y es reconocida por sus visibles manifestaciones del poder sobrenatural de Dios.
-                        </p>
-                        <p>
-                            El pastor principal de ERJ es el Apóstol Guillermo Maldonado, quien da cobertura a 500 iglesias en 70 países, que forman la Red Global Sobrenatural. Es también fundador de la Universidad del Ministerio Sobrenatural (USM) y autor de más de 50 libros con récord de ventas en Estados Unidos.
+                            {{ $presentacion[1]->content }}
                         </p>
                     </div>
                     <div class="col-md-6 ara_centrado_total">
-                        <img width="100%;" src="{{ asset('themes/jrrss/assets/img/papa-y-mama.jpg') }}" alt="">
+                        <img width="100%;" src="{{ $presentacion[2]->content }}" alt="">
                     </div>
                 </div>
             </div>
@@ -52,57 +48,49 @@
             <div class="container pt-4">
                 <div class="row">
                     <div class="col">
-                        <h4 class="mb-2 mt-5">La Visión en Acción</h4>
+                        <h4 class="mb-2 mt-5">{{ $visions[0]->content }}</h4>
 
                         <div class="row process process-connecting-line my-5">
                             <div class="connecting-line appear-animation animated fadeIn appear-animation-visible" data-appear-animation="fadeIn" style="animation-delay: 100ms;"></div>
-
                             <div class="col-md-3 mb-5 mb-lg-4 appear-animation animated fadeInRightShorter appear-animation-visible" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="800" style="animation-delay: 800ms;">
                                 <div class="process-step-circle">
-                                    <strong class="process-step-circle-content">1</strong>
+                                    <strong class="process-step-circle-content">{{ $visions[1]->content }}</strong>
                                 </div>
                                 <div class="process-step-content">
-                                    <h4 class="mb-1 text-4 font-weight-bold">EVANGELIZAR</h4>
+                                    <h4 class="mb-1 text-4 font-weight-bold">{{ $visions[2]->content }}</h4>
                                     <p class="mb-0">
-                                        Es aquella etapa del proceso de la visión en la que ganamos almas para Cristo. TODO miembro de la iglesia debe ser un ganador de almas.
-                                        Nuestro evangelismo es sobrenatural, pues no sólo predicamos la Palabra y testificamos, sino que también manifestamos pruebas del poder
-                                        de Dios a través de milagros, sanidades, palabras proféticas y de ciencia.
+                                        {{ $visions[3]->content }}
                                     </p>
                                 </div>
                             </div>
                             <div class="col-md-3 mb-5 mb-lg-4 appear-animation animated fadeInRightShorter appear-animation-visible" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="900" style="animation-delay: 900ms;">
                                 <div class="process-step-circle">
-                                    <strong class="process-step-circle-content">2</strong>
+                                    <strong class="process-step-circle-content">{{ $visions[4]->content }}</strong>
                                 </div>
                                 <div class="process-step-content">
-                                    <h4 class="mb-1 text-4 font-weight-bold">AFIRMAR</h4>
-                                    <p class="mb-0">Es aquella etapa del proceso de la visión mediante la cual se cimenta, asegura, consolida la decisión del nuevo creyente (NC)
-                                        y se le da el seguimiento apropiado hasta que desarrolle los fundamentos básicos de su nueva vida en Cristo, para que luego forme parte de un
-                                        grupo de discipulado.</p>
+                                    <h4 class="mb-1 text-4 font-weight-bold">{{ $visions[5]->content }}</h4>
+                                    <p class="mb-0">{{ $visions[6]->content }}</p>
                                 </div>
                             </div>
                             <div class="col-md-3 mb-5 mb-lg-4 appear-animation animated fadeInRightShorter appear-animation-visible" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="1000" style="animation-delay: 1000ms;">
                                 <div class="process-step-circle">
-                                    <strong class="process-step-circle-content">3</strong>
+                                    <strong class="process-step-circle-content">{{ $visions[7]->content }}</strong>
                                 </div>
                                 <div class="process-step-content">
-                                    <h4 class="mb-1 text-4 font-weight-bold">DISCIPULAR</h4>
+                                    <h4 class="mb-1 text-4 font-weight-bold">{{ $visions[8]->content }}</h4>
                                     <p class="mb-0">
-                                        El objetivo de discipular es  enseñar, entrenar, equipar, activar y pastorear ya que se busca el crecimiento constante y continuo de la
-                                        persona.
+                                        {{ $visions[9]->content }}
                                     </p>
                                 </div>
                             </div>
                             <div class="col-md-3 mb-5 mb-lg-4 appear-animation animated fadeInRightShorter appear-animation-visible" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="1000" style="animation-delay: 1000ms;">
                                 <div class="process-step-circle">
-                                    <strong class="process-step-circle-content">4</strong>
+                                    <strong class="process-step-circle-content">{{ $visions[10]->content }}</strong>
                                 </div>
                                 <div class="process-step-content">
-                                    <h4 class="mb-1 text-4 font-weight-bold">ENVIAR</h4>
+                                    <h4 class="mb-1 text-4 font-weight-bold">{{ $visions[11]->content }}</h4>
                                     <p class="mb-0">
-                                        Líderes son enviados dentro de la iglesia local, con el ADN de esa Casa y equipados con el poder y los dones necesarios para extender el
-                                        Reino de Dios por medio de desarrollar cada una de las tareas que se le encargan. También, a medida que crecen espiritualmente, pueden ser
-                                        promovidos y enviados como diácono, anciano o ministro, según el llamado que Dios tenga para su vida.
+                                        {{ $visions[12]->content }}
                                     </p>
                                 </div>
                             </div>
@@ -116,17 +104,17 @@
 
             <section class="section section-parallax section-height-5 overlay overlay-show overlay-op-7 border-0 m-0 appear-animation animated fadeIn appear-animation-visible"
                     data-appear-animation="fadeIn" data-plugin-parallax="" data-plugin-options="{'speed': 1.5, 'parallaxHeight': '138%'}"
-                    data-image-src="{{ asset('themes/jrrss/assets/img/parallax/parallax_nosotros.jpg') }}" style="position: relative; overflow: hidden; animation-delay: 100ms;">
+                    data-image-src="{{ $parallax[0]->content }}" style="position: relative; overflow: hidden; animation-delay: 100ms;">
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-lg-9 text-center">
                                 <h2 class="text-color-light font-weight-bold custom-tertiary-font ls-0 mb-4 appear-animation animated fadeInUpShorter appear-animation-visible"
                                     data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200" style="animation-delay: 200ms;">
-                                    Y en su vestidura y en su muslo tiene escrito este nombre: REY DE REYES Y SEÑOR DE SEÑORES.
+                                    {{ $parallax[1]->content }}
                                 </h2>
                                 <p class="text-color-light opacity-7 text-3 px-5 mx-5 mb-0 appear-animation animated fadeInUpShorter appear-animation-visible"
                                     data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400" style="animation-delay: 400ms;">
-                                    Apocalipsis 19:16
+                                    {{ $parallax[2]->content }}
                                 </p>
                             </div>
                         </div>

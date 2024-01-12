@@ -42,13 +42,46 @@ class WebController extends Controller
 
     public function quienessomos()
     {
-        $resenas = CmsSectionItem::with('item.items')->where('section_id', 17)
+        $resenas = CmsSectionItem::with('item.items')->where('section_id', 17)  //cambiar el id de la seccion
         ->orderBy('position')
         ->get();
-        //dd($resenas);
 
+        $parallax = CmsSection::where('component_id', 'quienes_somos_parallax_16')  //siempre cambiar el id del componente
+        ->join('cms_section_items', 'section_id', 'cms_sections.id')
+        ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+        ->select(
+            'cms_items.content',
+            'cms_section_items.position'
+        )
+        ->orderBy('cms_section_items.position')
+        ->get();
+
+        $visions = CmsSection::where('component_id', 'quienes_somos_la_vision_en_accion_15')  //siempre cambiar el id del componente
+        ->join('cms_section_items', 'section_id', 'cms_sections.id')
+        ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+        ->select(
+            'cms_items.content',
+            'cms_section_items.position'
+        )
+        ->orderBy('cms_section_items.position')
+        ->get();
+
+        $presentacion = CmsSection::where('component_id', 'quienes_somos_presentacion_14')  //siempre cambiar el id del componente
+        ->join('cms_section_items', 'section_id', 'cms_sections.id')
+        ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+        ->select(
+            'cms_items.content',
+            'cms_section_items.position'
+        )
+        ->orderBy('cms_section_items.position')
+        ->get();
+
+        //dd($presentacion);
     return view(('jrrss/quienes-somos'), [
         'resenas' => $resenas,
+        'parallax' => $parallax,
+        'visions' => $visions,
+        'presentacion' => $presentacion,
     ]);
     }
 
