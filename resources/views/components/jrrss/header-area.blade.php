@@ -135,22 +135,22 @@
                             <div class="header-row">
                                 <ul class="header-social-icons social-icons d-none d-sm-block social-icons-clean social-icons-icon-light">
                                     <li class="social-icons-facebook" style="padding: 5px;">
-                                        <a href="http://www.facebook.com/" target="_blank"
+                                        <a href="{{ $header[1]->content }}" target="_blank"
                                             title="Facebook"  style="font-size: 16px;"><i class="fab fa-facebook-f"></i>
                                         </a>
                                     </li>
                                     <li class="social-icons-instagram" style="padding: 5px;">
-                                        <a href="http://www.instagram.com/"
+                                        <a href="{{ $header[2]->content }}"
                                             target="_blank" t  style="font-size: 16px;"itle="Instagram"><i class="fab fa-instagram"></i>
                                         </a>
                                     </li>
                                     <li class="social-icons-youtube" style="padding: 5px;">
-                                        <a href="http://www.youtube.com/" target="_blank"
+                                        <a href="{{ $header[3]->content }}" target="_blank"
                                             title="youtube"  style="font-size: 16px;"><i class="fab fa-youtube"></i>
                                         </a>
                                     </li>
                                     <li class="social-icons-twitter" style="padding: 5px;">
-                                        <a href="http://www.twitter.com/" target="_blank"
+                                        <a href="{{ $header[4]->content }}" target="_blank"
                                             title="Twitter"  style="font-size: 16px;"><i class="fab fa-tiktok"></i>
                                         </a>
                                     </li>
@@ -163,7 +163,7 @@
             <div class="ara_centrado_total">
                 <img style="max-width: 100%;
                 height: auto;"
-                    src="{{ asset('themes/jrrss/assets/img/cabecera-WEB.jpg') }}" alt="">
+                    src="{{ $header[5]->content }}" alt="">
             </div>
             <div class="header-nav-bar header-nav-bar-top-border bg-light">
                 <div class="header-container ">
@@ -274,7 +274,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/M5cme71g00Y?si=H0fyYfQ5WKUD7uig" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    {!! $header[0]->content !!}
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
