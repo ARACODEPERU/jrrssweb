@@ -44,9 +44,16 @@ class WebController extends Controller
             )
             ->orderBy('cms_section_items.position')
             ->get();
+
+            $reuniones = CmsSectionItem::with('item.items')->where('section_id', 19)  //cambiar el id de la seccion cuando la seccion se forma en grupo
+            ->orderBy('position')
+            ->get();
+            //dd($reuniones);
+
         return view(('jrrss/index'), [
             'home' => $home,
-            'sliders' => $sliders
+            'sliders' => $sliders,
+            'reuniones' => $reuniones
         ]);
     }
 
