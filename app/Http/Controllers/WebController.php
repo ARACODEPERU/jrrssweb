@@ -48,12 +48,49 @@ class WebController extends Controller
             $reuniones = CmsSectionItem::with('item.items')->where('section_id', 19)  //cambiar el id de la seccion cuando la seccion se forma en grupo
             ->orderBy('position')
             ->get();
-            //dd($reuniones);
+
+            $bible = CmsSection::where('component_id', 'home_texto_biblico_20')  //siempre cambiar el id del componente
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+            ->orderBy('cms_section_items.position')
+            ->get();
+
+            $ministerios = CmsSectionItem::with('item.items')->where('section_id', 21)  //cambiar el id de la seccion cuando la seccion se forma en grupo
+            ->orderBy('position')
+            ->get();
+
+            $gods_meeting = CmsSection::where('component_id', 'home_un_encuentro_con_dios_22')  //siempre cambiar el id del componente
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+            ->orderBy('cms_section_items.position')
+            ->get();
+
+            $subs = CmsSection::where('component_id', 'home_suscripcion_23')  //siempre cambiar el id del componente
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+            ->orderBy('cms_section_items.position')
+            ->get();
 
         return view(('jrrss/index'), [
             'home' => $home,
             'sliders' => $sliders,
-            'reuniones' => $reuniones
+            'reuniones' => $reuniones,
+            'bible' => $bible,
+            'ministerios' => $ministerios,
+            'gods_meeting' => $gods_meeting,
+            'subs' => $subs,
         ]);
     }
 
