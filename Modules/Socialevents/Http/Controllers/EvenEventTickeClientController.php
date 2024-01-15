@@ -13,15 +13,15 @@ use Inertia\Inertia;
 
 class EvenEventTickeClientController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         $tickets = (new EvenEventTicketClient())->newQuery();
+        $tickets = $tickets->join('even_events', 'event_id', 'even_events.id');
 
         if (request()->has('search')) {
-            $tickets->where('full_name', 'Like', '%' . request()->input('search') . '%');
+            $tickets->where('full_name', 'Like', '%' . request()->input('search') . '%')
+                ->orWhere('even_events.title', 'Like', '%' . request()->input('search') . '%');
         }
         $tickets = $tickets->with('event');
         $tickets = $tickets->with('type');
@@ -33,9 +33,6 @@ class EvenEventTickeClientController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('socialevents::create');
