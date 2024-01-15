@@ -76,110 +76,63 @@
                                                 mb-2 appear-animation animated fadeInUpShorter appear-animation-visible"
                                                 data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1300"
                                                 style="animation-delay: 1300ms;">
-                                                #SOMOSJRRSS
+                                                {{ $reuniones[0]->item->content }}
                                     </h2>
                                     <h3 class="text-9 line-height-3 text-transform-none font-weight-semibold mb-4
                                         appear-animation animated fadeInUpShorter appear-animation-visible"
                                         data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1500"
                                         style="animation-delay: 1500ms;">
-                                        Nuestras Reuniones
+                                        {{ $reuniones[5]->item->content }}
                                     </h3>
                                     <p class="text-3-5 pb-3 mb-4 appear-animation animated fadeInUpShorter appear-animation-visible"
                                         data-appear-animation="fadeInUpShorter"
                                         data-appear-animation-delay="1900"
                                         style="animation-delay: 1900ms;">
-                                        Cras a elit sit amet leo accumsan volutpat. Suspendisse hendreriast ehicula leo, vel efficitur felis ultrices non. Cras a elit sit amet leo acun volutpat. Suspendisse hendrerit vehicula leo, vel efficitur fel.
+                                        {{ $reuniones[6]->item->content }}
                                     </p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6" style="padding: 15px;">
-                            <div class="ih-item square colored effect8 scale_down">
-                                <a href="" data-bs-toggle="modal" data-bs-target="#reuniones">
-                                    <div class="img">
-                                        <img src="{{ asset('themes/jrrss/assets/img/servicios/01.jpg') }}" alt="img">
+                        @foreach ($reuniones as $key => $reunion)
+                            @if ($key > 0 && $key < 5)
+                                <div class="col-md-6" style="padding: 15px;">
+                                    <div class="ih-item square colored effect8 scale_down">
+                                        <a href="" data-bs-toggle="modal" data-bs-target="#reuniones{{ $key }}">
+                                            <div class="img">
+                                                <img src="{{ $reunion->item->items[1]->content }}" alt="img">
+                                            </div>
+                                            <div class="info">
+                                                <h3>{{ $reunion->item->items[0]->content }}</h3>
+                                                <br>
+                                                <h4 style="padding: 10px;"><b>{{ $reunion->item->items[2]->content }}: {{ $reunion->item->items[3]->content }}</b> </h4>
+                                                <p style="margin-top: -25px;">
+                                                    <b>Horario de Reunión:</b> {{ $reunion->item->items[5]->content }}
+                                                </p>
+                                            </div>
+                                        </a>
                                     </div>
-                                    <div class="info">
-                                        <h3>CASA DE ORACIÓN PARA LAS NACIONES</h3>
-                                        <br>
-                                        <h4 style="padding: 10px;"><b>Sede Principal: Av. Gral. Salaverry 2599, San Isidro 15076</b> </h4>
-                                        <p style="margin-top: -25px;">
-                                            <b>Horario de Reunión:</b> Lunes 07:00 pm
-                                        </p>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-md-6" style="padding: 15px;">
-                            <div class="ih-item square colored effect8 scale_down">
-                                <a href="" data-bs-toggle="modal" data-bs-target="#reuniones">
-                                    <div class="img">
-                                        <img src="{{ asset('themes/jrrss/assets/img/servicios/02.jpg') }}" alt="img">
-                                    </div>
-                                    <div class="info">
-                                        <h3>NOCHES DE AVIVAMIENTO</h3>
-                                        <br>
-                                        <h4 style="padding: 10px;"><b>Sede Principal: Av. Gral. Salaverry 2599, San Isidro 15076</b> </h4>
-                                        <p style="margin-top: -25px;">
-                                            <b>Horario de Reunión:</b> Miercoles 07:00 pm
-                                        </p>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-md-6" style="padding: 15px;">
-                            <div class="ih-item square colored effect8 scale_down">
-                                <a href="" data-bs-toggle="modal" data-bs-target="#reuniones">
-                                    <div class="img">
-                                        <img src="{{ asset('themes/jrrss/assets/img/servicios/03.jpg') }}" alt="img">
-                                    </div>
-                                    <div class="info">
-                                        <h3>RMNT</h3>
-                                        <br>
-                                        <h4 style="padding: 10px;"><b>Sede Principal: Av. Gral. Salaverry 2599, San Isidro 15076</b> </h4>
-                                        <p style="margin-top: -25px;">
-                                            <b>Horario de Reunión:</b> Viernes 07:00 pm
-                                        </p>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-md-6" style="padding: 15px;">
-                            <div class="ih-item square colored effect8 scale_down">
-                                <a href="" data-bs-toggle="modal" data-bs-target="#reuniones">
-                                    <div class="img">
-                                        <img src="{{ asset('themes/jrrss/assets/img/servicios/04.jpg') }}" alt="img">
-                                    </div>
-                                    <div class="info">
-                                        <h3>DOMINGOS DE GLORIA</h3>
-                                        <br>
-                                        <h4 style="padding: 10px;"><b>Sede Principal: Av. Gral. Salaverry 2599, San Isidro 15076</b> </h4>
-                                        <p style="margin-top: -25px;">
-                                            <b>Horario de Reunión:</b> Domingos: 10:00 am | 06:00 pm
-                                        </p>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
+                                </div>
+                            @endif
+                        @endforeach
                     </div>
                 </div>
             </section>
 
             <section class="section section-parallax section-height-5 overlay overlay-show overlay-op-7 border-0 m-0 appear-animation animated fadeIn appear-animation-visible"
                     data-appear-animation="fadeIn" data-plugin-parallax="" data-plugin-options="{'speed': 1.5, 'parallaxHeight': '138%'}"
-                    data-image-src="{{ asset('themes/jrrss/assets/img/parallax/parallax_index.jpg') }}" style="position: relative; overflow: hidden; animation-delay: 100ms;">
+                    data-image-src="{{ $bible[0]->content }}" style="position: relative; overflow: hidden; animation-delay: 100ms;">
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-lg-9 text-center">
                                 <h2 class="text-color-light font-weight-bold custom-tertiary-font ls-0 mb-4 appear-animation animated fadeInUpShorter appear-animation-visible"
                                     data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200" style="animation-delay: 200ms;">
-                                    Y en su vestidura y en su muslo tiene escrito este nombre: REY DE REYES Y SEÑOR DE SEÑORES.
+                                    {{ $bible[1]->content }}
                                 </h2>
                                 <p class="text-color-light opacity-7 text-3 px-5 mx-5 mb-0 appear-animation animated fadeInUpShorter appear-animation-visible"
                                     data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400" style="animation-delay: 400ms;">
-                                    Apocalipsis 19:16
+                                    {{ $bible[2]->content }}
                                 </p>
                             </div>
                         </div>
@@ -197,76 +150,46 @@
                                                 mb-2 appear-animation animated fadeInUpShorter appear-animation-visible"
                                                 data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1300"
                                                 style="animation-delay: 1300ms;">
-                                                #SOMOSJRRSS
+                                                {{ $ministerios[0]->item->content }}
                                     </h2>
                                     <h3 class="text-9 line-height-3 text-transform-none font-weight-semibold mb-4
                                         appear-animation animated fadeInUpShorter appear-animation-visible"
                                         data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1500"
                                         style="animation-delay: 1500ms;">
-                                        Ministerios
+                                        {{ $ministerios[4]->item->content }}
                                     </h3>
                                     <p class="text-3-5 pb-3 mb-4 appear-animation animated fadeInUpShorter appear-animation-visible"
                                         data-appear-animation="fadeInUpShorter"
                                         data-appear-animation-delay="1900"
                                         style="animation-delay: 1900ms;">
-                                        Cras a elit sit amet leo accumsan volutpat. Suspendisse hendreriast ehicula leo, vel efficitur felis ultrices non. Cras a elit sit amet leo acun volutpat. Suspendisse hendrerit vehicula leo, vel efficitur fel.
+                                        {{ $ministerios[5]->item->content }}
                                     </p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4" style="padding: 15px;">
-                            <div class="ih-item square colored effect8 scale_down">
-                                <a href="{{ route('web_rmnt') }}">
-                                    <div class="img">
-                                        <img src="{{ asset('themes/jrrss/assets/img/servicios/03.jpg') }}" alt="img">
-                                    </div>
-                                    <div class="info">
-                                        <h3>RMNT</h3>
-                                        <br>
-                                        <p style="margin-top: -25px;">
-                                            <b>Ministerio de Jovenes y Adolescentes</b>
-                                        </p>
-                                        <button class="btn btn-dark">Ingresar</button>
-                                    </div>
-                                </a>
+                        @foreach ($ministerios as $key => $ministerio)
+                            @if ($key > 0 && $key < 4)
+                            <div class="col-md-4" style="padding: 15px;">
+                                <div class="ih-item square colored effect8 scale_down">
+                                    <a href="{{ $ministerio->item->items[3]->content }}">
+                                        <div class="img">
+                                            <img src="{{ $ministerio->item->items[0]->content }}" alt="img">
+                                        </div>
+                                        <div class="info">
+                                            <h3>{{ $ministerio->item->items[1]->content }}</h3>
+                                            <br>
+                                            <p style="margin-top: -25px;">
+                                                <b>{{ $ministerio->item->items[2]->content }}</b>
+                                            </p>
+                                            <button class="btn btn-dark">Ingresar</button>
+                                        </div>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-4" style="padding: 15px;">
-                            <div class="ih-item square colored effect8 scale_down">
-                                <a href="{{ route('web_kids') }}">
-                                    <div class="img">
-                                        <img src="{{ asset('themes/jrrss/assets/img/kids/04.jpg') }}" alt="img">
-                                    </div>
-                                    <div class="info">
-                                        <h3>KIDS</h3>
-                                        <br>
-                                        <p style="margin-top: -25px;">
-                                            <b>Ministerio de Niños</b>
-                                        </p>
-                                        <button class="btn btn-dark">Ingresar</button>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-md-4" style="padding: 15px;">
-                            <div class="ih-item square colored effect8 scale_down">
-                                <a href="{{ route('web_ecelt') }}">
-                                    <div class="img">
-                                        <img src="{{ asset('themes/jrrss/assets/img/ecelt/01.jpg') }}" alt="img">
-                                    </div>
-                                    <div class="info">
-                                        <h3>EL CIELO EN LA TIERRA</h3>
-                                        <br>
-                                        <p style="margin-top: -25px;">
-                                            <b>Ministerio de Alabanza</b>
-                                        </p>
-                                        <button class="btn btn-dark">Ingresar</button>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
+                            @endif
+                        @endforeach
                     </div>
                 </div>
             </section>
@@ -279,11 +202,11 @@
                             <div class="col-lg-9 text-center">
                                 <h2 class="text-color-light font-weight-bold custom-tertiary-font ls-0 mb-4 appear-animation animated fadeInUpShorter appear-animation-visible"
                                     data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200" style="animation-delay: 200ms;">
-                                    UN ENCUENTRO CON DIOS
+                                    {{ $gods_meeting[0]->content }}
                                 </h2>
                                 <p class="text-color-light opacity-7  px-5 mx-5 mb-0 appear-animation animated fadeInUpShorter appear-animation-visible"
                                     data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400" style="animation-delay: 400ms; font-size: 18px;">
-                                    Si eres nuevo en la iglesia y te gustaría conocer más de Dios.
+                                    {{ $gods_meeting[1]->content }}
                                 </p>
                                 <br>
                                 <button class="btn btn-primary" style="font-size: 16px;"  data-bs-toggle="modal" data-bs-target="#contacto">
@@ -306,19 +229,19 @@
                                                 mb-2 appear-animation animated fadeInUpShorter appear-animation-visible"
                                                 data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1300"
                                                 style="animation-delay: 1300ms;">
-                                                #SOMOSJRRSS
+                                                {{ $subs[0]->content }}
                                     </h2>
                                     <h3 class="text-9 line-height-3 text-transform-none font-weight-semibold mb-4
                                         appear-animation animated fadeInUpShorter appear-animation-visible"
                                         data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1500"
                                         style="animation-delay: 1500ms;">
-                                        Suscribete a la agenda JRRSS
+                                        {{ $subs[1]->content }}
                                     </h3>
                                     <p class="text-3-5 pb-3 mb-4 appear-animation animated fadeInUpShorter appear-animation-visible"
                                         data-appear-animation="fadeInUpShorter"
                                         data-appear-animation-delay="1900"
                                         style="animation-delay: 1900ms;">
-                                        ¡Te enviaremos todo lo que sucede cada semana en JRRSS para que no te pierdas de nada!
+                                        {{ $subs[2]->content }}
                                     </p>
 
                                     <form class="contact-form custom-form-style-1" method="POST" action="{{ route('apisubscriber') }}" id="pageContactForm">
@@ -340,7 +263,7 @@
                                     </form>
                                 </div>
                                 <div class="col-md-6 ara_centrado_total" style="padding: 15px;">
-                                    <img style="width: 98%" src="{{ asset('themes/jrrss/assets/img/celular.png') }}" alt="">
+                                    <img style="width: 98%" src="{{ $subs[3]->content }}" alt="">
                                 </div>
                             </div>
                         </div>
@@ -348,6 +271,34 @@
                 </div>
             </section>
 
+            @foreach ($reuniones as $key => $reunion)
+            @if ($key > 0 && $key < 5)
+                <div class="modal fade" id="reuniones{{ $key }}" tabindex="-1" aria-labelledby="reunionesLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="reunionesLabel">{{ $reunion->item->items[0]->content }}</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <h5><b>{{ $reunion->item->items[2]->content }}: {{ $reunion->item->items[3]->content }}</b> </h5>
+                                <p style="margin-top: -15px;">
+                                    <b>Horario de Reunión:</b> {{ $reunion->item->items[5]->content }}
+                                </p>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        {!!  $reunion->item->items[4]->content  !!}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+            @endforeach
 
 
         </div>

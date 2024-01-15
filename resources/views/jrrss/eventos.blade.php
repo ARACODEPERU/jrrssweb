@@ -156,9 +156,12 @@
                                                         required>
                                                         <option selected>Tipo de ticket </option>
                                                         @foreach ($event->prices as $row)
-                                                            <option value="{{ $row->id }}">
-                                                                {{ $row->type->description }} S/.
-                                                                {{ $row->price }}</option>
+                                                            @if($row->price > 0)
+                                                                <option value="{{ $row->id }}">
+                                                                    {{ $row->type->description }} S/.
+                                                                    {{ $row->price }}
+                                                                </option>
+                                                            @endif
                                                         @endforeach
                                                     </select>
                                                 </div>
