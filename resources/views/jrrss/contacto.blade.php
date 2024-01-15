@@ -3,17 +3,17 @@
 @section('content')
 
     <div class="body">
-        
+
         <!-- Header - area start -->
         <x-jrrss.header-area></x-jrrss.header-area>
         <!-- Header - area end -->
-        
+
 
         <div role="main" class="main">
-            
-            <section class="page-header bg-color-tertiary custom-page-header page-header-modern page-header-background page-header-background-sm parallax mt-0" 
-                     data-plugin-parallax data-plugin-options="{'speed': 1.2}" 
-                     data-image-src="{{ asset('themes/jrrss/assets/img/demos/construction-2/page-header.jpg') }}">
+
+            <section class="page-header bg-color-tertiary custom-page-header page-header-modern page-header-background page-header-background-sm parallax mt-0"
+                     data-plugin-parallax data-plugin-options="{'speed': 1.2}"
+                     data-image-src="{{ $banner->content }}">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12 align-self-center">
@@ -29,7 +29,7 @@
                 </div>
             </section>
 
-            
+
 				<div class="container container-xl-custom pt-5">
 					<div class="row">
 						<div class="col">
@@ -45,8 +45,8 @@
 							</p>
 
 							<form class="contact-form custom-form-style-1" method="head" id="pageContactForm">
-							
-								
+
+
 								<div class="row">
 									<div class="form-group col">
 										<input type="text" placeholder="Nombres" value="" data-msg-required="Por favor ingresa tus nombres completos." maxlength="125" class="form-control bg-color-tertiary" name="full_name" id="full_name" required>
@@ -70,7 +70,7 @@
 								<div class="row">
 									<div class="form-group col">
 										<button data-loading-text="Loading..." id="submitPageContactButton" class="btn btn-outline btn-primary rounded-0 py-3 px-5 font-weight-semibold" >Enviar Ahora</button>
-										
+
 									</div>
 								</div>
 							</form>
@@ -129,27 +129,27 @@
 					let form = document.getElementById('pageContactForm');
 					form.addEventListener('submit', function(e) {
 						e.preventDefault();
-			
+
 						var formulario = document.getElementById('pageContactForm');
 						var formData = new FormData(formulario);
-			
+
 						// Deshabilitar el botón
 						var submitButton = document.getElementById('submitPageContactButton');
 						submitButton.disabled = true;
 						submitButton.style.opacity = 0.25;
-			
+
 						// Crear una nueva solicitud XMLHttpRequest
 						var xhr = new XMLHttpRequest();
-			
+
 						// Configurar la solicitud POST al servidor
 						xhr.open('POST', "{{ route('apisubscriber') }}", true);
-			
+
 						// Configurar la función de callback para manejar la respuesta
 						xhr.onload = function() {
 							// Habilitar nuevamente el botón
 							submitButton.disabled = false;
 							submitButton.style.opacity = 1;
-							if (xhr.status === 200) {								
+							if (xhr.status === 200) {
 								var response = JSON.parse(xhr.responseText);
 								Swal.fire({
 									icon: 'success',
@@ -175,10 +175,10 @@
 							} else {
 								console.error('Error en la solicitud: ' + xhr.status);
 							}
-			
-			
+
+
 						};
-			
+
 						// Enviar la solicitud al servidor
 						xhr.send(formData);
 					});
@@ -189,7 +189,7 @@
         <!-- Footer - area start -->
         <x-jrrss.footer-area></x-jrrss.footer-area>
         <!-- Footer - area end -->
-        
+
 
 
     </div>

@@ -7,39 +7,40 @@
                 <div class="col-lg-7 mb-5 mb-lg-0">
                     <img src="{{ asset('themes/jrrss/assets/img/logo_blanco.png') }}" alt="">
                     <br><br>
-                    <p class="pe-1">Lorem ipsumsemper nisl lacinia sit amet. Praesent venenatis turpis vitae purus semper...</p>
+                    <p class="pe-1">{{ $footer[0]->content }}</p>
                     <div class="row mt-3 mt-lg-5">
                         <div class="col-md-6 mb-4 mb-md-0">
                             <h4 class="mb-2">Llamanos</h4>
                             <p class="mb-0 font-weight-semibold">TELÉFONO</p>
-                            <a href="tel:+8001234567" class="text-color-primary text-5 p-relative bottom-3" target="_blank" title="Llamanos">(+51) 999 999999</a>
+                            <a href="tel:+8001234567" class="text-color-primary text-5 p-relative bottom-3" target="_blank" title="Llamanos">{{ $footer[1]->content }}</a>
                         </div>
                         <div class="col-md-6">
                             <h4 class="mb-2">Sede Principal</h4>
-                            <p><a href="">Av Saenz Peña 870-878. , Callao, Perú</a></p>
+                            <p><a href="">{{ $footer[3]->content }}</a></p>
                         </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col-md-6 mb-4 mb-md-0">
                             <h4 class="mb-2">Escribenos</h4>
                             <p class="mb-0 font-weight-semibold">EMAIL</p>
-                            <a href="mail:porto@domain.com" class="text-color-primary text-5 p-relative bottom-3" target="_blank" title="Escribenos">ibi.jrrss@gmail.com</a>
+                            <a href="mail:porto@domain.com" class="text-color-primary text-5 p-relative bottom-3" target="_blank" title="Escribenos">{{ $footer[2]->content }}</a>
                         </div>
                         <div class="col-md-6">
                             <h4 class="mb-2">Redes Sociales</h4>
                             <ul class="social-icons social-icons-big social-icons-dark-2">
-                                <li class="social-icons-facebook"><a href="http://www.facebook.com/" target="_blank" title="Facebook"><i class="fab fa-facebook-f text-4"></i></a></li>
-                                <li class="social-icons-instagram"><a href="http://www.instagram.com/" target="_blank" title="Instagram"><i class="fab fa-instagram text-4"></i></a></li>
-                                <li class="social-icons-youtube"><a href="http://www.youtube.com/" target="_blank" title="Youtube"><i class="fab fa-youtube text-4"></i></a></li>
-                                <li class="social-icons-tiktok"><a href="http://www.tiktok.com/" target="_blank" title="Tiktok"><i class="fab fa-tiktok text-4"></i></a></li>
+                                <li class="social-icons-facebook"><a href="{{ $footer[4]->content }}" target="_blank" title="Facebook"><i class="fab fa-facebook-f text-4"></i></a></li>
+                                <li class="social-icons-instagram"><a href="{{ $footer[5]->content }}" target="_blank" title="Instagram"><i class="fab fa-instagram text-4"></i></a></li>
+                                <li class="social-icons-youtube"><a href="{{ $footer[6]->content }}" target="_blank" title="Youtube"><i class="fab fa-youtube text-4"></i></a></li>
+                                <li class="social-icons-tiktok"><a href="{{ $footer[7]->content }}" target="_blank" title="Tiktok"><i class="fab fa-tiktok text-4"></i></a></li>
                             </ul>
                         </div>
                     </div>
+                    <p class="pe-1">{{ $footer[8]->content }}</p>
                 </div>
                 <div class="col-lg-5">
                     <h2 class="text-6 font-weight-bold mb-1">Envianos un mensaje</h2>
                     <p class="pe-1">Envía un mensaje para comunicarte con nosotros, deja tu información si deseas que nos comuniquemos contigo.</p>
-                    <form class="contact-form form-errors-light" method="POST" action="{{ route('apisubscriber') }}" id="pageContactForm2">                       
+                    <form class="contact-form form-errors-light" method="POST" action="{{ route('apisubscriber') }}" id="pageContactForm2">
                         <div class="row">
                             <div class="form-group col">
                                 <input type="text" placeholder="Nombres" value="" data-msg-required="Por favor ingresa tus nombres completos." maxlength="125" class="form-control bg-color-tertiary" name="full_name" id="full_name" required>
@@ -63,7 +64,7 @@
                         <div class="row">
                             <div class="form-group col">
                                 <button data-loading-text="Loading..." id="submitPageContactButton2" class="btn btn-outline btn-primary rounded-0 py-3 px-5 font-weight-semibold" >Enviar Ahora</button>
-                                
+
                             </div>
                         </div>
                     </form>

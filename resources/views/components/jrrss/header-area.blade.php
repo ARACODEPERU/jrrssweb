@@ -137,22 +137,22 @@
                             <div class="header-row">
                                 <ul class="header-social-icons social-icons d-none d-sm-block social-icons-clean social-icons-icon-light">
                                     <li class="social-icons-facebook" style="padding: 5px;">
-                                        <a href="http://www.facebook.com/" target="_blank"
+                                        <a href="{{ $header[0]->content }}" target="_blank"
                                             title="Facebook"  style="font-size: 16px;"><i class="fab fa-facebook-f"></i>
                                         </a>
                                     </li>
                                     <li class="social-icons-instagram" style="padding: 5px;">
-                                        <a href="http://www.instagram.com/"
+                                        <a href="{{ $header[1]->content }}"
                                             target="_blank" t  style="font-size: 16px;"itle="Instagram"><i class="fab fa-instagram"></i>
                                         </a>
                                     </li>
                                     <li class="social-icons-youtube" style="padding: 5px;">
-                                        <a href="http://www.youtube.com/" target="_blank"
+                                        <a href="{{ $header[2]->content }}" target="_blank"
                                             title="youtube"  style="font-size: 16px;"><i class="fab fa-youtube"></i>
                                         </a>
                                     </li>
                                     <li class="social-icons-twitter" style="padding: 5px;">
-                                        <a href="http://www.twitter.com/" target="_blank"
+                                        <a href="{{ $header[3]->content }}" target="_blank"
                                             title="Twitter"  style="font-size: 16px;"><i class="fab fa-tiktok"></i>
                                         </a>
                                     </li>
@@ -165,7 +165,7 @@
             <div class="ara_centrado_total">
                 <img style="max-width: 100%;
                 height: auto;"
-                    src="{{ asset('themes/jrrss/assets/img/cabecera-WEB.jpg') }}" alt="">
+                    src="{{ $header[4]->content }}" alt="">
             </div>
             <div class="header-nav-bar header-nav-bar-top-border bg-light">
                 <div class="header-container ">
@@ -270,13 +270,13 @@
     <!-- Modal -->
     @if($transmissions)
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">{{ $transmissions->title }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" style="text-align: center;">
                     {!! $transmissions->iframe_transmission !!}
                 </div>
                 <div class="modal-footer">
@@ -301,7 +301,7 @@
                     </p>
                     <div class="row">
                         <div class="col-md-12">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3901.7585025642!2d-77.13881422513082!3d-12.060130142149312!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105cb908f14800b%3A0x9d3dece06a24733!2sAv%20Saenz%20Pe%C3%B1a%20870%2C%20Callao%2007001!5e0!3m2!1ses-419!2spe!4v1703834596132!5m2!1ses-419!2spe" width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            <iframe src="https://www.gdoogle.com/maps/embed?pb=!1m18!1m12!1m3!1d3901.7585025642!2d-77.13881422513082!3d-12.060130142149312!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105cb908f14800b%3A0x9d3dece06a24733!2sAv%20Saenz%20Pe%C3%B1a%20870%2C%20Callao%2007001!5e0!3m2!1ses-419!2spe!4v1703834596132!5m2!1ses-419!2spe" width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
                     </div>
                 </div>

@@ -17,27 +17,171 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
 use Modules\Socialevents\Entities\EvenEvent;
 use Modules\Socialevents\Entities\EvenEventTicketClient;
+use Modules\CMS\Entities\CmsSection;
+use Modules\CMS\Entities\CmsSectionItem;
 
 class WebController extends Controller
 {
+
     public function index()
     {
-        return view('jrrss/index');
+        $home = CmsSection::where('component_id', 'intro_home_18')  //siempre cambiar el id del componente
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+            ->orderBy('cms_section_items.position')
+            ->get();
+
+            $sliders = CmsSection::where('component_id', 'slider_home_2')  //siempre cambiar el id del componente
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+            ->orderBy('cms_section_items.position')
+            ->get();
+
+            $reuniones = CmsSectionItem::with('item.items')->where('section_id', 19)  //cambiar el id de la seccion cuando la seccion se forma en grupo
+            ->orderBy('position')
+            ->get();
+
+            $bible = CmsSection::where('component_id', 'home_texto_biblico_20')  //siempre cambiar el id del componente
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+            ->orderBy('cms_section_items.position')
+            ->get();
+
+            $ministerios = CmsSectionItem::with('item.items')->where('section_id', 21)  //cambiar el id de la seccion cuando la seccion se forma en grupo
+            ->orderBy('position')
+            ->get();
+
+            $gods_meeting = CmsSection::where('component_id', 'home_un_encuentro_con_dios_22')  //siempre cambiar el id del componente
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+            ->orderBy('cms_section_items.position')
+            ->get();
+
+            $subs = CmsSection::where('component_id', 'home_suscripcion_23')  //siempre cambiar el id del componente
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+            ->orderBy('cms_section_items.position')
+            ->get();
+
+        return view(('jrrss/index'), [
+            'home' => $home,
+            'sliders' => $sliders,
+            'reuniones' => $reuniones,
+            'bible' => $bible,
+            'ministerios' => $ministerios,
+            'gods_meeting' => $gods_meeting,
+            'subs' => $subs,
+        ]);
     }
 
     public function quienessomos()
     {
-        return view('jrrss/quienes-somos');
+        $resenas = CmsSectionItem::with('item.items')->where('section_id', 17)  //cambiar el id de la seccion
+        ->orderBy('position')
+        ->get();
+
+        $parallax = CmsSection::where('component_id', 'quienes_somos_parallax_16')  //siempre cambiar el id del componente
+        ->join('cms_section_items', 'section_id', 'cms_sections.id')
+        ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+        ->select(
+            'cms_items.content',
+            'cms_section_items.position'
+        )
+        ->orderBy('cms_section_items.position')
+        ->get();
+
+        $visions = CmsSection::where('component_id', 'quienes_somos_la_vision_en_accion_15')  //siempre cambiar el id del componente
+        ->join('cms_section_items', 'section_id', 'cms_sections.id')
+        ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+        ->select(
+            'cms_items.content',
+            'cms_section_items.position'
+        )
+        ->orderBy('cms_section_items.position')
+        ->get();
+
+        $presentacion = CmsSection::where('component_id', 'quienes_somos_presentacion_14')  //siempre cambiar el id del componente
+        ->join('cms_section_items', 'section_id', 'cms_sections.id')
+        ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+        ->select(
+            'cms_items.content',
+            'cms_section_items.position'
+        )
+        ->orderBy('cms_section_items.position')
+        ->get();
+
+        $banner = CmsSection::where('component_id', 'banner_quienes_somos_4')  //siempre cambiar el id del componente
+        ->join('cms_section_items', 'section_id', 'cms_sections.id')
+        ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+        ->select(
+            'cms_items.content',
+            'cms_section_items.position'
+        )
+        ->orderBy('cms_section_items.position')
+        ->first();
+
+        //dd($presentacion);
+    return view('jrrss/quienes-somos', [
+        'resenas' => $resenas,
+        'parallax' => $parallax,
+        'visions' => $visions,
+        'presentacion' => $presentacion,
+        'banner' => $banner
+    ]);
     }
 
     public function sedes()
     {
-        return view('jrrss/sedes');
+        $banner = CmsSection::where('component_id', 'banner_sedes_5')  //siempre cambiar el id del componente
+        ->join('cms_section_items', 'section_id', 'cms_sections.id')
+        ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+        ->select(
+            'cms_items.content',
+            'cms_section_items.position'
+        )
+        ->orderBy('cms_section_items.position')
+        ->first();
+
+        return view('jrrss/sedes', [
+            'banner' => $banner,
+        ]);
     }
 
     public function cobertura()
     {
-        return view('jrrss/cobertura');
+        $banner = CmsSection::where('component_id', 'banner_cobertura_6')  //siempre cambiar el id del componente
+        ->join('cms_section_items', 'section_id', 'cms_sections.id')
+        ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+        ->select(
+            'cms_items.content',
+            'cms_section_items.position'
+        )
+        ->orderBy('cms_section_items.position')
+        ->first();
+
+        return view('jrrss/cobertura', [
+            'banner' => $banner,
+        ]);
     }
 
     public function eventos()
@@ -56,10 +200,20 @@ class WebController extends Controller
                 DB::raw("CONCAT(departments.name, ' - ',provinces.name,' - ',districts.name) AS city_name")
             )
             ->get();
+//el banner es extraido del contenido de EVENTOS y ya no del banner asi que imagino que este codigo ya no es necesario
+            // $banner = CmsSection::where('component_id', 'banner_eventos_7')  //siempre cambiar el id del componente
+            // ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            // ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            // ->select(
+            //     'cms_items.content',
+            //     'cms_section_items.position'
+            // )
+            // ->orderBy('cms_section_items.position')
+            // ->first();
 
         return view('jrrss/eventos', [
             'event' => $event,
-            'ubigeo' => $ubigeo
+            'ubigeo' => $ubigeo,
         ]);
     }
 
@@ -127,32 +281,104 @@ class WebController extends Controller
 
     public function escuelasobrenatural()
     {
-        return view('jrrss/escuela-sobrenatural');
+        $banner = CmsSection::where('component_id', 'banner_escuela_sobrenatural_8')  //siempre cambiar el id del componente
+        ->join('cms_section_items', 'section_id', 'cms_sections.id')
+        ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+        ->select(
+            'cms_items.content',
+            'cms_section_items.position'
+        )
+        ->orderBy('cms_section_items.position')
+        ->first();
+
+        return view('jrrss/escuela-sobrenatural', [
+            'banner' => $banner,
+        ]);
     }
 
     public function ecelt()
     {
-        return view('jrrss/ecelt');
+        $banner = CmsSection::where('component_id', 'banner_ecelt_9')  //siempre cambiar el id del componente
+        ->join('cms_section_items', 'section_id', 'cms_sections.id')
+        ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+        ->select(
+            'cms_items.content',
+            'cms_section_items.position'
+        )
+        ->orderBy('cms_section_items.position')
+        ->first();
+
+        return view('jrrss/ecelt', [
+            'banner' => $banner,
+        ]);
     }
 
     public function rmnt()
     {
-        return view('jrrss/rmnt');
+        $banner = CmsSection::where('component_id', 'banner_rmnt_10')  //siempre cambiar el id del componente
+        ->join('cms_section_items', 'section_id', 'cms_sections.id')
+        ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+        ->select(
+            'cms_items.content',
+            'cms_section_items.position'
+        )
+        ->orderBy('cms_section_items.position')
+        ->first();
+
+        return view('jrrss/rmnt', [
+            'banner' => $banner,
+        ]);
     }
 
     public function kids()
     {
-        return view('jrrss/kids');
+        $banner = CmsSection::where('component_id', 'banner_kids_11')  //siempre cambiar el id del componente
+        ->join('cms_section_items', 'section_id', 'cms_sections.id')
+        ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+        ->select(
+            'cms_items.content',
+            'cms_section_items.position'
+        )
+        ->orderBy('cms_section_items.position')
+        ->first();
+
+        return view('jrrss/kids', [
+            'banner' => $banner,
+        ]);
     }
 
     public function testimonios()
     {
-        return view('jrrss/testimonios');
+        $banner = CmsSection::where('component_id', 'banner_testimonios_12')  //siempre cambiar el id del componente
+        ->join('cms_section_items', 'section_id', 'cms_sections.id')
+        ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+        ->select(
+            'cms_items.content',
+            'cms_section_items.position'
+        )
+        ->orderBy('cms_section_items.position')
+        ->first();
+
+        return view('jrrss/testimonios', [
+            'banner' => $banner,
+        ]);
     }
 
     public function contacto()
     {
-        return view('jrrss/contacto');
+        $banner = CmsSection::where('component_id', 'banner_contacto_13')  //siempre cambiar el id del componente
+        ->join('cms_section_items', 'section_id', 'cms_sections.id')
+        ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+        ->select(
+            'cms_items.content',
+            'cms_section_items.position'
+        )
+        ->orderBy('cms_section_items.position')
+        ->first();
+
+        return view('jrrss/contacto', [
+            'banner' => $banner,
+        ]);
     }
 
     public function donar()
