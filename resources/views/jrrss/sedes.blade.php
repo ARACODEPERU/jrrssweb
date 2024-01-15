@@ -31,10 +31,10 @@
 
             <div class="container pt-4">
                 <div class="row">
-                    <div class="col-md-6 ara_centrado_total">
-                        <iframe width="100%" height="380" src="https://www.youtube.com/embed/ruKNF1ukR6E" title="NOSOTROS LOS JOVENES | CONFERENCIA RMNT 2022" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <div class="col-md-6 ara_centrado_total" style="padding: 10px;">
+                        <img style="width: 100%;" src="{{ asset('themes/jrrss/assets/img/sedes/pastoresRodriguez.jpeg') }}" alt="">    
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6" style="padding: 10px;">
                         <div class="row">
                             <div class="col-md-12">
                                 <h3>SEDE: Lima Sur</h3>
@@ -69,6 +69,14 @@
                                 <h4 style="margin-top: 10px;">Alberto & Aitza Rodriguez</h4>
                                 <div style="margin-top: -20px;" class="ps-funcion">Pastores Responsables</div>
                             </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                        <div class="col-md-4">
+                            <a href="" class="btn btn-primary" style="width: 100%;">¿Como llegar?</a>
+                        </div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4"></div>
                         </div>
                     </div>
                 </div>
