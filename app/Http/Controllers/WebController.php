@@ -408,7 +408,6 @@ class WebController extends Controller
         $videoteca = CmsSectionItem::with('item.items')->where('section_id', 33)
         ->orderBy('position')
         ->get();
->>>>>>> 2efaeac038fb424e2029481af3bb456f44c15e3c
 
         return view('jrrss/rmnt', [
             'banner' => $banner,
