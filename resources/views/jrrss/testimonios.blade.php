@@ -31,60 +31,11 @@
 
             <div class="container pt-4">
                 <div class="row">
-                    <div class="col-md-4">
-                        <iframe width="100%" height="250" src="https://www.youtube.com/embed/WrqGQa7O9Pw"
-                         title="DIOS MULTIPLICÓ SUS FINANZAS"
-                         frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
-                        </iframe>
-                    </div>
-                    <div class="col-md-4">
-                        <iframe width="100%" height="250" src="https://www.youtube.com/embed/WrqGQa7O9Pw"
-                         title="DIOS MULTIPLICÓ SUS FINANZAS"
-                         frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
-                        </iframe>
-                    </div>
-                    <div class="col-md-4">
-                        <iframe width="100%" height="250" src="https://www.youtube.com/embed/WrqGQa7O9Pw"
-                         title="DIOS MULTIPLICÓ SUS FINANZAS"
-                         frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
-                        </iframe>
-                    </div>
-                    <div class="col-md-4">
-                        <iframe width="100%" height="250" src="https://www.youtube.com/embed/WrqGQa7O9Pw"
-                         title="DIOS MULTIPLICÓ SUS FINANZAS"
-                         frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
-                        </iframe>
-                    </div>
-                    <div class="col-md-4">
-                        <iframe width="100%" height="250" src="https://www.youtube.com/embed/WrqGQa7O9Pw"
-                         title="DIOS MULTIPLICÓ SUS FINANZAS"
-                         frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
-                        </iframe>
-                    </div>
-                    <div class="col-md-4">
-                        <iframe width="100%" height="250" src="https://www.youtube.com/embed/WrqGQa7O9Pw"
-                         title="DIOS MULTIPLICÓ SUS FINANZAS"
-                         frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
-                        </iframe>
-                    </div>
-                    <div class="col-md-4">
-                        <iframe width="100%" height="250" src="https://www.youtube.com/embed/WrqGQa7O9Pw"
-                         title="DIOS MULTIPLICÓ SUS FINANZAS"
-                         frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
-                        </iframe>
-                    </div>
-                    <div class="col-md-4">
-                        <iframe width="100%" height="250" src="https://www.youtube.com/embed/WrqGQa7O9Pw"
-                         title="DIOS MULTIPLICÓ SUS FINANZAS"
-                         frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
-                        </iframe>
-                    </div>
-                    <div class="col-md-4">
-                        <iframe width="100%" height="250" src="https://www.youtube.com/embed/WrqGQa7O9Pw"
-                         title="DIOS MULTIPLICÓ SUS FINANZAS"
-                         frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
-                        </iframe>
-                    </div>
+                    @foreach ($testimonios as $key => $testimonio)
+                        <div class="col-md-6">
+                            {!! $testimonio->item->items[0]->content !!}
+                        </div>
+                    @endforeach
                 </div>
                 <br>
                 <div class="row">
