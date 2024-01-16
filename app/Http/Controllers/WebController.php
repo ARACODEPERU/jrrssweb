@@ -324,9 +324,42 @@ class WebController extends Controller
         )
         ->orderBy('cms_section_items.position')
         ->first();
+        
+        $presentacion = CmsSection::where('component_id', 'rmnt_presentacion_30')  //siempre cambiar el id del componente
+        ->join('cms_section_items', 'section_id', 'cms_sections.id')
+        ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+        ->select(
+            'cms_items.content',
+            'cms_section_items.position'
+        )
+        ->orderBy('cms_section_items.position')
+        ->get();
+
+        
+        $galeryRmnt = CmsSectionItem::with('item.items')->where('section_id', 31)
+        ->orderBy('position')
+        ->get();
+        
+        $textBiblie = CmsSection::where('component_id', 'rmnt_texto_biblico_32')  //siempre cambiar el id del componente
+        ->join('cms_section_items', 'section_id', 'cms_sections.id')
+        ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+        ->select(
+            'cms_items.content',
+            'cms_section_items.position'
+        )
+        ->orderBy('cms_section_items.position')
+        ->get();
+        
+        $videoteca = CmsSectionItem::with('item.items')->where('section_id', 33)
+        ->orderBy('position')
+        ->get();
 
         return view('jrrss/rmnt', [
             'banner' => $banner,
+            'presentacion' => $presentacion,
+            'galeryRmnt' => $galeryRmnt,
+            'textBiblie' => $textBiblie,
+            'videoteca' => $videoteca
         ]);
     }
 
@@ -339,11 +372,45 @@ class WebController extends Controller
             'cms_items.content',
             'cms_section_items.position'
         )
+        
         ->orderBy('cms_section_items.position')
         ->first();
+        
+        $presentacion = CmsSection::where('component_id', 'kids_presentacion_34')  //siempre cambiar el id del componente
+        ->join('cms_section_items', 'section_id', 'cms_sections.id')
+        ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+        ->select(
+            'cms_items.content',
+            'cms_section_items.position'
+        )
+        ->orderBy('cms_section_items.position')
+        ->get();
+
+        
+        $galeryKids = CmsSectionItem::with('item.items')->where('section_id', 35)
+        ->orderBy('position')
+        ->get();
+        
+        $textBiblie = CmsSection::where('component_id', 'kids_texto_biblico_36')  //siempre cambiar el id del componente
+        ->join('cms_section_items', 'section_id', 'cms_sections.id')
+        ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+        ->select(
+            'cms_items.content',
+            'cms_section_items.position'
+        )
+        ->orderBy('cms_section_items.position')
+        ->get();
+        
+        $videoteca = CmsSectionItem::with('item.items')->where('section_id', 37)
+        ->orderBy('position')
+        ->get();
 
         return view('jrrss/kids', [
             'banner' => $banner,
+            'presentacion' => $presentacion,
+            'galeryKids' => $galeryKids,
+            'textBiblie' => $textBiblie,
+            'videoteca' => $videoteca
         ]);
     }
 
