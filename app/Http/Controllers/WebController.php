@@ -162,8 +162,14 @@ class WebController extends Controller
         ->orderBy('cms_section_items.position')
         ->first();
 
+        $sedes = CmsSectionItem::with('item.items')->where('section_id', 24)  //cambiar el id de la seccion ->sedes ubicacion 24
+        ->orderBy('position')
+        ->get();
+
+
         return view('jrrss/sedes', [
             'banner' => $banner,
+            'sedes' => $sedes,
         ]);
     }
 
@@ -179,8 +185,13 @@ class WebController extends Controller
         ->orderBy('cms_section_items.position')
         ->first();
 
+        $coberturas = CmsSectionItem::with('item.items')->where('section_id', 25)  //cambiar el id de la seccioc
+        ->orderBy('position')
+        ->get();
+
         return view('jrrss/cobertura', [
             'banner' => $banner,
+            'coberturas' => $coberturas,
         ]);
     }
 
@@ -359,8 +370,13 @@ class WebController extends Controller
         ->orderBy('cms_section_items.position')
         ->first();
 
-        return view('jrrss/testimonios', [
+        $testimonios = CmsSectionItem::with('item.items')->where('section_id', 38)  //cambiar el id de la seccion
+        ->orderBy('position')
+        ->get();
+
+            return view('jrrss/testimonios', [
             'banner' => $banner,
+            'testimonios' => $testimonios,
         ]);
     }
 
