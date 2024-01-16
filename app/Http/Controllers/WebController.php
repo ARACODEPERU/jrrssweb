@@ -421,16 +421,7 @@ class WebController extends Controller
     public function kids()
     {
         $banner = CmsSection::where('component_id', 'banner_kids_11')  //siempre cambiar el id del componente
-<<<<<<< HEAD
-            ->join('cms_section_items', 'section_id', 'cms_sections.id')
-            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
-            ->select(
-                'cms_items.content',
-                'cms_section_items.position'
-            )
-            ->orderBy('cms_section_items.position')
-            ->first();
-=======
+
         ->join('cms_section_items', 'section_id', 'cms_sections.id')
         ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
         ->select(
@@ -469,7 +460,6 @@ class WebController extends Controller
         $videoteca = CmsSectionItem::with('item.items')->where('section_id', 37)
         ->orderBy('position')
         ->get();
->>>>>>> 2efaeac038fb424e2029481af3bb456f44c15e3c
 
         return view('jrrss/kids', [
             'banner' => $banner,
