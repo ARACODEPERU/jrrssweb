@@ -163,8 +163,14 @@ class WebController extends Controller
             ->orderBy('cms_section_items.position')
             ->first();
 
+        $sedes = CmsSectionItem::with('item.items')->where('section_id', 24)  //cambiar el id de la seccion ->sedes ubicacion 24
+        ->orderBy('position')
+        ->get();
+
+
         return view('jrrss/sedes', [
             'banner' => $banner,
+            'sedes' => $sedes,
         ]);
     }
 
@@ -180,8 +186,13 @@ class WebController extends Controller
             ->orderBy('cms_section_items.position')
             ->first();
 
+        $coberturas = CmsSectionItem::with('item.items')->where('section_id', 25)  //cambiar el id de la seccioc
+        ->orderBy('position')
+        ->get();
+
         return view('jrrss/cobertura', [
             'banner' => $banner,
+            'coberturas' => $coberturas,
         ]);
     }
 
@@ -359,6 +370,7 @@ class WebController extends Controller
     public function rmnt()
     {
         $banner = CmsSection::where('component_id', 'banner_rmnt_10')  //siempre cambiar el id del componente
+<<<<<<< HEAD
             ->join('cms_section_items', 'section_id', 'cms_sections.id')
             ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
             ->select(
@@ -367,15 +379,59 @@ class WebController extends Controller
             )
             ->orderBy('cms_section_items.position')
             ->first();
+=======
+        ->join('cms_section_items', 'section_id', 'cms_sections.id')
+        ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+        ->select(
+            'cms_items.content',
+            'cms_section_items.position'
+        )
+        ->orderBy('cms_section_items.position')
+        ->first();
+        
+        $presentacion = CmsSection::where('component_id', 'rmnt_presentacion_30')  //siempre cambiar el id del componente
+        ->join('cms_section_items', 'section_id', 'cms_sections.id')
+        ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+        ->select(
+            'cms_items.content',
+            'cms_section_items.position'
+        )
+        ->orderBy('cms_section_items.position')
+        ->get();
+
+        
+        $galeryRmnt = CmsSectionItem::with('item.items')->where('section_id', 31)
+        ->orderBy('position')
+        ->get();
+        
+        $textBiblie = CmsSection::where('component_id', 'rmnt_texto_biblico_32')  //siempre cambiar el id del componente
+        ->join('cms_section_items', 'section_id', 'cms_sections.id')
+        ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+        ->select(
+            'cms_items.content',
+            'cms_section_items.position'
+        )
+        ->orderBy('cms_section_items.position')
+        ->get();
+        
+        $videoteca = CmsSectionItem::with('item.items')->where('section_id', 33)
+        ->orderBy('position')
+        ->get();
+>>>>>>> 2efaeac038fb424e2029481af3bb456f44c15e3c
 
         return view('jrrss/rmnt', [
             'banner' => $banner,
+            'presentacion' => $presentacion,
+            'galeryRmnt' => $galeryRmnt,
+            'textBiblie' => $textBiblie,
+            'videoteca' => $videoteca
         ]);
     }
 
     public function kids()
     {
         $banner = CmsSection::where('component_id', 'banner_kids_11')  //siempre cambiar el id del componente
+<<<<<<< HEAD
             ->join('cms_section_items', 'section_id', 'cms_sections.id')
             ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
             ->select(
@@ -384,9 +440,53 @@ class WebController extends Controller
             )
             ->orderBy('cms_section_items.position')
             ->first();
+=======
+        ->join('cms_section_items', 'section_id', 'cms_sections.id')
+        ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+        ->select(
+            'cms_items.content',
+            'cms_section_items.position'
+        )
+        
+        ->orderBy('cms_section_items.position')
+        ->first();
+        
+        $presentacion = CmsSection::where('component_id', 'kids_presentacion_34')  //siempre cambiar el id del componente
+        ->join('cms_section_items', 'section_id', 'cms_sections.id')
+        ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+        ->select(
+            'cms_items.content',
+            'cms_section_items.position'
+        )
+        ->orderBy('cms_section_items.position')
+        ->get();
+
+        
+        $galeryKids = CmsSectionItem::with('item.items')->where('section_id', 35)
+        ->orderBy('position')
+        ->get();
+        
+        $textBiblie = CmsSection::where('component_id', 'kids_texto_biblico_36')  //siempre cambiar el id del componente
+        ->join('cms_section_items', 'section_id', 'cms_sections.id')
+        ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+        ->select(
+            'cms_items.content',
+            'cms_section_items.position'
+        )
+        ->orderBy('cms_section_items.position')
+        ->get();
+        
+        $videoteca = CmsSectionItem::with('item.items')->where('section_id', 37)
+        ->orderBy('position')
+        ->get();
+>>>>>>> 2efaeac038fb424e2029481af3bb456f44c15e3c
 
         return view('jrrss/kids', [
             'banner' => $banner,
+            'presentacion' => $presentacion,
+            'galeryKids' => $galeryKids,
+            'textBiblie' => $textBiblie,
+            'videoteca' => $videoteca
         ]);
     }
 
@@ -402,8 +502,13 @@ class WebController extends Controller
             ->orderBy('cms_section_items.position')
             ->first();
 
-        return view('jrrss/testimonios', [
+        $testimonios = CmsSectionItem::with('item.items')->where('section_id', 38)  //cambiar el id de la seccion
+        ->orderBy('position')
+        ->get();
+
+            return view('jrrss/testimonios', [
             'banner' => $banner,
+            'testimonios' => $testimonios,
         ]);
     }
 

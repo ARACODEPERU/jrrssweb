@@ -31,194 +31,52 @@
 
             <div class="container pt-4">
                 <div class="row">
-                    <div class="col-md-6" style="padding: 40px;">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h3>Iglesia Portadores De Su Gloria </h3>
-                            </div>
-                            <div class="col-md-12 ara_centrado_total" style="margin-top: -15px;">
-                                <img style="width: 100%;" src="{{ asset('themes/jrrss/assets/img/cobertura/arequipa.jpg') }}" alt="">
-                            </div>
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <br>
-                                        <p>
-                                            ¡Usted está llamado a formar a sus hijos
-                                            en el camino que deben seguir y ese
-                                            camino es JESÚS! Tal vez no sabe por
-                                            dónde comenzar, ¡pero estamos aquí
-                                            para ayudarle!
-                                        </p>
-                                        <p>
-                                            <b>Dirección:</b> Av. Gral. Salaverry 2599, San Isidro 15076
-                                            <br>
-                                            <b>Teléfono:</b> (+51) 977627207
-                                            <br>
-                                            <b>Correo Electrónico:</b> (+51) 977627207
-                                            <br>
-                                            <b>Horario de Reunión:</b> Domingos 09:00 pm
-                                        </p>
-                                    </div>
+                    @foreach ($coberturas as $key => $cobertura)
+                        <div class="col-md-6" style="padding: 40px;">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h3>{{ $cobertura->item->items[2]->content }}</h3>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <img style="width: 100%;
-                                                    border-radius: 50%; /* Hace que los bordes sean redondos */
-                                                    overflow: hidden; /* Asegura que la imagen se ajuste al radio especificado */
-                                                    border: 2px solid #000; /* Cambia el color del borde según tus preferencias */"
-                                                    src="{{ asset('themes/jrrss/assets/img/sedes/ps-arequipa.jpg') }}"
-                                            alt="img">
-                                    </div>
-                                    <div class="col-md-10">
-                                        <h4 style="margin-top: 10px;">Nombre del Pastor</h4>
-                                        <div style="margin-top: -20px;" class="ps-funcion">Pastores Responsables</div>
-                                    </div>
+                                <div class="col-md-12 ara_centrado_total" style="margin-top: -15px;">
+                                    <img style="width: 100%;" src="{{ $cobertura->item->items[0]->content }}" alt="">
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6" style="padding: 40px;">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h3>Iglesia Portadores De Su Gloria </h3>
-                            </div>
-                            <div class="col-md-12 ara_centrado_total" style="margin-top: -15px;">
-                                <img style="width: 100%;" src="{{ asset('themes/jrrss/assets/img/cobertura/arequipa.jpg') }}" alt="">
-                            </div>
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <br>
-                                        <p>
-                                            ¡Usted está llamado a formar a sus hijos
-                                            en el camino que deben seguir y ese
-                                            camino es JESÚS! Tal vez no sabe por
-                                            dónde comenzar, ¡pero estamos aquí
-                                            para ayudarle!
-                                        </p>
-                                        <p>
-                                            <b>Dirección:</b> Av. Gral. Salaverry 2599, San Isidro 15076
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-12">
                                             <br>
-                                            <b>Teléfono:</b> (+51) 977627207
-                                            <br>
-                                            <b>Correo Electrónico:</b> (+51) 977627207
-                                            <br>
-                                            <b>Horario de Reunión:</b> Domingos 09:00 pm
-                                        </p>
+                                            <p>
+                                                {{ $cobertura->item->items[3]->content }}
+                                            </p>
+                                            <p>
+                                                <b>Dirección:</b> {{ $cobertura->item->items[4]->content }}
+                                                <br>
+                                                <b>Teléfono:</b> {{ $cobertura->item->items[5]->content }}
+                                                <br>
+                                                <b>Correo Electrónico:</b> {{ $cobertura->item->items[6]->content }}
+                                                <br>
+                                                <b>Horario de Reunión:</b> {{ $cobertura->item->items[7]->content }}
+                                            </p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <img style="width: 100%;
-                                                    border-radius: 50%; /* Hace que los bordes sean redondos */
-                                                    overflow: hidden; /* Asegura que la imagen se ajuste al radio especificado */
-                                                    border: 2px solid #000; /* Cambia el color del borde según tus preferencias */"
-                                                    src="{{ asset('themes/jrrss/assets/img/sedes/ps-arequipa.jpg') }}"
-                                            alt="img">
-                                    </div>
-                                    <div class="col-md-10">
-                                        <h4 style="margin-top: 10px;">Nombre del Pastor</h4>
-                                        <div style="margin-top: -20px;" class="ps-funcion">Pastores Responsables</div>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <img style="width: 100%;
+                                                        border-radius: 50%; /* Hace que los bordes sean redondos */
+                                                        overflow: hidden; /* Asegura que la imagen se ajuste al radio especificado */
+                                                        border: 2px solid #000; /* Cambia el color del borde según tus preferencias */"
+                                                        src="{{ $cobertura->item->items[1]->content }}"
+                                                alt="img">
+                                        </div>
+                                        <div class="col-md-10">
+                                            <h4 style="margin-top: 10px;">{{ $cobertura->item->items[9]->content }}</h4>
+                                            <div style="margin-top: -20px;" class="ps-funcion">{{ $cobertura->item->items[9]->content }}</div>
+                                        </div>
+                                        <div>{!! $cobertura->item->items[11]->content !!}</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-6" style="padding: 40px;">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h3>Iglesia Portadores De Su Gloria </h3>
-                            </div>
-                            <div class="col-md-12 ara_centrado_total" style="margin-top: -15px;">
-                                <img style="width: 100%;" src="{{ asset('themes/jrrss/assets/img/cobertura/arequipa.jpg') }}" alt="">
-                            </div>
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <br>
-                                        <p>
-                                            ¡Usted está llamado a formar a sus hijos
-                                            en el camino que deben seguir y ese
-                                            camino es JESÚS! Tal vez no sabe por
-                                            dónde comenzar, ¡pero estamos aquí
-                                            para ayudarle!
-                                        </p>
-                                        <p>
-                                            <b>Dirección:</b> Av. Gral. Salaverry 2599, San Isidro 15076
-                                            <br>
-                                            <b>Teléfono:</b> (+51) 977627207
-                                            <br>
-                                            <b>Correo Electrónico:</b> (+51) 977627207
-                                            <br>
-                                            <b>Horario de Reunión:</b> Domingos 09:00 pm
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <img style="width: 100%;
-                                                    border-radius: 50%; /* Hace que los bordes sean redondos */
-                                                    overflow: hidden; /* Asegura que la imagen se ajuste al radio especificado */
-                                                    border: 2px solid #000; /* Cambia el color del borde según tus preferencias */"
-                                                    src="{{ asset('themes/jrrss/assets/img/sedes/ps-arequipa.jpg') }}"
-                                            alt="img">
-                                    </div>
-                                    <div class="col-md-10">
-                                        <h4 style="margin-top: 10px;">Nombre del Pastor</h4>
-                                        <div style="margin-top: -20px;" class="ps-funcion">Pastores Responsables</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6" style="padding: 40px;">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h3>Iglesia Portadores De Su Gloria </h3>
-                            </div>
-                            <div class="col-md-12 ara_centrado_total" style="margin-top: -15px;">
-                                <img style="width: 100%;" src="{{ asset('themes/jrrss/assets/img/cobertura/arequipa.jpg') }}" alt="">
-                            </div>
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <br>
-                                        <p>
-                                            ¡Usted está llamado a formar a sus hijos
-                                            en el camino que deben seguir y ese
-                                            camino es JESÚS! Tal vez no sabe por
-                                            dónde comenzar, ¡pero estamos aquí
-                                            para ayudarle!
-                                        </p>
-                                        <p>
-                                            <b>Dirección:</b> Av. Gral. Salaverry 2599, San Isidro 15076
-                                            <br>
-                                            <b>Teléfono:</b> (+51) 977627207
-                                            <br>
-                                            <b>Correo Electrónico:</b> (+51) 977627207
-                                            <br>
-                                            <b>Horario de Reunión:</b> Domingos 09:00 pm
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <img style="width: 100%;
-                                                    border-radius: 50%; /* Hace que los bordes sean redondos */
-                                                    overflow: hidden; /* Asegura que la imagen se ajuste al radio especificado */
-                                                    border: 2px solid #000; /* Cambia el color del borde según tus preferencias */"
-                                                    src="{{ asset('themes/jrrss/assets/img/sedes/ps-arequipa.jpg') }}"
-                                            alt="img">
-                                    </div>
-                                    <div class="col-md-10">
-                                        <h4 style="margin-top: 10px;">Nombre del Pastor</h4>
-                                        <div style="margin-top: -20px;" class="ps-funcion">Pastores Responsables</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
 
