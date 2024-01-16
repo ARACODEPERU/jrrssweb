@@ -117,7 +117,9 @@ class CmsSectionItemController extends Controller
 
         $groups = CmsSectionItem::with(['group' => function ($query) {
             $query->where('type_id', 5); // Ordena por el campo 'position' de la tabla 'cms_section_items'
-        }, 'group.items'])->where('section_id', $id)->get();
+        }, 'group.items'])
+            ->where('section_id', $id)
+            ->get();
 
         //$groups = CmsSectionItem::with('group.items')->where('section_id', $id)->get();
         // return response()->json([
