@@ -7,23 +7,23 @@
                 <div class="col-lg-7 mb-5 mb-lg-0">
                     <img src="{{ asset('themes/jrrss/assets/img/logo_blanco.png') }}" alt="">
                     <br><br>
-                    <p class="pe-1">{{ $footer[0]->content }}</p>
+                    <p class="pe-1" style="font-size: 16px;">{{ $footer[0]->content }}</p>
                     <div class="row mt-3 mt-lg-5">
                         <div class="col-md-6 mb-4 mb-md-0">
                             <h4 class="mb-2">Llamanos</h4>
                             <p class="mb-0 font-weight-semibold">TELÉFONO</p>
-                            <a href="tel:+8001234567" class="text-color-primary text-5 p-relative bottom-3" target="_blank" title="Llamanos">{{ $footer[1]->content }}</a>
+                            <a href="tel:+8001234567" class="text-color-primary text-5 p-relative bottom-3" target="_blank" title="Llamanos" style="font-size: 16px;">{{ $footer[1]->content }}</a>
                         </div>
                         <div class="col-md-6">
                             <h4 class="mb-2">Sede Principal</h4>
-                            <p><a href="">{{ $footer[3]->content }}</a></p>
+                            <p><a href="" style="font-size: 16px;">{{ $footer[3]->content }}</a></p>
                         </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col-md-6 mb-4 mb-md-0">
                             <h4 class="mb-2">Escribenos</h4>
                             <p class="mb-0 font-weight-semibold">EMAIL</p>
-                            <a href="mail:porto@domain.com" class="text-color-primary text-5 p-relative bottom-3" target="_blank" title="Escribenos">{{ $footer[2]->content }}</a>
+                            <a href="mail:porto@domain.com" class="text-color-primary text-5 p-relative bottom-3" target="_blank" title="Escribenos" style="font-size: 16px;">{{ $footer[2]->content }}</a>
                         </div>
                         <div class="col-md-6">
                             <h4 class="mb-2">Redes Sociales</h4>
@@ -35,8 +35,10 @@
                             </ul>
                         </div>
                     </div>
-                    <p class="pe-1">{{ $footer[8]->content }}</p>
+                    <br>
+                    <p class="pe-1" style="font-size: 16px;">{{ $footer[8]->content }}</p>
                 </div>
+                <!--
                 <div class="col-lg-5">
                     <h2 class="text-6 font-weight-bold mb-1">Envianos un mensaje</h2>
                     <p class="pe-1">Envía un mensaje para comunicarte con nosotros, deja tu información si deseas que nos comuniquemos contigo.</p>
@@ -69,6 +71,7 @@
                         </div>
                     </form>
                 </div>
+                -->
             </div>
         </div>
         <div class="footer-copyright footer-copyright-style-2 footer-top-light-border">
