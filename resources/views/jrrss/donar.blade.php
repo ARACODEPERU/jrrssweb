@@ -110,7 +110,15 @@
                                     </div>
                                     <div class="row">
                                         <div class="form-group col">
-                                            Nuevo Sol <input type="number" placeholder="Monto a donar" value=""
+                                            <select name="currency" id="currency" class="form-control bg-color-tertiary">
+                                                <option value="soles" selected>Soles</option>
+                                                <option value="dolares">Dolares</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col">
+                                            <input type="number" placeholder="Monto a donar" value=""
                                                 data-msg-required="Por favor ingresa el monto que deseas donar."
                                                 maxlength="125" class="form-control bg-color-tertiary" name="amount"
                                                 id="amount" required>
@@ -130,19 +138,15 @@
                                     </div>
                                     <div class="row">
                                         <div class="form-group col">
-                                            <button submit data-loading-text="Loading..." id="submitPageContactButton"
-                                                class="btn  btn-primary rounded-0 py-3 px-5 font-weight-semibold">Donar
-                                                con Paypal</button>
-
-                                        </div>
-                                        <!--
-                                        <div class="form-group col">
-                                            <button data-loading-text="Loading..." id="submitPageContactButton"
+                                            <button data-loading-text="Loading..." id="submitMercadoPago"
                                                 class="btn btn-outline btn-primary rounded-0 py-3 px-5 font-weight-semibold">Donar
                                                 con Mercado Pago</button>
-
                                         </div>
-                                        -->
+                                        <div class="form-group col">
+                                            <button data-loading-text="Loading..." id="submitPaypal"
+                                                class="btn btn-outline btn-primary rounded-0 py-3 px-5 font-weight-semibold" style="display: none">Donar
+                                                con Paypal</button>
+                                        </div>
                                     </div>
                                 </form>
                             </div>
@@ -151,7 +155,28 @@
                 </div>
             </div>
 
+<script>
+// Ejecutar código cuando se haya cargado completamente la página
+window.addEventListener('load', function() {
+        // Obtener elementos del DOM
+const currencySelect = document.getElementById('currency');
+const mercadoPagoButton = document.getElementById('submitMercadoPago');
+const paypalButton = document.getElementById('submitPaypal');
+  // Escuchar cambios en la selección de moneda
+  currencySelect.addEventListener('change', function() {
+    const selectedCurrency = currencySelect.value;
 
+    // Mostrar u ocultar botones según la moneda seleccionada
+    if (selectedCurrency == 'soles') {
+      mercadoPagoButton.style.display = 'block';
+      paypalButton.style.display = 'none';
+    } else if (selectedCurrency == 'dolares') {
+      mercadoPagoButton.style.display = 'none';
+      paypalButton.style.display = 'block';
+    }
+  });
+});
+</script>
 
 
 

@@ -10,14 +10,17 @@ class PaypalController extends Controller
 {
     public function payment(Request $request)
     {
-        // //dd($request->amount);
+        if($request->currency == "soles"){
+            //código de Mercado Pago MercadoPago
+            dd("Implementar MercadoPago");
+        }else{
         $amount = $request->amount;
         $donation_destinity_id = $request->donation_destinity_id;
         $full_name = $request->full_name;
         $provider = new PayPalClient;
         $provider = \PayPal::setProvider();
         $currency = env('PAYPAL_CURRENCY');
-        //$provider->setCurrency('PEN'); //si desea pagar en soles debe habilitarse esto en un if
+        //$provider->setCurrency('PEN'); //si desea pagar en soles debe habilitarse esto en un if PEN no soporta PAYPAL
 
         // Desde Aquí se debe registrar y poner en pendiente en la tabla de donations_logs
         $donation = new DonationLog();  // creamos y dejamos en PE pendiente hasta que se confirme el pago
@@ -64,7 +67,7 @@ class PaypalController extends Controller
         }
 
 
-
+        }
 
     }
 
