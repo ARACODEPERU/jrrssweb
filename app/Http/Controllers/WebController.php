@@ -370,7 +370,6 @@ class WebController extends Controller
     public function rmnt()
     {
         $banner = CmsSection::where('component_id', 'banner_rmnt_10')  //siempre cambiar el id del componente
-
             ->join('cms_section_items', 'section_id', 'cms_sections.id')
             ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
             ->select(
@@ -379,6 +378,17 @@ class WebController extends Controller
             )
             ->orderBy('cms_section_items.position')
             ->first();
+
+        $presentacion = CmsSection::where('component_id', 'rmnt_presentacion_30')  //siempre cambiar el id del componente
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+            ->orderBy('cms_section_items.position')
+            ->get();
+
 
         $presentacion = CmsSection::where('component_id', 'rmnt_presentacion_30')  //siempre cambiar el id del componente
             ->join('cms_section_items', 'section_id', 'cms_sections.id')
@@ -406,9 +416,9 @@ class WebController extends Controller
             ->get();
 
         $videoteca = CmsSectionItem::with('item.items')->where('section_id', 33)
+
             ->orderBy('position')
             ->get();
-
 
         return view('jrrss/rmnt', [
             'banner' => $banner,
@@ -459,8 +469,10 @@ class WebController extends Controller
             ->get();
 
         $videoteca = CmsSectionItem::with('item.items')->where('section_id', 37)
+
             ->orderBy('position')
             ->get();
+
 
         return view('jrrss/kids', [
             'banner' => $banner,

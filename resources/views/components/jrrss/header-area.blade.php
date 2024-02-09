@@ -105,6 +105,12 @@
     <header id="header"
         data-plugin-options="{'stickyEnabled': true, 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': false, 'stickyStartAt': 164, 'stickySetTop': '-164px', 'stickyChangeLogo': false}">
         <div class="header-body border-0">
+            <div class="ara_centrado_total">
+                <img style="max-width: 100%;
+                height: auto;"
+                    src="{{ $header[4]->content }}" alt="">
+            </div>
+            <!--
             <div class="header-top header-top-default border-bottom-0 bg-color-dark">
                 <div class="container">
                     <div class="header-row py-2">
@@ -162,11 +168,7 @@
                     </div>
                 </div>
             </div>
-            <div class="ara_centrado_total">
-                <img style="max-width: 100%;
-                height: auto;"
-                    src="{{ $header[4]->content }}" alt="">
-            </div>
+            -->
             <div class="header-nav-bar header-nav-bar-top-border bg-light">
                 <div class="header-container ">
                     <div class="header-row">
@@ -251,6 +253,11 @@
                                                             <i class="fa fa-heart" aria-hidden="true"></i>&nbsp; DONAR
                                                         </a>
                                                     </li>
+                                                    @if($transmissions)
+                                                    <li style="padding: 0px 10px; margin-top:8px;">
+                                                        <button type="button" class="btn btn-outline-danger"  data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="fa fa-rss" aria-hidden="true"></i> EN VIVO</button>
+                                                    </li>
+                                                    @endif
                                                 </ul>
                                             </nav>
                                         </div>
