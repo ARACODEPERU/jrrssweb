@@ -85,6 +85,17 @@
                                     {!! $event->advertising_video !!}
                                 </div>
                             </div>
+                            <br>
+                            <div class="row">
+                                <div class="form-group col">
+                                    <a href="{{ route('web_comprar_entrada') }}"
+                                        class="btn btn-outline btn-primary rounded-0 py-3 px-5 font-weight-semibold"
+                                        style="font-size: 14px;">
+                                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;&nbsp; Adquirir entrada
+                                    </a>
+                                </div>
+                            </div>
+                            <!--
                             <div class="custom-card-style-2 card-contact-us mb-5">
                                 <div class="m-4">
                                     <div class="row flex-column px-5 pt-3 pb-4">
@@ -195,6 +206,7 @@
                                     </div>
                                 </div>
                             </div>
+                            -->
                         </div>
                     </div>
                 </div>

@@ -275,6 +275,14 @@ class WebController extends Controller
         ]);
     }
 
+    
+
+    public function entrada()
+    {
+
+        return view('jrrss/comprar-entrada');
+    }
+
     public function gracias(Request $request, $id)
     {
         $ticket = EvenEventTicketClient::where('id', $id)

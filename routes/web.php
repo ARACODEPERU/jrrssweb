@@ -33,6 +33,7 @@ Route::get('/sedes', [WebController::class, 'sedes'])->name('web_sedes');
 Route::get('/cobertura', [WebController::class, 'cobertura'])->name('web_cobertura');
 Route::get('/eventos', [WebController::class, 'eventos'])->name('web_eventos');
 Route::get('/eventos-pagar/{id}/evento', [WebController::class, 'eventospagar'])->name('web_eventos_pagar');
+Route::get('/comprar-entrada', [WebController::class, 'entrada'])->name('web_comprar_entrada');
 Route::get('/escuela', [WebController::class, 'escuelasobrenatura'])->name('web_escuela_sobrenatural');
 Route::get('/ecelt', [WebController::class, 'ecelt'])->name('web_ecelt');
 Route::get('/rmnt', [WebController::class, 'rmnt'])->name('web_rmnt');
