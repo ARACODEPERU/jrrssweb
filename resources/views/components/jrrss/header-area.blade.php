@@ -69,46 +69,46 @@
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-          const sswitch = document.querySelector(".switch");
+            const sswitch = document.querySelector(".switch");
+            if (sswitch) {
+                if (localStorage.getItem('darkMode') === 'true') {
+                    sswitch.classList.add("active");
+                    document.body.classList.add("dark");
+                    const a_tags = document.querySelectorAll(".dropdown-item");
+                    a_tags.forEach((a_tag) => {
+                        a_tag.classList.add("dark");
+                    });
+                }
 
-          if (localStorage.getItem('darkMode') === 'true') {
-            sswitch.classList.add("active");
-            document.body.classList.add("dark");
-            const a_tags = document.querySelectorAll(".dropdown-item");
-            a_tags.forEach((a_tag) => {
-              a_tag.classList.add("dark");
-            });
-          }
-
-          sswitch.addEventListener("click", e => {
-            darkMode(sswitch);
-          });
-
-          function darkMode(sswitch) {
-            let darkMode = localStorage.getItem('darkMode');
-
-            if (darkMode === 'true') {
-              localStorage.setItem('darkMode', 'false');
-            } else {
-              localStorage.setItem('darkMode', 'true');
+                sswitch.addEventListener("click", e => {
+                    darkMode(sswitch);
+                });
             }
 
-            sswitch.classList.toggle("active");
-            document.body.classList.toggle("dark");
-            const a_tags = document.querySelectorAll(".dropdown-item");
-            a_tags.forEach((a_tag) => {
-              a_tag.classList.toggle("dark");
-            });
-          }
+            function darkMode(sswitch) {
+                let darkMode = localStorage.getItem('darkMode');
+
+                if (darkMode === 'true') {
+                    localStorage.setItem('darkMode', 'false');
+                } else {
+                    localStorage.setItem('darkMode', 'true');
+                }
+
+                sswitch.classList.toggle("active");
+                document.body.classList.toggle("dark");
+                const a_tags = document.querySelectorAll(".dropdown-item");
+                a_tags.forEach((a_tag) => {
+                    a_tag.classList.toggle("dark");
+                });
+            }
         });
-      </script>
+    </script>
     <header id="header"
         data-plugin-options="{'stickyEnabled': true, 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': false, 'stickyStartAt': 164, 'stickySetTop': '-164px', 'stickyChangeLogo': false}">
         <div class="header-body border-0">
             <div class="ara_centrado_total">
                 <img style="max-width: 100%;
-                height: auto;"
-                    src="{{ $header[4]->content }}" alt="">
+                height: auto;" src="{{ $header[4]->content }}" alt="">
             </div>
             <!--
             <div class="header-top header-top-default border-bottom-0 bg-color-dark">
@@ -118,11 +118,11 @@
                             <div class="header-row">
                                 <nav class="header-nav-top">
                                     <ul class="nav nav-pills text-uppercase text-2">
-                                        @if($transmissions)
-                                        <li style="padding: 0px 10px;">
+                                        @if ($transmissions)
+<li style="padding: 0px 10px;">
                                             <button type="button" class="btn btn-outline-danger"  data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="fa fa-rss" aria-hidden="true"></i> EN VIVO</button>
                                         </li>
-                                        @endif
+@endif
                                         <li class="nav-item nav-item-anim-icon" style="padding: 0px 10px;">
                                             <a class="nav-link pe-0 text-light opacity-7" href=""><i
                                                     class="fas fa-university"></i> CAMPUS VIRTUAL</a>
@@ -253,10 +253,13 @@
                                                             <i class="fa fa-heart" aria-hidden="true"></i>&nbsp; DONAR
                                                         </a>
                                                     </li>
-                                                    @if($transmissions)
-                                                    <li style="padding: 0px 10px; margin-top:8px;">
-                                                        <button type="button" class="btn btn-outline-danger"  data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="fa fa-rss" aria-hidden="true"></i> EN VIVO</button>
-                                                    </li>
+                                                    @if ($transmissions)
+                                                        <li style="padding: 0px 10px; margin-top:8px;">
+                                                            <button type="button" class="btn btn-outline-danger"
+                                                                data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                                <i class="fa fa-rss" aria-hidden="true"></i> EN
+                                                                VIVO</button>
+                                                        </li>
                                                     @endif
                                                 </ul>
                                             </nav>
@@ -275,23 +278,25 @@
         </div>
     </header>
     <!-- Modal -->
-    @if($transmissions)
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">{{ $transmissions->title }}</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" style="text-align: center;">
-                    {!! $transmissions->iframe_transmission !!}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+    @if ($transmissions)
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">{{ $transmissions->title }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" style="text-align: center;">
+                        {!! $transmissions->iframe_transmission !!}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     @endif
     <!-- Modal -->
     <div class="modal fade" id="reuniones" tabindex="-1" aria-labelledby="reunionesLabel" aria-hidden="true">
@@ -308,7 +313,10 @@
                     </p>
                     <div class="row">
                         <div class="col-md-12">
-                            <iframe src="https://www.gdoogle.com/maps/embed?pb=!1m18!1m12!1m3!1d3901.7585025642!2d-77.13881422513082!3d-12.060130142149312!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105cb908f14800b%3A0x9d3dece06a24733!2sAv%20Saenz%20Pe%C3%B1a%20870%2C%20Callao%2007001!5e0!3m2!1ses-419!2spe!4v1703834596132!5m2!1ses-419!2spe" width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            <iframe
+                                src="https://www.gdoogle.com/maps/embed?pb=!1m18!1m12!1m3!1d3901.7585025642!2d-77.13881422513082!3d-12.060130142149312!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105cb908f14800b%3A0x9d3dece06a24733!2sAv%20Saenz%20Pe%C3%B1a%20870%2C%20Callao%2007001!5e0!3m2!1ses-419!2spe!4v1703834596132!5m2!1ses-419!2spe"
+                                width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
                     </div>
                 </div>
@@ -330,31 +338,45 @@
                 </div>
                 <div class="modal-body">
                     <div class="col-md-12 pb-5">
-                        <form class="contact-form custom-form-style-1" method="POST" action="{{ route('apisubscriber') }}" id="pageContactForm">
+                        <form class="contact-form custom-form-style-1" method="POST"
+                            action="{{ route('apisubscriber') }}" id="pageContactForm">
 
                             <div class="row">
                                 <div class="form-group col">
-                                    <input type="text" placeholder="Nombres" value="" data-msg-required="Por favor ingresa tus nombres completos." maxlength="125" class="form-control bg-color-tertiary" name="full_name" id="full_name" required>
+                                    <input type="text" placeholder="Nombres" value=""
+                                        data-msg-required="Por favor ingresa tus nombres completos." maxlength="125"
+                                        class="form-control bg-color-tertiary" name="full_name" id="full_name"
+                                        required>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col">
-                                    <input type="text" placeholder="Número de teléfono" value="" data-msg-required="Por favor ingresa tu número de teléfono." maxlength="100" class="form-control bg-color-tertiary"  name="phone" id="phone" required>
+                                    <input type="text" placeholder="Número de teléfono" value=""
+                                        data-msg-required="Por favor ingresa tu número de teléfono." maxlength="100"
+                                        class="form-control bg-color-tertiary" name="phone" id="phone"
+                                        required>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col">
-                                    <input type="email" placeholder="Dirección E-mail" value="" data-msg-required="Por favor ingresa tu correo electrónico." data-msg-email="Please enter a valid email address." maxlength="100" class="form-control bg-color-tertiary" name="email" id="email" required>
+                                    <input type="email" placeholder="Dirección E-mail" value=""
+                                        data-msg-required="Por favor ingresa tu correo electrónico."
+                                        data-msg-email="Please enter a valid email address." maxlength="100"
+                                        class="form-control bg-color-tertiary" name="email" id="email"
+                                        required>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col">
-                                    <textarea maxlength="5000" placeholder="Tu mensaje aqui..." data-msg-required="Por favor ingresa el mensaje." rows="5" class="form-control bg-color-tertiary" name="message" id="message" required></textarea>
+                                    <textarea maxlength="5000" placeholder="Tu mensaje aqui..." data-msg-required="Por favor ingresa el mensaje."
+                                        rows="5" class="form-control bg-color-tertiary" name="message" id="message" required></textarea>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col">
-                                    <button data-loading-text="Loading..." id="submitPageContactButton" class="btn btn-outline btn-primary rounded-0 py-3 px-5 font-weight-semibold" >Enviar Ahora</button>
+                                    <button data-loading-text="Loading..." id="submitPageContactButton"
+                                        class="btn btn-outline btn-primary rounded-0 py-3 px-5 font-weight-semibold">Enviar
+                                        Ahora</button>
 
                                 </div>
                             </div>

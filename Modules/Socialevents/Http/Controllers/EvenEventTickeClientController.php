@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Modules\Socialevents\Entities\EvenEventTicketClient;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
+use Modules\Socialevents\Entities\EvenEventTicketPrice;
 
 class EvenEventTickeClientController extends Controller
 {
@@ -48,6 +49,7 @@ class EvenEventTickeClientController extends Controller
             'event_id' => 'required',
             'tipo' => 'required',
             'full_name' => 'required',
+            'full_surnames' => 'required',
             'identification_number' => 'required',
             'phone' => 'required',
             'email' => 'required',
@@ -61,18 +63,23 @@ class EvenEventTickeClientController extends Controller
                 ->withInput();
         }
 
+        $price = EvenEventTicketPrice::where('id', $request->get('tipo'))->value('price');
+
         $pay = EvenEventTicketClient::create([
             'user_id' => Auth::id(),
             'event_id'  => $request->get('event_id'),
             'ticket_price_id' => $request->get('tipo'),
             'full_name' => $request->get('full_name'),
+            'full_surnames' => $request->get('full_surnames'),
             'identification_number' => $request->get('identification_number'),
             'phone' => $request->get('phone'),
             'email' => $request->get('email'),
             'ubigeo' => null,
             'name_city' => $request->get('lugar'),
             'status' => false,
-            'quantity' => $request->get('quantity')
+            'quantity' => $request->get('quantity') ?? 1,
+            'price' => $price,
+            'total' => (($request->get('quantity') ?? 1) * $price)
         ]);
 
 

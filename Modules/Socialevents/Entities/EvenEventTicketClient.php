@@ -19,13 +19,16 @@ class EvenEventTicketClient extends Model
         'event_id',
         'ticket_price_id',
         'full_name',
+        'full_surnames',
         'identification_number',
         'phone',
         'email',
         'ubigeo',
         'name_city',
         'quantity',
-        'status'
+        'status',
+        'price',
+        'total'
     ];
 
     protected static function newFactory(): EvenEventTickeClientFactory

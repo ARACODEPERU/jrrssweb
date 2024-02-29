@@ -28,8 +28,10 @@
                                             </h3>
                                             <p>Estimado(a) <b>{{ $ticket->full_name }}</b> estas a punto de adquirir
                                                 <b>{{ $ticket->quantity }}
-                                                    {{ $ticket->type->type_id }}
-                                                    S/.{{ $ticket->type->price }}</b>, dar clic en el siguiente botón para
+                                                    {{ $ticket->type->type_id }} por
+                                                    S/.{{ $ticket->type->price }}.</b> c/u , dando un total de
+                                                <b>S/.{{ $ticket->total }}.</b> dar clic en el siguiente botón
+                                                para
                                                 pagar. Gracias !
                                             </p>
                                         </div>
@@ -42,7 +44,7 @@
                                                         style="font-size: 14px;">
                                                         <i class="fa fa-cart-plus" aria-hidden="true"></i> Comprar Ahora
                                                     </button> --}}
-                                                    <div id="wallet_container"></div>
+                                                    <div id="cardPaymentBrick_container"></div>
                                                 </div>
                                             </div>
                                         </form>
@@ -65,13 +67,86 @@
     </div>
     @if ($preference_id)
         <script>
-            const mp = new MercadoPago("{{ env('MERCADOPAGO_KEY') }}");
-            mp.bricks().create("wallet", "wallet_container", {
-                initialization: {
-                    preferenceId: "{{ $preference_id }}",
-                    redirectMode: "modal",
-                },
+            const mp = new MercadoPago("{{ env('MERCADOPAGO_KEY') }}", {
+                locale: 'es-PE'
             });
+            const bricksBuilder = mp.bricks();
+            const renderCardPaymentBrick = async (bricksBuilder) => {
+                const settings = {
+                    initialization: {
+                        preferenceId: "{{ $preference_id }}",
+                        amount: {{ $ticket->total }},
+                        payer: {
+                            firstName: "{{ $ticket->full_name }}",
+                            lastName: "{{ $ticket->full_surnames }}",
+                            email: "{{ $ticket->email }}",
+                        },
+                    },
+                    customization: {
+                        visual: {
+                            style: {
+                                customVariables: {
+                                    theme: 'bootstrap',
+                                }
+                            }
+                        },
+                        paymentMethods: {
+                            maxInstallments: 1,
+                        }
+                    },
+                    callbacks: {
+                        onReady: () => {
+                            // callback llamado cuando Brick esté listo
+                        },
+                        onSubmit: (cardFormData) => {
+                            //  callback llamado cuando el usuario haga clic en el botón enviar los datos
+                            //  ejemplo de envío de los datos recolectados por el Brick a su servidor
+                            return new Promise((resolve, reject) => {
+                                fetch("{{ route('web_process_payment', $ticket->id) }}", {
+                                        method: "PUT",
+                                        headers: {
+                                            "Content-Type": "application/json",
+                                            "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                                        },
+                                        body: JSON.stringify(cardFormData)
+                                    })
+                                    .then((response) => {
+                                        if (!response.ok) {
+                                            return response.json().then(error => {
+                                                throw new Error(error.error);
+                                            });
+                                        }
+                                        return response.json();
+
+                                    })
+                                    .then((data) => {
+                                        if (data.status == 'approved') {
+                                            window.location.href = data.url;
+                                        } else {
+                                            alert('No se pudo continuar el proceso');
+                                            window.location.href = data.url;
+                                        }
+                                    })
+                                    .catch((error) => {
+                                        if (error instanceof SyntaxError) {
+                                            // Si hay un error de sintaxis al analizar la respuesta JSON
+                                            alert('Error al procesar el pago.');
+                                        } else {
+                                            // Mostrar la alerta con el mensaje de error devuelto por el backend
+                                            alert(error.message);
+                                        }
+                                    })
+                            });
+                        },
+                        onError: (error) => {
+                            console.log(error)
+                        },
+                    },
+                };
+                window.cardPaymentBrickController = await bricksBuilder.create('cardPayment',
+                    'cardPaymentBrick_container', settings);
+            };
+            renderCardPaymentBrick(bricksBuilder);
         </script>
     @endif
 @endsection

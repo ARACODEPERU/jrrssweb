@@ -33,7 +33,8 @@ Route::get('/sedes', [WebController::class, 'sedes'])->name('web_sedes');
 Route::get('/cobertura', [WebController::class, 'cobertura'])->name('web_cobertura');
 Route::get('/eventos', [WebController::class, 'eventos'])->name('web_eventos');
 Route::get('/eventos-pagar/{id}/evento', [WebController::class, 'eventospagar'])->name('web_eventos_pagar');
-Route::get('/comprar-entrada', [WebController::class, 'entrada'])->name('web_comprar_entrada');
+Route::get('/comprar-entrada/{id}', [WebController::class, 'entrada'])->name('web_comprar_entrada');
+Route::put('/comprar-entrada/procesar/{id}', [WebController::class, 'processPayment'])->name('web_process_payment');
 Route::get('/escuela', [WebController::class, 'escuelasobrenatura'])->name('web_escuela_sobrenatural');
 Route::get('/ecelt', [WebController::class, 'ecelt'])->name('web_ecelt');
 Route::get('/rmnt', [WebController::class, 'rmnt'])->name('web_rmnt');
@@ -41,7 +42,7 @@ Route::get('/kids', [WebController::class, 'kids'])->name('web_kids');
 Route::get('/testimonios', [WebController::class, 'testimonios'])->name('web_testimonios');
 Route::get('/contacto', [WebController::class, 'contacto'])->name('web_contacto');
 Route::get('/donar', [WebController::class, 'donar'])->name('web_donar');
-Route::get('/gracias-por-comprar-tu-entrada', [WebController::class, 'graciasporcomprartuentrada'])->name('web_gracias_por_comprar_tu_entrada');
+Route::get('/gracias-por-comprar-tu-entrada/{id}', [WebController::class, 'graciasporcomprartuentrada'])->name('web_gracias_por_comprar_tu_entrada');
 Route::get('/gracias-por-donar/{donador}', [WebController::class, 'gracias_por_donar'])->name('web_gracias_por_donar');
 
 

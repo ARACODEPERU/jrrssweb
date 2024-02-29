@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\DB;
 use Modules\Onlineshop\Entities\OnliItem;
 use MercadoPago\MercadoPagoConfig;
 use MercadoPago\Client\Preference\PreferenceClient;
+use MercadoPago\Client\Payment\PaymentClient;
+
 use Intervention\Image\Facades\Image;
 use Intervention\Image\Font;
 use Illuminate\Support\Facades\Storage;
@@ -271,16 +273,77 @@ class WebController extends Controller
         }
         return view('jrrss/eventos-pagar', [
             'ticket' => $ticket,
-            'preference_id' => $preference_id
+            'preference_id' => $preference_id,
+            'ticket' => $ticket
         ]);
     }
 
-    
 
-    public function entrada()
+
+    public function entrada($id)
     {
+        $preference_id  =  null;
+        $ubigeo = District::join('provinces', 'province_id', 'provinces.id')
+            ->join('departments', 'provinces.department_id', 'departments.id')
+            ->select(
+                'districts.id AS district_id',
+                DB::raw("CONCAT(departments.name, ' - ',provinces.name,' - ',districts.name) AS city_name")
+            )
+            ->get();
+        return view('jrrss/comprar-entrada', [
+            'preference_id' => $preference_id,
+            'ubigeo' => $ubigeo,
+            'event'  => EvenEvent::find($id)
+        ]);
+    }
 
-        return view('jrrss/comprar-entrada');
+    public function processPayment(Request $request, $id)
+    {
+        MercadoPagoConfig::setAccessToken(env('MERCADOPAGO_TOKEN'));
+
+        $client = new PaymentClient();
+        try {
+            $payment = $client->create([
+                "token" => $request->get('token'),
+                "issuer_id" => $request->get('issuer_id'),
+                "payment_method_id" => $request->get('payment_method_id'),
+                "transaction_amount" => (float) $request->get('transaction_amount'),
+                "installments" => $request->get('installments'),
+                "payer" => $request->get('payer')
+            ]);
+            if ($payment->status == 'approved') {
+                $ticket = EvenEventTicketClient::where('id', $id)
+                    ->where('status', false)
+                    ->first();
+
+                $ticket->status = true;
+                $ticket->response_status = $request->get('collection_status');
+                $ticket->response_id = $request->get('collection_id');
+                $ticket->response_date_approved = Carbon::now()->format('Y-m-d');
+                $ticket->response_payer = json_encode($request->all());
+                $ticket->response_payment_method_id = $request->get('payment_type');
+                $ticket->save();
+                return response()->json([
+                    'status' => $payment->status,
+                    'message' => $payment->status_detail,
+                    'url' => route('web_gracias_por_comprar_tu_entrada', $ticket->id)
+                ]);
+            } else {
+
+                return response()->json([
+                    'status' => $payment->status,
+                    'message' => $payment->status_detail,
+                    'url' => route('web_eventos_pagar', $id)
+                ]);
+            }
+        } catch (\MercadoPago\Exceptions\MPApiException $e) {
+            // Manejar la excepción
+            $response = $e->getApiResponse();
+            $content  = $response->getContent();
+
+            $message = $content['message'];
+            return response()->json(['error' => 'Error al procesar el pago: ' . $message], 412);
+        }
     }
 
     public function gracias(Request $request, $id)
@@ -540,9 +603,11 @@ class WebController extends Controller
         return view('jrrss/gracias-por-donar', compact('donador'));
     }
 
-    public function graciasporcomprartuentrada()
+    public function graciasporcomprartuentrada($id)
     {
-        return view('jrrss/gracias-por-comprar-tu-entrada');
+        return view('jrrss/gracias-por-comprar-tu-entrada', [
+            'ticket' => EvenEventTicketClient::with('event')->where('id', $id)->first(),
+        ]);
     }
 
     public function testimage($content, $fecha = null)
