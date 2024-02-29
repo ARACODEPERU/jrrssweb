@@ -282,6 +282,7 @@ class WebController extends Controller
 
     public function entrada($id)
     {
+        dd(env('MERCADOPAGO_TOKEN'));
         $preference_id  =  null;
         $ubigeo = District::join('provinces', 'province_id', 'provinces.id')
             ->join('departments', 'provinces.department_id', 'departments.id')
