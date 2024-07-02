@@ -119,10 +119,10 @@
                                 <nav class="header-nav-top">
                                     <ul class="nav nav-pills text-uppercase text-2">
                                         @if ($transmissions)
-<li style="padding: 0px 10px;">
+                                        <li style="padding: 0px 10px;">
                                             <button type="button" class="btn btn-outline-danger"  data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="fa fa-rss" aria-hidden="true"></i> EN VIVO</button>
                                         </li>
-@endif
+                                        @endif
                                         <li class="nav-item nav-item-anim-icon" style="padding: 0px 10px;">
                                             <a class="nav-link pe-0 text-light opacity-7" href=""><i
                                                     class="fas fa-university"></i> CAMPUS VIRTUAL</a>
@@ -199,24 +199,28 @@
                                                             SEDES
                                                         </a>
                                                     </li>
+                                                    <!--
                                                     <li class="dropdown">
                                                         <a class="dropdown-item {{ request()->routeIs('web_cobertura') ? 'active' : '' }}"
                                                             href="{{ route('web_cobertura') }}">
                                                             COBERTURA
                                                         </a>
                                                     </li>
+                                                    -->
                                                     <li class="dropdown">
                                                         <a class="dropdown-item {{ request()->routeIs('web_eventos') ? 'active' : '' }}"
                                                             href="{{ route('web_eventos') }}">
                                                             EVENTOS
                                                         </a>
                                                     </li>
+                                                    <!--
                                                     <li class="dropdown">
                                                         <a class="dropdown-item {{ request()->routeIs('escueloa') ? 'active' : '' }}"
                                                             href="">
                                                             ESCUELA SOBRENATURAL
                                                         </a>
                                                     </li>
+                                                    -->
                                                     <li class="dropdown">
                                                         <a class="dropdown-item {{ request()->routeIs('web_ecelt') ? 'active' : '' }}"
                                                             href="{{ route('web_ecelt') }}">
