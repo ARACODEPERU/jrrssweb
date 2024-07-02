@@ -209,9 +209,9 @@
                                     {{ $gods_meeting[1]->content }}
                                 </p>
                                 <br>
-                                <button class="btn btn-primary" style="font-size: 16px;"  data-bs-toggle="modal" data-bs-target="#contacto">
+                                <a href="{{ route('web_contacto') }}" class="btn btn-primary" style="font-size: 16px;">
                                     <i class="fa fa-edit"></i> Escribenos
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>
