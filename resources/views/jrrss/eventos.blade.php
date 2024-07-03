@@ -13,7 +13,6 @@
                     <img style="max-width: 100%; height: auto;" src="{{ asset('storage/' . $event->image1) }}">
                 </div>
 
-
                 <div class="container container-xl-custom pt-5">
                     <div class="row">
                         <div class="col">
@@ -155,8 +154,8 @@
                                                                 value="{{ old('lugar') }}">
                                                             <datalist id="datalistOptions">
                                                                 @foreach ($ubigeo as $row)
-    <option value="{{ $row->city_name }}" />
-    @endforeach
+                                                                <option value="{{ $row->city_name }}" />
+                                                                @endforeach
                                                             </datalist>
                                                         </div>
                                                     </div>
@@ -167,13 +166,13 @@
                                                                 required>
                                                                 <option selected>Tipo de ticket </option>
                                                                 @foreach ($event->prices as $row)
-    @if ($row->price > 0)
-    <option value="{{ $row->id }}">
+                                                                    @if ($row->price > 0)
+                                                                    <option value="{{ $row->id }}">
                                                                             {{ $row->type->description }} S/.
                                                                             {{ $row->price }}
                                                                         </option>
-    @endif
-    @endforeach
+                                                                @endif
+                                                                @endforeach
                                                             </select>
                                                         </div>
                                                         <div class="form-group col-md-5">
@@ -185,14 +184,14 @@
                                                         </div>
                                                     </div>
                                                     @if ($errors->any())
-    <div class="alert alert-danger">
+                                                        <div class="alert alert-danger">
                                                             <ul>
                                                                 @foreach ($errors->all() as $error)
-    <li>{{ $error }}</li>
-    @endforeach
+                                                                <li>{{ $error }}</li>
+                                                                @endforeach
                                                             </ul>
                                                         </div>
-    @endif
+                                                    @endif
                                                     <div class="row">
                                                         <div class="form-group col">
                                                             <button data-loading-text="Loading..." id="submitPageContactButton"
