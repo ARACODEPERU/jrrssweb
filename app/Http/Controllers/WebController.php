@@ -123,7 +123,7 @@ class WebController extends Controller
             ->orderBy('cms_section_items.position')
             ->get();
 
-        $presentacion = CmsSection::where('component_id', 'quienes_somos_presentacion_14')  //siempre cambiar el id del componente
+        $presentacion = CmsSection::where('component_id', 'quienes_somos_la_vision_39')  //siempre cambiar el id del componente
             ->join('cms_section_items', 'section_id', 'cms_sections.id')
             ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
             ->select(
