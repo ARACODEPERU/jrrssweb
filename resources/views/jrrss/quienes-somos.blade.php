@@ -34,7 +34,7 @@
                     <div class="col-md-6">
                         <h3>{{ $presentacion[0]->content }}</h3>
                         <p>
-                            {{ $presentacion[1]->content }}
+                            {{ $presentacion[1]->content }} HOLA
                         </p>
                     </div>
                     <div class="col-md-6 ara_centrado_total">
