@@ -32,8 +32,10 @@
             <div class="container pt-4">
                 <div class="row">
                     <div class="col-md-6">
-                        <h3>{{ $presentacion[0]->content }}</h3>
-                        <p>
+                        <h2 style="font-weight: 700;">
+                            {{ $presentacion[0]->content }}
+                        </h2>
+                        <p style="padding: 5px 0px;">
                             {{ $presentacion[1]->content }}
                         </p>
                     </div>
@@ -49,9 +51,7 @@
 
                 <div class="row">
                     <div class="col" style="min-height: 250px;">
-
                         <div class="row portfolio-list lightbox" data-plugin-options="{'delegate': 'a.lightbox-portfolio', 'type': 'image', 'gallery': {'enabled': true}}">
-                            
                             @foreach ($galeryRmnt as $key => $rmnt)
                                 @if ($key>0)
                                 <div class="col-md-4 appear-animation animated expandIn appear-animation-visible" data-appear-animation="expandIn" data-appear-animation-delay="600" style="animation-delay: 600ms;">
