@@ -15,12 +15,16 @@
 
                 <div class="container container-xl-custom pt-5">
                     <div class="row">
-                        <div class="col">
-                            <p class="mb-1">#{{ $event->category->description }}</p>
-                            <h3 class="text-secondary font-weight-bold text-capitalize text-7 mb-3">{{ $event->title }}</h3>
+                        <div class="col-md-12">
+                            <p class="mb-1">
+                                #{{ $event->category->description }}
+                            </p>
+                            <h3 class="text-secondary font-weight-bold text-capitalize text-7 mb-3">
+                                {{ $event->title }}
+                            </h3>
                         </div>
                     </div>
-                    <div class="row pb-4">
+                    <div class="row pb-2">
                         <div class="col-md-7 pb-5">
                             <div class="row mb-5">
                                 {!! $event->description !!}
@@ -78,19 +82,20 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-5">
+                        <div class="col-md-5">
                             <div class="row">
                                 <div class="col-md-12">
                                     {!! $event->advertising_video !!}
                                 </div>
                             </div>
                             <br>
-                            <div class="row">
+                            <div class="row" style="text-align:center;">
                                 <div class="form-group col">
                                     <a href="{{ route('web_comprar_entrada', $event->id) }}"
-                                        class="btn btn-outline btn-primary rounded-0 py-3 px-5 font-weight-semibold"
-                                        style="font-size: 14px;">
-                                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;&nbsp; Adquirir entrada
+                                        class="btn  btn-primary rounded-0 py-3 px-5 font-weight-semibold"
+                                        style="font-size: 20px; width: 95%;">
+                                        <i class="fa fa-shopping-cart" style="font-size: 22px;" aria-hidden="true"></i>
+                                        &nbsp;&nbsp; Adquirir entrada
                                     </a>
                                 </div>
                             </div>

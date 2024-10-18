@@ -2694,9 +2694,16 @@ html.sticky-header-active .hamburguer-btn.hamburguer-btn-sticky-dark .close span
 	color: var(--primary-inverse);
 }
 
+
+/* .btn-primary:hover, .btn-primary.hover {
+	border-color: var(--primary--200) var(--primary--200) var(--primary);
+	color: var(--primary-inverse);
+} */
+
 .btn-primary:hover, .btn-primary.hover {
 	border-color: var(--primary--200) var(--primary--200) var(--primary);
 	color: var(--primary-inverse);
+	background-color: var(--secondary);
 }
 
 .btn-primary:hover:not(.bg-transparent), .btn-primary.hover:not(.bg-transparent) {
