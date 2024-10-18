@@ -15,8 +15,8 @@
                      data-plugin-parallax data-plugin-options="{'speed': 1.2}"
                      data-image-src="{{ $banner->content }}">
                 <div class="container">
-                    <div class="row">
-                        <div class="col-md-12 align-self-center">
+                    <div class="row" style="padding: 80px 0px;">
+                        {{-- <div class="col-md-12 align-self-center">
                             <ul class="breadcrumb custom-breadcrumb d-block text-center text-4">
                                 <li><a href="{{ route('cms_principal') }}">Home</a></li>
                                 <li class="active">Sobrenatural Kids</li>
@@ -24,7 +24,7 @@
                         </div>
                         <div class="col-md-12 align-self-center p-static text-center mt-2">
                             <h1 class="font-weight-bold text-color-secondary text-11">Sobrenatural Kids</h1>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </section>
@@ -32,8 +32,10 @@
             <div class="container pt-4">
                 <div class="row">
                     <div class="col-md-6">
-                        <h3>{{ $presentacion[0]->content }}</h3>
-                        <p>
+                        <h2 style="font-weight: 700;">
+                            {{ $presentacion[0]->content }}
+                        </h2>
+                        <p style="padding: 5px 0px;">
                             {{ $presentacion[1]->content }}
                         </p>
                     </div>
@@ -102,7 +104,7 @@
                     data-appear-animation="fadeIn" data-plugin-parallax="" data-plugin-options="{'speed': 1.5, 'parallaxHeight': '138%'}"
                     data-image-src="{{ $textBiblie[0]->content }}" style="position: relative; overflow: hidden; animation-delay: 100ms;">
                     <div class="container">
-                        <div class="row justify-content-center">
+                        <div class="row justify-content-center" style="padding: 80px 0px;">
                             <div class="col-lg-9 text-center">
                                 <h2 class="text-color-light font-weight-bold custom-tertiary-font ls-0 mb-4 appear-animation animated fadeInUpShorter appear-animation-visible"
                                     data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200" style="animation-delay: 200ms;">

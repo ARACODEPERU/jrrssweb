@@ -483,9 +483,17 @@ class WebController extends Controller
             ->get();
 
 
-        $galeryRmnt = CmsSectionItem::with('item.items')->where('section_id', 31)
-            ->orderBy('position')
-            ->get();
+        // $galeryRmnt = CmsSectionItem::with('item.items')->where('section_id', 31)
+        //     ->orderBy('position')
+        //     ->get();
+        
+        $group_galery = CmsSection::where('component_id', 'rmnt_galeria_31')->first();
+
+        $galeryRmnt = CmsSectionItem::with(['group' => function ($query) {
+            $query->where('type_id', 5);
+        }, 'group.items'])
+            ->where('section_id', $group_galery->id)
+            ->paginate(6);
 
         $textBiblie = CmsSection::where('component_id', 'rmnt_texto_biblico_32')  //siempre cambiar el id del componente
             ->join('cms_section_items', 'section_id', 'cms_sections.id')
@@ -606,7 +614,18 @@ class WebController extends Controller
 
     public function donar()
     {
-        return view('jrrss/donar');
+        $banner = CmsSection::where('component_id', 'banner_donar_41')  //siempre cambiar el id del componente
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+        ->orderBy('cms_section_items.position')
+        ->first();
+        return view('jrrss/donar', [
+            'banner' => $banner,
+        ]);
     }
 
     public function gracias_por_donar($donador)
