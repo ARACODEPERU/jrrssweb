@@ -47,7 +47,6 @@
             <br><br>
 
             <div class="container py-4">
-
                 <div class="row">
                     <div class="col" style="min-height: 250px;">
                         <div class="row portfolio-list lightbox"
@@ -84,21 +83,21 @@
                     </div>
                     <div class="col-md-4"></div>
                 </div>
-
             </div>
+
             <br>
             <div class="container pt-2" style="text-align:center;">
                 <div class="row">
                     <div class="form-group col-md-12">
-                        <a href="{{ $rsociales[0]->content }}" target="_blank" class="btn btn-primary" style="font-size: 16px;">
+                        <a href="{{ $rsociales[0]->content }}" target="_blank" class="btn btn-primary" style="font-size: 16px; padding: 10px 25px;">
                             <i class="fab fa-facebook" style="font-size: 18px;" aria-hidden="true"></i>
                             &nbsp;&nbsp; Facebook
                         </a>
-                        <a href="{{ $rsociales[1]->content }}" target="_blank" class="btn btn-primary" style="font-size: 16px;">
+                        <a href="{{ $rsociales[1]->content }}" target="_blank" class="btn btn-primary" style="font-size: 16px; padding: 10px 25px;">
                             <i class="fab fa-instagram" style="font-size: 18px;" aria-hidden="true"></i>
                             &nbsp;&nbsp; Instagram
                         </a>
-                        <a href="{{ $rsociales[2]->content }}" target="_blank" class="btn btn-primary" style="font-size: 16px;">
+                        <a href="{{ $rsociales[2]->content }}" target="_blank" class="btn btn-primary" style="font-size: 16px; padding: 10px 25px;">
                             <i class="fab fa-tiktok" style="font-size: 18px;" aria-hidden="true"></i>
                             &nbsp;&nbsp; Tik Tok
                         </a>
