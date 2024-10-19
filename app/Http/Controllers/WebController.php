@@ -425,10 +425,9 @@ class WebController extends Controller
             $query->where('type_id', 5);
         }, 'group.items'])
             ->where('section_id', $group_video->id)
-            ->inRandomOrder()
-            ->limit(6)
-            ->get();
-        //dd($videos);
+            ->paginate(4);
+       //dd($videos);
+
         $rsociales = CmsSection::where('component_id', 'ecelt_redes_sociales_40')  //siempre cambiar el id del componente
             ->join('cms_section_items', 'section_id', 'cms_sections.id')
             ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
@@ -495,6 +494,16 @@ class WebController extends Controller
             ->where('section_id', $group_galery->id)
             ->paginate(6);
 
+        $rsociales = CmsSection::where('component_id', 'ecelt_redes_sociales_40')  //siempre cambiar el id del componente
+                ->join('cms_section_items', 'section_id', 'cms_sections.id')
+                ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+                ->select(
+                    'cms_items.content',
+                    'cms_section_items.position'
+                )
+                ->orderBy('cms_section_items.position')
+                ->get();
+
         $textBiblie = CmsSection::where('component_id', 'rmnt_texto_biblico_32')  //siempre cambiar el id del componente
             ->join('cms_section_items', 'section_id', 'cms_sections.id')
             ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
@@ -505,15 +514,20 @@ class WebController extends Controller
             ->orderBy('cms_section_items.position')
             ->get();
 
-        $videoteca = CmsSectionItem::with('item.items')->where('section_id', 33)
+            $group_video = CmsSection::where('component_id', 'rmnt_videoteca_33')->first();
 
-            ->orderBy('position')
-            ->get();
+            $videoteca = CmsSectionItem::with(['group' => function ($query) {
+                $query->where('type_id', 5);
+            }, 'group.items'])
+                ->where('section_id', $group_video->id)
+                ->paginate(4);
+           //dd($videos);
 
         return view('jrrss/rmnt', [
             'banner' => $banner,
             'presentacion' => $presentacion,
             'galeryRmnt' => $galeryRmnt,
+            'rsociales' => $rsociales,
             'textBiblie' => $textBiblie,
             'videoteca' => $videoteca
         ]);
@@ -543,10 +557,13 @@ class WebController extends Controller
             ->orderBy('cms_section_items.position')
             ->get();
 
+        $group_galery = CmsSection::where('component_id', 'kids_galeria_35')->first();
 
-        $galeryKids = CmsSectionItem::with('item.items')->where('section_id', 35)
-            ->orderBy('position')
-            ->get();
+        $galeryKids = CmsSectionItem::with(['group' => function ($query) {
+            $query->where('type_id', 5);
+        }, 'group.items'])
+            ->where('section_id', $group_galery->id)
+            ->paginate(6);
 
         $textBiblie = CmsSection::where('component_id', 'kids_texto_biblico_36')  //siempre cambiar el id del componente
             ->join('cms_section_items', 'section_id', 'cms_sections.id')
@@ -557,11 +574,15 @@ class WebController extends Controller
             )
             ->orderBy('cms_section_items.position')
             ->get();
+        
+        $group_video = CmsSection::where('component_id', 'kids_videoteca_37')->first();
 
-        $videoteca = CmsSectionItem::with('item.items')->where('section_id', 37)
-
-            ->orderBy('position')
-            ->get();
+        $videoteca = CmsSectionItem::with(['group' => function ($query) {
+            $query->where('type_id', 5);
+        }, 'group.items'])
+            ->where('section_id', $group_video->id)
+            ->paginate(4);
+        //dd($videos);
 
 
         return view('jrrss/kids', [

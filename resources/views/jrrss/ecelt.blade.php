@@ -89,15 +89,18 @@
             <div class="container pt-2" style="text-align:center;">
                 <div class="row">
                     <div class="form-group col-md-12">
-                        <a href="{{ $rsociales[0]->content }}" target="_blank" class="btn btn-primary" style="font-size: 16px; padding: 10px 25px;">
+                        <a href="{{ $rsociales[0]->content }}" target="_blank" 
+                            class="btn btn-primary" style="font-size: 16px; padding: 10px 25px; margin: 10px;">
                             <i class="fab fa-facebook" style="font-size: 18px;" aria-hidden="true"></i>
                             &nbsp;&nbsp; Facebook
                         </a>
-                        <a href="{{ $rsociales[1]->content }}" target="_blank" class="btn btn-primary" style="font-size: 16px; padding: 10px 25px;">
+                        <a href="{{ $rsociales[1]->content }}" target="_blank" 
+                            class="btn btn-primary" style="font-size: 16px; padding: 10px 25px; margin: 10px;">
                             <i class="fab fa-instagram" style="font-size: 18px;" aria-hidden="true"></i>
                             &nbsp;&nbsp; Instagram
                         </a>
-                        <a href="{{ $rsociales[2]->content }}" target="_blank" class="btn btn-primary" style="font-size: 16px; padding: 10px 25px;">
+                        <a href="{{ $rsociales[2]->content }}" target="_blank" 
+                            class="btn btn-primary" style="font-size: 16px; padding: 10px 25px; margin: 10px;">
                             <i class="fab fa-tiktok" style="font-size: 18px;" aria-hidden="true"></i>
                             &nbsp;&nbsp; Tik Tok
                         </a>
@@ -133,48 +136,26 @@
             <br><br>
 
             <div class="container py-4">
-
                 <div class="row">
                     <div class="col" style="min-height: 250px;">
-
                         <div class="row portfolio-list lightbox"
                             data-plugin-options="{'delegate': 'a.lightbox-portfolio', 'type': 'image', 'gallery': {'enabled': true}}">
-
                             @foreach ($videos as $video)
                                 <div class="col-md-6" style="padding: 15px;">
                                     {!! $video->group->items[0]->content !!}
                                 </div>
                             @endforeach
-
                         </div>
-
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4"></div>
                     <div class="col-md-4">
-                        <nav aria-label="...">
-                            <ul class="pagination">
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item active" aria-current="page">
-                                    <a class="page-link" href="#">2</a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">Next</a>
-                                </li>
-                            </ul>
-                        </nav>
+                        {{ $videos->links('vendor.pagination.bootstrap-4') }}
                     </div>
                     <div class="col-md-4"></div>
                 </div>
-
             </div>
-
-
 
         </div>
 
