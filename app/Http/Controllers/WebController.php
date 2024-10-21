@@ -85,6 +85,16 @@ class WebController extends Controller
             )
             ->orderBy('cms_section_items.position')
             ->get();
+        
+        $difusion = CmsSection::where('component_id', 'canales_de_difusion_sede_principal_43')  //siempre cambiar el id del componente
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+            ->orderBy('cms_section_items.position')
+            ->get();
 
         return view(('jrrss/index'), [
             'home' => $home,
@@ -94,6 +104,7 @@ class WebController extends Controller
             'ministerios' => $ministerios,
             'gods_meeting' => $gods_meeting,
             'subs' => $subs,
+            'difusion' => $difusion
         ]);
     }
 

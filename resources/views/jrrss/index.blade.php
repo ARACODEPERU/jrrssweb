@@ -217,83 +217,114 @@
             <section style="padding: 90px 0px 90px 0px;">
                 <div class="container">
                     <div class="row">
-                        <div class="container mt-4">
-                            <div class="row justify-content-center">
-                                <div class="col-md-6" style="padding: 15px;">
-                                    <h2 class="custom-highlight-text-1 d-inline-block line-height-5
-                                                text-4 positive-ls-3 font-weight-medium text-color-primary
-                                                mb-2 appear-animation animated fadeInUpShorter appear-animation-visible"
-                                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1300"
-                                                style="animation-delay: 1300ms;">
-                                                {{ $subs[0]->content }}
-                                    </h2>
-                                    <h3 class="text-9 line-height-3 text-transform-none font-weight-semibold mb-4
-                                        appear-animation animated fadeInUpShorter appear-animation-visible"
-                                        data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1500"
-                                        style="animation-delay: 1500ms;">
-                                        {{ $subs[1]->content }}
-                                    </h3>
-                                    <p class="text-3-5 pb-3 mb-4 appear-animation animated fadeInUpShorter appear-animation-visible"
-                                        data-appear-animation="fadeInUpShorter"
-                                        data-appear-animation-delay="1900"
-                                        style="animation-delay: 1900ms;">
-                                        {{ $subs[2]->content }}
-                                    </p>
-
-                                    <form class="contact-form custom-form-style-1" method="POST" action="{{ route('apisubscriber') }}" id="pageContactForm">
-                                        <div class="row">
-                                            <div class="form-group col">
-                                                <input type="text" placeholder="Nombres Completos" value="" data-msg-required="Por favor ingresa tus nombres completos." maxlength="125" class="form-control bg-color-tertiary" name="full_name" id="full_name" required>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col">
-                                                <input type="email" placeholder="Dirección E-mail" value="" data-msg-required="Por favor ingresa tu correo electrónico." data-msg-email="Please enter a valid email address." maxlength="100" class="form-control bg-color-tertiary" name="email" id="email" required>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col">
-                                                <button data-loading-text="Loading..." id="submitPageContactButton" class="btn btn-outline btn-primary rounded-0 py-3 px-5 font-weight-semibold" style="font-size: 14px;" >Enviar Ahora</button>
-                                            </div>
-                                        </div>
-                                    </form>
+                        <div class="col-md-1" style="padding: 15px;"></div>
+                        <div class="col-md-4" style="padding: 15px; text-align:center;">
+                            <h2 class="custom-highlight-text-1 d-inline-block line-height-5
+                                        text-4 positive-ls-3 font-weight-medium text-color-primary
+                                        mb-2 appear-animation animated fadeInUpShorter appear-animation-visible"
+                                        data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1300"
+                                        style="animation-delay: 1300ms;">
+                                        #SOMOSJRRSS
+                            </h2>
+                            <h1 class="text-9 line-height-3 text-transform-none font-weight-semibold mb-4
+                                appear-animation animated fadeInUpShorter appear-animation-visible"
+                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1500"
+                                style="animation-delay: 1500ms;  margin-top: -5px;">
+                                {{ $difusion[0]->content }}
+                            </h1>
+                            <p class="text-3-5 pb-3 mb-1 appear-animation animated fadeInUpShorter appear-animation-visible"
+                                data-appear-animation="fadeInUpShorter"
+                                data-appear-animation-delay="1900"
+                                style="animation-delay: 1900ms; margin-top: -20px;">
+                                {{ $difusion[1]->content }}
+                            </p>
+                            <img class="mb-1 appear-animation animated fadeInUpShorter appear-animation-visible"
+                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="2100"
+                                style="animation-delay: 2100ms; margin-top: -10px; width: 100%; background: red;" 
+                                src="{{ $difusion[2]->content }}" alt="">
+                                
+							<a href="{{ $difusion[3]->content }}"
+                                target="_blanck" class="btn btn-primary">
+                                <div style="justify-content: space-between;">
+                                    <div style="float: left; font-size: 24px;">
+                                        <i class="fab fa-whatsapp"></i>
+                                    </div>
+                                    <div style="float: left; padding: 5px; font-size: 16px;">
+                                        &nbsp; ¡Canal de difusión JRRSS!
+                                    </div>
                                 </div>
-                                <div class="col-md-6 ara_centrado_total" style="padding: 15px;">
-                                    <img style="width: 98%" src="{{ $subs[3]->content }}" alt="">
-                                </div>
-                            </div>
+                            </a>
                         </div>
+                        <div class="col-md-2" style="padding: 15px;"></div>
+                        <div class="col-md-4" style="padding: 15px; text-align:center;">
+                            <h2 class="custom-highlight-text-1 d-inline-block line-height-5
+                                        text-4 positive-ls-3 font-weight-medium text-color-primary
+                                        mb-2 appear-animation animated fadeInUpShorter appear-animation-visible"
+                                        data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1300"
+                                        style="animation-delay: 1300ms;">
+                                        #SOMOSJRRSS
+                            </h2>
+                            <h1 class="text-9 line-height-3 text-transform-none font-weight-semibold mb-4
+                                appear-animation animated fadeInUpShorter appear-animation-visible"
+                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1500"
+                                style="animation-delay: 1500ms;  margin-top: -5px;">
+                                {{ $difusion[4]->content }}
+                            </h1>
+                            <p class="text-3-5 pb-3 mb-1 appear-animation animated fadeInUpShorter appear-animation-visible"
+                                data-appear-animation="fadeInUpShorter"
+                                data-appear-animation-delay="1900"
+                                style="animation-delay: 1900ms; margin-top: -20px;">
+                                {{ $difusion[5]->content }}
+                            </p>
+                            <img class="mb-1 appear-animation animated fadeInUpShorter appear-animation-visible"
+                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="2100"
+                                style="animation-delay: 2100ms; margin-top: -10px; width: 100%; background: red;" 
+                                src="{{ $difusion[6]->content }}" alt="">
+                                
+							<a href="{{ $difusion[7]->content }}"
+                                target="_blanck" class="btn btn-primary">
+                                <div style="justify-content: space-between;">
+                                    <div style="float: left; font-size: 24px;">
+                                        <i class="fab fa-whatsapp"></i>
+                                    </div>
+                                    <div style="float: left; padding: 5px; font-size: 16px;">
+                                        &nbsp; ¡Canal de difusión RMNT!
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-1" style="padding: 15px;"></div>
                     </div>
                 </div>
             </section>
 
             @foreach ($reuniones as $key => $reunion)
-            @if ($key > 0 && $key < 5)
-                <div class="modal fade" id="reuniones{{ $key }}" tabindex="-1" aria-labelledby="reunionesLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title" id="reunionesLabel">{{ $reunion->item->items[0]->content }}</h4>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <h5><b>{{ $reunion->item->items[2]->content }}: {{ $reunion->item->items[3]->content }}</b> </h5>
-                                <p style="margin-top: -15px;">
-                                    <b>Horario de Reunión:</b> {{ $reunion->item->items[5]->content }}
-                                </p>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        {!!  $reunion->item->items[4]->content  !!}
+                @if ($key > 0 && $key < 5)
+                    <div class="modal fade" id="reuniones{{ $key }}" tabindex="-1" aria-labelledby="reunionesLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="reunionesLabel">{{ $reunion->item->items[0]->content }}</h4>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <h5><b>{{ $reunion->item->items[2]->content }}: {{ $reunion->item->items[3]->content }}</b> </h5>
+                                    <p style="margin-top: -15px;">
+                                        <b>Horario de Reunión:</b> {{ $reunion->item->items[5]->content }}
+                                    </p>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            {!!  $reunion->item->items[4]->content  !!}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            @endif
+                @endif
             @endforeach
 
 
