@@ -113,6 +113,22 @@
 												<p class="mb-0"><a class="px-0 text-default" href="mailto:mail@domain.com">ibi.jrrss@gmail.com</a></p>
 											</div>
 										</div>
+										<hr class="my-3 opacity-5">
+										<div class="row">
+											<div class="col-md-12">
+												<a href="https://whatsapp.com/channel/0029Vao1fjp6buMIoOXQhh03"
+													target="_blanck" class="btn btn-whatsapp">
+													<div style="justify-content: space-between;">
+														<div style="float: left; font-size: 24px;">
+															<i class="fab fa-whatsapp"></i>
+														</div>
+														<div style="float: left; padding: 5px; font-size: 16px;">
+															&nbsp; ¡Canal de difusión JRRSS!
+														</div>
+													</div>
+												</a>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>

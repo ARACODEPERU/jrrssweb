@@ -606,13 +606,21 @@ class WebController extends Controller
             ->orderBy('cms_section_items.position')
             ->first();
 
-        $testimonios = CmsSectionItem::with('item.items')->where('section_id', 38)  //cambiar el id de la seccion
-            ->orderBy('position')
-            ->get();
+        // $testimonios = CmsSectionItem::with('item.items')->where('section_id', 38)  //cambiar el id de la seccion
+        //     ->orderBy('position')
+        //     ->get();
+
+        $group_video = CmsSection::where('component_id', 'testimonios_videoteca_38')->first();
+
+        $testimonios = CmsSectionItem::with(['group' => function ($query) {
+                $query->where('type_id', 5);
+            }, 'group.items'])
+                ->where('section_id', $group_video->id)
+                ->paginate(4);
 
         return view('jrrss/testimonios', [
             'banner' => $banner,
-            'testimonios' => $testimonios,
+            'testimonios' => $testimonios
         ]);
     }
 
