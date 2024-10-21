@@ -39,7 +39,6 @@
 					</div>
 					<div class="row pb-4">
 						<div class="col-lg-7 pb-5">
-
 							<p>
 								Envía un mensaje para comunicarte con nosotros, deja tu información si deseas que nos comuniquemos contigo o si solo deseas informarnos algo.
 							</p>
@@ -69,7 +68,11 @@
 								</div>
 								<div class="row">
 									<div class="form-group col">
-										<button data-loading-text="Loading..." id="submitPageContactButton" class="btn btn-outline btn-primary rounded-0 py-3 px-5 font-weight-semibold" >Enviar Ahora</button>
+										<button data-loading-text="Loading..." 
+												id="submitPageContactButton" 
+												class="btn btn-primary rounded-0 py-3 px-5 font-weight-semibold">
+												Enviar Ahora
+										</button>
 
 									</div>
 								</div>
@@ -116,7 +119,7 @@
 										<hr class="my-3 opacity-5">
 										<div class="row">
 											<div class="col-md-12">
-												<a href="https://whatsapp.com/channel/0029Vao1fjp6buMIoOXQhh03"
+												<a href="{{ $difusion[3]->content }}"
 													target="_blanck" class="btn btn-whatsapp">
 													<div style="justify-content: space-between;">
 														<div style="float: left; font-size: 24px;">

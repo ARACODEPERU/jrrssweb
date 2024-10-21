@@ -647,8 +647,19 @@ class WebController extends Controller
             ->orderBy('cms_section_items.position')
             ->first();
 
+        $difusion = CmsSection::where('component_id', 'canales_de_difusion_sede_principal_43')  //siempre cambiar el id del componente
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+            ->orderBy('cms_section_items.position')
+            ->get();
+
         return view('jrrss/contacto', [
             'banner' => $banner,
+            'difusion' => $difusion
         ]);
     }
 

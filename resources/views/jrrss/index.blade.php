@@ -226,12 +226,12 @@
                                         style="animation-delay: 1300ms;">
                                         #SOMOSJRRSS
                             </h2>
-                            <h1 class="text-9 line-height-3 text-transform-none font-weight-semibold mb-4
+                            <h3 class="text-9 line-height-3 text-transform-none font-weight-semibold mb-4
                                 appear-animation animated fadeInUpShorter appear-animation-visible"
                                 data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1500"
                                 style="animation-delay: 1500ms;  margin-top: -5px;">
                                 {{ $difusion[0]->content }}
-                            </h1>
+                            </h3>
                             <p class="text-3-5 pb-3 mb-1 appear-animation animated fadeInUpShorter appear-animation-visible"
                                 data-appear-animation="fadeInUpShorter"
                                 data-appear-animation-delay="1900"
@@ -244,7 +244,9 @@
                                 src="{{ $difusion[2]->content }}" alt="">
                                 
 							<a href="{{ $difusion[3]->content }}"
-                                target="_blanck" class="btn btn-primary">
+                                target="_blanck" class="btn btn-primary
+                                mb-1 appear-animation animated fadeInUpShorter appear-animation-visible"
+                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="2300">
                                 <div style="justify-content: space-between;">
                                     <div style="float: left; font-size: 24px;">
                                         <i class="fab fa-whatsapp"></i>
@@ -264,12 +266,12 @@
                                         style="animation-delay: 1300ms;">
                                         #SOMOSJRRSS
                             </h2>
-                            <h1 class="text-9 line-height-3 text-transform-none font-weight-semibold mb-4
+                            <h3 class="text-9 line-height-3 text-transform-none font-weight-semibold mb-4
                                 appear-animation animated fadeInUpShorter appear-animation-visible"
                                 data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1500"
                                 style="animation-delay: 1500ms;  margin-top: -5px;">
                                 {{ $difusion[4]->content }}
-                            </h1>
+                            </h3>
                             <p class="text-3-5 pb-3 mb-1 appear-animation animated fadeInUpShorter appear-animation-visible"
                                 data-appear-animation="fadeInUpShorter"
                                 data-appear-animation-delay="1900"
@@ -282,7 +284,9 @@
                                 src="{{ $difusion[6]->content }}" alt="">
                                 
 							<a href="{{ $difusion[7]->content }}"
-                                target="_blanck" class="btn btn-primary">
+                                target="_blanck"  class="btn btn-primary
+                                mb-1 appear-animation animated fadeInUpShorter appear-animation-visible"
+                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="2300">
                                 <div style="justify-content: space-between;">
                                     <div style="float: left; font-size: 24px;">
                                         <i class="fab fa-whatsapp"></i>
