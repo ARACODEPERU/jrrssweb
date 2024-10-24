@@ -9,16 +9,16 @@ import Keypad from '@/Components/Keypad.vue';
 import Swal2 from 'sweetalert2';
 import { ref, watch, onMounted } from 'vue';
 import Editor from '@tinymce/tinymce-vue'
-import { 
+import {
     ConfigProvider,
-    Select, 
+    Select,
     SelectOption,
     InputNumber,
     Textarea,
     DatePicker,
     RangePicker,
-    Switch, 
-    Input, 
+    Switch,
+    Input,
     Upload,
     Button
 } from 'ant-design-vue';
@@ -118,9 +118,9 @@ const cropImageAndSave = (res) => {
             <ConfigProvider :locale="esES">
                 <div class="col-span-6 sm:col-span-2">
                     <InputLabel for="category_id" value="Categoría *" class="mb-1" />
-                    <Select 
+                    <Select
                         style="width: 100%;"
-                        v-model:value="form.category_id" 
+                        v-model:value="form.category_id"
                         id="category_id"
                         :options="categories.map((obj) => ({value:obj.id,label:obj.description}))"
                     />
@@ -149,7 +149,7 @@ const cropImageAndSave = (res) => {
                     <InputError :message="form.errors.description" class="mt-2" />
                 </div>
                 <div class="col-span-6">
-                    <InputLabel for="advertising_video" value="Spot publicitario*" class="mb-1" />
+                    <InputLabel for="advertising_video" value="Spot publicitario(codigo de inserción de Youtube)*" class="mb-1" />
                     <Textarea
                         id="advertising_video"
                         v-model:value="form.advertising_video"
@@ -166,7 +166,7 @@ const cropImageAndSave = (res) => {
                     <InputError :message="form.errors.iframe_transmission" class="mt-2" />
                 </div>
 
-                
+
                 <div class="col-span-6">
                     <InputLabel for="file_input" value="Imagen *" />
                     <CropperImage
