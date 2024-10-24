@@ -79,7 +79,7 @@
 
                                             </div>
                                         </div>
-                                        @if(count($events)-1 != $key && )
+                                        @if(count($events)-1 != $key)
                                             <hr style="height: 10px; background-color: black;">
                                         @endif
                                     @endforeach
