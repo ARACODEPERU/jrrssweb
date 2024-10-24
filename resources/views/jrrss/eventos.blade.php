@@ -79,7 +79,7 @@
 
                                             </div>
                                         </div>
-                                        @if($loop->iteration < $loop->count && $loop->count > 1)
+                                        @if($events->iteration < $events->count && $events->count > 1)
                                             <hr style="height: 10px; background-color: black;">
                                         @endif
                                     @endforeach
