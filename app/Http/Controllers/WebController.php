@@ -238,7 +238,7 @@ class WebController extends Controller
         // ->first();
 
         return view('jrrss/eventos', [
-            'event' => $events,
+            'events' => $events,
             'ubigeo' => $ubigeo,
         ]);
     }
