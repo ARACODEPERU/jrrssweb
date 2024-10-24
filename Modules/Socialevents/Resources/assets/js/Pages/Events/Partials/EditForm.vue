@@ -149,7 +149,7 @@ const cropImageAndSave = (res) => {
                     <InputError :message="form.errors.description" class="mt-2" />
                 </div>
                 <div class="col-span-6">
-                    <InputLabel for="advertising_video" value="Spot publicitario(codigo de inserción de Youtube)*" class="mb-1" />
+                    <InputLabel for="advertising_video" value="Spot publicitario(código de inserción de Youtube)*" class="mb-1" />
                     <Textarea
                         id="advertising_video"
                         v-model:value="form.advertising_video"
