@@ -33,7 +33,7 @@
 
                             <div class="row mb-5">
                                 <div class="col">
-                                    @foreach ($event->exhibitors as $item)
+                                    @foreach ($event->exhibitors as $key => $item)
                                         <div
                                             class="d-flex flex-wrap bg-light custom-link-hover-effects custom-instructor-details">
                                             <div class="position-relative col-12 col-md-3 lazyloaded"
@@ -79,8 +79,8 @@
 
                                             </div>
                                         </div>
-                                        @if($loop->iteration < $loop->count+1 && $loop->count > 1)
-                                            <hr style="height: 10px; background-color: black;">
+                                        @if($key>0 && count($events)>1)
+                                            <hr style="height: 10px; background-color: black;"> AQUI
                                         @endif
                                     @endforeach
                                 </div>
