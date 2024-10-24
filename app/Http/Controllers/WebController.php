@@ -85,7 +85,7 @@ class WebController extends Controller
             )
             ->orderBy('cms_section_items.position')
             ->get();
-        
+
         $difusion = CmsSection::where('component_id', 'canales_de_difusion_sede_principal_43')  //siempre cambiar el id del componente
             ->join('cms_section_items', 'section_id', 'cms_sections.id')
             ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
@@ -211,12 +211,13 @@ class WebController extends Controller
 
     public function eventos()
     {
-        $event = EvenEvent::with('exhibitors.exhibitor')
-            ->with('category')
-            ->with('prices.type')
-            ->where('status', 'PE')
-            ->orderBy('date_start', 'DESC')
-            ->first();
+        $events = EvenEvent::with('exhibitors.exhibitor')
+        ->with('category')
+        ->with('prices.type')
+        ->where('status', 'PE')
+        ->orderBy('date_start', 'DESC')
+        ->take(3) // Limitar la consulta a los últimos 3 eventos
+        ->get();
 
         $ubigeo = District::join('provinces', 'province_id', 'provinces.id')
             ->join('departments', 'provinces.department_id', 'departments.id')
@@ -237,7 +238,7 @@ class WebController extends Controller
         // ->first();
 
         return view('jrrss/eventos', [
-            'event' => $event,
+            'event' => $events,
             'ubigeo' => $ubigeo,
         ]);
     }
@@ -496,7 +497,7 @@ class WebController extends Controller
         // $galeryRmnt = CmsSectionItem::with('item.items')->where('section_id', 31)
         //     ->orderBy('position')
         //     ->get();
-        
+
         $group_galery = CmsSection::where('component_id', 'rmnt_galeria_31')->first();
 
         $galeryRmnt = CmsSectionItem::with(['group' => function ($query) {
@@ -585,7 +586,7 @@ class WebController extends Controller
             )
             ->orderBy('cms_section_items.position')
             ->get();
-        
+
         $group_video = CmsSection::where('component_id', 'kids_videoteca_37')->first();
 
         $videoteca = CmsSectionItem::with(['group' => function ($query) {

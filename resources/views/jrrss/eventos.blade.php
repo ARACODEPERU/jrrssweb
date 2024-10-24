@@ -6,7 +6,8 @@
         <!-- Header - area start -->
         <x-jrrss.header-area></x-jrrss.header-area>
         <!-- Header - area end -->
-        @if ($event)
+        @if ($events)
+            @foreach ($events as $event)
             <div role="main" class="main">
 
                 <div class="ara_centrado_total">
@@ -37,7 +38,7 @@
                                             class="d-flex flex-wrap bg-light custom-link-hover-effects custom-instructor-details">
                                             <div class="position-relative col-12 col-md-3 lazyloaded"
                                                 data-bg-src="{{ $item->exhibitor->image }}"
-                                                style="background-position: center center; background-size: cover; min-height: 302px; 
+                                                style="background-position: center center; background-size: cover; min-height: 302px;
                                                     background-image: url(&quot;{{ $item->exhibitor->image }}&quot;);">
                                             </div>
                                             <div class="col-md-9 p-5">
@@ -215,6 +216,7 @@
                     </div>
                 </div>
             </div>
+            @endforeach
         @endif
         <!-- Footer - area start -->
         <x-jrrss.footer-area></x-jrrss.footer-area>
