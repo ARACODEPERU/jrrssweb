@@ -169,9 +169,9 @@
                                                         </a>
                                                     </li>
                                                     <li class="dropdown">
-                                                        <a class="dropdown-item {{ request()->routeIs('web_rmnt') ? 'active' : '' }}"
-                                                            href="{{ route('web_rmnt') }}">
-                                                            RMNT
+                                                        <a class="dropdown-item {{ request()->routeIs('web_revolucion_juvenil') ? 'active' : '' }}"
+                                                            href="{{ route('web_revolucion_juvenil') }}">
+                                                            REVOLUCIÓN JUVENIL
                                                         </a>
                                                     </li>
                                                     <li class="dropdown">

@@ -29,10 +29,10 @@
                 </div>
             </section>
 
-            <div class="container pt-4">
+            <div class="container-lg pt-4">
                 <div class="row">
                     @foreach ($testimonios as $key => $testimonio)
-                        <div class="col-md-6">
+                        <div class="col-md-4" style="padding: 15px;">
                             {!! $testimonio->item->items[0]->content !!}
                         </div>
                     @endforeach

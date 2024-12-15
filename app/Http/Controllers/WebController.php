@@ -291,7 +291,6 @@ class WebController extends Controller
     }
 
 
-
     public function entrada($id)
     {
         $preference_id  =  null;
@@ -460,7 +459,7 @@ class WebController extends Controller
         ]);
     }
 
-    public function rmnt()
+    public function revolucionjuvenil()
     {
         $banner = CmsSection::where('component_id', 'banner_rmnt_10')  //siempre cambiar el id del componente
             ->join('cms_section_items', 'section_id', 'cms_sections.id')
@@ -535,7 +534,7 @@ class WebController extends Controller
                 ->paginate(4);
            //dd($videos);
 
-        return view('jrrss/rmnt', [
+        return view('jrrss/revolucion-juvenil', [
             'banner' => $banner,
             'presentacion' => $presentacion,
             'galeryRmnt' => $galeryRmnt,

@@ -29,13 +29,14 @@
                 </div>
             </section>
 
-            <div class="container pt-4">
-                <div class="row">
+            <div class="container-lg pt-4">
+                <div class="row  box-flotante">
                     <div class="col-md-6">
-                        <h3>
-                            <b>{{ $presentacion[0]->content }}</b>
-                        </h3>
-                        <p style="padding: 5px 0px;">
+                        <br>
+                        <h2>
+                            <b  style="font-weight: 600;">{{ $presentacion[0]->content }}</b>
+                        </h2>
+                        <p style="padding: 0px;">
                             {{ $presentacion[1]->content }}
                         </p>
                     </div>

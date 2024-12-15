@@ -29,7 +29,7 @@
                 </div>
             </section>
 
-            <div class="container pt-4">
+            <div class="container-lg pt-4">
                 <div class="row">
                     <div class="col-md-6">
                         <h2 style="font-weight: 700;">
@@ -47,7 +47,7 @@
 
             <br><br>
 
-            <div class="container py-4">
+            <div class="container-lg py-4">
                 <div class="row">
                     <div class="col" style="min-height: 250px;">
                         <div class="row portfolio-list lightbox" data-plugin-options="{'delegate': 'a.lightbox-portfolio', 'type': 'image', 'gallery': {'enabled': true}}">
@@ -109,7 +109,7 @@
 
             <br><br>
 
-            <div class="container py-4">
+            <div class="container-lg py-4">
 
                 <div class="row">
                     <div class="col" style="min-height: 250px;">

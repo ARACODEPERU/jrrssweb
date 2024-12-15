@@ -62,12 +62,12 @@
             <br><br><br>
 
             <section style="padding-bottom: 90px;">
-                <div class="container">
+                <div class="container-lg">
                     <div class="row">
                         <div class="container mt-4">
-                            <div class="row justify-content-center">
+                            <div class="row justify-content-center ">
                                 <div class="col-lg-11 col-xl-10 text-center">
-                                    <h2 class="custom-highlight-text-1 d-inline-block line-height-5
+                                    <h2 class="custom-highlight-text-1 d-inline-block line-height-4
                                                 text-4 positive-ls-3 font-weight-medium text-color-primary
                                                 mb-2 appear-animation animated fadeInUpShorter appear-animation-visible"
                                                 data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1300"
@@ -136,7 +136,7 @@
             </section>
 
             <section style="padding: 100px 0px 100px 0px;">
-                <div class="container">
+                <div class="container-lg">
                     <div class="row">
                         <div class="container mt-4">
                             <div class="row justify-content-center">
@@ -167,7 +167,7 @@
                     <div class="row">
                         @foreach ($ministerios as $key => $ministerio)
                             @if ($key > 0 && $key < 4)
-                            <div class="col-md-4" style="padding: 15px;">
+                            <div class="col-md-4" style="padding: 10px;">
                                 <div class="ih-item square colored effect8 scale_down">
                                     <a href="{{ $ministerio->item->items[3]->content }}">
                                         <div class="img">
@@ -215,10 +215,10 @@
 
 
             <section style="padding: 90px 0px 90px 0px;">
-                <div class="container">
+                <div class="container-lg">
                     <div class="row">
                         <div class="col-md-1" style="padding: 15px;"></div>
-                        <div class="col-md-4" style="padding: 15px; text-align:center;">
+                        <div class="col-md-4  box-zoom" style="padding: 25px; text-align:center;">
                             <h2 class="custom-highlight-text-1 d-inline-block line-height-5
                                         text-4 positive-ls-3 font-weight-medium text-color-primary
                                         mb-2 appear-animation animated fadeInUpShorter appear-animation-visible"
@@ -258,7 +258,7 @@
                             </a>
                         </div>
                         <div class="col-md-2" style="padding: 15px;"></div>
-                        <div class="col-md-4" style="padding: 15px; text-align:center;">
+                        <div class="col-md-4  box-zoom" style="padding: 25px; text-align:center;">
                             <h2 class="custom-highlight-text-1 d-inline-block line-height-5
                                         text-4 positive-ls-3 font-weight-medium text-color-primary
                                         mb-2 appear-animation animated fadeInUpShorter appear-animation-visible"

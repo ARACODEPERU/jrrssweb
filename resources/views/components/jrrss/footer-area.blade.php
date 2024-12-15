@@ -2,7 +2,7 @@
     <footer id="footer" class="border-0" style="background: url('{{ asset('themes/jrrss/assets/img/parallax/parallax-9.jpg') }}'); background-size:cover; background-position: 0 0;">
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="/js/contacto_footer.js"></script>
-        <div class="container py-4">
+        <div class="container-lg py-4">
             <div class="row justify-content-md-center py-5">
                 <div class="col-lg-7 mb-5 mb-lg-0">
                     <img src="{{ asset('themes/jrrss/assets/img/logo_blanco.png') }}" alt="">

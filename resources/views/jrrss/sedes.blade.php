@@ -29,67 +29,52 @@
                 </div>
             </section>
 
-            <div class="container" style="margin-top: 20px;">
+            <div class="container-lg" style="margin-top: 20px;">
                 <div class="row">
                     @foreach ($sedes as $key => $sede )
                         <div class="col-md-4" style="padding: 20px;">
-                            <div class="row">
-                                <div class="col-md-12" style="background: #f8f8f8;">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <img style="width: 100%; margin-top:-20px;" src="{{ $sede->item->items[0]->content }}" alt="">
-                                            <h5 style="background: #000; color: #fff; padding: 8px 10px; z-index: 9999; top: 0px; position: relative;">
-                                                <img style="width: 30px;" src="{{ $sede->item->items[1]->content }}" alt="">
-                                                &nbsp; {{ $sede->item->items[2]->content }}
-                                            </h5>
-                                        </div>
+                            <div class="box-flotante">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <img style="width: 100%; margin-top:-20px;" src="{{ $sede->item->items[0]->content }}" alt="">
+                                        <h5 style="background: #000; color: #fff; padding: 8px 10px; z-index: 9999; top: 0px; position: relative;">
+                                            <img style="width: 30px;" src="{{ $sede->item->items[1]->content }}" alt="">
+                                            &nbsp; {{ $sede->item->items[2]->content }}
+                                        </h5>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                                <div class="row">
-                                                    <div class="col-md-3 ara_centrado_total">
-                                                        <img style=" width: 50px; border-radius: 50%; 
-                                                                    overflow: hidden; border: 1px solid #000;"
-                                                                    src="{{ $sede->item->items[8]->content }}"
-                                                            alt="img">
-                                                    </div>
-                                                    <div class="col-md-9" style="margin-left: -10px;">
-                                                        <h5 style="margin-top: 8px; text-align:left;">{{ $sede->item->items[9]->content }}</h5>
-                                                        <div style="margin-top: -20px; text-align:left;">{{ $sede->item->items[10]->content }}</div>
-                                                    </div>
-                                                </div>
-                                                <br>
-                                                <!--
-                                                <div class="row">
-                                                    <div class="col-md-2"></div>
-                                                    <div class="col-md-8">
-                                                        <a href="{{ $sede->item->items[11]->content }}" class="btn btn-primary" style="width: 100%;">¿Como llegar?</a>
-                                                    </div>
-                                                    <div class="col-md-2"></div>
-                                                </div>
-                                                -->
-                                        </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3 ara_centrado_total">
+                                        <img style=" width: 50px; border-radius: 50%; 
+                                                    overflow: hidden; border: 1px solid #000;"
+                                                    src="{{ $sede->item->items[8]->content }}"
+                                            alt="img">
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-12" style="padding: 0px 20px;">
-                                            <!--
-                                            <p>
-                                                {{ $sede->item->items[3]->content }}
+                                    <div class="col-md-9" style="margin-left: -10px;">
+                                        <h5 style="margin-top: 8px; text-align:left;">{{ $sede->item->items[9]->content }}</h5>
+                                        <div style="margin-top: -20px; text-align:left;">{{ $sede->item->items[10]->content }}</div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-12" style="padding: 0px 20px;">
+                                        <!--
+                                        <p>
+                                            {{ $sede->item->items[3]->content }}
+                                        </p>
+                                        -->
+                                            <p style="line-height: 15px;">
+                                                <b>Dirección:</b><br> {{ $sede->item->items[4]->content }}
                                             </p>
-                                            -->
-                                                <p style="line-height: 15px;">
-                                                    <b>Dirección:</b><br> {{ $sede->item->items[4]->content }}
-                                                </p>
-                                                <p style="line-height: 15px;">
-                                                    <b>Teléfono:</b><br> {{ $sede->item->items[5]->content }}
-                                                </p>
-                                                <p style="line-height: 15px;">
-                                                    <b>Correo Electrónico:</b><br> {{ $sede->item->items[6]->content }}
-                                                </p>
-                                                <p style="line-height: 15px;">
-                                                    <b>Horario de Reunión:</b><br> {{ $sede->item->items[7]->content }}
-                                                </p>
-                                        </div>
+                                            <p style="line-height: 15px;">
+                                                <b>Teléfono:</b><br> {{ $sede->item->items[5]->content }}
+                                            </p>
+                                            <p style="line-height: 15px;">
+                                                <b>Correo Electrónico:</b><br> {{ $sede->item->items[6]->content }}
+                                            </p>
+                                            <p style="line-height: 15px;">
+                                                <b>Horario de Reunión:</b><br> {{ $sede->item->items[7]->content }}
+                                            </p>
                                     </div>
                                 </div>
                             </div>
