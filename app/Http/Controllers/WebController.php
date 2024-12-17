@@ -627,7 +627,7 @@ class WebController extends Controller
                 $query->where('type_id', 5);
             }, 'group.items'])
                 ->where('section_id', $group_video->id)
-                ->paginate(4);
+                ->paginate(6);
 
         return view('jrrss/testimonios', [
             'banner' => $banner,

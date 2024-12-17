@@ -19,8 +19,10 @@
             <div class="container-lg pt-4">
                 <div class="row">
                     @foreach ($testimonios as $key => $testimonio)
-                        <div class="col-md-4" style="padding: 15px;">
-                            {!! $testimonio->item->items[0]->content !!}
+                        <div class="col-md-4">
+                            <div style="padding: 15px;" style="width:100%; height: 330px;">
+                                {!! $testimonio->item->items[0]->content !!}
+                            </div>
                         </div>
                     @endforeach
                 </div>
