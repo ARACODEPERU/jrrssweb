@@ -36,15 +36,14 @@
                             <div class="row mb-5">
                                 <div class="col">
                                     @foreach ($event->exhibitors as $key => $item)
-                                        <div
-                                            class="d-flex flex-wrap bg-light custom-link-hover-effects custom-instructor-details">
-                                            <div class="position-relative col-12 col-md-3 lazyloaded"
+                                        <div class="d-flex flex-wrap bg-light custom-link-hover-effects 
+                                                    custom-instructor-details" style="padding: 15px 0px;">
+                                            <div class="position-relative col-12 col-md-3 lazyloaded" 
                                                 data-bg-src="{{ $item->exhibitor->image }}"
                                                 style="background-position: center center; background-size: cover; min-height: 302px;
                                                     background-image: url(&quot;{{ $item->exhibitor->image }}&quot;);">
                                             </div>
                                             <div class="col-md-9 p-5">
-
                                                 <div class="d-md-flex mb-4">
                                                     <div class="ps-md-0 mb-3 mb-md-0 pe-4 me-4 border-right">
                                                         <div class="d-flex flex-row align-items-center h-100">
@@ -53,13 +52,12 @@
                                                                     Expositor
                                                                 </p>
                                                                 <h4 class="mb-0 text-color-secondary text-6">
-                                                                    {{ $item->exhibitor->full_name }}
+                                                                    {{ $item->exhibitor->names }} {{ $item->exhibitor->father_lastname }}
                                                                 </h4>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-
                                                 <div class="custom-read-more-style-1 position-relative"
                                                     data-plugin-readmore=""
                                                     data-plugin-options="{
@@ -78,7 +76,6 @@
                                                         style="background: linear-gradient(rgba(2, 0, 36, 0) 0%, rgb(255, 255, 255) 100%); position: absolute; bottom: 0px; left: 0px; width: 100%; height: 100px; z-index: 1;">
                                                     </div>
                                                 </div>
-
                                             </div>
                                         </div>
                                     @endforeach
