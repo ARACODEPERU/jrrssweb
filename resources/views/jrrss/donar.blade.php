@@ -22,7 +22,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <p class="mb-1">SOMOS JRRSS</p>
-                                <h3 class="text-secondary font-weight-bold text-capitalize text-7 mb-3">FORMAS DE DAR EN PERÚ</h3>
+                                <h3 class="font-weight-bold text-capitalize text-7 mb-3">FORMAS DE DAR EN PERÚ</h3>
                             </div>
                         </div>
                         <br>
@@ -76,7 +76,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <p class="mb-1">SOMOS JRRSS</p>
-                                <h3 class="text-secondary font-weight-bold text-capitalize text-7 mb-3">TU SEMILLA TIENE UN
+                                <h3 class="font-weight-bold text-capitalize text-7 mb-3">TU SEMILLA TIENE UN
                                     PROPÓSITO</h3>
                             </div>
                         </div>
