@@ -11,8 +11,9 @@
             <div role="main" class="main">
 
                 <div class="ara_centrado_total">
-                    <img style="max-width: 100%; height: auto;" src="{{ asset('storage/' . $event->image1) }}">
+                    <img style="width: 100%; height: auto;" src="{{ asset('storage/' . $event->image1) }}">
                 </div>
+
 
                 <div class="container-lg container-xl-custom pt-5">
                     <div class="row">
