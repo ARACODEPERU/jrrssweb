@@ -10,22 +10,9 @@
 
         <div role="main" class="main">
 
-            <section
-                class="page-header bg-color-tertiary custom-page-header page-header-modern page-header-background page-header-background-sm parallax mt-0"
-                data-plugin-parallax data-plugin-options="{'speed': 1.2}" data-image-src="{{ $banner->content }}">
-                <div class="container">
-                    <div class="row" style="padding: 80px 0px;">
-                        {{-- <div class="col-md-12 align-self-center">
-                            <ul class="breadcrumb custom-breadcrumb d-block text-center text-4">
-                                <li><a href="{{ route('cms_principal') }}">Home</a></li>
-                                <li class="active">ECELT</li>
-                            </ul>
-                        </div>
-                        <div class="col-md-12 align-self-center p-static text-center mt-2">
-                            <h1 class="font-weight-bold text-color-secondary text-11">EL CIERLO EN LA TIERRA</h1>
-                        </div> --}}
-                    </div>
-                </div>
+            
+            <section>
+                <img style="max-width: 100%; height: auto;"  src="{{ $banner->content }}" alt="">
             </section>
 
             <div class="container-lg pt-4">

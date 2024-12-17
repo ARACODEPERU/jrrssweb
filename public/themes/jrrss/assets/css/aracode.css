@@ -1,4 +1,12 @@
 
+.view-pc{
+  display: block;
+}
+
+.view-mobile{
+  display: none;
+}
+
 .box-zoom {
     padding: 25px;
     border: 1px solid #c3c3c3;
@@ -21,3 +29,15 @@
     box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.2);
     transform: translateY(-10px);
   }
+
+  
+@media (max-width: 767px) {
+  /* Boxed */
+  .view-pc{
+    display: none;
+  }
+  
+  .view-mobile{
+    display: block;
+  }
+}
