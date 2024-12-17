@@ -183,7 +183,7 @@ const cropImageAndSave = (res) => {
                     <Select
                         id="exhibitors"
                         v-model:value="form.exhibitors"
-                        :options="instructors.map((obj) => ({value: obj.person.id,label:obj.person.full_name}))"
+                        :options="instructors.map((obj) => ({value: obj.person.id,label:obj.person.names+' '+obj.person.father_lastname}))"
                         style="width: 100%;"
                         mode="multiple"
                     />
