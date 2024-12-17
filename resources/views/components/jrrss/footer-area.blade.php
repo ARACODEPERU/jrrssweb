@@ -2,7 +2,7 @@
     <footer id="footer" class="border-0" style="background: url('{{ asset('themes/jrrss/assets/img/parallax/parallax-9.jpg') }}'); background-size:cover; background-position: 0 0;">
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="/js/contacto_footer.js"></script>
-        <div class="container-lg" style="padding: 100px 0px;">
+        <div class="container-lg" style="padding: 130px 0px;">
             <div class="row">
                 <div class="col-md-4">
                     <div>
@@ -114,9 +114,9 @@
         </div>
         <div class="footer-copyright footer-copyright-style-2 footer-top-light-border">
             <div class="container py-2">
-                <div class="row py-4">
+                <div class="row py-2">
                     <div class="col d-flex align-items-center justify-content-center mb-4 mb-lg-0">
-                        <p>© Copyright 2024. Todos los Derechos Reservados a Jesús Rey de Reyes y Señor de Señores | Desarrollado por <a href=""><b>Aracode Smart Solutión</b></a></p>
+                        <p>© Copyright 2025. Todos los Derechos Reservados a Jesús Rey de Reyes y Señor de Señores | Desarrollado por <a href=""><b>Aracode Smart Solutión</b></a></p>
                     </div>
                 </div>
             </div>
