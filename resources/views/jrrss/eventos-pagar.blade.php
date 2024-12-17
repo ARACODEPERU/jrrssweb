@@ -15,7 +15,7 @@
             </div>
 
             @if ($ticket)
-                <div class="container container-xl-custom pt-5">
+                <div class="container-lg container-xl-custom pt-5">
                     <div class="row pb-4">
                         <div class="col-md-3"></div>
                         <div class="col-md-6">

@@ -104,9 +104,11 @@
         });
     </script>
     <header id="header"
-        data-plugin-options="{'stickyEnabled': true, 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': false, 'stickyStartAt': 164, 'stickySetTop': '-164px', 'stickyChangeLogo': false}">
+        data-plugin-options="{'stickyEnabled': true, 'stickyEnableOnBoxed': true, 
+                            'stickyEnableOnMobile': false, 'stickyStartAt': 164, 'stickySetTop': '-164px', 
+                            'stickyChangeLogo': false}">
         <div class="header-body border-0">
-            <div class="ara_centrado_total">
+            <div class="ara_centrado_total view-pc">
                 <img style="max-width: 100%;
                 height: auto;" src="{{ $header[0]->content }}" alt="">
             </div>
@@ -116,8 +118,7 @@
                         <div class="header-column">
                             <div class="header-row justify-content-end">
                                 <div class="header-nav p-0">
-                                    <div
-                                        class="header-nav header-nav-line header-nav-divisor header-nav-spaced justify-content-lg-center">
+                                    <div class="header-nav header-nav-line header-nav-divisor header-nav-spaced justify-content-lg-center">
                                         <div
                                             class="header-nav-main header-nav-main-square header-nav-main-effect-1 header-nav-main-sub-effect-1">
                                             <nav class="collapse">

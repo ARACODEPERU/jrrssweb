@@ -14,23 +14,24 @@
                     <img style="max-width: 100%; height: auto;" src="{{ asset('storage/' . $event->image1) }}">
                 </div>
 
-                <div class="container container-xl-custom pt-5">
+                <div class="container-lg container-xl-custom pt-5">
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-12" style="text-align: center;">
                             <p class="mb-1">
                                 #{{ $event->category->description }}
                             </p>
                             <h3 class="text-secondary font-weight-bold text-capitalize text-7 mb-3">
                                 {{ $event->title }}
                             </h3>
+                            <p>
+                                {!! $event->description !!}
+                            </p>
                         </div>
                     </div>
+                    <br>
+                    <br>
                     <div class="row pb-2">
                         <div class="col-md-7 pb-5">
-                            <div class="row mb-5">
-                                {!! $event->description !!}
-                            </div>
-
                             <div class="row mb-5">
                                 <div class="col">
                                     @foreach ($event->exhibitors as $key => $item)
@@ -79,7 +80,6 @@
 
                                             </div>
                                         </div>
-                                        <hr style="height: 10px; background-color: black;">
                                     @endforeach
                                 </div>
                             </div>

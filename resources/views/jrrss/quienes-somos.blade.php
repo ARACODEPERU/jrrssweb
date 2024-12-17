@@ -15,8 +15,8 @@
                 <img style="max-width: 100%; height: auto;"  src="{{ $banner->content }}" alt="">
             </section>
 
-            <div class="container-lg pt-4">
-                <div class="row  box-flotante">
+            <div class="container-lg pt-5">
+                <div class="row">
                     <div class="col-md-6">
                         <br>
                         <h2>
@@ -34,7 +34,7 @@
 
 
 
-            <div class="container pt-4">
+            <div class="container-lg pt-4">
                 <div class="row">
                     <div class="col">
                         <h4 class="mb-2 mt-5">{{ $visions[0]->content }}</h4>
@@ -110,7 +110,7 @@
                     </div>
             </section>
 
-            <div class="container pt-4">
+            <div class="container-lg pt-4">
                 <div class="row">
                     <div class="col">
                         <h4 class="mb-2 mt-5">{{ $resenas[0]->item->content }}</h4>

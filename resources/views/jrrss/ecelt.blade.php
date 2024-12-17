@@ -15,9 +15,10 @@
                 <img style="max-width: 100%; height: auto;"  src="{{ $banner->content }}" alt="">
             </section>
 
-            <div class="container-lg pt-4">
+            <div class="container-lg pt-5">
                 <div class="row">
                     <div class="col-md-6">
+                        <br>
                         <h2 style="font-weight: 700;">
                             {{ $presentation[0]->content }}
                         </h2>
