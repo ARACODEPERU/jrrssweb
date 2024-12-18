@@ -245,6 +245,14 @@ class WebController extends Controller
 
     public function eventospagar($id)
     {
+        $events = EvenEvent::with('exhibitors.exhibitor')
+        ->with('category')
+        ->with('prices.type')
+        ->where('status', 'PE')
+        ->orderBy('date_start', 'DESC')
+        ->take(3) // Limitar la consulta a los últimos 3 eventos
+        ->get();
+
         $ticket = EvenEventTicketClient::with('event')
             ->with('type')
             ->where('id', $id)
@@ -284,6 +292,7 @@ class WebController extends Controller
             }
         }
         return view('jrrss/eventos-pagar', [
+            'events' => $events,
             'ticket' => $ticket,
             'preference_id' => $preference_id,
             'ticket' => $ticket
