@@ -9,9 +9,9 @@
         <!-- Header - area end -->
         <div role="main" class="main">
 
-            <div class="ara_centrado_total">
+            {{-- <div class="ara_centrado_total">
                 <img style="width: 100%; height: auto;" src="{{ asset('storage/' . $event->image1) }}">
-            </div>
+            </div> --}}
 
             @if ($ticket)
                 <div class="container-lg container-xl-custom pt-5">
