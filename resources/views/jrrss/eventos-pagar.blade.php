@@ -10,8 +10,7 @@
         <div role="main" class="main">
 
             <div class="ara_centrado_total">
-                <img style="max-width: 100%; height: auto;"
-                    src="{{ asset('themes/jrrss/assets/img/page-header/evento-1.jpg') }}">
+                <img style="width: 100%; height: auto;" src="{{ asset('storage/' . $event->image1) }}">
             </div>
 
             @if ($ticket)

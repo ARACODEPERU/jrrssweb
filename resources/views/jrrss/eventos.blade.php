@@ -110,7 +110,6 @@
                                                                 <input type="hidden" value="{{ $event->id }}" name="event_id" />
                                                                 <div class="col-md-6">
                                                                     <label for="full_name" class="col-form-label">Nombres</label>
-    
                                                                     <input type="text" placeholder="Por favor ingresa tus nombres."
                                                                         value="{{ old('full_name') }}"
                                                                         data-msg-required="Por favor ingresa tus nombres." maxlength="125"
