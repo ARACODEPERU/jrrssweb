@@ -150,28 +150,28 @@
                 </div>
             </div>
 
-<script>
-// Ejecutar código cuando se haya cargado completamente la página
-window.addEventListener('load', function() {
-        // Obtener elementos del DOM
-const currencySelect = document.getElementById('currency');
-const mercadoPagoButton = document.getElementById('submitMercadoPago');
-const paypalButton = document.getElementById('submitPaypal');
-  // Escuchar cambios en la selección de moneda
-  currencySelect.addEventListener('change', function() {
-    const selectedCurrency = currencySelect.value;
+        <script>
+        // Ejecutar código cuando se haya cargado completamente la página
+        window.addEventListener('load', function() {
+                // Obtener elementos del DOM
+        const currencySelect = document.getElementById('currency');
+        const mercadoPagoButton = document.getElementById('submitMercadoPago');
+        const paypalButton = document.getElementById('submitPaypal');
+        // Escuchar cambios en la selección de moneda
+        currencySelect.addEventListener('change', function() {
+            const selectedCurrency = currencySelect.value;
 
-    // Mostrar u ocultar botones según la moneda seleccionada
-    if (selectedCurrency == 'soles') {
-      mercadoPagoButton.style.display = 'block';
-      paypalButton.style.display = 'none';
-    } else if (selectedCurrency == 'dolares') {
-      mercadoPagoButton.style.display = 'none';
-      paypalButton.style.display = 'block';
-    }
-  });
-});
-</script>
+            // Mostrar u ocultar botones según la moneda seleccionada
+            if (selectedCurrency == 'soles') {
+            mercadoPagoButton.style.display = 'block';
+            paypalButton.style.display = 'none';
+            } else if (selectedCurrency == 'dolares') {
+            mercadoPagoButton.style.display = 'none';
+            paypalButton.style.display = 'block';
+            }
+        });
+        });
+        </script>
 
 
 
