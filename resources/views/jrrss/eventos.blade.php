@@ -97,7 +97,8 @@
                                                     <div class="row flex-column px-5 pt-3 pb-4">
                                                         <div class="row px-3 mb-3">
                                                             <h3 class="text-secondary font-weight-bold text-capitalize my-3">
-                                                                Información del cliente
+                                                                <i class="fa fa-ticket" style="font-size: 22px;" aria-hidden="true"></i>
+                                                                Adquirir Entrada
                                                             </h3>
                                                             <p>
                                                             </p>
@@ -207,7 +208,10 @@
     
                                                                 </div>
                                                                 <div class="col-sm-12 d-grid">
-                                                                    <button type="submit" class="btn btn-primary">Continuar</button>
+                                                                    <button type="submit" class="btn btn-primary" style="font-size: 20px; width: 100%;">
+                                                                        <i class="fa fa-shopping-cart" style="font-size: 22px;" aria-hidden="true"></i>
+                                                                        Continuar
+                                                                    </button>
                                                                 </div>
                                                                 @if ($errors->any())
                                                                     <div class="alert alert-danger">
@@ -227,9 +231,8 @@
                                             </div>
                                         </div>
                                 @endif
-
                             </div>
-                            <div class="row" style="text-align:center;">
+                            {{-- <div class="row" style="text-align:center;">
                                 <div class="form-group col">
                                     <a href="{{ route('web_comprar_entrada', $event->id) }}"
                                         class="btn  btn-primary rounded-0 py-3 px-5 font-weight-semibold"
@@ -238,7 +241,7 @@
                                         &nbsp;&nbsp; Adquirir entrada
                                     </a>
                                 </div>
-                            </div>
+                            </div> --}}
                             <!--
                                     <div class="custom-card-style-2 card-contact-us mb-5">
                                         <div class="m-4">
