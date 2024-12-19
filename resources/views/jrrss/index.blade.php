@@ -65,7 +65,7 @@
                 </div>
             </div>
 
-            <section class="section-custom-medical view-pc">
+            {{-- <section class="section-custom-medical view-pc">
                 <div class="container">
                     <div class="row medical-schedules">
                         <div class="col-xl-3 box-two bg-color-primary appear-animation" data-appear-animation="fadeInLeft" data-appear-animation-delay="0">
@@ -92,7 +92,8 @@
                 </div>
             </section>
 
-            <br><br><br>
+            <br><br> --}}
+            <br>
 
             <section style="padding-bottom: 90px;">
                 <div class="container-lg">
