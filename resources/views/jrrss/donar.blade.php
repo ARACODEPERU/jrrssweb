@@ -22,12 +22,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <p class="mb-1">SOMOS JRRSS</p>
-                                <<<<<<< HEAD <h3 class="text-secondary font-weight-bold text-capitalize text-7 mb-3">FORMAS
-                                    DE DAR EN
-                                    PERÚ</h3>
-                                    =======
                                     <h3 class="font-weight-bold text-capitalize text-7 mb-3">FORMAS DE DAR EN PERÚ</h3>
-                                    >>>>>>> 6315a77360bcfec73ac9b0835000d4fc1281e161
                             </div>
                         </div>
                         <br>
