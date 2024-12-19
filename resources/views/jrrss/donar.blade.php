@@ -136,8 +136,10 @@
                                         <div class="row">
                                             <div class="form-group col">
                                                 <button data-loading-text="Loading..." id="submitPaypal"
-                                                    class="btn btn-outline btn-primary rounded-0 py-3 px-5 font-weight-semibold">Donar
-                                                    con Mercado Pago</button>
+                                                    class="btn btn-outline btn-primary rounded-0 py-3 px-5 font-weight-semibold" style="font-size: 18px;">
+                                                    Donar
+                                                    con Mercado Pago
+                                                </button>
                                             </div>
                                         </div>
                                     </form>
@@ -180,8 +182,10 @@
                                         <div class="row">
                                             <div class="form-group col">
                                                 <button data-loading-text="Loading..." id="submitPaypal"
-                                                    class="btn btn-outline btn-primary rounded-0 py-3 px-5 font-weight-semibold">Donar
-                                                    con Paypal</button>
+                                                    class="btn btn-outline btn-primary rounded-0 py-3 px-5 font-weight-semibold" style="font-size: 18px;">
+                                                    Donar
+                                                    con Paypal
+                                                </button>
                                             </div>
                                         </div>
                                     </form>
