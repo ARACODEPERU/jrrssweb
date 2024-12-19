@@ -37,7 +37,7 @@ Route::get('/comprar-entrada/{id}', [WebController::class, 'entrada'])->name('we
 Route::put('/comprar-entrada/procesar/{id}', [WebController::class, 'processPayment'])->name('web_process_payment');
 Route::get('/escuela', [WebController::class, 'escuelasobrenatura'])->name('web_escuela_sobrenatural');
 Route::get('/ecelt', [WebController::class, 'ecelt'])->name('web_ecelt');
-Route::get('/rmnt', [WebController::class, 'rmnt'])->name('web_rmnt');
+Route::get('/revolucion-juvenil', [WebController::class, 'revolucionjuvenil'])->name('web_revolucion_juvenil');
 Route::get('/kids', [WebController::class, 'kids'])->name('web_kids');
 Route::get('/testimonios', [WebController::class, 'testimonios'])->name('web_testimonios');
 Route::get('/contacto', [WebController::class, 'contacto'])->name('web_contacto');

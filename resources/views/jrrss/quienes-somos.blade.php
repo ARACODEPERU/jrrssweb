@@ -11,29 +11,18 @@
 
         <div role="main" class="main">
 
-            <section class="page-header bg-color-tertiary custom-page-header page-header-modern page-header-background page-header-background-sm parallax mt-0"
-                     data-plugin-parallax data-plugin-options="{'speed': 1.2}"
-                     data-image-src="{{ $banner->content }}">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12 align-self-center">
-                            <ul class="breadcrumb custom-breadcrumb d-block text-center text-4">
-                                <li><a href="{{ route('cms_principal') }}">Home</a></li>
-                                <li class="active">¿Quienes Somos?</li>
-                            </ul>
-                        </div>
-                        <div class="col-md-12 align-self-center p-static text-center mt-2">
-                            <h1 class="font-weight-bold text-color-secondary text-11">¿Quienes Somos?</h1>
-                        </div>
-                    </div>
-                </div>
+            <section data-plugin-parallax data-plugin-options="{'speed': 1.2}">
+                <img style="max-width: 100%; height: auto;"  src="{{ $banner->content }}" alt="">
             </section>
 
-            <div class="container pt-4">
+            <div class="container-lg pt-5">
                 <div class="row">
                     <div class="col-md-6">
-                        <h3>{{ $presentacion[0]->content }}</h3>
-                        <p>
+                        <br>
+                        <h2>
+                            <b  style="font-weight: 600;">{{ $presentacion[0]->content }}</b>
+                        </h2>
+                        <p style="padding: 0px;">
                             {{ $presentacion[1]->content }}
                         </p>
                     </div>
@@ -45,7 +34,7 @@
 
 
 
-            <div class="container pt-4">
+            <div class="container-lg pt-4">
                 <div class="row">
                     <div class="col">
                         <h4 class="mb-2 mt-5">{{ $visions[0]->content }}</h4>
@@ -121,7 +110,7 @@
                     </div>
             </section>
 
-            <div class="container pt-4">
+            <div class="container-lg pt-4">
                 <div class="row">
                     <div class="col">
                         <h4 class="mb-2 mt-5">{{ $resenas[0]->item->content }}</h4>

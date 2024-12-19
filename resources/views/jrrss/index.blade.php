@@ -11,17 +11,20 @@
 
         <div role="main" class="main">
 
-
-            <div class="owl-carousel owl-carousel-light owl-carousel-light-init-fadeIn owl-theme manual dots-inside dots-vertical-center dots-align-right dots-orientation-portrait custom-dots-style-1 show-dots-hover show-dots-xs nav-style-1 nav-inside nav-inside-plus nav-dark nav-lg nav-font-size-lg show-nav-hover mb-0" data-plugin-options="{'autoplayTimeout': 6500}" data-dynamic-height="['650px','650px','650px','550px','500px']" style="height: 650px;">
+            <div class="owl-carousel owl-carousel-light owl-carousel-light-init-fadeIn owl-theme manual 
+                dots-inside dots-vertical-center dots-align-right dots-orientation-portrait custom-dots-style-1 show-dots-hover 
+                show-dots-xs nav-style-1 nav-inside nav-inside-plus nav-dark nav-lg nav-font-size-lg show-nav-hover mb-0 view-pc" 
+                data-plugin-options="{'autoplayTimeout': 6500}" 
+                data-dynamic-height="['650px','650px','650px','550px','500px']" 
+                style="height: 650px;">
                 <div class="owl-stage-outer">
                     <div class="owl-stage ara_centrado_total">
-
                         @foreach ($sliders as $slide)
-                        <div  class="owl-item position-relative overlay overlay-show overlay-op-3" style="background-image: url({{ $slide->content }}); background-size: cover; background-position: center;">
-
+                        <div  class="owl-item position-relative overlay overlay-show overlay-op-3" 
+                                style="background-size: cover; background-position: center;">
+                                <img style="max-width: 100%; height: auto;"  src="{{ $slide->content }}" alt="">
                         </div>
                         @endforeach
-
                     </div>
                 </div>
                 <div class="owl-dots mb-5">
@@ -35,8 +38,34 @@
                 </div>
             </div>
 
+            <div class="view-mobile owl-carousel owl-carousel-light owl-carousel-light-init-fadeIn owl-theme manual 
+                dots-inside dots-vertical-center dots-align-right dots-orientation-portrait custom-dots-style-1 show-dots-hover 
+                show-dots-xs nav-style-1 nav-inside nav-inside-plus nav-dark nav-lg nav-font-size-lg show-nav-hover mb-0 " 
+                data-plugin-options="{'autoplayTimeout': 6500}" 
+                data-dynamic-height="['200px','200px','200px','200px','130px']" 
+                style="height: 350px;">
+                <div class="owl-stage-outer">
+                    <div class="owl-stage ara_centrado_total">
+                        @foreach ($sliders as $slide)
+                        <div  class="owl-item position-relative overlay overlay-show overlay-op-3" 
+                                style="background-size: cover; background-position: center;">
+                                <img style="max-width: 100%; height: auto;"  src="{{ $slide->content }}" alt="">
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+                <div class="owl-dots mb-5">
+                    @foreach ($sliders as $key => $slide)
+                        @if ($key==0)
+                        <button role="button" class="owl-dot active"><span></span></button>
+                        @else
+                        <button role="button" class="owl-dot"><span></span></button>
+                        @endif
+                    @endforeach
+                </div>
+            </div>
 
-            <section class="section-custom-medical">
+            <section class="section-custom-medical view-pc">
                 <div class="container">
                     <div class="row medical-schedules">
                         <div class="col-xl-3 box-two bg-color-primary appear-animation" data-appear-animation="fadeInLeft" data-appear-animation-delay="0">
@@ -66,12 +95,12 @@
             <br><br><br>
 
             <section style="padding-bottom: 90px;">
-                <div class="container">
+                <div class="container-lg">
                     <div class="row">
                         <div class="container mt-4">
-                            <div class="row justify-content-center">
+                            <div class="row justify-content-center ">
                                 <div class="col-lg-11 col-xl-10 text-center">
-                                    <h2 class="custom-highlight-text-1 d-inline-block line-height-5
+                                    <h2 class="custom-highlight-text-1 d-inline-block line-height-4
                                                 text-4 positive-ls-3 font-weight-medium text-color-primary
                                                 mb-2 appear-animation animated fadeInUpShorter appear-animation-visible"
                                                 data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1300"
@@ -140,7 +169,7 @@
             </section>
 
             <section style="padding: 100px 0px 100px 0px;">
-                <div class="container">
+                <div class="container-lg">
                     <div class="row">
                         <div class="container mt-4">
                             <div class="row justify-content-center">
@@ -171,7 +200,7 @@
                     <div class="row">
                         @foreach ($ministerios as $key => $ministerio)
                             @if ($key > 0 && $key < 4)
-                            <div class="col-md-4" style="padding: 15px;">
+                            <div class="col-md-4" style="padding: 10px;">
                                 <div class="ih-item square colored effect8 scale_down">
                                     <a href="{{ $ministerio->item->items[3]->content }}">
                                         <div class="img">
@@ -209,9 +238,9 @@
                                     {{ $gods_meeting[1]->content }}
                                 </p>
                                 <br>
-                                <button class="btn btn-primary" style="font-size: 16px;"  data-bs-toggle="modal" data-bs-target="#contacto">
+                                <a href="{{ route('web_contacto') }}" class="btn btn-primary" style="font-size: 16px;">
                                     <i class="fa fa-edit"></i> Escribenos
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -219,85 +248,120 @@
 
 
             <section style="padding: 90px 0px 90px 0px;">
-                <div class="container">
+                <div class="container-lg">
                     <div class="row">
-                        <div class="container mt-4">
-                            <div class="row justify-content-center">
-                                <div class="col-md-6" style="padding: 15px;">
-                                    <h2 class="custom-highlight-text-1 d-inline-block line-height-5
-                                                text-4 positive-ls-3 font-weight-medium text-color-primary
-                                                mb-2 appear-animation animated fadeInUpShorter appear-animation-visible"
-                                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1300"
-                                                style="animation-delay: 1300ms;">
-                                                {{ $subs[0]->content }}
-                                    </h2>
-                                    <h3 class="text-9 line-height-3 text-transform-none font-weight-semibold mb-4
-                                        appear-animation animated fadeInUpShorter appear-animation-visible"
-                                        data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1500"
-                                        style="animation-delay: 1500ms;">
-                                        {{ $subs[1]->content }}
-                                    </h3>
-                                    <p class="text-3-5 pb-3 mb-4 appear-animation animated fadeInUpShorter appear-animation-visible"
-                                        data-appear-animation="fadeInUpShorter"
-                                        data-appear-animation-delay="1900"
-                                        style="animation-delay: 1900ms;">
-                                        {{ $subs[2]->content }}
-                                    </p>
-
-                                    <form class="contact-form custom-form-style-1" method="POST" action="{{ route('apisubscriber') }}" id="pageContactForm">
-                                        <div class="row">
-                                            <div class="form-group col">
-                                                <input type="text" placeholder="Nombres Completos" value="" data-msg-required="Por favor ingresa tus nombres completos." maxlength="125" class="form-control bg-color-tertiary" name="full_name" id="full_name" required>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col">
-                                                <input type="email" placeholder="Dirección E-mail" value="" data-msg-required="Por favor ingresa tu correo electrónico." data-msg-email="Please enter a valid email address." maxlength="100" class="form-control bg-color-tertiary" name="email" id="email" required>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col">
-                                                <button data-loading-text="Loading..." id="submitPageContactButton" class="btn btn-outline btn-primary rounded-0 py-3 px-5 font-weight-semibold" style="font-size: 14px;" >Enviar Ahora</button>
-                                            </div>
-                                        </div>
-                                    </form>
+                        <div class="col-md-1" style="padding: 15px;"></div>
+                        <div class="col-md-4  box-zoom" style="padding: 25px; text-align:center;">
+                            <h2 class="custom-highlight-text-1 d-inline-block line-height-5
+                                        text-4 positive-ls-3 font-weight-medium text-color-primary
+                                        mb-2 appear-animation animated fadeInUpShorter appear-animation-visible"
+                                        data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1300"
+                                        style="animation-delay: 1300ms;">
+                                        #SOMOSJRRSS
+                            </h2>
+                            <h3 class="text-9 line-height-3 text-transform-none font-weight-semibold mb-4
+                                appear-animation animated fadeInUpShorter appear-animation-visible"
+                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1500"
+                                style="animation-delay: 1500ms;  margin-top: -5px;">
+                                {{ $difusion[0]->content }}
+                            </h3>
+                            <p class="text-3-5 pb-3 mb-1 appear-animation animated fadeInUpShorter appear-animation-visible"
+                                data-appear-animation="fadeInUpShorter"
+                                data-appear-animation-delay="1900"
+                                style="animation-delay: 1900ms; margin-top: -20px;">
+                                {{ $difusion[1]->content }}
+                            </p>
+                            <img class="mb-1 appear-animation animated fadeInUpShorter appear-animation-visible"
+                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="2100"
+                                style="animation-delay: 2100ms; margin-top: -10px; width: 100%; background: red;" 
+                                src="{{ $difusion[2]->content }}" alt="">
+                                
+							<a href="{{ $difusion[3]->content }}"
+                                target="_blanck" class="btn btn-primary
+                                mb-1 appear-animation animated fadeInUpShorter appear-animation-visible"
+                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="2300">
+                                <div style="justify-content: space-between;">
+                                    <div style="float: left; font-size: 24px;">
+                                        <i class="fab fa-whatsapp"></i>
+                                    </div>
+                                    <div style="float: left; padding: 5px; font-size: 16px;">
+                                        &nbsp; ¡Canal de difusión JRRSS!
+                                    </div>
                                 </div>
-                                <div class="col-md-6 ara_centrado_total" style="padding: 15px;">
-                                    <img style="width: 98%" src="{{ $subs[3]->content }}" alt="">
-                                </div>
-                            </div>
+                            </a>
                         </div>
+                        <div class="col-md-2" style="padding: 15px;"></div>
+                        <div class="col-md-4  box-zoom" style="padding: 25px; text-align:center;">
+                            <h2 class="custom-highlight-text-1 d-inline-block line-height-5
+                                        text-4 positive-ls-3 font-weight-medium text-color-primary
+                                        mb-2 appear-animation animated fadeInUpShorter appear-animation-visible"
+                                        data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1300"
+                                        style="animation-delay: 1300ms;">
+                                        #SOMOSJRRSS
+                            </h2>
+                            <h3 class="text-9 line-height-3 text-transform-none font-weight-semibold mb-4
+                                appear-animation animated fadeInUpShorter appear-animation-visible"
+                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1500"
+                                style="animation-delay: 1500ms;  margin-top: -5px;">
+                                {{ $difusion[4]->content }}
+                            </h3>
+                            <p class="text-3-5 pb-3 mb-1 appear-animation animated fadeInUpShorter appear-animation-visible"
+                                data-appear-animation="fadeInUpShorter"
+                                data-appear-animation-delay="1900"
+                                style="animation-delay: 1900ms; margin-top: -20px;">
+                                {{ $difusion[5]->content }}
+                            </p>
+                            <img class="mb-1 appear-animation animated fadeInUpShorter appear-animation-visible"
+                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="2100"
+                                style="animation-delay: 2100ms; margin-top: -10px; width: 100%; background: red;" 
+                                src="{{ $difusion[6]->content }}" alt="">
+                                
+							<a href="{{ $difusion[7]->content }}"
+                                target="_blanck"  class="btn btn-primary
+                                mb-1 appear-animation animated fadeInUpShorter appear-animation-visible"
+                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="2300">
+                                <div style="justify-content: space-between;">
+                                    <div style="float: left; font-size: 24px;">
+                                        <i class="fab fa-whatsapp"></i>
+                                    </div>
+                                    <div style="float: left; padding: 5px; font-size: 16px;">
+                                        &nbsp; ¡Canal de difusión RMNT!
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-1" style="padding: 15px;"></div>
                     </div>
                 </div>
             </section>
 
             @foreach ($reuniones as $key => $reunion)
-            @if ($key > 0 && $key < 5)
-                <div class="modal fade" id="reuniones{{ $key }}" tabindex="-1" aria-labelledby="reunionesLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title" id="reunionesLabel">{{ $reunion->item->items[0]->content }}</h4>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <h5><b>{{ $reunion->item->items[2]->content }}: {{ $reunion->item->items[3]->content }}</b> </h5>
-                                <p style="margin-top: -15px;">
-                                    <b>Horario de Reunión:</b> {{ $reunion->item->items[5]->content }}
-                                </p>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        {!!  $reunion->item->items[4]->content  !!}
+                @if ($key > 0 && $key < 5)
+                    <div class="modal fade" id="reuniones{{ $key }}" tabindex="-1" aria-labelledby="reunionesLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="reunionesLabel">{{ $reunion->item->items[0]->content }}</h4>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <h5><b>{{ $reunion->item->items[2]->content }}: {{ $reunion->item->items[3]->content }}</b> </h5>
+                                    <p style="margin-top: -15px;">
+                                        <b>Horario de Reunión:</b> {{ $reunion->item->items[5]->content }}
+                                    </p>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            {!!  $reunion->item->items[4]->content  !!}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            @endif
+                @endif
             @endforeach
 
 

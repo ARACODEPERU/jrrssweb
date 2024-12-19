@@ -29,7 +29,8 @@ class EvenEventController extends Controller
 
     public function __construct()
     {
-        $this->P000010  = Parameter::where('parameter_code', 'P000010')->value('value_default');
+        //$this->P000010  = Parameter::where('parameter_code', 'P000010')->value('value_default');
+        $this->P000010  = env('TINY_API_KEY');
     }
     public function index()
     {

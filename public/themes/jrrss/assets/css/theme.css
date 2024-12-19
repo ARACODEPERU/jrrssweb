@@ -21,7 +21,7 @@ body {
 	background-color: var(--light);
 	color: var(--default);
 	font-family: "Poppins", Arial, sans-serif;
-	font-size: 14px;
+	font-size: 17px;
 	line-height: 26px;
 	margin: 0;
 }
@@ -44,6 +44,23 @@ body a {
 /* Body */
 .body {
 	background-color: var(--light);
+}
+
+/* whatsapp
+Verde Oscuro: #075e54	(7,94,84)
+Verde Medio: #128c7e	(18,140,126)
+Verde Claro: #25d366	(37,211,102)
+Verde Agua: #dcf8c6	(220,248,198)
+Gris: #ece5dd	(236,229,221) */
+
+.btn-whatsapp {
+	background: #128c7e;
+	color: #fff;
+}
+
+.btn-whatsapp:hover {
+	background: #25d366;
+	color: #fff;
 }
 
 /*aracode*/

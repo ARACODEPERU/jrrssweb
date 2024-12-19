@@ -10,23 +10,9 @@
 
         <div role="main" class="main">
 
-            <section
-                class="page-header bg-color-tertiary custom-page-header page-header-modern page-header-background page-header-background-sm parallax mt-0"
-                data-plugin-parallax data-plugin-options="{'speed': 1.2}"
-                data-image-src="{{ asset('themes/jrrss/assets/img/demos/construction-2/page-header.jpg') }}">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12 align-self-center">
-                            <ul class="breadcrumb custom-breadcrumb d-block text-center text-4">
-                                <li><a href="{{ route('cms_principal') }}">Home</a></li>
-                                <li class="active">Donar</li>
-                            </ul>
-                        </div>
-                        <div class="col-md-12 align-self-center p-static text-center mt-2">
-                            <h1 class="font-weight-bold text-color-secondary text-11">Donar</h1>
-                        </div>
-                    </div>
-                </div>
+
+            <section>
+                <img style="max-width: 100%; height: auto;" src="{{ $banner->content }}" alt="">
             </section>
 
 
@@ -36,10 +22,15 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <p class="mb-1">SOMOS JRRSS</p>
-                                <h3 class="text-secondary font-weight-bold text-capitalize text-7 mb-3">FORMAS DE DAR EN
+                                <<<<<<< HEAD <h3 class="text-secondary font-weight-bold text-capitalize text-7 mb-3">FORMAS
+                                    DE DAR EN
                                     PERÚ</h3>
+                                    =======
+                                    <h3 class="font-weight-bold text-capitalize text-7 mb-3">FORMAS DE DAR EN PERÚ</h3>
+                                    >>>>>>> 6315a77360bcfec73ac9b0835000d4fc1281e161
                             </div>
                         </div>
+                        <br>
                         <div class="row">
                             <div class="col-md-6">
                                 <h4>N° DE CUENTAS BBVA</h4>
@@ -80,13 +71,18 @@
                                     $. CCI: 003-056-003003202165-93
                                 </p>
                             </div>
+                            <div class="col-md-6">
+                                <h4>PLIN ó YAPE</h4>
+                                <img style="width: 100%;" src="{{ asset('themes/jrrss/assets/img/PLIN-YAPE.png') }}"
+                                    alt="">
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col-md-12">
                                 <p class="mb-1">SOMOS JRRSS</p>
-                                <h3 class="text-secondary font-weight-bold text-capitalize text-7 mb-3">TU SEMILLA TIENE UN
+                                <h3 class="font-weight-bold text-capitalize text-7 mb-3">TU SEMILLA TIENE UN
                                     PROPÓSITO</h3>
                             </div>
                         </div>
@@ -140,6 +136,7 @@
                                                     <option value="Primicias">Primicias</option>
                                                 </select>
                                             </div>
+
                                         </div>
                                         <div class="row">
                                             <div class="form-group col">
@@ -163,6 +160,7 @@
                                                     name="full_name" id="full_name" required>
                                             </div>
                                         </div>
+
                                         <div class="row">
                                             <div class="form-group col">
                                                 <input type="number" placeholder="Monto a donar" value=""
@@ -182,6 +180,7 @@
                                                     <option value="4">Primicias</option>
                                                 </select>
                                             </div>
+
                                         </div>
                                         <div class="row">
                                             <div class="form-group col">

@@ -32,7 +32,8 @@ class AcaCourseController extends Controller
     public function __construct()
     {
         $this->RPTABLE = env('RECORDS_PAGE_TABLE') ?? 10;
-        $this->P000010  = Parameter::where('parameter_code', 'P000010')->value('value_default');
+        //$this->P000010  = Parameter::where('parameter_code', 'P000010')->value('value_default');
+        $this->P000010  = env('TINY_API_KEY');
     }
 
     public function index()

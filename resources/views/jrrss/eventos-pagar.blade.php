@@ -8,14 +8,8 @@
         <x-jrrss.header-area></x-jrrss.header-area>
         <!-- Header - area end -->
         <div role="main" class="main">
-
-            <div class="ara_centrado_total">
-                <img style="max-width: 100%; height: auto;"
-                    src="{{ asset('themes/jrrss/assets/img/page-header/evento-1.jpg') }}">
-            </div>
-
             @if ($ticket)
-                <div class="container container-xl-custom pt-5">
+                <div class="container-lg container-xl-custom pt-5">
                     <div class="row pb-4">
                         <div class="col-md-3"></div>
                         <div class="col-md-6">

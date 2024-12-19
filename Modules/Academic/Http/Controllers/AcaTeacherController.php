@@ -31,6 +31,8 @@ class AcaTeacherController extends Controller
                 'aca_teachers.teacher_code',
                 'people.document_type_id',
                 'people.full_name',
+                'people.father_lastname',
+                'people.names',
                 'people.number',
                 'people.telephone',
                 'people.email',

@@ -11,22 +11,9 @@
 
         <div role="main" class="main">
 
-            <section class="page-header bg-color-tertiary custom-page-header page-header-modern page-header-background page-header-background-sm parallax mt-0"
-                     data-plugin-parallax data-plugin-options="{'speed': 1.2}"
-                     data-image-src="{{ $banner->content }}">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12 align-self-center">
-                            <ul class="breadcrumb custom-breadcrumb d-block text-center text-4">
-                                <li><a href="{{ route('cms_principal') }}">Home</a></li>
-                                <li class="active">Contacto</li>
-                            </ul>
-                        </div>
-                        <div class="col-md-12 align-self-center p-static text-center mt-2">
-                            <h1 class="font-weight-bold text-color-secondary text-11">Contactanos</h1>
-                        </div>
-                    </div>
-                </div>
+            
+            <section>
+                <img style="max-width: 100%; height: auto;"  src="{{ $banner->content }}" alt="">
             </section>
 
 
@@ -39,7 +26,6 @@
 					</div>
 					<div class="row pb-4">
 						<div class="col-lg-7 pb-5">
-
 							<p>
 								Envía un mensaje para comunicarte con nosotros, deja tu información si deseas que nos comuniquemos contigo o si solo deseas informarnos algo.
 							</p>
@@ -69,7 +55,11 @@
 								</div>
 								<div class="row">
 									<div class="form-group col">
-										<button data-loading-text="Loading..." id="submitPageContactButton" class="btn btn-outline btn-primary rounded-0 py-3 px-5 font-weight-semibold" >Enviar Ahora</button>
+										<button data-loading-text="Loading..." 
+												id="submitPageContactButton" 
+												class="btn btn-primary rounded-0 py-3 px-5 font-weight-semibold">
+												Enviar Ahora
+										</button>
 
 									</div>
 								</div>
@@ -111,6 +101,22 @@
 											<div class="col-10 col-lg-11">
 												<h4 class="text-secondary font-weight-bold text-capitalize mb-0">E-mail</h4>
 												<p class="mb-0"><a class="px-0 text-default" href="mailto:mail@domain.com">ibi.jrrss@gmail.com</a></p>
+											</div>
+										</div>
+										<hr class="my-3 opacity-5">
+										<div class="row">
+											<div class="col-md-12">
+												<a href="{{ $difusion[3]->content }}"
+													target="_blanck" class="btn btn-whatsapp">
+													<div style="justify-content: space-between;">
+														<div style="float: left; font-size: 24px;">
+															<i class="fab fa-whatsapp"></i>
+														</div>
+														<div style="float: left; padding: 5px; font-size: 16px;">
+															&nbsp; ¡Canal de difusión JRRSS!
+														</div>
+													</div>
+												</a>
 											</div>
 										</div>
 									</div>
