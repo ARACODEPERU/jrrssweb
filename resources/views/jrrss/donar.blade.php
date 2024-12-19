@@ -36,7 +36,8 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <p class="mb-1">SOMOS JRRSS</p>
-                                <h3 class="text-secondary font-weight-bold text-capitalize text-7 mb-3">FORMAS DE DAR EN PERÚ</h3>
+                                <h3 class="text-secondary font-weight-bold text-capitalize text-7 mb-3">FORMAS DE DAR EN
+                                    PERÚ</h3>
                             </div>
                         </div>
                         <div class="row">
@@ -96,87 +97,134 @@
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lectus lacus, rutrum
                                     sit amet placerat et, bibendum nec mauris. Duis molestie purus eget placerat viverra.
                                 </p>
+                                <ul class="nav nav-tabs" style="margin-bottom: 50px">
+                                    <li class="nav-item">
+                                        <button onclick="changeFormPayment(1)" id="btnSoles" class="nav-link active"
+                                            aria-current="page" href="#">SOLES</button>
+                                    </li>
+                                    <li class="nav-item">
+                                        <button onclick="changeFormPayment(2)" id="btnPaypal" class="nav-link"
+                                            href="#">DOLARES</button>
+                                    </li>
+                                </ul>
+                                <div id="divFormMercadoPago">
+                                    <form class="custom-form-style-1" method="POST"
+                                        action="{{ route('web_donar_tarjeta') }}">
+                                        @csrf
+                                        <input type="hidden" value="soles" name="currency" id="currency" />
+                                        <div class="row">
+                                            <div class="form-group col">
+                                                <input type="text" placeholder="Nombres Completos" value=""
+                                                    data-msg-required="Por favor ingresa tus nombres completos."
+                                                    maxlength="125" class="form-control bg-color-tertiary" name="full_name"
+                                                    id="full_name" required>
+                                            </div>
+                                        </div>
 
-                                <form class="custom-form-style-1" method="POST"
-                                    action="{{ route('paypal_donate') }}" id="pageContactForm">
-                                    @csrf
-                                    <div class="row">
-                                        <div class="form-group col">
-                                            <input type="text" placeholder="Nombres Completos" value=""
-                                                data-msg-required="Por favor ingresa tus nombres completos." maxlength="125"
-                                                class="form-control bg-color-tertiary" name="full_name" id="full_name"
-                                                required>
+                                        <div class="row">
+                                            <div class="form-group col">
+                                                <input type="number" placeholder="Monto a donar" value=""
+                                                    data-msg-required="Por favor ingresa el monto que deseas donar."
+                                                    maxlength="125" class="form-control bg-color-tertiary" name="amount"
+                                                    id="amount" required>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col">
-                                            <select name="currency" id="currency" class="form-control bg-color-tertiary">
-                                                <option value="soles" selected>Soles</option>
-                                                <option value="dolares">Dolares</option>
-                                            </select>
+                                        <div class="row">
+                                            <div class="form-group col">
+                                                <select class="form-select form-control bg-color-tertiary"
+                                                    aria-label="Default select example" maxlength="125"
+                                                    name="donation_destinity_id" id="tipo" required>
+                                                    <option value="Diezmos">Diezmos</option>
+                                                    <option selected value="Ofrenda">Ofrenda</option>
+                                                    <option value="Pacto">Pacto</option>
+                                                    <option value="Primicias">Primicias</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col">
-                                            <input type="number" placeholder="Monto a donar" value=""
-                                                data-msg-required="Por favor ingresa el monto que deseas donar."
-                                                maxlength="125" class="form-control bg-color-tertiary" name="amount"
-                                                id="amount" required>
+                                        <div class="row">
+                                            <div class="form-group col">
+                                                <button data-loading-text="Loading..." id="submitPaypal"
+                                                    class="btn btn-outline btn-primary rounded-0 py-3 px-5 font-weight-semibold">Donar
+                                                    con Mercado Pago</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col">
-                                            <select class="form-select form-control bg-color-tertiary"
-                                                aria-label="Default select example" maxlength="125" name="donation_destinity_id"
-                                                id="tipo" required>
-                                                <option value="1">Diezmos</option>
-                                                <option selected value="2">Ofrenda</option>
-                                                <option value="2">Pacto</option>
-                                                <option value="3">Primicias</option>
-                                            </select>
+                                    </form>
+                                </div>
+                                <div id="divFormPaypal" style="display: none">
+                                    <form class="custom-form-style-1" method="POST" action="{{ route('paypal_donate') }}"
+                                        id="pageContactForm">
+                                        @csrf
+                                        <input type="hidden" value="dolares" name="currency" id="currency" />
+                                        <div class="row">
+                                            <div class="form-group col">
+                                                <input type="text" placeholder="Nombres Completos" value=""
+                                                    data-msg-required="Por favor ingresa tus nombres completos."
+                                                    maxlength="125" class="form-control bg-color-tertiary"
+                                                    name="full_name" id="full_name" required>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col">
-                                            <button data-loading-text="Loading..." id="submitMercadoPago"
-                                                class="btn btn-outline btn-primary rounded-0 py-3 px-5 font-weight-semibold">Donar
-                                                con Mercado Pago</button>
+                                        <div class="row">
+                                            <div class="form-group col">
+                                                <input type="number" placeholder="Monto a donar" value=""
+                                                    data-msg-required="Por favor ingresa el monto que deseas donar."
+                                                    maxlength="125" class="form-control bg-color-tertiary" name="amount"
+                                                    id="amount" required>
+                                            </div>
                                         </div>
-                                        <div class="form-group col">
-                                            <button data-loading-text="Loading..." id="submitPaypal"
-                                                class="btn btn-outline btn-primary rounded-0 py-3 px-5 font-weight-semibold" style="display: none">Donar
-                                                con Paypal</button>
+                                        <div class="row">
+                                            <div class="form-group col">
+                                                <select class="form-select form-control bg-color-tertiary"
+                                                    aria-label="Default select example" maxlength="125"
+                                                    name="donation_destinity_id" id="tipo" required>
+                                                    <option value="1">Diezmos</option>
+                                                    <option selected value="2">Ofrenda</option>
+                                                    <option value="3">Pacto</option>
+                                                    <option value="4">Primicias</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
-                                </form>
+                                        <div class="row">
+                                            <div class="form-group col">
+                                                <button data-loading-text="Loading..." id="submitPaypal"
+                                                    class="btn btn-outline btn-primary rounded-0 py-3 px-5 font-weight-semibold">Donar
+                                                    con Paypal</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-<script>
-// Ejecutar código cuando se haya cargado completamente la página
-window.addEventListener('load', function() {
-        // Obtener elementos del DOM
-const currencySelect = document.getElementById('currency');
-const mercadoPagoButton = document.getElementById('submitMercadoPago');
-const paypalButton = document.getElementById('submitPaypal');
-  // Escuchar cambios en la selección de moneda
-  currencySelect.addEventListener('change', function() {
-    const selectedCurrency = currencySelect.value;
+            <script>
+                // Ejecutar código cuando se haya cargado completamente la página
+                function changeFormPayment(type) {
+                    const divMercadoPago = document.getElementById('divFormMercadoPago');
+                    const divPaypal = document.getElementById('divFormPaypal');
+                    const btnSoles = document.getElementById('btnSoles');
+                    const btnPaypal = document.getElementById('btnPaypal');
 
-    // Mostrar u ocultar botones según la moneda seleccionada
-    if (selectedCurrency == 'soles') {
-      mercadoPagoButton.style.display = 'block';
-      paypalButton.style.display = 'none';
-    } else if (selectedCurrency == 'dolares') {
-      mercadoPagoButton.style.display = 'none';
-      paypalButton.style.display = 'block';
-    }
-  });
-});
-</script>
+                    if (type === 1) {
+                        // Mostrar MercadoPago y ocultar PayPal
+                        divMercadoPago.style.display = 'block';
+                        divPaypal.style.display = 'none';
+
+                        // Agregar clase 'active' a MercadoPago y quitarla de PayPal
+                        btnSoles.classList.add('active');
+                        btnPaypal.classList.remove('active');
+                    } else if (type === 2) {
+                        // Mostrar PayPal y ocultar MercadoPago
+                        divMercadoPago.style.display = 'none';
+                        divPaypal.style.display = 'block';
+
+                        // Agregar clase 'active' a PayPal y quitarla de MercadoPago
+                        btnPaypal.classList.add('active');
+                        btnSoles.classList.remove('active');
+                    }
+                }
+            </script>
 
 
 

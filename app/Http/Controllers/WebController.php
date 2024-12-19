@@ -273,8 +273,7 @@ class WebController extends Controller
         }
         return view('jrrss/eventos-pagar', [
             'ticket' => $ticket,
-            'preference_id' => $preference_id,
-            'ticket' => $ticket
+            'preference_id' => $preference_id
         ]);
     }
 
@@ -311,6 +310,7 @@ class WebController extends Controller
                 "installments" => $request->get('installments'),
                 "payer" => $request->get('payer')
             ]);
+
             if ($payment->status == 'approved') {
                 $ticket = EvenEventTicketClient::where('id', $id)
                     ->where('status', false)
@@ -323,6 +323,7 @@ class WebController extends Controller
                 $ticket->response_payer = json_encode($request->all());
                 $ticket->response_payment_method_id = $request->get('payment_type');
                 $ticket->save();
+
                 return response()->json([
                     'status' => $payment->status,
                     'message' => $payment->status_detail,
@@ -682,6 +683,100 @@ class WebController extends Controller
 
             // Retornar la respuesta
             return $response;
+        }
+    }
+
+    public function donarTarjeta(Request $request)
+    {
+
+        $preference_id = null;
+
+        $title = $request->get('donation_destinity_id');
+        $price = $request->get('amount');
+        $donador = $request->get('full_name');
+
+        try {
+            MercadoPagoConfig::setAccessToken(env('MERCADOPAGO_TOKEN'));
+            $client = new PreferenceClient();
+
+            //dd($mp_items);
+            $preference = $client->create([
+                "items" => array(
+                    array(
+                        'category_id' => 'DONACIÓN',
+                        'title' => $title,
+                        'quantity'      => 1,
+                        'currency_id'   => 'PEN',
+                        'unit_price'    => floatval($price)
+                    )
+                ),
+                "back_urls" =>  array(
+                    'success' => route('web_gracias_por_donar', $donador),
+                    // 'failure' => route('onlineshop_response_mercadopago'),
+                    // 'pending' => route('onlineshop_response_mercadopago')
+                )
+            ]);
+            $preference_id =  $preference->id;
+        } catch (\MercadoPago\Exceptions\MPApiException $e) {
+            // Manejar la excepción
+            $response = $e->getApiResponse();
+            dd($response); // Mostrar la respuesta para obtener más detalles
+        }
+
+        return view('jrrss/donar-pagar', [
+            'preference_id' => $preference_id,
+            'datos_form' => $request->all()
+        ]);
+    }
+
+    public function processDonacion(Request $request)
+    {
+        MercadoPagoConfig::setAccessToken(env('MERCADOPAGO_TOKEN'));
+        $donationdata = $request->get('items');
+        $client = new PaymentClient();
+        try {
+            $payment = $client->create([
+                "token" => $request->get('token'),
+                "issuer_id" => $request->get('issuer_id'),
+                "payment_method_id" => $request->get('payment_method_id'),
+                "transaction_amount" => (float) $request->get('transaction_amount'),
+                "installments" => $request->get('installments'),
+                "payer" => $request->get('payer')
+            ]);
+
+            if ($payment->status == 'approved') {
+                $ticket = new EvenEventTicketClient();
+                $ticket->nombres = $donationdata['nombre'];
+                $ticket->monto = $donationdata['monto'];
+                $ticket->tipo_donacion = $donationdata['tipo'];
+                $ticket->status = true;
+                $ticket->response_status = $request->get('collection_status');
+                $ticket->response_id = $request->get('collection_id');
+                $ticket->response_date_approved = Carbon::now()->format('Y-m-d');
+                $ticket->response_payer = json_encode($request->all());
+                $ticket->response_payment_method_id = $request->get('payment_type');
+                $ticket->save();
+
+                return response()->json([
+                    'status' => $payment->status,
+                    'message' => $payment->status_detail,
+                    'url' => route('web_gracias_por_donar', $donationdata['nombre'])
+                ]);
+            } else {
+
+                return response()->json([
+                    'status' => $payment->status,
+                    'message' => $payment->status_detail,
+                    'url' => route('web_donar')
+                ]);
+            }
+        } catch (\MercadoPago\Exceptions\MPApiException $e) {
+            // Manejar la excepción
+            $response = $e->getApiResponse();
+            $content  = $response->getContent();
+
+            $message = $content['message'];
+            return response()->json(['error' => 'Error al procesar el pago: ' . $message], 412);
         }
     }
 }

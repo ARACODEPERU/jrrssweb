@@ -44,8 +44,8 @@ Route::get('/contacto', [WebController::class, 'contacto'])->name('web_contacto'
 Route::get('/donar', [WebController::class, 'donar'])->name('web_donar');
 Route::get('/gracias-por-comprar-tu-entrada/{id}', [WebController::class, 'graciasporcomprartuentrada'])->name('web_gracias_por_comprar_tu_entrada');
 Route::get('/gracias-por-donar/{donador}', [WebController::class, 'gracias_por_donar'])->name('web_gracias_por_donar');
-
-
+Route::post('/donar/tarjeta', [WebController::class, 'donarTarjeta'])->name('web_donar_tarjeta');
+Route::put('/donar-pagar/procesar', [WebController::class, 'processDonacion'])->name('web_process_donacion');
 
 Route::get('/gracias/{id}/pagado', [WebController::class, 'gracias'])->name('web_gracias');
 // eventos
