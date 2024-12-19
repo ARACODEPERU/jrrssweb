@@ -10,10 +10,10 @@
 
         <div role="main" class="main">
 
-            {{-- 
+
             <section>
                 <img style="max-width: 100%; height: auto;" src="{{ $banner->content }}" alt="">
-            </section> --}}
+            </section>
 
 
             <div class="container container-xl-custom pt-5 ">

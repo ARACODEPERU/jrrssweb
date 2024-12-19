@@ -9,10 +9,10 @@
         <!-- Header - area end -->
         <div role="main" class="main">
 
-            <div class="ara_centrado_total">
+            {{-- <div class="ara_centrado_total">
                 <img style="max-width: 100%; height: auto;"
                     src="{{ asset('themes/jrrss/assets/img/page-header/evento-1.jpg') }}">
-            </div>
+            </div> --}}
 
             @if ($datos_form)
                 <input type="hidden" id="nombres" value="{{ $datos_form['full_name'] }}" />
