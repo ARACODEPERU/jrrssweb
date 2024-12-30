@@ -22,6 +22,7 @@ use Modules\Socialevents\Entities\EvenEvent;
 use Modules\Socialevents\Entities\EvenEventTicketClient;
 use Modules\CMS\Entities\CmsSection;
 use Modules\CMS\Entities\CmsSectionItem;
+use Modules\Socialevents\Entities\EvenEventDonation;
 
 class WebController extends Controller
 {
@@ -212,12 +213,12 @@ class WebController extends Controller
     public function eventos()
     {
         $events = EvenEvent::with('exhibitors.exhibitor')
-        ->with('category')
-        ->with('prices.type')
-        ->where('status', 'PE')
-        ->orderBy('date_start', 'DESC')
-        ->take(3) // Limitar la consulta a los últimos 3 eventos
-        ->get();
+            ->with('category')
+            ->with('prices.type')
+            ->where('status', 'PE')
+            ->orderBy('date_start', 'DESC')
+            ->take(3) // Limitar la consulta a los últimos 3 eventos
+            ->get();
 
         $ubigeo = District::join('provinces', 'province_id', 'provinces.id')
             ->join('departments', 'provinces.department_id', 'departments.id')
@@ -439,7 +440,7 @@ class WebController extends Controller
         }, 'group.items'])
             ->where('section_id', $group_video->id)
             ->paginate(4);
-       //dd($videos);
+        //dd($videos);
 
         $rsociales = CmsSection::where('component_id', 'ecelt_redes_sociales_40')  //siempre cambiar el id del componente
             ->join('cms_section_items', 'section_id', 'cms_sections.id')
@@ -508,14 +509,14 @@ class WebController extends Controller
             ->paginate(6);
 
         $rsociales = CmsSection::where('component_id', 'ecelt_redes_sociales_40')  //siempre cambiar el id del componente
-                ->join('cms_section_items', 'section_id', 'cms_sections.id')
-                ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
-                ->select(
-                    'cms_items.content',
-                    'cms_section_items.position'
-                )
-                ->orderBy('cms_section_items.position')
-                ->get();
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+            ->orderBy('cms_section_items.position')
+            ->get();
 
         $textBiblie = CmsSection::where('component_id', 'rmnt_texto_biblico_32')  //siempre cambiar el id del componente
             ->join('cms_section_items', 'section_id', 'cms_sections.id')
@@ -527,14 +528,14 @@ class WebController extends Controller
             ->orderBy('cms_section_items.position')
             ->get();
 
-            $group_video = CmsSection::where('component_id', 'rmnt_videoteca_33')->first();
+        $group_video = CmsSection::where('component_id', 'rmnt_videoteca_33')->first();
 
-            $videoteca = CmsSectionItem::with(['group' => function ($query) {
-                $query->where('type_id', 5);
-            }, 'group.items'])
-                ->where('section_id', $group_video->id)
-                ->paginate(4);
-           //dd($videos);
+        $videoteca = CmsSectionItem::with(['group' => function ($query) {
+            $query->where('type_id', 5);
+        }, 'group.items'])
+            ->where('section_id', $group_video->id)
+            ->paginate(4);
+        //dd($videos);
 
         return view('jrrss/revolucion-juvenil', [
             'banner' => $banner,
@@ -626,10 +627,10 @@ class WebController extends Controller
         $group_video = CmsSection::where('component_id', 'testimonios_videoteca_38')->first();
 
         $testimonios = CmsSectionItem::with(['group' => function ($query) {
-                $query->where('type_id', 5);
-            }, 'group.items'])
-                ->where('section_id', $group_video->id)
-                ->paginate(6);
+            $query->where('type_id', 5);
+        }, 'group.items'])
+            ->where('section_id', $group_video->id)
+            ->paginate(6);
 
         return view('jrrss/testimonios', [
             'banner' => $banner,
@@ -674,8 +675,8 @@ class WebController extends Controller
                 'cms_items.content',
                 'cms_section_items.position'
             )
-        ->orderBy('cms_section_items.position')
-        ->first();
+            ->orderBy('cms_section_items.position')
+            ->first();
         return view('jrrss/donar', [
             'banner' => $banner,
         ]);
@@ -775,7 +776,10 @@ class WebController extends Controller
 
         $title = $request->get('donation_destinity_id');
         $price = $request->get('amount');
-        $donador = $request->get('full_name');
+        $nombres = $request->get('nombres');
+        $apellidos = $request->get('apellidos');
+        $correo = $request->get('correo');
+        $donador = $nombres . ' ' . $apellidos;
 
         try {
             MercadoPagoConfig::setAccessToken(env('MERCADOPAGO_TOKEN'));
@@ -816,7 +820,11 @@ class WebController extends Controller
         MercadoPagoConfig::setAccessToken(env('MERCADOPAGO_TOKEN'));
         $donationdata = $request->get('items');
         $client = new PaymentClient();
+
         try {
+
+            // dd($request->get('payer'));
+
             $payment = $client->create([
                 "token" => $request->get('token'),
                 "issuer_id" => $request->get('issuer_id'),
@@ -825,9 +833,9 @@ class WebController extends Controller
                 "installments" => $request->get('installments'),
                 "payer" => $request->get('payer')
             ]);
-
+            //dd($payment);
             if ($payment->status == 'approved') {
-                $ticket = new EvenEventTicketClient();
+                $ticket = new EvenEventDonation();
                 $ticket->nombres = $donationdata['nombre'];
                 $ticket->monto = $donationdata['monto'];
                 $ticket->tipo_donacion = $donationdata['tipo'];
@@ -856,7 +864,6 @@ class WebController extends Controller
             // Manejar la excepción
             $response = $e->getApiResponse();
             $content  = $response->getContent();
-
             $message = $content['message'];
             return response()->json(['error' => 'Error al procesar el pago: ' . $message], 412);
         }

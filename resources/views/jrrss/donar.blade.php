@@ -22,12 +22,10 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <p class="mb-1">SOMOS JRRSS</p>
-                                <<<<<<< HEAD <h3 class="text-secondary font-weight-bold text-capitalize text-7 mb-3">FORMAS
+                                <h3 class="text-secondary font-weight-bold text-capitalize text-7 mb-3">FORMAS
                                     DE DAR EN
                                     PERÚ</h3>
-                                    =======
-                                    <h3 class="font-weight-bold text-capitalize text-7 mb-3">FORMAS DE DAR EN PERÚ</h3>
-                                    >>>>>>> 6315a77360bcfec73ac9b0835000d4fc1281e161
+
                             </div>
                         </div>
                         <br>
@@ -110,13 +108,25 @@
                                         <input type="hidden" value="soles" name="currency" id="currency" />
                                         <div class="row">
                                             <div class="form-group col">
-                                                <input type="text" placeholder="Nombres Completos" value=""
-                                                    data-msg-required="Por favor ingresa tus nombres completos."
-                                                    maxlength="125" class="form-control bg-color-tertiary" name="full_name"
-                                                    id="full_name" required>
+                                                <input type="text" placeholder="Nombres" value="" maxlength="125"
+                                                    class="form-control bg-color-tertiary" name="nombres" id="nombres"
+                                                    required>
                                             </div>
                                         </div>
-
+                                        <div class="row">
+                                            <div class="form-group col">
+                                                <input type="text" placeholder="Apellidos" value="" maxlength="125"
+                                                    class="form-control bg-color-tertiary" name="apellidos" id="apellidos"
+                                                    required>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col">
+                                                <input type="text" placeholder="correo electronico" value=""
+                                                    maxlength="125" class="form-control bg-color-tertiary" name="correo"
+                                                    id="correo" required>
+                                            </div>
+                                        </div>
                                         <div class="row">
                                             <div class="form-group col">
                                                 <input type="number" placeholder="Monto a donar" value=""
@@ -148,8 +158,8 @@
                                     </form>
                                 </div>
                                 <div id="divFormPaypal" style="display: none">
-                                    <form class="custom-form-style-1" method="POST" action="{{ route('paypal_donate') }}"
-                                        id="pageContactForm">
+                                    <form class="custom-form-style-1" method="POST"
+                                        action="{{ route('paypal_donate') }}" id="pageContactForm">
                                         @csrf
                                         <input type="hidden" value="dolares" name="currency" id="currency" />
                                         <div class="row">

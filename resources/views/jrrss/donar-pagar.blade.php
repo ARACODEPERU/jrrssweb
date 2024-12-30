@@ -15,7 +15,7 @@
             </div>
 
             @if ($datos_form)
-                <input type="hidden" id="nombres" value="{{ $datos_form['full_name'] }}" />
+                <input type="hidden" id="nombres" value="{{ $datos_form['nombres'] }} {{ $datos_form['apellidos'] }}" />
                 <input type="hidden" id="monto" value="{{ $datos_form['amount'] }}" />
                 <input type="hidden" id="tipodonacion" value="{{ $datos_form['donation_destinity_id'] }}" />
                 <div class="container container-xl-custom pt-5">
@@ -29,7 +29,8 @@
                                             <h3 class="text-secondary font-weight-bold text-capitalize my-3">
                                                 Donar - {{ $datos_form['donation_destinity_id'] }}
                                             </h3>
-                                            <p>Estimado(a) <b>{{ $datos_form['full_name'] }}</b>
+                                            <p>Estimado(a) <b>{{ $datos_form['nombres'] }}
+                                                    {{ $datos_form['apellidos'] }}</b>
                                                 <b>Gracias por su donacion de
                                                     S/.{{ $datos_form['amount'] }}.</b>
                                                 <b> dar clic en el siguiente botón
@@ -72,6 +73,7 @@
                     initialization: {
                         preferenceId: "{{ $preference_id }}",
                         amount: {{ $datos_form['amount'] }},
+
                     },
                     customization: {
                         visual: {
