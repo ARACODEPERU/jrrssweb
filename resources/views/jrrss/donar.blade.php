@@ -22,9 +22,8 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <p class="mb-1">SOMOS JRRSS</p>
-                                <h3 class="text-secondary font-weight-bold text-capitalize text-7 mb-3">FORMAS
-                                    DE DAR EN
-                                    PERÚ</h3>
+
+                                <h3 class="font-weight-bold text-capitalize text-7 mb-3">FORMAS DE DAR EN PERÚ</h3>
 
                             </div>
                         </div>
@@ -151,8 +150,11 @@
                                         <div class="row">
                                             <div class="form-group col">
                                                 <button data-loading-text="Loading..." id="submitPaypal"
-                                                    class="btn btn-outline btn-primary rounded-0 py-3 px-5 font-weight-semibold">Donar
-                                                    con Mercado Pago</button>
+                                                    class="btn btn-outline btn-primary rounded-0 py-3 px-5 font-weight-semibold"
+                                                    style="font-size: 18px;">
+                                                    Donar
+                                                    con Mercado Pago
+                                                </button>
                                             </div>
                                         </div>
                                     </form>
@@ -195,8 +197,11 @@
                                         <div class="row">
                                             <div class="form-group col">
                                                 <button data-loading-text="Loading..." id="submitPaypal"
-                                                    class="btn btn-outline btn-primary rounded-0 py-3 px-5 font-weight-semibold">Donar
-                                                    con Paypal</button>
+                                                    class="btn btn-outline btn-primary rounded-0 py-3 px-5 font-weight-semibold"
+                                                    style="font-size: 18px;">
+                                                    Donar
+                                                    con Paypal
+                                                </button>
                                             </div>
                                         </div>
                                     </form>
