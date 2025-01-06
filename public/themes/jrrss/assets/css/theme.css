@@ -1534,6 +1534,7 @@ html.sticky-header-enabled.sticky-header-active #header .header-logo-sticky-chan
 		letter-spacing: -0.5px;
 		text-transform: uppercase;
 		text-decoration: none;
+		
 	}
 
 	#header .header-nav-main nav > ul > li > a:after {

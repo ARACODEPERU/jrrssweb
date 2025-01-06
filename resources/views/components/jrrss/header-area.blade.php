@@ -134,7 +134,7 @@
 														<a class="dropdown-item dropdown-toggle" href="">
 															DESCUBRE &nbsp;<i class="fa fa-caret-down" aria-hidden="true"></i>
                                                         </a>
-														<ul class="dropdown-menu border-top border-top-light mt-0">
+														<ul class="dropdown-menu">
 															<li>
 																<div class="dropdown-mega-content container px-2">
 																	<div class="row px-1">
@@ -214,19 +214,22 @@
 															<li>
                                                                 <a href="" 
                                                                     class="dropdown-item">
-                                                                    Perú
+                                                                    <img style="width: 15px; height: 15px;" src="{{ asset('themes/jrrss/assets/img/flags/peru.png') }}" alt="">
+                                                                    &nbsp; Perú
                                                                 </a>
                                                             </li>
 															<li>
                                                                 <a href="" 
                                                                     class="dropdown-item">
-                                                                    Estados Unidos
+                                                                    <img style="width: 15px; height: 15px;" src="{{ asset('themes/jrrss/assets/img/flags/estados-unidos.png') }}" alt="">
+                                                                    &nbsp; Estados Unidos
                                                                 </a>
                                                             </li>
 															<li>
                                                                 <a href="" 
                                                                     class="dropdown-item">
-                                                                    España
+                                                                    <img style="width: 15px; height: 15px;" src="{{ asset('themes/jrrss/assets/img/flags/españa.png') }}" alt="">
+                                                                    &nbsp; España
                                                                 </a>
                                                             </li>
 														</ul>
@@ -243,9 +246,27 @@
                                                             COBERTURA &nbsp;<i class="fa fa-caret-down" aria-hidden="true"></i>
                                                         </a>
 														<ul class="dropdown-menu">
-															<li><a href="demo-auto-services-services-detail.html" class="dropdown-item">Brake Repair</a></li>
-															<li><a href="demo-auto-services-services-detail.html" class="dropdown-item">Check Engine</a></li>
-															<li><a href="demo-auto-services-services-detail.html" class="dropdown-item">Suspension Repair</a></li>
+															<li>
+                                                                <a href="" 
+                                                                    class="dropdown-item">
+                                                                    <img style="width: 15px; height: 15px;" src="{{ asset('themes/jrrss/assets/img/flags/peru.png') }}" alt="">
+                                                                    &nbsp; Perú
+                                                                </a>
+                                                            </li>
+															<li>
+                                                                <a href="" 
+                                                                    class="dropdown-item">
+                                                                    <img style="width: 15px; height: 15px;" src="{{ asset('themes/jrrss/assets/img/flags/estados-unidos.png') }}" alt="">
+                                                                    &nbsp; Estados Unidos
+                                                                </a>
+                                                            </li>
+															<li>
+                                                                <a href="" 
+                                                                    class="dropdown-item">
+                                                                    <img style="width: 15px; height: 15px;" src="{{ asset('themes/jrrss/assets/img/flags/españa.png') }}" alt="">
+                                                                    &nbsp; España
+                                                                </a>
+                                                            </li>
 														</ul>
 													</li>
                                                     <li class="dropdown">
