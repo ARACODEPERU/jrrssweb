@@ -19,7 +19,8 @@
                 <div class="row">
                     @foreach ($sedes as $key => $sede )
                         <div class="col-md-4" style="padding: 20px;">
-                            <div class="box-flotante">
+                            <div class="">
+                            {{-- <div class="box-flotante"> --}}
                                 <div class="row">
                                     <div class="col-md-12">
                                         <img style="width: 100%; margin-top:-20px;" src="{{ $sede->item->items[0]->content }}" alt="">

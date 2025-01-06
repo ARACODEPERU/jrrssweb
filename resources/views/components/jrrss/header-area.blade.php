@@ -103,6 +103,7 @@
             }
         });
     </script>
+
     <header id="header"
         data-plugin-options="{'stickyEnabled': true, 'stickyEnableOnBoxed': true, 
                             'stickyEnableOnMobile': false, 'stickyStartAt': 164, 'stickySetTop': '-164px', 
@@ -112,15 +113,15 @@
                 <img style="max-width: 100%;
                 height: auto;" src="{{ $header[0]->content }}" alt="">
             </div>
-            <div class="header-nav-bar header-nav-bar-top-border bg-light">
-                <div class="header-container ">
+            {{-- <div class="header-nav-bar header-nav-bar-top-border bg-light"> --}}
+            <div class="header-nav-bar">
+                <div class="header-container">
                     <div class="header-row">
                         <div class="header-column">
                             <div class="header-row justify-content-end">
                                 <div class="header-nav p-0">
                                     <div class="header-nav header-nav-line header-nav-divisor header-nav-spaced justify-content-lg-center">
-                                        <div
-                                            class="header-nav-main header-nav-main-square header-nav-main-effect-1 header-nav-main-sub-effect-1">
+                                        <div class="header-nav-main header-nav-main-square header-nav-main-effect-1 header-nav-main-sub-effect-1">
                                             <nav class="collapse">
                                                 <ul class="nav nav-pills flex-column flex-lg-row" id="mainNav">
                                                     <li class="dropdown">
@@ -223,6 +224,7 @@
             </div>
         </div>
     </header>
+
     <!-- Modal -->
     @if ($transmissions)
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"

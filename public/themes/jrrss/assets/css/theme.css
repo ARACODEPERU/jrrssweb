@@ -109,7 +109,7 @@ a:not(.btn):hover {
 }
 
 li {
-	line-height: 24px;
+	line-height: 14px;
 }
 
 @media (max-width: 575px) {
@@ -224,7 +224,6 @@ li {
 
 #header .header-column .header-extra-info li .header-extra-info-icon {
 	font-size: 32px;
-	font-size: 2rem;
 	margin-right: 10px;
 }
 
@@ -378,7 +377,7 @@ li {
 	position: relative;
 }
 
-#header .header-nav-top .nav > li > a {
+.header-nav-top .nav > li > a {
 	text-decoration: none;
 }
 
