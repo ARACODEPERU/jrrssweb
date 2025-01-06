@@ -131,8 +131,8 @@
                                                         </a>
                                                     </li>
                                                     <li class="dropdown dropdown-mega">
-														<a class="dropdown-item dropdown-toggle" href="elements.html">
-															DESCUBRE &nbsp;<i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
+														<a class="dropdown-item dropdown-toggle" href="">
+															DESCUBRE &nbsp;<i class="fa fa-caret-down" aria-hidden="true"></i>
                                                         </a>
 														<ul class="dropdown-menu border-top border-top-light mt-0">
 															<li>
@@ -147,7 +147,6 @@
                                                                                         ¿Quienes Somos?
                                                                                     </a>
                                                                                 </li>
-																				<li><a class="dropdown-item" href="elements-alerts.html">Alerts</a></li>
 																			</ul>
 																		</div>
 																		<div class="col-lg-3">
@@ -156,7 +155,7 @@
 																				<li>
                                                                                     <a class="dropdown-item {{ request()->routeIs('web_ecelt') ? 'active' : '' }}" 
                                                                                         href="{{ route('web_ecelt') }}">
-                                                                                        el Cielo en la Tierra (ECELT)
+                                                                                        El Cielo En La Tierra (ECELT)
                                                                                     </a>
                                                                                 </li>
 																				<li>
@@ -200,18 +199,55 @@
                                                             ¿QUIENES SOMOS?
                                                         </a>
                                                     </li> --}}
-                                                    <li class="dropdown">
+                                                    {{-- <li class="dropdown">
                                                         <a class="dropdown-item {{ request()->routeIs('web_sedes') ? 'active' : '' }}"
                                                             href="{{ route('web_sedes') }}">
                                                             SEDES
                                                         </a>
-                                                    </li>
+                                                    </li> --}}
                                                     <li class="dropdown">
+														<a href="{{ route('web_sedes') }}" 
+                                                            class="nav-link dropdown-toggle {{ request()->routeIs('web_sedes') ? 'active' : '' }}">
+                                                            SEDES &nbsp;<i class="fa fa-caret-down" aria-hidden="true"></i>
+                                                        </a>
+														<ul class="dropdown-menu">
+															<li>
+                                                                <a href="" 
+                                                                    class="dropdown-item">
+                                                                    Perú
+                                                                </a>
+                                                            </li>
+															<li>
+                                                                <a href="" 
+                                                                    class="dropdown-item">
+                                                                    Estados Unidos
+                                                                </a>
+                                                            </li>
+															<li>
+                                                                <a href="" 
+                                                                    class="dropdown-item">
+                                                                    España
+                                                                </a>
+                                                            </li>
+														</ul>
+													</li>
+                                                    {{-- <li class="dropdown">
                                                         <a class="dropdown-item {{ request()->routeIs('web_cobertura') ? 'active' : '' }}"
                                                             href="{{ route('web_cobertura') }}">
                                                             COBERTURA
                                                         </a>
-                                                    </li>
+                                                    </li> --}}
+                                                    <li class="dropdown">
+														<a href="{{ route('web_cobertura') }}" 
+                                                            class="nav-link dropdown-toggle {{ request()->routeIs('web_cobertura') ? 'active' : '' }}">
+                                                            COBERTURA &nbsp;<i class="fa fa-caret-down" aria-hidden="true"></i>
+                                                        </a>
+														<ul class="dropdown-menu">
+															<li><a href="demo-auto-services-services-detail.html" class="dropdown-item">Brake Repair</a></li>
+															<li><a href="demo-auto-services-services-detail.html" class="dropdown-item">Check Engine</a></li>
+															<li><a href="demo-auto-services-services-detail.html" class="dropdown-item">Suspension Repair</a></li>
+														</ul>
+													</li>
                                                     <li class="dropdown">
                                                         <a class="dropdown-item {{ request()->routeIs('web_eventos') ? 'active' : '' }}"
                                                             href="{{ route('web_eventos') }}">
