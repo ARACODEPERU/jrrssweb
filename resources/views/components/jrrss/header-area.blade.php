@@ -125,7 +125,7 @@
                                             <nav class="collapse">
                                                 <ul class="nav nav-pills flex-column flex-lg-row" id="mainNav">
                                                     <li class="dropdown">
-                                                        <a class="dropdown-item {{ request()->routeIs('cms_principal') ? 'active' : '' }}"
+                                                        <a class="dropdown-item  {{ request()->routeIs('cms_principal') ? 'active' : '' }}"
                                                             href="{{ route('cms_principal') }}">
                                                             HOME
                                                         </a>
@@ -174,37 +174,19 @@
 																			</ul>
 																		</div>
 																		<div class="col-lg-3">
-																			<span class="dropdown-mega-sub-title">Elements 3</span>
+																			<span class="dropdown-mega-sub-title">INSTITUTO SOBRENATURAL AL MUNDO</span>
 																			<ul class="dropdown-mega-sub-nav">
-																				<li><a class="dropdown-item" href="elements-lists.html">Lists</a></li>						
-																				<li><a class="dropdown-item" href="elements-maps.html">Maps</a></li>
-																				<li><a class="dropdown-item" href="elements-medias.html">Medias</a></li>
-																				<li><a class="dropdown-item" href="elements-modals.html">Modals</a></li>
-																				<li><a class="dropdown-item" href="elements-parallax.html">Parallax</a></li>
-																				<li><a class="dropdown-item" href="elements-particles.html">Particles</a></li>
-																				<li><a class="dropdown-item" href="elements-posts.html">Posts</a></li>
-																				<li><a class="dropdown-item" href="elements-pricing-tables.html">Pricing Tables</a></li>
-																				<li><a class="dropdown-item" href="elements-process.html">Process</a></li>
-																				<li><a class="dropdown-item" href="elements-progressbars.html">Progress Bars</a></li>
-																				<li><a class="dropdown-item" href="elements-random-images.html">Random Images</a></li>
-																				<li><a class="dropdown-item" href="elements-read-more.html">Read More</a></li>
+																				<li><a class="dropdown-item" href="">Proceso 1</a></li>						
+																				<li><a class="dropdown-item" href="">Proceso 2</a></li>
+																				<li><a class="dropdown-item" href="">Proceso 3</a></li>
+																				<li><a class="dropdown-item" href="">Proceso etc</a></li>
 																			</ul>
 																		</div>
 																		<div class="col-lg-3">
-																			<span class="dropdown-mega-sub-title">Elements 4</span>
+																			<span class="dropdown-mega-sub-title">¿NECESITAS AYUDA?</span>
 																			<ul class="dropdown-mega-sub-nav">
-																				<li><a class="dropdown-item" href="elements-sections.html">Sections</a></li>
-																				<li><a class="dropdown-item" href="elements-shape-dividers.html">Shape Dividers</a></li>
-																				<li><a class="dropdown-item" href="elements-star-ratings.html">Star Ratings</a></li>
-																				<li><a class="dropdown-item" href="elements-sticky-elements.html">Sticky Elements</a></li>
-																				<li><a class="dropdown-item" href="elements-tables.html">Tables</a></li>
-																				<li><a class="dropdown-item" href="elements-tabs.html">Tabs</a></li>
-																				<li><a class="dropdown-item" href="elements-testimonials.html">Testimonials</a></li>
-																				<li><a class="dropdown-item" href="elements-toggles.html">Toggles</a></li>
-																				<li><a class="dropdown-item" href="elements-tooltips-popovers.html">Tooltips &amp; Popovers</a></li>
-																				<li><a class="dropdown-item" href="elements-typography.html">Typography</a></li>
-																				<li><a class="dropdown-item" href="elements-word-rotator.html">Word Rotator</a></li>
-																				<li><a class="dropdown-item" href="elements-360-image-viewer.html">360º Image Viewer</a></li>
+																				<li><a class="dropdown-item" href="">Oración</a></li>
+																				<li><a class="dropdown-item" href="">Empleo</a></li>
 																			</ul>
 																		</div>
 																	</div>

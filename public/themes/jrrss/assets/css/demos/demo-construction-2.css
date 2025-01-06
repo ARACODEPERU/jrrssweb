@@ -46,6 +46,7 @@ body {
 #header .dropdown-item {
 		text-transform: capitalize !important;
 		font-size: 15px !important;
+		
 }
 
 #header .simple-search .form-control {

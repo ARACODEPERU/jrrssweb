@@ -1530,7 +1530,7 @@ html.sticky-header-enabled.sticky-header-active #header .header-logo-sticky-chan
 		font-size: 14px;
 		font-style: normal;
 		font-weight: 600;
-		padding: 0.5rem 1rem;
+		padding: 5px;
 		letter-spacing: -0.5px;
 		text-transform: uppercase;
 		text-decoration: none;
@@ -14344,4 +14344,13 @@ html.gap-outside .pin-wrapper .sticky-wrapper.sticky-effect-active .sticky-body 
 html.gap-outside .pin-wrapper .sticky-wrapper.sticky-effect-active .sticky-body .container-fluid {
 	padding-left: 25px;
 	padding-right: 25px;
+}
+
+
+/* YISUSWEB */
+@media (min-width: 1280px) {
+	ul li a{
+		padding: 8px !important;
+	}
+	
 }
