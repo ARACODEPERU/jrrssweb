@@ -445,6 +445,29 @@ class WebController extends Controller
         // $ticket = $ticket->with('event')->with('type');
     }
 
+    public function benefactora()
+    {
+        $banner = CmsSection::where('component_id', 'benefactora_banner_50')  //siempre cambiar el id del componente
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+            ->orderBy('cms_section_items.position')
+            ->first();
+
+        $sedes = CmsSectionItem::with('item.items')->where('section_id', 49)  //cambiar el id de la seccion ->sedes ubicacion 24
+            ->orderBy('position')
+            ->get();
+
+
+        return view('jrrss/benefactora', [
+            'banner' => $banner,
+            'sedes' => $sedes,
+        ]);
+    }
+
     public function escuelasobrenatural()
     {
         $banner = CmsSection::where('component_id', 'banner_escuela_sobrenatural_8')  //siempre cambiar el id del componente

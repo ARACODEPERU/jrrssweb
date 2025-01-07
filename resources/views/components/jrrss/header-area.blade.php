@@ -159,7 +159,7 @@
                                                                                     </a>
                                                                                 </li>
 																				<li>
-                                                                                    <a class="dropdown-item {{ request()->routeIs('web_kids') ? 'active' : '' }}" 
+                                                                                    <a class="dropdown-item {{ request()->routeIs('web_revolucion_juvenil') ? 'active' : '' }}" 
                                                                                         href="{{ route('web_revolucion_juvenil') }}">
                                                                                         Revolución Juvenil
                                                                                     </a>
@@ -275,12 +275,38 @@
                                                             EVENTOS
                                                         </a>
                                                     </li>
-                                                    <li class="dropdown">
+                                                    {{-- <li class="dropdown">
                                                         <a class="dropdown-item {{ request()->routeIs('web_eventos') ? 'active' : '' }}"
                                                             href="{{ route('web_eventos') }}">
                                                             BENEFACTORA
                                                         </a>
-                                                    </li>
+                                                    </li> --}}
+                                                    <li class="dropdown">
+														<a href="{{ route('web_benefactora') }}" 
+                                                            class="nav-link dropdown-toggle {{ request()->routeIs('web_benefactora') ? 'active' : '' }}">
+                                                            BENEFACTORA &nbsp;<i class="fa fa-caret-down" aria-hidden="true"></i>
+                                                        </a>
+														<ul class="dropdown-menu">
+															<li>
+                                                                <a href="{{ route('web_sedes_peru') }}" 
+                                                                    class="dropdown-item  {{ request()->routeIs('web_sedes_peru') ? 'active' : '' }}">
+                                                                    B01
+                                                                </a>
+                                                            </li>
+															<li>
+                                                                <a href="{{ route('web_sedes_estados_unidos') }}" 
+                                                                    class="dropdown-item  {{ request()->routeIs('web_sedes_estados_unidos') ? 'active' : '' }}">
+                                                                    B02
+                                                                </a>
+                                                            </li>
+															<li>
+                                                                <a href="{{ route('web_sedes_españa') }}" 
+                                                                    class="dropdown-item  {{ request()->routeIs('web_sedes_españa') ? 'active' : '' }}">
+                                                                    B03
+                                                                </a>
+                                                            </li>
+														</ul>
+													</li>
                                                     <!--
                                                     <li class="dropdown">
                                                         <a class="dropdown-item {{ request()->routeIs('escueloa') ? 'active' : '' }}"
