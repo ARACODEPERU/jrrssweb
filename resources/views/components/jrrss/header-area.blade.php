@@ -253,7 +253,7 @@
                                                                     &nbsp; Perú
                                                                 </a>
                                                             </li>
-															<li>
+															{{-- <li>
                                                                 <a href="" 
                                                                     class="dropdown-item">
                                                                     <img style="width: 15px; height: 15px;" src="{{ asset('themes/jrrss/assets/img/flags/estados-unidos.png') }}" alt="">
@@ -266,7 +266,7 @@
                                                                     <img style="width: 15px; height: 15px;" src="{{ asset('themes/jrrss/assets/img/flags/españa.png') }}" alt="">
                                                                     &nbsp; España
                                                                 </a>
-                                                            </li>
+                                                            </li> --}}
 														</ul>
 													</li>
                                                     <li class="dropdown">
