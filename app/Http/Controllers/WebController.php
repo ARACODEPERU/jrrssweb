@@ -211,6 +211,52 @@ class WebController extends Controller
         ]);
     }
 
+    public function sedesestadosunidos()
+    {
+        $banner = CmsSection::where('component_id', 'sedes_banner_estados_unidos_46')  //siempre cambiar el id del componente
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+            ->orderBy('cms_section_items.position')
+            ->first();
+
+        $sedes = CmsSectionItem::with('item.items')->where('section_id', 47)  //cambiar el id de la seccion ->sedes ubicacion 24
+            ->orderBy('position')
+            ->get();
+
+
+        return view('jrrss/sedes-estados-unidos', [
+            'banner' => $banner,
+            'sedes' => $sedes,
+        ]);
+    }
+
+    public function sedesespaña()
+    {
+        $banner = CmsSection::where('component_id', 'sedes_banner_espana_48')  //siempre cambiar el id del componente
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+            ->orderBy('cms_section_items.position')
+            ->first();
+
+        $sedes = CmsSectionItem::with('item.items')->where('section_id', 49)  //cambiar el id de la seccion ->sedes ubicacion 24
+            ->orderBy('position')
+            ->get();
+
+
+        return view('jrrss/sedes-estados-unidos', [
+            'banner' => $banner,
+            'sedes' => $sedes,
+        ]);
+    }
+
     public function cobertura()
     {
         $banner = CmsSection::where('component_id', 'banner_cobertura_6')  //siempre cambiar el id del componente

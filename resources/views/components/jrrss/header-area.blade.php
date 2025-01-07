@@ -206,7 +206,7 @@
                                                         </a>
                                                     </li> --}}
                                                     <li class="dropdown">
-														<a href="{{ route('web_sedes') }}" 
+														<a href="" 
                                                             class="nav-link dropdown-toggle {{ request()->routeIs('web_sedes') ? 'active' : '' }}">
                                                             SEDES &nbsp;<i class="fa fa-caret-down" aria-hidden="true"></i>
                                                         </a>
@@ -219,15 +219,15 @@
                                                                 </a>
                                                             </li>
 															<li>
-                                                                <a href="" 
-                                                                    class="dropdown-item">
+                                                                <a href="{{ route('web_sedes_estados_unidos') }}" 
+                                                                    class="dropdown-item  {{ request()->routeIs('web_sedes_estados_unidos') ? 'active' : '' }}">
                                                                     <img style="width: 15px; height: 15px;" src="{{ asset('themes/jrrss/assets/img/flags/estados-unidos.png') }}" alt="">
                                                                     &nbsp; Estados Unidos
                                                                 </a>
                                                             </li>
 															<li>
-                                                                <a href="" 
-                                                                    class="dropdown-item">
+                                                                <a href="{{ route('web_sedes_españa') }}" 
+                                                                    class="dropdown-item  {{ request()->routeIs('web_sedes_españa') ? 'active' : '' }}">
                                                                     <img style="width: 15px; height: 15px;" src="{{ asset('themes/jrrss/assets/img/flags/españa.png') }}" alt="">
                                                                     &nbsp; España
                                                                 </a>
@@ -241,7 +241,7 @@
                                                         </a>
                                                     </li> --}}
                                                     <li class="dropdown">
-														<a href="{{ route('web_cobertura') }}" 
+														<a href="" 
                                                             class="nav-link dropdown-toggle {{ request()->routeIs('web_cobertura') ? 'active' : '' }}">
                                                             COBERTURA &nbsp;<i class="fa fa-caret-down" aria-hidden="true"></i>
                                                         </a>

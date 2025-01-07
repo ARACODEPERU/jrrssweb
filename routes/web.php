@@ -31,6 +31,8 @@ Route::get('/', [WebController::class, 'index'])->name('cms_principal');
 Route::get('/quienes-somos', [WebController::class, 'quienessomos'])->name('web_quienes_somos');
 Route::get('/sedes', [WebController::class, 'sedes'])->name('web_sedes');
 Route::get('/sedes-peru', [WebController::class, 'sedesperu'])->name('web_sedes_peru');
+Route::get('/sedes-estados-unidos', [WebController::class, 'sedesestadosunidos'])->name('web_sedes_estados_unidos');
+Route::get('/sedes-españa', [WebController::class, 'sedesespaña'])->name('web_sedes_españa');
 Route::get('/cobertura', [WebController::class, 'cobertura'])->name('web_cobertura');
 Route::get('/eventos', [WebController::class, 'eventos'])->name('web_eventos');
 Route::get('/eventos-pagar/{id}/evento', [WebController::class, 'eventospagar'])->name('web_eventos_pagar');
