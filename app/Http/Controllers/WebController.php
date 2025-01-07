@@ -188,6 +188,29 @@ class WebController extends Controller
         ]);
     }
 
+    public function sedesperu()
+    {
+        $banner = CmsSection::where('component_id', 'sedes_banner_peru_45')  //siempre cambiar el id del componente
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+            ->orderBy('cms_section_items.position')
+            ->first();
+
+        $sedes = CmsSectionItem::with('item.items')->where('section_id', 44)  //cambiar el id de la seccion ->sedes ubicacion 24
+            ->orderBy('position')
+            ->get();
+
+
+        return view('jrrss/sedes-peru', [
+            'banner' => $banner,
+            'sedes' => $sedes,
+        ]);
+    }
+
     public function cobertura()
     {
         $banner = CmsSection::where('component_id', 'banner_cobertura_6')  //siempre cambiar el id del componente

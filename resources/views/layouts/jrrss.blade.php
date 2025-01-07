@@ -55,7 +55,8 @@
     <!-- Demo CSS -->
     {{-- <link rel="stylesheet" href="{{ asset('themes/jrrss/assets/css/demos/demo-medical.css') }}"> --}}
     {{-- <link rel="stylesheet" href="{{ asset('themes/jrrss/assets/css/demos/demo-construction-2.css') }}"> --}}
-    <link rel="stylesheet" href="{{ asset('themes/jrrss/assets/css/demos/demo-barber.css') }}"> 
+    <link rel="stylesheet" href="{{ asset('themes/jrrss/assets/css/demos/demo-barber.css') }}">
+     <link rel="stylesheet" href="{{ asset('themes/jrrss/assets/css/demos/demo-church.css') }}">
 
     
     <link rel="stylesheet" href="{{ asset('themes/jrrss/assets/css/aracode.css') }}">

@@ -30,6 +30,7 @@ Route::get('/test-image/{content}/{fecha?}', [WebController::class, 'testimage']
 Route::get('/', [WebController::class, 'index'])->name('cms_principal');
 Route::get('/quienes-somos', [WebController::class, 'quienessomos'])->name('web_quienes_somos');
 Route::get('/sedes', [WebController::class, 'sedes'])->name('web_sedes');
+Route::get('/sedes-peru', [WebController::class, 'sedesperu'])->name('web_sedes_peru');
 Route::get('/cobertura', [WebController::class, 'cobertura'])->name('web_cobertura');
 Route::get('/eventos', [WebController::class, 'eventos'])->name('web_eventos');
 Route::get('/eventos-pagar/{id}/evento', [WebController::class, 'eventospagar'])->name('web_eventos_pagar');

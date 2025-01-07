@@ -212,8 +212,8 @@
                                                         </a>
 														<ul class="dropdown-menu">
 															<li>
-                                                                <a href="" 
-                                                                    class="dropdown-item">
+                                                                <a href="{{ route('web_sedes_peru') }}" 
+                                                                    class="dropdown-item  {{ request()->routeIs('web_sedes_peru') ? 'active' : '' }}">
                                                                     <img style="width: 15px; height: 15px;" src="{{ asset('themes/jrrss/assets/img/flags/peru.png') }}" alt="">
                                                                     &nbsp; Perú
                                                                 </a>
