@@ -29,11 +29,17 @@ Route::get('/test-image/{content}/{fecha?}', [WebController::class, 'testimage']
 
 Route::get('/', [WebController::class, 'index'])->name('cms_principal');
 Route::get('/quienes-somos', [WebController::class, 'quienessomos'])->name('web_quienes_somos');
+
+// SEDES
 Route::get('/sedes', [WebController::class, 'sedes'])->name('web_sedes');
 Route::get('/sedes-peru', [WebController::class, 'sedesperu'])->name('web_sedes_peru');
 Route::get('/sedes-estados-unidos', [WebController::class, 'sedesestadosunidos'])->name('web_sedes_estados_unidos');
 Route::get('/sedes-españa', [WebController::class, 'sedesespaña'])->name('web_sedes_españa');
-Route::get('/cobertura', [WebController::class, 'cobertura'])->name('web_cobertura');
+
+// COBERTURAS
+Route::get('/coberturas', [WebController::class, 'coberturas'])->name('web_coberturas');
+Route::get('/coberturas-peru', [WebController::class, 'coberturasperu'])->name('web_coberturas_peru');
+
 Route::get('/eventos', [WebController::class, 'eventos'])->name('web_eventos');
 Route::get('/eventos-pagar/{id}/evento', [WebController::class, 'eventospagar'])->name('web_eventos_pagar');
 Route::get('/comprar-entrada/{id}', [WebController::class, 'entrada'])->name('web_comprar_entrada');

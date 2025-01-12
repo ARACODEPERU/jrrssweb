@@ -257,7 +257,7 @@ class WebController extends Controller
         ]);
     }
 
-    public function cobertura()
+    public function coberturas()
     {
         $banner = CmsSection::where('component_id', 'banner_cobertura_6')  //siempre cambiar el id del componente
             ->join('cms_section_items', 'section_id', 'cms_sections.id')
@@ -274,6 +274,29 @@ class WebController extends Controller
             ->get();
 
         return view('jrrss/cobertura', [
+            'banner' => $banner,
+            'coberturas' => $coberturas,
+        ]);
+    }
+
+    public function coberturasperu()
+    {
+        $banner = CmsSection::where('component_id', 'banner_cobertura_peru_51')  //siempre cambiar el id del componente
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+            ->orderBy('cms_section_items.position')
+            ->first();
+
+        $coberturas = CmsSectionItem::with('item.items')->where('section_id', 52)  //cambiar el id de la seccion ->coberturas ubicacion 24
+            ->orderBy('position')
+            ->get();
+
+
+        return view('jrrss/coberturas-peru', [
             'banner' => $banner,
             'coberturas' => $coberturas,
         ]);

@@ -67,6 +67,7 @@
             color: white;
         }
     </style>
+    
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const sswitch = document.querySelector(".switch");
@@ -243,11 +244,11 @@
                                                     <li class="dropdown">
 														<a href="" 
                                                             class="nav-link dropdown-toggle {{ request()->routeIs('web_cobertura') ? 'active' : '' }}">
-                                                            COBERTURA &nbsp;<i class="fa fa-caret-down" aria-hidden="true"></i>
+                                                            COBERTURAS &nbsp;<i class="fa fa-caret-down" aria-hidden="true"></i>
                                                         </a>
 														<ul class="dropdown-menu">
 															<li>
-                                                                <a href="" 
+                                                                <a href="{{ route('web_coberturas_peru') }}" 
                                                                     class="dropdown-item">
                                                                     <img style="width: 15px; height: 15px;" src="{{ asset('themes/jrrss/assets/img/flags/peru.png') }}" alt="">
                                                                     &nbsp; Perú
