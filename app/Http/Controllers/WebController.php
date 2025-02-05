@@ -490,6 +490,36 @@ class WebController extends Controller
             'sedes' => $sedes,
         ]);
     }
+    
+    public function panes()
+    {
+        $banner = CmsSection::where('component_id', 'banner_panes_y_peces_53')  //siempre cambiar el id del componente
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+            ->orderBy('cms_section_items.position')
+            ->first();
+
+        $presentacion = CmsSection::where('component_id', 'panes_y_peces_presentacion_54')  //siempre cambiar el id del componente
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+            ->orderBy('cms_section_items.position')
+            ->get();
+
+        //dd($presentacion);
+        return view('jrrss/panes-y-peces', [
+            'banner' => $banner,
+            'presentacion' => $presentacion
+        ]);
+    }
+
 
     public function escuelasobrenatural()
     {

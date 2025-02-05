@@ -49,6 +49,10 @@ Route::get('/escuela', [WebController::class, 'escuelasobrenatura'])->name('web_
 Route::get('/el-cielo-en-la-tierra', [WebController::class, 'ecelt'])->name('web_ecelt');
 Route::get('/revolucion-juvenil', [WebController::class, 'revolucionjuvenil'])->name('web_revolucion_juvenil');
 Route::get('/kids', [WebController::class, 'kids'])->name('web_kids');
+
+
+Route::get('/panes-y-peces', [WebController::class, 'panes'])->name('web_panes_y_peces');
+
 Route::get('/testimonios', [WebController::class, 'testimonios'])->name('web_testimonios');
 Route::get('/contacto', [WebController::class, 'contacto'])->name('web_contacto');
 Route::get('/donar', [WebController::class, 'donar'])->name('web_donar');

@@ -289,8 +289,8 @@
                                                         </a>
 														<ul class="dropdown-menu">
 															<li>
-                                                                <a href="{{ route('web_sedes_peru') }}" 
-                                                                    class="dropdown-item  {{ request()->routeIs('web_sedes_peru') ? 'active' : '' }}">
+                                                                <a href="{{ route('web_panes_y_peces') }}" 
+                                                                    class="dropdown-item  {{ request()->routeIs('web_panes_y_peces') ? 'active' : '' }}">
                                                                     Panes y Peces
                                                                 </a>
                                                             </li>
