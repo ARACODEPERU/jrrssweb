@@ -53,6 +53,7 @@ Route::get('/kids', [WebController::class, 'kids'])->name('web_kids');
 // BENEFACTORAS
 Route::get('/panes-y-peces', [WebController::class, 'panes'])->name('web_panes_y_peces');
 Route::get('/el-buen-samaritano', [WebController::class, 'samaritano'])->name('web_el_buen_samaritano');
+Route::get('/sembrando-sonrisas', [WebController::class, 'sembrando'])->name('web_sembrando_sonrisas');
 
 Route::get('/testimonios', [WebController::class, 'testimonios'])->name('web_testimonios');
 Route::get('/contacto', [WebController::class, 'contacto'])->name('web_contacto');

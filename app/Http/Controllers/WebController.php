@@ -549,6 +549,35 @@ class WebController extends Controller
         ]);
     }
 
+    
+    public function sembrando()
+    {
+        $banner = CmsSection::where('component_id', 'banner_sembrando_sonrisas_57')  //siempre cambiar el id del componente
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+            ->orderBy('cms_section_items.position')
+            ->first();
+
+        $presentacion = CmsSection::where('component_id', 'sembrando_sonrisas_presentacion_58')  //siempre cambiar el id del componente
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+            ->orderBy('cms_section_items.position')
+            ->get();
+
+        //dd($presentacion);
+        return view('jrrss/sembrando-sonrisas', [
+            'banner' => $banner,
+            'presentacion' => $presentacion
+        ]);
+    }
 
     public function escuelasobrenatural()
     {

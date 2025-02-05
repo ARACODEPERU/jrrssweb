@@ -301,8 +301,8 @@
                                                                 </a>
                                                             </li>
 															<li>
-                                                                <a href="{{ route('web_sedes_españa') }}" 
-                                                                    class="dropdown-item  {{ request()->routeIs('web_sedes_españa') ? 'active' : '' }}">
+                                                                <a href="{{ route('web_sembrando_sonrisas') }}" 
+                                                                    class="dropdown-item  {{ request()->routeIs('web_sembrando_sonrisas') ? 'active' : '' }}">
                                                                     Sembrando Sonrisas
                                                                 </a>
                                                             </li>
