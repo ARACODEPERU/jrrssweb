@@ -176,10 +176,10 @@
 																		<div class="col-lg-3">
 																			<span class="dropdown-mega-sub-title">INSTITUTO SOBRENATURAL AL MUNDO</span>
 																			<ul class="dropdown-mega-sub-nav">
-																				<li><a class="dropdown-item" href="">Proceso 1</a></li>						
-																				<li><a class="dropdown-item" href="">Proceso 2</a></li>
-																				<li><a class="dropdown-item" href="">Proceso 3</a></li>
-																				<li><a class="dropdown-item" href="">Proceso etc</a></li>
+																				<li><a class="dropdown-item" href="">Proceso de Miembro</a></li>						
+																				<li><a class="dropdown-item" href="">Proceso de Discípulo</a></li>
+																				<li><a class="dropdown-item" href="">Proceso de Lideres</a></li>
+																				<li><a class="dropdown-item" href="">Instituto Sobrenatural al mundo</a></li>
 																			</ul>
 																		</div>
 																		<div class="col-lg-3">
@@ -291,19 +291,19 @@
 															<li>
                                                                 <a href="{{ route('web_sedes_peru') }}" 
                                                                     class="dropdown-item  {{ request()->routeIs('web_sedes_peru') ? 'active' : '' }}">
-                                                                    B01
+                                                                    Panes y Peces
                                                                 </a>
                                                             </li>
 															<li>
                                                                 <a href="{{ route('web_sedes_estados_unidos') }}" 
                                                                     class="dropdown-item  {{ request()->routeIs('web_sedes_estados_unidos') ? 'active' : '' }}">
-                                                                    B02
+                                                                    El Buen Samaritano
                                                                 </a>
                                                             </li>
 															<li>
                                                                 <a href="{{ route('web_sedes_españa') }}" 
                                                                     class="dropdown-item  {{ request()->routeIs('web_sedes_españa') ? 'active' : '' }}">
-                                                                    B03
+                                                                    Sembrando Sonrisas
                                                                 </a>
                                                             </li>
 														</ul>
