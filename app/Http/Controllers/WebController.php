@@ -512,11 +512,21 @@ class WebController extends Controller
             )
             ->orderBy('cms_section_items.position')
             ->get();
+        
+        $group_galery = CmsSection::where('component_id', 'panes_y_peces_galeria_59')->first();
+
+        $galery = CmsSectionItem::with(['group' => function ($query) 
+            {
+                $query->where('type_id', 5);
+            }, 'group.items'])
+            ->where('section_id', $group_galery->id)
+            ->paginate(6);
 
         //dd($presentacion);
         return view('jrrss/panes-y-peces', [
             'banner' => $banner,
-            'presentacion' => $presentacion
+            'presentacion' => $presentacion,
+            'galery' => $galery
         ]);
     }
     
