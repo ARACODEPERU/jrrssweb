@@ -50,8 +50,9 @@ Route::get('/el-cielo-en-la-tierra', [WebController::class, 'ecelt'])->name('web
 Route::get('/revolucion-juvenil', [WebController::class, 'revolucionjuvenil'])->name('web_revolucion_juvenil');
 Route::get('/kids', [WebController::class, 'kids'])->name('web_kids');
 
-
+// BENEFACTORAS
 Route::get('/panes-y-peces', [WebController::class, 'panes'])->name('web_panes_y_peces');
+Route::get('/el-buen-samaritano', [WebController::class, 'samaritano'])->name('web_el_buen_samaritano');
 
 Route::get('/testimonios', [WebController::class, 'testimonios'])->name('web_testimonios');
 Route::get('/contacto', [WebController::class, 'contacto'])->name('web_contacto');

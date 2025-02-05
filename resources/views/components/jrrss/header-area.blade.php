@@ -295,8 +295,8 @@
                                                                 </a>
                                                             </li>
 															<li>
-                                                                <a href="{{ route('web_sedes_estados_unidos') }}" 
-                                                                    class="dropdown-item  {{ request()->routeIs('web_sedes_estados_unidos') ? 'active' : '' }}">
+                                                                <a href="{{ route('web_el_buen_samaritano') }}" 
+                                                                    class="dropdown-item  {{ request()->routeIs('web_el_buen_samaritano') ? 'active' : '' }}">
                                                                     El Buen Samaritano
                                                                 </a>
                                                             </li>
