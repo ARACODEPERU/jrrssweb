@@ -194,7 +194,12 @@
                                                                                         Proceso de Lideres
                                                                                     </a>
                                                                                 </li>
-																				<li><a class="dropdown-item" href="">Instituto Sobrenatural al mundo</a></li>
+																				<li>
+                                                                                    <a class="dropdown-item {{ request()->routeIs('web_proceso_lideres') ? 'active' : '' }}" 
+                                                                                        href="{{ route('web_ism') }}">
+                                                                                        Instituto Sobrenatural al mundo
+                                                                                    </a>
+                                                                                </li>
 																			</ul>
 																		</div>
 																		<div class="col-lg-3">

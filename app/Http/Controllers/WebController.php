@@ -585,6 +585,45 @@ class WebController extends Controller
             'galery' => $galery
         ]);
     }
+    
+    public function ism()
+    {
+        $banner = CmsSection::where('component_id', 'banner_instituto_sobrenatural_al_mundo_69')  //siempre cambiar el id del componente
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+            ->orderBy('cms_section_items.position')
+            ->first();
+
+        $presentacion = CmsSection::where('component_id', 'instituto_sobrenatural_al_mundo_presentacion_70')  //siempre cambiar el id del componente
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+            ->orderBy('cms_section_items.position')
+            ->get();
+        
+        $group_galery = CmsSection::where('component_id', 'instituto_sobrenatural_al_mundo_galeria_71')->first();
+
+        $galery = CmsSectionItem::with(['group' => function ($query) 
+            {
+                $query->where('type_id', 5);
+            }, 'group.items'])
+            ->where('section_id', $group_galery->id)
+            ->paginate(6);
+
+        //dd($presentacion);
+        return view('jrrss/ism-proceso-de-lideres', [
+            'banner' => $banner,
+            'presentacion' => $presentacion,
+            'galery' => $galery
+        ]);
+    }
 
     public function benefactora()
     {
