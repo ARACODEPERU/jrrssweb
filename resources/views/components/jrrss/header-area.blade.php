@@ -188,7 +188,12 @@
                                                                                         Proceso de Discípulo
                                                                                     </a>
                                                                                 </li>
-																				<li><a class="dropdown-item" href="">Proceso de Lideres</a></li>
+																				<li>
+                                                                                    <a class="dropdown-item {{ request()->routeIs('web_proceso_lideres') ? 'active' : '' }}" 
+                                                                                        href="{{ route('web_proceso_lideres') }}">
+                                                                                        Proceso de Lideres
+                                                                                    </a>
+                                                                                </li>
 																				<li><a class="dropdown-item" href="">Instituto Sobrenatural al mundo</a></li>
 																			</ul>
 																		</div>
