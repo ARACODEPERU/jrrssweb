@@ -176,8 +176,18 @@
 																		<div class="col-lg-3">
 																			<span class="dropdown-mega-sub-title">INSTITUTO SOBRENATURAL AL MUNDO</span>
 																			<ul class="dropdown-mega-sub-nav">
-																				<li><a class="dropdown-item" href="">Proceso de Miembro</a></li>						
-																				<li><a class="dropdown-item" href="">Proceso de Discípulo</a></li>
+																				<li>
+                                                                                    <a class="dropdown-item {{ request()->routeIs('web_proceso_miembro') ? 'active' : '' }}" 
+                                                                                        href="{{ route('web_proceso_miembro') }}">
+                                                                                        Proceso de Miembro
+                                                                                    </a>
+                                                                                </li>						
+																				<li>
+                                                                                    <a class="dropdown-item" 
+                                                                                        href="">
+                                                                                        Proceso de Discípulo
+                                                                                    </a>
+                                                                                </li>
 																				<li><a class="dropdown-item" href="">Proceso de Lideres</a></li>
 																				<li><a class="dropdown-item" href="">Instituto Sobrenatural al mundo</a></li>
 																			</ul>

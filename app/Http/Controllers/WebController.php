@@ -468,6 +468,46 @@ class WebController extends Controller
         // $ticket = $ticket->with('event')->with('type');
     }
 
+    
+    public function promiembro()
+    {
+        $banner = CmsSection::where('component_id', 'banner_proceso_de_miembro_60')  //siempre cambiar el id del componente
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+            ->orderBy('cms_section_items.position')
+            ->first();
+
+        $presentacion = CmsSection::where('component_id', 'ism_proceso_de_miembro_presentacion_61')  //siempre cambiar el id del componente
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+            ->orderBy('cms_section_items.position')
+            ->get();
+        
+        $group_galery = CmsSection::where('component_id', 'ism_proceso_de_miembro_galeria_62')->first();
+
+        $galery = CmsSectionItem::with(['group' => function ($query) 
+            {
+                $query->where('type_id', 5);
+            }, 'group.items'])
+            ->where('section_id', $group_galery->id)
+            ->paginate(6);
+
+        //dd($presentacion);
+        return view('jrrss/ism-proceso-miembro', [
+            'banner' => $banner,
+            'presentacion' => $presentacion,
+            'galery' => $galery
+        ]);
+    }
+
     public function benefactora()
     {
         $banner = CmsSection::where('component_id', 'benefactora_banner_50')  //siempre cambiar el id del componente
@@ -523,7 +563,7 @@ class WebController extends Controller
             ->paginate(6);
 
         //dd($presentacion);
-        return view('jrrss/panes-y-peces', [
+        return view('jrrss/5-panes-y-2-peces', [
             'banner' => $banner,
             'presentacion' => $presentacion,
             'galery' => $galery
