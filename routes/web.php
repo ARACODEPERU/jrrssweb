@@ -53,6 +53,7 @@ Route::get('/kids', [WebController::class, 'kids'])->name('web_kids');
 
 // ISM
 Route::get('/ism-proceso-de-miembro', [WebController::class, 'promiembro'])->name('web_proceso_miembro');
+Route::get('/ism-proceso-del-discipulo', [WebController::class, 'prodiscipulo'])->name('web_proceso_discipulo');
 
 // BENEFACTORAS
 Route::get('/5-panes-y-2-peces', [WebController::class, 'panes'])->name('web_panes_y_peces');

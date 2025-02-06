@@ -183,8 +183,8 @@
                                                                                     </a>
                                                                                 </li>						
 																				<li>
-                                                                                    <a class="dropdown-item" 
-                                                                                        href="">
+                                                                                    <a class="dropdown-item {{ request()->routeIs('web_proceso_discipulo') ? 'active' : '' }}" 
+                                                                                        href="{{ route('web_proceso_discipulo') }}">
                                                                                         Proceso de Discípulo
                                                                                     </a>
                                                                                 </li>
