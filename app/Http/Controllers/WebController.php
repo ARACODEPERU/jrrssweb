@@ -624,6 +624,66 @@ class WebController extends Controller
             'galery' => $galery
         ]);
     }
+    
+    public function oracion()
+    {
+        $banner = CmsSection::where('component_id', 'banner_oracion_72')  //siempre cambiar el id del componente
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+            ->orderBy('cms_section_items.position')
+            ->first();
+
+        $presentacion = CmsSection::where('component_id', 'oracion_presentacion_73')  //siempre cambiar el id del componente
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+            ->orderBy('cms_section_items.position')
+            ->get();
+        
+
+        //dd($presentacion);
+        return view('jrrss/oracion', [
+            'banner' => $banner,
+            'presentacion' => $presentacion
+        ]);
+    }
+    
+    public function empleo()
+    {
+        $banner = CmsSection::where('component_id', 'banner_empleo_74')  //siempre cambiar el id del componente
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+            ->orderBy('cms_section_items.position')
+            ->first();
+
+        $presentacion = CmsSection::where('component_id', 'empleo_presentacion_75')  //siempre cambiar el id del componente
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+            ->orderBy('cms_section_items.position')
+            ->get();
+        
+
+        //dd($presentacion);
+        return view('jrrss/empleo', [
+            'banner' => $banner,
+            'presentacion' => $presentacion
+        ]);
+    }
 
     public function benefactora()
     {

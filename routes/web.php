@@ -57,6 +57,10 @@ Route::get('/ism-proceso-del-discipulo', [WebController::class, 'prodiscipulo'])
 Route::get('/ism-proceso-de-lideres', [WebController::class, 'prolideres'])->name('web_proceso_lideres');
 Route::get('/instituto-sobrenatural-al-mundo', [WebController::class, 'ism'])->name('web_ism');
 
+
+Route::get('/oracion', [WebController::class, 'oracion'])->name('web_oracion');
+Route::get('/empleo', [WebController::class, 'empleo'])->name('web_empleo');
+
 // BENEFACTORAS
 Route::get('/5-panes-y-2-peces', [WebController::class, 'panes'])->name('web_panes_y_peces');
 Route::get('/el-buen-samaritano', [WebController::class, 'samaritano'])->name('web_el_buen_samaritano');

@@ -205,8 +205,18 @@
 																		<div class="col-lg-3">
 																			<span class="dropdown-mega-sub-title">¿NECESITAS AYUDA?</span>
 																			<ul class="dropdown-mega-sub-nav">
-																				<li><a class="dropdown-item" href="">Oración</a></li>
-																				<li><a class="dropdown-item" href="">Empleo</a></li>
+																				<li>
+                                                                                    <a class="dropdown-item {{ request()->routeIs('web_oracion') ? 'active' : '' }}" 
+                                                                                        href="{{ route('web_oracion') }}">
+                                                                                        Oración
+                                                                                    </a>
+                                                                                </li>
+																				<li>
+                                                                                    <a class="dropdown-item {{ request()->routeIs('web_empleo') ? 'active' : '' }}" 
+                                                                                        href="{{ route('web_empleo') }}">
+                                                                                        Empleo
+                                                                                    </a>
+                                                                                </li>
 																			</ul>
 																		</div>
 																	</div>

@@ -171,10 +171,10 @@
             <div class="flex flex-col gap-10">
                 <!-- ====== Table One Start -->
                 <div class="xl:pb-1">
-                    <div class="max-w-full overflow-x-auto">
-                        <div class="flex">
+                    <div class="max-w-full overflow-x-auto md:max-w-2xl">
+                        <div class="md:flex">
                             <div class="w-full">
-                                <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                                <div class="p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                                     <h2 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">Items Disponibles</h2>
                                     <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
                                         <template v-for="(item, index) in form.items" >
@@ -226,7 +226,7 @@
                             </div>
                             <div class="w-3 px-2"></div>
                             <div class="w-full">
-                                <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                                <div class="p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                                     <h2 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">Items Elegidos</h2>
                                     <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
                                         <li v-for="(item, index) in arrayItems.data" class="py-3 sm:py-4">
