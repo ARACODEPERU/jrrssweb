@@ -77,6 +77,7 @@ Route::put('/donar-pagar/procesar', [WebController::class, 'processDonacion'])->
 Route::get('/gracias/{id}/pagado', [WebController::class, 'gracias'])->name('web_gracias');
 // eventos
 Route::post('/eventos/registrar/store', [EvenEventTickeClientController::class, 'store'])->name('web_eventos_registrarse');
+Route::get('/emailprueba', [WebController::class, 'email'])->name('web_email');
 
 /* PayPal */
 Route::post('/paypal/donate', [PaypalController::class, 'payment'])->name('paypal_donate');

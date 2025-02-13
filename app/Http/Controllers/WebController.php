@@ -1124,6 +1124,10 @@ class WebController extends Controller
         ]);
     }
 
+    public function email(){
+        return view('layouts/email_gratitude');
+    }
+
     public function testimage($content, $fecha = null)
     {
 
