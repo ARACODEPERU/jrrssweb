@@ -100,7 +100,7 @@
                     <div class="row">
                         <div class="container mt-4">
                             <div class="row justify-content-center ">
-                                <div class="col-lg-11 col-xl-10 text-center">
+                                <div class="col-md-12 text-center">
                                     <h2 class="custom-highlight-text-1 d-inline-block line-height-4
                                                 text-4 positive-ls-3 font-weight-medium text-color-primary
                                                 mb-2 appear-animation animated fadeInUpShorter appear-animation-visible"
