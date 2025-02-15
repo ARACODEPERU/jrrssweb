@@ -10,8 +10,13 @@
     <title>JRRSS | Sitio Web</title>
 
     <meta name="keywords" content="Jesus Rey de Reyes y Señor de Señores" />
-    <meta name="description" content="Iglesia Biblica Internacional">
+    <meta name="description" content="Iglesia Biblica Internacional Jesus Rey de Reyes y Señor de Señores">
     <meta name="author" content="aracode smart solution">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{ asset('themes/jrrss/assets/img/favicon.ico') }}" type="image/x-icon" />
@@ -20,9 +25,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
 
     <!-- Web Fonts  -->
-    <link id="googleFonts"
+    {{-- <link id="googleFonts"
         href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800%7CShadows+Into+Light%7CPlayfair+Display:400&display=swap"
-        rel="stylesheet" type="text/css">
+        rel="stylesheet" type="text/css"> --}}
 
     <!-- Vendor CSS -->
     <link rel="stylesheet" href="{{ asset('themes/jrrss/assets/vendor/bootstrap/css/bootstrap.min.css') }}">

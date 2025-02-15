@@ -114,7 +114,7 @@
                                         style="animation-delay: 1500ms;">
                                         {{ $reuniones[5]->item->content }}
                                     </h3>
-                                    <p class="text-3-5 pb-3 mb-4 appear-animation animated fadeInUpShorter appear-animation-visible"
+                                    <p class="pb-3 mb-4 appear-animation animated fadeInUpShorter appear-animation-visible"
                                         data-appear-animation="fadeInUpShorter"
                                         data-appear-animation-delay="1900"
                                         style="animation-delay: 1900ms;">
@@ -156,10 +156,10 @@
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-lg-9 text-center">
-                                <h2 class="text-color-light font-weight-bold custom-tertiary-font ls-0 mb-4 appear-animation animated fadeInUpShorter appear-animation-visible"
-                                    data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200" style="animation-delay: 200ms;">
+                                <h1 class="text-color-light font-weight-bold custom-tertiary-font ls-0 mb-4 appear-animation animated fadeInUpShorter appear-animation-visible"
+                                    data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200" style="animation-delay: 200ms;; font-family: 'Montserrat', serif !important; ">
                                     {{ $bible[1]->content }}
-                                </h2>
+                                </h1>
                                 <p class="text-color-light opacity-7 text-3 px-5 mx-5 mb-0 appear-animation animated fadeInUpShorter appear-animation-visible"
                                     data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400" style="animation-delay: 400ms;">
                                     {{ $bible[2]->content }}
@@ -230,16 +230,16 @@
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-lg-9 text-center">
-                                <h2 class="text-color-light font-weight-bold custom-tertiary-font ls-0 mb-4 appear-animation animated fadeInUpShorter appear-animation-visible"
-                                    data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200" style="animation-delay: 200ms;">
+                                <h1 class="text-color-light font-weight-bold custom-tertiary-font ls-0 mb-4 appear-animation animated fadeInUpShorter appear-animation-visible"
+                                    data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200" style="animation-delay: 200ms; font-family: 'Montserrat', serif !important; ">
                                     {{ $gods_meeting[0]->content }}
-                                </h2>
+                                </h1>
                                 <p class="text-color-light opacity-7  px-5 mx-5 mb-0 appear-animation animated fadeInUpShorter appear-animation-visible"
                                     data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400" style="animation-delay: 400ms; font-size: 18px;">
                                     {{ $gods_meeting[1]->content }}
                                 </p>
                                 <br>
-                                <a href="{{ route('web_contacto') }}" class="btn btn-primary" style="font-size: 16px;">
+                                <a href="{{ route('web_contacto') }}" class="btn btn-primary" style="font-size: 17px;">
                                     <i class="fa fa-edit"></i> Escribenos
                                 </a>
                             </div>
@@ -260,22 +260,23 @@
                                         style="animation-delay: 1300ms;">
                                         #SOMOSJRRSS
                             </h2>
-                            <h3 class="text-9 line-height-3 text-transform-none font-weight-semibold mb-4
+                            <h4 class="line-height-1 text-transform-none font-weight-semibold
                                 appear-animation animated fadeInUpShorter appear-animation-visible"
                                 data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1500"
-                                style="animation-delay: 1500ms;  margin-top: -5px;">
+                                style="animation-delay: 1500ms;  margin-top: -5px; font-size: 30px;">
                                 {{ $difusion[0]->content }}
-                            </h3>
+                            </h4>
+                            <br>
+                            <img class="mb-1 appear-animation animated fadeInUpShorter appear-animation-visible"
+                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="2100"
+                                style="animation-delay: 2100ms; margin-top: -5px; width: 100%; background: red;" 
+                                src="{{ $difusion[2]->content }}" alt="">
                             <p class="text-3-5 pb-3 mb-1 appear-animation animated fadeInUpShorter appear-animation-visible"
                                 data-appear-animation="fadeInUpShorter"
                                 data-appear-animation-delay="1900"
                                 style="animation-delay: 1900ms; margin-top: -20px;">
                                 {{ $difusion[1]->content }}
                             </p>
-                            <img class="mb-1 appear-animation animated fadeInUpShorter appear-animation-visible"
-                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="2100"
-                                style="animation-delay: 2100ms; margin-top: -10px; width: 100%; background: red;" 
-                                src="{{ $difusion[2]->content }}" alt="">
                                 
 							<a href="{{ $difusion[3]->content }}"
                                 target="_blanck" class="btn btn-primary
@@ -300,22 +301,22 @@
                                         style="animation-delay: 1300ms;">
                                         #SOMOSJRRSS
                             </h2>
-                            <h3 class="text-9 line-height-3 text-transform-none font-weight-semibold mb-4
+                            <h4 class="line-height-1 text-transform-none font-weight-semibold
                                 appear-animation animated fadeInUpShorter appear-animation-visible"
                                 data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1500"
-                                style="animation-delay: 1500ms;  margin-top: -5px;">
+                                style="animation-delay: 1500ms;  margin-top: -5px; font-size: 30px;">
                                 {{ $difusion[4]->content }}
-                            </h3>
-                            <p class="text-3-5 pb-3 mb-1 appear-animation animated fadeInUpShorter appear-animation-visible"
-                                data-appear-animation="fadeInUpShorter"
+                            </h4>
+                            <img class="mb-1 appear-animation animated fadeInUpShorter appear-animation-visible"
+                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="2100"
+                                style="animation-delay: 2100ms; margin-top: -10px; width: 100%;" 
+                                src="{{ $difusion[6]->content }}" alt="">
+                            <p class=" pb-3 mb-1 appear-animation animated fadeInUpShorter appear-animation-visible"
+                                    data-appear-animation="fadeInUpShorter"
                                 data-appear-animation-delay="1900"
                                 style="animation-delay: 1900ms; margin-top: -20px;">
                                 {{ $difusion[5]->content }}
                             </p>
-                            <img class="mb-1 appear-animation animated fadeInUpShorter appear-animation-visible"
-                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="2100"
-                                style="animation-delay: 2100ms; margin-top: -10px; width: 100%; background: red;" 
-                                src="{{ $difusion[6]->content }}" alt="">
                                 
 							<a href="{{ $difusion[7]->content }}"
                                 target="_blanck"  class="btn btn-primary

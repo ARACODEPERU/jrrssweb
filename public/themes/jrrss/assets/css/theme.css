@@ -17,14 +17,28 @@ html {
 	}
 }
 
-body {
+/* body {
 	background-color: var(--light);
 	color: var(--default);
 	font-family: "Poppins", Arial, sans-serif;
 	font-size: 17px;
 	line-height: 26px;
 	margin: 0;
-}
+} */
+
+body {
+	background-color: var(--light);
+	color: var(--default);
+	
+	font-family: "Montserrat", serif, !important;
+	font-optical-sizing: auto;
+	font-style: normal;
+	/* font-family: "Poppins", Arial, sans-serif; */
+	font-size: 17px !important;
+	line-height: 25px !important;
+	margin: 0;
+} 
+
 
 body a {
 	outline: none !important;
@@ -110,6 +124,10 @@ a:not(.btn):hover {
 
 li {
 	line-height: 14px;
+}
+
+h1, h2, h3, h4, h5, h6, p, a{
+	font-family: "Montserrat", serif !important;
 }
 
 @media (max-width: 575px) {
