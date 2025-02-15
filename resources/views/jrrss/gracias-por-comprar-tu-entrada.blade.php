@@ -39,12 +39,15 @@
                             <h3 class="text-secondary font-weight-bold text-capitalize text-7 mb-3">{{ $ticket->full_name }}
                                 {{ $ticket->full_surnames }}</h3>
                             <p>
-                                Le extendemos nuestro agradecimiento por adquirir su entrada(s)
-                                al <span style="color: orange"><b>{{ $ticket->event->title }}</b></span> por el valor de
-                                <span style="color: orange"><b>S/. {{ $ticket->total }}</b></span>, el cual sabemos que va
-                                hacer de gran
-                                bendición para su vida.
+                                Le extendemos nuestro agradecimiento por adquirir su(s) entrada(s) para 
+                                <span style="color: orange"><b>{{ $ticket->event->title }}</b></span> 
+                                por el valor de
+                                <span style="color: orange"><b>S/. {{ $ticket->total }}</b></span>, 
+                                el cual sabemos que va hacer de gran bendición para su vida.
                             </p>
+                            <div class="card-container">
+                                <img style="width: 100%;" src="{{ asset('img/ticket.jpg') }}" alt="">
+                            </div>
                         </div>
                         <div class="col-md-3"></div>
                     </div>
