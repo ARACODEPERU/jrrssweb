@@ -43,7 +43,7 @@
                                 <span style="color: orange"><b>{{ $ticket->event->title }}</b></span> 
                                 por el valor de
                                 <span style="color: orange"><b>S/. {{ $ticket->total }}</b></span>, 
-                                Estamos seguros de que será de gran bendición para su vida.
+                                Estamos seguros que será de gran bendición para su vida.
                             </p>
                             <div class="card-container">
                                 <img style="width: 100%;" src="{{ asset('img/ticket.jpg') }}" alt="">
