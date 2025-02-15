@@ -23,6 +23,8 @@ use Modules\Socialevents\Entities\EvenEventTicketClient;
 use Modules\CMS\Entities\CmsSection;
 use Modules\CMS\Entities\CmsSectionItem;
 use Modules\Socialevents\Entities\EvenEventDonation;
+use App\Mail\ConfirmTicketEventMailable;
+use Illuminate\Support\Facades\Mail;
 
 class WebController extends Controller
 {
@@ -427,6 +429,18 @@ class WebController extends Controller
                 $ticket->response_payer = json_encode($request->all());
                 $ticket->response_payment_method_id = $request->get('payment_type');
                 $ticket->save();
+
+                //envio de correo
+                try {
+                    Mail::to($ticket->email)
+                        ->send(new ConfirmTicketEventMailable($ticket));
+                } catch (\Throwable $th) {
+                    \Log::error('Error al encolar el correo de confirmación en WebController.php : ' . $th->getMessage(), [
+                        'exception' => $th,
+                        'ticket_id' => $ticket->id,
+                        'email' => $ticket->email,
+                    ]);
+                }
 
                 return response()->json([
                     'status' => $payment->status,

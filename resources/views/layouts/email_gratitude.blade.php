@@ -153,11 +153,11 @@
         <img style="width: 100%;" src="{{ asset('img/banner-email.jpg') }}" alt="Encabezado">
         <br>
         <h1>
-            <img style="width: 25px;" data-emoji="🎉" class="an1" alt="🎉" aria-label="🎉" draggable="false" 
-                src="https://fonts.gstatic.com/s/e/notoemoji/16.0/1f389/32.png" loading="lazy"> 
+            <img style="width: 25px;" data-emoji="🎉" class="an1" alt="🎉" aria-label="🎉" draggable="false"
+                src="https://fonts.gstatic.com/s/e/notoemoji/16.0/1f389/32.png" loading="lazy">
                 &nbsp; GRACIAS POR COMPRAR TU ENTRADA &nbsp;
-            <img style="width: 25px;" data-emoji="🎉" class="an1" alt="🎉" aria-label="🎉" draggable="false" 
-                src="https://fonts.gstatic.com/s/e/notoemoji/16.0/1f389/32.png" loading="lazy"> 
+            <img style="width: 25px;" data-emoji="🎉" class="an1" alt="🎉" aria-label="🎉" draggable="false"
+                src="https://fonts.gstatic.com/s/e/notoemoji/16.0/1f389/32.png" loading="lazy">
         </h1>
         <br>
         <p>
