@@ -351,7 +351,6 @@ class WebController extends Controller
             try {
                 MercadoPagoConfig::setAccessToken(env('MERCADOPAGO_TOKEN'));
                 $client = new PreferenceClient();
-
                 //dd($mp_items);
                 $preference = $client->create([
                     "items" => array(
@@ -468,7 +467,7 @@ class WebController extends Controller
         // $ticket = $ticket->with('event')->with('type');
     }
 
-    
+
     public function promiembro()
     {
         $banner = CmsSection::where('component_id', 'banner_proceso_de_miembro_60')  //siempre cambiar el id del componente
@@ -490,10 +489,10 @@ class WebController extends Controller
             )
             ->orderBy('cms_section_items.position')
             ->get();
-        
+
         $group_galery = CmsSection::where('component_id', 'ism_proceso_de_miembro_galeria_62')->first();
 
-        $galery = CmsSectionItem::with(['group' => function ($query) 
+        $galery = CmsSectionItem::with(['group' => function ($query)
             {
                 $query->where('type_id', 5);
             }, 'group.items'])
@@ -507,7 +506,7 @@ class WebController extends Controller
             'galery' => $galery
         ]);
     }
-    
+
     public function prodiscipulo()
     {
         $banner = CmsSection::where('component_id', 'banner_proceso_del_discipulo_63')  //siempre cambiar el id del componente
@@ -529,10 +528,10 @@ class WebController extends Controller
             )
             ->orderBy('cms_section_items.position')
             ->get();
-        
+
         $group_galery = CmsSection::where('component_id', 'ism_proceso_del_discipulo_galeria_65')->first();
 
-        $galery = CmsSectionItem::with(['group' => function ($query) 
+        $galery = CmsSectionItem::with(['group' => function ($query)
             {
                 $query->where('type_id', 5);
             }, 'group.items'])
@@ -546,7 +545,7 @@ class WebController extends Controller
             'galery' => $galery
         ]);
     }
-    
+
     public function prolideres()
     {
         $banner = CmsSection::where('component_id', 'banner_proceso_de_lideres_66')  //siempre cambiar el id del componente
@@ -568,10 +567,10 @@ class WebController extends Controller
             )
             ->orderBy('cms_section_items.position')
             ->get();
-        
+
         $group_galery = CmsSection::where('component_id', 'ism_proceso_de_lideres_galeria_68')->first();
 
-        $galery = CmsSectionItem::with(['group' => function ($query) 
+        $galery = CmsSectionItem::with(['group' => function ($query)
             {
                 $query->where('type_id', 5);
             }, 'group.items'])
@@ -585,7 +584,7 @@ class WebController extends Controller
             'galery' => $galery
         ]);
     }
-    
+
     public function ism()
     {
         $banner = CmsSection::where('component_id', 'banner_instituto_sobrenatural_al_mundo_69')  //siempre cambiar el id del componente
@@ -607,10 +606,10 @@ class WebController extends Controller
             )
             ->orderBy('cms_section_items.position')
             ->get();
-        
+
         $group_galery = CmsSection::where('component_id', 'instituto_sobrenatural_al_mundo_galeria_71')->first();
 
-        $galery = CmsSectionItem::with(['group' => function ($query) 
+        $galery = CmsSectionItem::with(['group' => function ($query)
             {
                 $query->where('type_id', 5);
             }, 'group.items'])
@@ -624,7 +623,7 @@ class WebController extends Controller
             'galery' => $galery
         ]);
     }
-    
+
     public function oracion()
     {
         $banner = CmsSection::where('component_id', 'banner_oracion_72')  //siempre cambiar el id del componente
@@ -646,7 +645,7 @@ class WebController extends Controller
             )
             ->orderBy('cms_section_items.position')
             ->get();
-        
+
 
         //dd($presentacion);
         return view('jrrss/oracion', [
@@ -654,7 +653,7 @@ class WebController extends Controller
             'presentacion' => $presentacion
         ]);
     }
-    
+
     public function empleo()
     {
         $banner = CmsSection::where('component_id', 'banner_empleo_74')  //siempre cambiar el id del componente
@@ -676,7 +675,7 @@ class WebController extends Controller
             )
             ->orderBy('cms_section_items.position')
             ->get();
-        
+
 
         //dd($presentacion);
         return view('jrrss/empleo', [
@@ -707,7 +706,7 @@ class WebController extends Controller
             'sedes' => $sedes,
         ]);
     }
-    
+
     public function panes()
     {
         $banner = CmsSection::where('component_id', 'banner_panes_y_peces_53')  //siempre cambiar el id del componente
@@ -729,10 +728,10 @@ class WebController extends Controller
             )
             ->orderBy('cms_section_items.position')
             ->get();
-        
+
         $group_galery = CmsSection::where('component_id', 'panes_y_peces_galeria_59')->first();
 
-        $galery = CmsSectionItem::with(['group' => function ($query) 
+        $galery = CmsSectionItem::with(['group' => function ($query)
             {
                 $query->where('type_id', 5);
             }, 'group.items'])
@@ -746,7 +745,7 @@ class WebController extends Controller
             'galery' => $galery
         ]);
     }
-    
+
     public function samaritano()
     {
         $banner = CmsSection::where('component_id', 'banner_el_buen_samaritano_55')  //siempre cambiar el id del componente
@@ -776,7 +775,7 @@ class WebController extends Controller
         ]);
     }
 
-    
+
     public function sembrando()
     {
         $banner = CmsSection::where('component_id', 'banner_sembrando_sonrisas_57')  //siempre cambiar el id del componente

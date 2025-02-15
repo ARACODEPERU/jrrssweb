@@ -60,6 +60,7 @@
         <!-- Footer - area end -->
     </div>
     @if ($preference_id)
+
         <script>
             const mp = new MercadoPago("{{ env('MERCADOPAGO_KEY') }}", {
                 locale: 'es-PE'
@@ -70,11 +71,11 @@
                     initialization: {
                         preferenceId: "{{ $preference_id }}",
                         amount: {{ $ticket->total }},
-                        payer: {
-                            firstName: "{{ $ticket->full_name }}",
-                            lastName: "{{ $ticket->full_surnames }}",
-                            email: "{{ $ticket->email }}",
-                        },
+                        // payer: {
+                        //     firstName: "{{ $ticket['full_name'] }}",
+                        //     lastName: "{{ $ticket['full_surnames'] }}",
+                        //     email: "{{ $ticket['email'] }}",
+                        // },
                     },
                     customization: {
                         visual: {
