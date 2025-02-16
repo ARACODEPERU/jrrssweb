@@ -162,7 +162,7 @@
         <br>
         <p>
             Estimado(a): <br>
-            <b style="font-size: 20px;">Jesús Anaya Aguirre</b>
+            <b style="font-size: 20px;">{{ $data->full_name }}</b>
         </p>
         <p>
             Le extendemos nuestro agradecimiento por adquirir su entrada(s)
