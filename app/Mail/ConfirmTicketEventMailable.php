@@ -35,8 +35,10 @@ class ConfirmTicketEventMailable extends Mailable
 
     public function build()
     {
+        $event =  EvenEvent::find($this->data['event_id']);
         return $this->view('layouts.email_gratitude', [
-            'data' => $this->data
+            'data' => $this->data,
+            'event' => $event
         ]);
     }
 

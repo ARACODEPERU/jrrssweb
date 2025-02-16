@@ -165,10 +165,11 @@
             <b style="font-size: 20px;">{{ $data->full_name }}</b>
         </p>
         <p>
-            Le extendemos nuestro agradecimiento por adquirir su entrada(s)
-            al <span style="color: orange"><b>Título del evento</b></span> por el valor de
-            <span style="color: orange"><b>S/ 150.00</b></span>, el cual sabemos que va
-            hacer de gran  bendición para su vida.
+            Le extendemos nuestro agradecimiento por adquirir su(s) entrada(s)
+            al <span style="color: orange"><b>{{ $event->title }}</b></span> por el valor de
+            <span style="color: orange"><b>S/ {{ $data->total }}</b></span>, el cual sabemos que va
+            hacer de gran  bendición para su vida. <br>
+            Precio por unidad: S/ {{ $data->price }} <br>
         </p>
         <div class="card-container">
             <img style="width: 100%;" src="{{ asset('img/ticket.jpg') }}" alt="">
