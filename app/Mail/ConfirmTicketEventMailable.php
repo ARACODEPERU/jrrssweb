@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailables\Address;
-use App\Models\EvenEvent;
+use Modules\Socialevents\Entities\EvenEvent;
 
 class ConfirmTicketEventMailable extends Mailable
 {
