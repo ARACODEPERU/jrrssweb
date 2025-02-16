@@ -29,7 +29,7 @@ class ConfirmTicketEventMailable extends Mailable
     {
         return new Envelope(
             from: new Address(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME')),
-            subject: 'JRRSS - Confirmación de compra de ticket a evento',
+            subject: env('APP_NAME').' - Confirmación de compra de ticket a evento',
         );
     }
 
@@ -43,14 +43,7 @@ class ConfirmTicketEventMailable extends Mailable
     /**
      * Get the message content definition.
      */
-    public function content(): Content
-    {
-        return new Content(
-            view: 'view.name',
-        );
-    }
-
-    /**
+       /**
      * Get the attachments for the message.
      *
      * @return array<int, \Illuminate\Mail\Mailables\Attachment>

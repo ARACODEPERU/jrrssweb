@@ -432,8 +432,7 @@ class WebController extends Controller
 
                 //envio de correo
                 try {
-                    Mail::to($ticket->email)
-                        ->send(new ConfirmTicketEventMailable($ticket));
+                    Mail::to($ticket->email)->send(new ConfirmTicketEventMailable($ticket));
                 } catch (\Throwable $th) {
                     \Log::error('Error al encolar el correo de confirmación en WebController.php : ' . $th->getMessage(), [
                         'exception' => $th,
