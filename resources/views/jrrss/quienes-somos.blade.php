@@ -34,7 +34,7 @@
 
 
 
-            <div class="container-lg pt-4">
+            {{-- <div class="container-lg pt-4">
                 <div class="row">
                     <div class="col">
                         <h4 class="mb-2 mt-5">{{ $visions[0]->content }}</h4>
@@ -87,7 +87,7 @@
 
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
 
 
