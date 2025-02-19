@@ -15,7 +15,7 @@
                 <img style="max-width: 100%; height: auto;"  src="{{ $banner->content }}" alt="">
             </section>
 
-            <div class="container-lg pt-5 pb-5">
+            <div class="container-lg pt-5 pb-8 ">
                 <div class="row">
                     <div class="col-md-6">
                         <br>
