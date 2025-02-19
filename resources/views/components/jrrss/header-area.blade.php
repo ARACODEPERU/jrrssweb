@@ -321,7 +321,7 @@
 															<li>
                                                                 <a href="{{ route('web_panes_y_peces') }}" 
                                                                     class="dropdown-item  {{ request()->routeIs('web_panes_y_peces') ? 'active' : '' }}">
-                                                                    Panes y Peces
+                                                                    5 Panes y 2 Peces
                                                                 </a>
                                                             </li>
 															<li>
