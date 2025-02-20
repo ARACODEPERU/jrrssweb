@@ -157,7 +157,7 @@
                         <div class="row justify-content-center">
                             <div class="col-lg-9 text-center">
                                 <h1 class="text-color-light font-weight-bold custom-tertiary-font ls-0 mb-4 appear-animation animated fadeInUpShorter appear-animation-visible"
-                                    data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200" style="animation-delay: 200ms;; font-family: 'Montserrat', serif !important; ">
+                                    data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200" style="animation-delay: 200ms; font-family: 'Montserrat', serif !important; ">
                                     {{ $bible[1]->content }}
                                 </h1>
                                 <p class="text-color-light opacity-7 text-3 px-5 mx-5 mb-0 appear-animation animated fadeInUpShorter appear-animation-visible"

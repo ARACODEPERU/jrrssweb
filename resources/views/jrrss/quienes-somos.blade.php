@@ -96,9 +96,11 @@
                     data-image-src="{{ $parallax[0]->content }}" style="position: relative; overflow: hidden; animation-delay: 100ms;">
                     <div class="container">
                         <div class="row justify-content-center">
-                            <div class="col-lg-9 text-center">
-                                <h2 class="text-color-light font-weight-bold custom-tertiary-font ls-0 mb-4 appear-animation animated fadeInUpShorter appear-animation-visible"
-                                    data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200" style="animation-delay: 200ms;">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8 text-center">
+                                <h2 class="text-color-light font-weight-bold custom-tertiary-font mb-4 appear-animation animated fadeInUpShorter appear-animation-visible"
+                                    data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200" 
+                                    style="animation-delay: 200ms; font-size: 60px; line-height: 60px; font-family: 'Montserrat', serif !important; ">
                                     {{ $parallax[1]->content }}
                                 </h2>
                                 <p class="text-color-light opacity-7 text-3 px-5 mx-5 mb-0 appear-animation animated fadeInUpShorter appear-animation-visible"
@@ -106,6 +108,7 @@
                                     {{ $parallax[2]->content }}
                                 </p>
                             </div>
+                            <div class="col-md-2"></div>
                         </div>
                     </div>
             </section>
