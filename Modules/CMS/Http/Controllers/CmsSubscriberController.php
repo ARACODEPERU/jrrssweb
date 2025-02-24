@@ -9,6 +9,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Facades\Validator;
 use Modules\CMS\Entities\CmsSubscriber;
 use Inertia\Inertia;
+use Modules\CMS\Entities\CmsSection;
 
 class CmsSubscriberController extends Controller
 {
@@ -62,8 +63,19 @@ class CmsSubscriberController extends Controller
             'message'       => $request->get('message') ?? null,
         ]);
 
+        $banner = CmsSection::where('component_id', 'banner_contacto_13')  //siempre cambiar el id del componente
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+            ->orderBy('cms_section_items.position')
+            ->first();
+
         return view('jrrss.suscrito', [
-            'persoNames' => $request->get('full_name')
+            'persoNames' => $request->get('full_name'),
+            'banner' => $banner
         ]);
     }
 
