@@ -15,7 +15,8 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
 
 
     <!-- Favicon -->
@@ -61,9 +62,9 @@
     {{-- <link rel="stylesheet" href="{{ asset('themes/jrrss/assets/css/demos/demo-medical.css') }}"> --}}
     {{-- <link rel="stylesheet" href="{{ asset('themes/jrrss/assets/css/demos/demo-construction-2.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('themes/jrrss/assets/css/demos/demo-barber.css') }}">
-     <link rel="stylesheet" href="{{ asset('themes/jrrss/assets/css/demos/demo-church.css') }}">
+    <link rel="stylesheet" href="{{ asset('themes/jrrss/assets/css/demos/demo-church.css') }}">
 
-    
+
     <link rel="stylesheet" href="{{ asset('themes/jrrss/assets/css/aracode.css') }}">
 
     <!-- Theme Custom CSS -->
@@ -102,7 +103,7 @@
     <!-- Current Page Views -->
     <script src="{{ asset('themes/jrrss/assets/js/views/view.home.js') }}"></script>
     <!-- Current Page Vendor and Views -->
-    <script src="{{ asset('themes/jrrss/assets/js/views/view.contact.js') }}"></script>
+    {{-- <script src="{{ asset('themes/jrrss/assets/js/views/view.contact.js') }}"></script> --}}
     <!-- Theme Initialization Files -->
     <script src="{{ asset('themes/jrrss/assets/js/theme.init.js') }}"></script>
 

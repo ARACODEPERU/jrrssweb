@@ -47,7 +47,7 @@ const menuCMS = {
             route: route("blog_subscriber"),
             status: false,
             text: "Suscriptores",
-            permissions: "cms_seccion",
+            permissions: "cms_subscriber_list",
         },
         {
             route: route("cms_testimonies_list"),
