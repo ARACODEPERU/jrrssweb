@@ -11,64 +11,38 @@
 
         <div role="main" class="main">
 
-            <section data-plugin-parallax data-plugin-options="{'speed': 1.2}" style="position: relative; height: 350px; overflow: hidden;">
+            <section data-plugin-parallax data-plugin-options="{'speed': 1.2}" style="position: relative; height: 250px; overflow: hidden;">
                 <img style="width: 100%; height: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" src="{{ $banner->content }}" alt="">
             </section>
 
-            {{-- <div class="container-lg pt-4">
+            <div class="container pt-4">
                 <div class="row">
-                    <div class="col">
-                        <h4 class="mb-2 mt-5">{{ $visions[0]->content }}</h4>
-
-                        <div class="row process process-connecting-line my-5">
-                            <div class="connecting-line appear-animation animated fadeIn appear-animation-visible" data-appear-animation="fadeIn" style="animation-delay: 100ms;"></div>
-                            <div class="col-md-3 mb-5 mb-lg-4 appear-animation animated fadeInRightShorter appear-animation-visible" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="800" style="animation-delay: 800ms;">
-                                <div class="process-step-circle">
-                                    <strong class="process-step-circle-content">{{ $visions[1]->content }}</strong>
-                                </div>
-                                <div class="process-step-content">
-                                    <h4 class="mb-1 text-4 font-weight-bold">{{ $visions[2]->content }}</h4>
-                                    <p class="mb-0">
-                                        {{ $visions[3]->content }}
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-md-3 mb-5 mb-lg-4 appear-animation animated fadeInRightShorter appear-animation-visible" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="900" style="animation-delay: 900ms;">
-                                <div class="process-step-circle">
-                                    <strong class="process-step-circle-content">{{ $visions[4]->content }}</strong>
-                                </div>
-                                <div class="process-step-content">
-                                    <h4 class="mb-1 text-4 font-weight-bold">{{ $visions[5]->content }}</h4>
-                                    <p class="mb-0">{{ $visions[6]->content }}</p>
-                                </div>
-                            </div>
-                            <div class="col-md-3 mb-5 mb-lg-4 appear-animation animated fadeInRightShorter appear-animation-visible" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="1000" style="animation-delay: 1000ms;">
-                                <div class="process-step-circle">
-                                    <strong class="process-step-circle-content">{{ $visions[7]->content }}</strong>
-                                </div>
-                                <div class="process-step-content">
-                                    <h4 class="mb-1 text-4 font-weight-bold">{{ $visions[8]->content }}</h4>
-                                    <p class="mb-0">
-                                        {{ $visions[9]->content }}
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-md-3 mb-5 mb-lg-4 appear-animation animated fadeInRightShorter appear-animation-visible" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="1000" style="animation-delay: 1000ms;">
-                                <div class="process-step-circle">
-                                    <strong class="process-step-circle-content">{{ $visions[10]->content }}</strong>
-                                </div>
-                                <div class="process-step-content">
-                                    <h4 class="mb-1 text-4 font-weight-bold">{{ $visions[11]->content }}</h4>
-                                    <p class="mb-0">
-                                        {{ $visions[12]->content }}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                        <p class="mb-1">Estimado(a)</p>
+                        <h3 class="text-secondary font-weight-bold text-capitalize text-7 mb-3">
+                            Nombre de la Persona
+                        </h3>
+                        <p>
+                            ¡Gracias por tomarte el tiempo de escribirnos! 
+                            <br>
+                            🙌 Hemos recibido tu mensaje y pronto nos pondremos en contacto contigo. 
+                            Nos alegra saber de ti y estaremos felices de acompañarte en lo que necesites.
+                        </p>
+                        <p>
+                            📞 Si tu consulta es urgente, no dudes en visitarnos o llamarnos. Estamos aquí para ti.
+                            <br>
+                            🙏 Que Dios te bendiga y llene tu vida de paz y amor.
+                        </p>
+                        <p>
+                            💙 Con cariño, <br>
+                            <span style="color: orange">Jesús Rey de Reyes y Señor de Señores</span> <br>
+                            📧 ibi.jrrss@gmail.com | 📱 (+51) 989 533 683
+                        </p>
                     </div>
+                    <div class="col-md-3"></div>
                 </div>
-            </div> --}}
+            </div>
 
 
         </div>
