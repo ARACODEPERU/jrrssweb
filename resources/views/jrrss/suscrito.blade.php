@@ -1,7 +1,6 @@
 @extends('layouts.jrrss')
 
 @section('content')
-
     <div class="body">
 
         <!-- Header - area start -->
@@ -11,8 +10,10 @@
 
         <div role="main" class="main">
 
-            <section data-plugin-parallax data-plugin-options="{'speed': 1.2}" style="position: relative; height: 250px; overflow: hidden;">
-                <img style="width: 100%; height: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" src="{{ $banner->content }}" alt="">
+            <section data-plugin-parallax data-plugin-options="{'speed': 1.2}"
+                style="position: relative; height: 250px; overflow: hidden;">
+                <img style="width: 100%; height: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
+                    src="{{ $banner->content }}" alt="">
             </section>
 
             <div class="container pt-4">
@@ -21,12 +22,12 @@
                     <div class="col-md-6">
                         <p class="mb-1">Estimado(a)</p>
                         <h3 class="text-secondary font-weight-bold text-capitalize text-7 mb-3">
-                            Nombre de la Persona
+                            {{ $persoNames }}
                         </h3>
                         <p>
-                            ¡Gracias por tomarte el tiempo de escribirnos! 
+                            ¡Gracias por tomarte el tiempo de escribirnos!
                             <br>
-                            🙌 Hemos recibido tu mensaje y pronto nos pondremos en contacto contigo. 
+                            🙌 Hemos recibido tu mensaje y pronto nos pondremos en contacto contigo.
                             Nos alegra saber de ti y estaremos felices de acompañarte en lo que necesites.
                         </p>
                         <p>
@@ -54,6 +55,4 @@
 
 
     </div>
-
 @endsection
-
