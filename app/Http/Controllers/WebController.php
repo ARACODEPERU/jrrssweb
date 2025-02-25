@@ -1121,12 +1121,23 @@ class WebController extends Controller
             )
             ->orderBy('cms_section_items.position')
             ->get();
+        
+        $footer = CmsSection::where('component_id', 'footer_area_3')  //siempre cambiar el id del componente
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+            ->orderBy('cms_section_items.position')
+            ->get();
 
         return view('jrrss/contacto', [
             'banner' => $banner,
             'difusion' => $difusion,
             'infoformulario' => $infoformulario,
-            'infocontacto' => $infocontacto
+            'infocontacto' => $infocontacto,
+            'footer' => $footer
         ]);
     }
 

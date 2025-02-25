@@ -89,7 +89,7 @@
                                         <div class="col-10 col-lg-11">
                                             <h4 class="text-secondary font-weight-bold text-capitalize mb-0">Sede Principal
                                             </h4>
-                                            <p class="mb-0">Av Saenz Peña 870-878. , Callao, Perú</p>
+                                            <p class="mb-0">{{ $footer[3]->content }}</p>
                                         </div>
                                     </div>
                                     <hr class="my-3 opacity-5">
@@ -99,8 +99,9 @@
                                         </div>
                                         <div class="col-10 col-lg-11">
                                             <h4 class="text-secondary font-weight-bold text-capitalize mb-0">Teléfono</h4>
-                                            <p class="mb-0"><a href="#" class="text-color-default">(+51) 999
-                                                    999999</a></p>
+                                            <p class="mb-0">
+                                                {{ $footer[1]->content }}
+                                            </p>
                                         </div>
                                     </div>
                                     <hr class="my-3 opacity-5">
@@ -110,8 +111,11 @@
                                         </div>
                                         <div class="col-10 col-lg-11">
                                             <h4 class="text-secondary font-weight-bold text-capitalize mb-0">E-mail</h4>
-                                            <p class="mb-0"><a class="px-0 text-default"
-                                                    href="mailto:mail@domain.com">ibi.jrrss@gmail.com</a></p>
+                                            <p class="mb-0">
+                                                <a class="px-0 text-default" 
+                                                    href="mailto:{{ $footer[2]->content }}">{{ $footer[2]->content }}
+                                                </a>
+                                            </p>
                                         </div>
                                     </div>
                                     <hr class="my-3 opacity-5">
