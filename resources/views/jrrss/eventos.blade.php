@@ -15,9 +15,9 @@
                 <div class="container-lg container-xl-custom pt-5">
                     <div class="row">
                         <div class="col-md-12" style="text-align: center;">
-                            <p class="mb-1">
+                            {{-- <p class="mb-1">
                                 #{{ $event->category->description }}
-                            </p>
+                            </p> --}}
                             <h3 class="text-secondary font-weight-bold text-capitalize text-7 mb-3">
                                 {{ $event->title }}
                             </h3>
