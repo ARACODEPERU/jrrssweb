@@ -22,14 +22,13 @@
                 <div class="row">
                     <div class="col">
                         <p class="mb-1">SOMOS JRRSS</p>
-                        <h3 class="text-secondary font-weight-bold text-capitalize text-7 mb-3">Envianos un Mensaje</h3>
+                        <h3 class="text-secondary font-weight-bold text-capitalize text-7 mb-3">{{ $infoformulario[0]->content }}</h3>
                     </div>
                 </div>
                 <div class="row pb-4">
                     <div class="col-lg-7 pb-5">
                         <p>
-                            Envía un mensaje para comunicarte con nosotros, deja tu información si deseas que nos
-                            comuniquemos contigo o si solo deseas informarnos algo.
+                            {{ $infoformulario[1]->content }}
                         </p>
 
                         <form action="{{ route('web_subscriber') }}" method="POST"
@@ -75,11 +74,13 @@
                         <div class="custom-card-style-2 card-contact-us mb-5">
                             <div class="m-4">
                                 <div class="row flex-column px-5 pt-3 pb-4">
-                                    <div class="row px-3 mb-3">
-                                        <h3 class="text-secondary font-weight-bold text-capitalize my-3">Información de
-                                            Contacto</h3>
-                                        <p>Lorem inpsum dolor sit amet, consectetur adipiscing elit. Sed eget risus pora,
-                                            tincidunt turpis at, intermedum tortor.</p>
+                                    <div class="row px-3 mb-1">
+                                        <h3 class="text-secondary font-weight-bold text-capitalize my-3">
+                                            {{ $infocontacto[0]->content }}
+                                        </h3>
+                                        <p>
+                                            {{ $infocontacto[1]->content }}
+                                        </p>
                                     </div>
                                     <div class="row px-lg-3 pb-2 align-items-center">
                                         <div class="col-2 col-lg-1 px-1 text-center">
@@ -136,7 +137,7 @@
             </div>
 
             <!-- Google Maps - Go to the bottom of the page to change settings and map location. -->
-            <div id="googlemaps" class="google-map custom-map" style="text-align: center;">
+            <div id="googlemaps" class="google-map custom-map" style="text-align: center; height: 400px;">
                 <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3901.7585025642!2d-77.13881422513082!3d-12.060130142149312!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105cb908f14800b%3A0x9d3dece06a24733!2sAv%20Saenz%20Pe%C3%B1a%20870%2C%20Callao%2007001!5e0!3m2!1ses-419!2spe!4v1702736452376!5m2!1ses-419!2spe"
                     width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
