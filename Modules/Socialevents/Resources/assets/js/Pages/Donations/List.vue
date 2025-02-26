@@ -110,7 +110,7 @@
                                         <td class="py-2 px-2 dark:border-strokedark">
                                             {{ donation.tipo_moneda }}
                                         </td>
-                                        <td class="text-right py-2 px-2 dark:border-strokedark">
+                                        <td class="text-center py-2 px-2 dark:border-strokedark">
                                             {{ donation.response_date_approved }}
                                         </td>
                                         <td class="text-center py-2 px-2 dark:border-strokedark">
