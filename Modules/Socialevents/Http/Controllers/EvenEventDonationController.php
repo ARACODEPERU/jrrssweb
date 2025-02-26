@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Inertia\Inertia;
+use Modules\Socialevents\Entities\EvenEventDonation;
 
 class EvenEventDonationController extends Controller
 {
@@ -14,7 +16,17 @@ class EvenEventDonationController extends Controller
      */
     public function index()
     {
-        return view('socialevents::index');
+        $donations = (new EvenEventDonation())->newQuery();
+
+        if (request()->has('search')) {
+            $donations->where('nombres', 'Like', '%' . request()->input('search') . '%');
+        }
+
+        $donations = $donations->paginate(20);
+
+        return Inertia::render('Socialevents::Donations/List', [
+            'donations' => $donations
+        ]);
     }
 
     /**
