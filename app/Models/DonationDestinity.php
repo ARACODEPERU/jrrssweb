@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class DonationDestinity extends Model
 {
-    use HasFactory;
+    protected $table = 'donation_destinity';
 
     protected $fillable = [
         'description',
