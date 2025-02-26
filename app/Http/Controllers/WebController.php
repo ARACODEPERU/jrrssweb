@@ -1101,7 +1101,7 @@ class WebController extends Controller
             )
             ->orderBy('cms_section_items.position')
             ->get();
-        
+
         $infoformulario = CmsSection::where('component_id', 'contacto_seccion_formulario_76')  //siempre cambiar el id del componente
             ->join('cms_section_items', 'section_id', 'cms_sections.id')
             ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
@@ -1111,7 +1111,7 @@ class WebController extends Controller
             )
             ->orderBy('cms_section_items.position')
             ->get();
-        
+
         $infocontacto = CmsSection::where('component_id', 'contacto_seccion_informacion_77')  //siempre cambiar el id del componente
             ->join('cms_section_items', 'section_id', 'cms_sections.id')
             ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
@@ -1121,7 +1121,7 @@ class WebController extends Controller
             )
             ->orderBy('cms_section_items.position')
             ->get();
-        
+
         $footer = CmsSection::where('component_id', 'footer_area_3')  //siempre cambiar el id del componente
             ->join('cms_section_items', 'section_id', 'cms_sections.id')
             ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
@@ -1324,6 +1324,10 @@ class WebController extends Controller
                 $ticket->response_date_approved = Carbon::now()->format('Y-m-d');
                 $ticket->response_payer = json_encode($request->all());
                 $ticket->response_payment_method_id = $request->get('payment_type');
+                $ticket->origen_pago = "MercadoPago";
+                $ticket->tipo_moneda = "PEN";
+                $ticket->comision = 3.79; // % comision de  MercadoPago en 14 días es mayor si quieren al instante 3.99
+                $ticket->comision_fija =  1; //comision fija de MercadoPago en Soles
                 $ticket->save();
 
                 return response()->json([

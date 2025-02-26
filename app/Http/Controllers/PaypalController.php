@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 use App\Models\DonationLog;
-
+use App\Models\DonationDestinity;
+use Modules\Socialevents\Entities\EvenEventDonation;
+use Carbon\Carbon;
 class PaypalController extends Controller
 {
     public function payment(Request $request)
@@ -80,12 +82,31 @@ class PaypalController extends Controller
       $email = $response['payer']['email_address'];
       $countryCode = $response['payer']['address']['country_code'];
 
+      $donation = null;
       if(isset($response['status']) && $response['status'] == "COMPLETED"){
         $donation = DonationLog::find($donation_id);
         $donation->status_order = "SU"; //Successful transacción exitosa
         $donation->email = $email;
         $donation->country_origin = $countryCode;
         $donation->save();
+
+        //registrando en la tabla Correspondiente
+        $evenEventDonation = new EvenEventDonation();
+        $evenEventDonation->nombres = $donation->name;
+        $evenEventDonation->monto = $donation->gross_amount;
+        $evenEventDonation->tipo_donacion = DonationDestinity::find($donation->donation_destinity_id)->name;
+        $evenEventDonation->status = true;
+        $evenEventDonation->response_status = $donation->status_order;
+        $evenEventDonation->response_id = null;
+        $evenEventDonation->response_date_approved = Carbon::now()->format('Y-m-d');
+        $evenEventDonation->response_payer = json_encode($donation->all());
+        $evenEventDonation->response_payment_method_id = null;
+        $evenEventDonation->origen_pago = "Paypal";
+        $evenEventDonation->tipo_moneda = "USD";
+        $evenEventDonation->comision = 5.4; // % comision de paypal
+        $evenEventDonation->comision_fija =  0.3; //comision fija de paypal en Dolares
+        $evenEventDonation->save();
+
         return redirect()->route('web_gracias_por_donar', ['donador' => $donation->name]);
       }else{
         $donation = DonationLog::find($donation_id);

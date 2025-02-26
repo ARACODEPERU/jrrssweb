@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::table('even_event_donations', function (Blueprint $table) {
             $table->string('tipo_moneda', 3)->nullable()->comment('tipo de moneda PEN soles USD dolares');
             $table->string('origen_pago')->default('MercadoPago')->nullable()->comment('de que pasarela viene el pago');
-            $table->double('comision', 8, 2)->nullable()->comment('si existe una comision por hacer eun pago');
+            $table->double('comision', 8, 2)->nullable()->comment('si existe una comision por hacer un pago');
             $table->double('comision_fija', 8, 2)->nullable()->comment('si cobran un pago fijo adicional');
         });
     }

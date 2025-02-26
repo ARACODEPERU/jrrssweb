@@ -23,7 +23,11 @@ class EvenEventDonation extends Model
         'response_date_approved',
         'response_payer',
         'response_payment_method_id',
-        'status'
+        'status',
+        'tipo_moneda',
+        'origen_pago',
+        'comision',
+        'comision_fija',
     ];
 
     protected static function newFactory(): EvenEventDonationFactory
