@@ -88,6 +88,9 @@
                                         Moneda
                                     </th>
                                     <th class="py-2 px-4 font-medium text-black dark:text-white">
+                                        Medio de Pago
+                                    </th>
+                                    <th class="py-2 px-4 font-medium text-black dark:text-white">
                                         Fecha
                                     </th>
                                     <th class="py-2 px-4 font-medium text-black dark:text-white">
@@ -109,6 +112,9 @@
                                         </td>
                                         <td class="py-2 px-2 dark:border-strokedark">
                                             {{ donation.tipo_moneda }}
+                                        </td>
+                                        <td class="py-2 px-2 dark:border-strokedark">
+                                            {{ donation.origen_pago }}
                                         </td>
                                         <td class="text-center py-2 px-2 dark:border-strokedark">
                                             {{ donation.response_date_approved }}
