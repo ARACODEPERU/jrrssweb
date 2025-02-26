@@ -23,7 +23,7 @@
 </script>
 
 <template>
-    <AppLayout title="Locales">
+    <AppLayout title="Donaciones-Ofrendas-Diezmos">
         <div class="max-w-screen-2xl  mx-auto p-4 md:p-6 2xl:p-10">
             <!-- Breadcrumb Start -->
             <nav class="flex px-4 py-3 border border-stroke text-gray-700 mb-4 bg-gray-50 dark:bg-gray-800 dark:border-gray-700" aria-label="Breadcrumb">
@@ -44,7 +44,7 @@
                     <li aria-current="page">
                         <div class="flex items-center">
                             <svg aria-hidden="true" class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Locales</span>
+                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Donaciones-Ofrendas-Diezmos</span>
                         </div>
                     </li>
                 </ol>
@@ -76,16 +76,19 @@
                             <thead class="border-b border-stroke">
                                 <tr class="bg-gray-50 text-left dark:bg-meta-4">
                                     <th class="py-2 px-4 font-medium text-black dark:text-white">
-                                        Evento
+                                        Nombres
                                     </th>
                                     <th class="py-2 px-4 font-medium text-black dark:text-white">
-                                        Nombre de cliente
+                                        Tipo de ingreso
                                     </th>
                                     <th class="py-2 px-4 font-medium text-black dark:text-white">
-                                        Ticket Precio
+                                        Monto
                                     </th>
                                     <th class="py-2 px-4 font-medium text-black dark:text-white">
-                                        Cantidad
+                                        Moneda
+                                    </th>
+                                    <th class="py-2 px-4 font-medium text-black dark:text-white">
+                                        Fecha
                                     </th>
                                     <th class="py-2 px-4 font-medium text-black dark:text-white">
                                         Estado
@@ -102,7 +105,10 @@
                                             {{ donation.tipo_donacion }}
                                         </td>
                                         <td class="py-2 px-2 dark:border-strokedark">
-                                            S/. {{ donation.monto }}
+                                            {{ donation.tipo_moneda === 'USD' ? '$ ' : 'S/ ' }} {{ donation.monto }}
+                                        </td>
+                                        <td class="py-2 px-2 dark:border-strokedark">
+                                            {{ donation.tipo_moneda }}
                                         </td>
                                         <td class="text-right py-2 px-2 dark:border-strokedark">
                                             {{ donation.response_date_approved }}
@@ -120,6 +126,6 @@
                 </div>
             </div>
         </div>
-        
+
     </AppLayout>
 </template>
