@@ -65,7 +65,7 @@
                 </div>
             </div> --}}
 
-            <div class="view-mobile owl-carousel owl-carousel-light owl-carousel-light-init-fadeIn owl-theme manual 
+            <div class="view-movile owl-carousel owl-carousel-light owl-carousel-light-init-fadeIn owl-theme manual 
                 dots-inside dots-vertical-center dots-align-right dots-orientation-portrait custom-dots-style-1 show-dots-hover 
                 show-dots-xs nav-style-1 nav-inside nav-inside-plus nav-dark nav-lg nav-font-size-lg show-nav-hover mb-0 " 
                 data-plugin-options="{'autoplayTimeout': 6500}" 

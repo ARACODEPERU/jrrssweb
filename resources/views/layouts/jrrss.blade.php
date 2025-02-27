@@ -50,12 +50,14 @@
     <!-- Current Page CSS -->
     <link rel="stylesheet" href="{{ asset('themes/jrrss/assets/vendor/circle-flip-slideshow/css/component.css') }}">
 
-    <link rel="stylesheet" href="{{ asset('themes/jrrss/assets/css/aracode.css') }}">
 
     <!-- Skin CSS -->
     <link id="skinCSS" rel="stylesheet" href="{{ asset('themes/jrrss/assets/css/skins/default.css') }}">
     <link id="skinCSS" rel="stylesheet" href="{{ asset('themes/jrrss/assets/css/skins/skin-corporate-8.css') }}">
     <link id="skinCSS" rel="stylesheet" href="{{ asset('themes/jrrss/assets/css/skins/skin-medical.css') }}">
+    
+    <link rel="stylesheet" href="{{ asset('themes/jrrss/assets/css/aracode.css') }}">
+    
     <link id="skinCSS" rel="stylesheet" href="{{ asset('themes/jrrss/assets/css/skins/skin-construction-2.css') }}">
 
 
