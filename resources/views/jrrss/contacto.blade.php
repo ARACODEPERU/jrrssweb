@@ -10,9 +10,14 @@
 
         <div role="main" class="main">
 
-
-            <section data-plugin-parallax data-plugin-options="{'speed': 1.2}"
+            <section data-plugin-parallax data-plugin-options="{'speed': 1.2}" class="view-pc"
                 style="position: relative; height: 310px; overflow: hidden;">
+                <img style="width: 100%; height: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
+                    src="{{ $banner->content }}" alt="">
+            </section>
+
+            <section data-plugin-parallax data-plugin-options="{'speed': 1.2}" class="view-movile"
+                style="position: relative; height: 80px; overflow: hidden;">
                 <img style="width: 100%; height: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
                     src="{{ $banner->content }}" alt="">
             </section>
