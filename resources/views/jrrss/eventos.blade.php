@@ -203,10 +203,14 @@
                                                                         id="quantity" required>
     
                                                                 </div>
-                                                                <div class="col-sm-12 d-grid">
-                                                                    <button type="submit" class="btn btn-primary" style="font-size: 20px; width: 100%;">
+                                                                <div class="col-md-12 d-grid">
+                                                                    {{-- <button type="submit" class="btn btn-primary" style="font-size: 20px; width: 100%;">
                                                                         <i class="fa fa-shopping-cart" style="font-size: 22px;" aria-hidden="true"></i>
                                                                         Continuar
+                                                                    </button> --}}
+                                                                    <br>
+                                                                    <button type="submit" class="boton-fuego">
+                                                                        <i class="fa fa-shopping-cart" style="font-size: 20px;"></i>&nbsp; Continuar
                                                                     </button>
                                                                 </div>
                                                                 @if ($errors->any())

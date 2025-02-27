@@ -61,8 +61,13 @@
                             </div>
                             <div class="row">
                                 <div class="form-group col">
-                                    <button type="submit" class="btn btn-primary rounded-0 py-3 px-5 font-weight-semibold">
+
+                                    {{-- <button type="submit" class="btn btn-primary rounded-0 py-3 px-5 font-weight-semibold">
                                         Enviar Ahora
+                                    </button> --}}
+                                    
+                                    <button type="submit" class="boton-fuego">
+                                        <i class="fa fa-paper-plane" aria-hidden="true" style="font-size: 20px;"></i>&nbsp; Enviar Ahora
                                     </button>
 
                                 </div>

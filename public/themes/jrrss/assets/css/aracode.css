@@ -30,6 +30,22 @@
     transform: translateY(-10px);
   }
 
+  .boton-fuego {
+    padding: 15px 30px;
+    font-size: 18px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    background: linear-gradient(45deg, #ff4500, #ffcc00);
+    cursor: pointer;
+    transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .boton-fuego:hover {
+    transform: translateY(-5px);
+    background: linear-gradient(45deg, #ffcc00, #ff4500);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
   
 @media (max-width: 767px) {
   /* Boxed */

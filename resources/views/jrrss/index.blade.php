@@ -266,8 +266,8 @@
                                     {{ $gods_meeting[1]->content }}
                                 </p>
                                 <br>
-                                <a href="{{ route('web_contacto') }}" class="btn btn-primary" style="font-size: 17px;">
-                                    <i class="fa fa-edit"></i> Escribenos
+                                <a href="{{ route('web_contacto') }}">
+                                    <button class="boton-fuego"><i class="fa fa-edit"></i> Escribenos</button>
                                 </a>
                             </div>
                         </div>
@@ -296,7 +296,7 @@
                             <br>
                             <img class="mb-1 appear-animation animated fadeInUpShorter appear-animation-visible"
                                 data-appear-animation="fadeInUpShorter" data-appear-animation-delay="2100"
-                                style="animation-delay: 2100ms; margin-top: -5px; width: 100%; background: red;" 
+                                style="animation-delay: 2100ms; margin-top: -5px; width: 100%;" 
                                 src="{{ $difusion[2]->content }}" alt="">
                             <p class="text-3-5 pb-3 mb-1 appear-animation animated fadeInUpShorter appear-animation-visible"
                                 data-appear-animation="fadeInUpShorter"
@@ -305,7 +305,7 @@
                                 {{ $difusion[1]->content }}
                             </p>
                                 
-							<a href="{{ $difusion[3]->content }}"
+							{{-- <a href="{{ $difusion[3]->content }}"
                                 target="_blanck" class="btn btn-primary
                                 mb-1 appear-animation animated fadeInUpShorter appear-animation-visible"
                                 data-appear-animation="fadeInUpShorter" data-appear-animation-delay="2300">
@@ -317,6 +317,11 @@
                                         &nbsp; ¡Canal de difusión JRRSS!
                                     </div>
                                 </div>
+                            </a> --}}
+                            <a href="{{ $difusion[3]->content }}">
+                                <button class="boton-fuego">
+                                    <i class="fab fa-whatsapp" style="font-size: 24px;"></i> &nbsp; ¡Canal de difusión!
+                                </button>
                             </a>
                         </div>
                         <div class="col-md-2" style="padding: 15px;"></div>
@@ -345,7 +350,7 @@
                                 {{ $difusion[5]->content }}
                             </p>
                                 
-							<a href="{{ $difusion[7]->content }}"
+							{{-- <a href="{{ $difusion[7]->content }}"
                                 target="_blanck"  class="btn btn-primary
                                 mb-1 appear-animation animated fadeInUpShorter appear-animation-visible"
                                 data-appear-animation="fadeInUpShorter" data-appear-animation-delay="2300">
@@ -357,6 +362,11 @@
                                         &nbsp; ¡Canal de difusión RMNT!
                                     </div>
                                 </div>
+                            </a> --}}
+                            <a href="{{ $difusion[7]->content }}">
+                                <button class="boton-fuego">
+                                    <i class="fab fa-whatsapp" style="font-size: 24px;"></i> &nbsp; ¡Canal de difusión!
+                                </button>
                             </a>
                         </div>
                         <div class="col-md-1" style="padding: 15px;"></div>

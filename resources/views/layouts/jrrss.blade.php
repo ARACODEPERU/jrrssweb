@@ -50,6 +50,7 @@
     <!-- Current Page CSS -->
     <link rel="stylesheet" href="{{ asset('themes/jrrss/assets/vendor/circle-flip-slideshow/css/component.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('themes/jrrss/assets/css/aracode.css') }}">
 
     <!-- Skin CSS -->
     <link id="skinCSS" rel="stylesheet" href="{{ asset('themes/jrrss/assets/css/skins/default.css') }}">
@@ -65,7 +66,6 @@
     <link rel="stylesheet" href="{{ asset('themes/jrrss/assets/css/demos/demo-church.css') }}">
 
 
-    <link rel="stylesheet" href="{{ asset('themes/jrrss/assets/css/aracode.css') }}">
 
     <!-- Theme Custom CSS -->
     {{-- <link rel="stylesheet" href="{{ asset('themes/jrrss/assets/css/custom.css') }}"> --}}

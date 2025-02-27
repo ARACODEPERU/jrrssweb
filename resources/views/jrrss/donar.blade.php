@@ -108,36 +108,32 @@
                                         @csrf
                                         <input type="hidden" value="soles" name="currency" id="currency" />
                                         <div class="row">
-                                            <div class="form-group col">
+                                            <div class="form-group col-md-6">
                                                 <input type="text" placeholder="Nombres" value="" maxlength="125"
                                                     class="form-control bg-color-tertiary" name="nombres" id="nombres"
                                                     required>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col">
+                                            <div class="form-group col-md-6">
                                                 <input type="text" placeholder="Apellidos" value="" maxlength="125"
                                                     class="form-control bg-color-tertiary" name="apellidos" id="apellidos"
                                                     required>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="form-group col">
-                                                <input type="text" placeholder="correo electronico" value=""
+                                            <div class="form-group col-md-12">
+                                                <input type="text" placeholder="Correo electrónico" value=""
                                                     maxlength="125" class="form-control bg-color-tertiary" name="correo"
                                                     id="correo" required>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="form-group col">
+                                            <div class="form-group col-md-6">
                                                 <input type="number" placeholder="Monto a donar" value=""
                                                     data-msg-required="Por favor ingresa el monto que deseas donar."
                                                     maxlength="125" class="form-control bg-color-tertiary" name="amount"
                                                     id="amount" required>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col">
+                                            <div class="form-group col-md-6">
                                                 <select class="form-select form-control bg-color-tertiary"
                                                     aria-label="Default select example" maxlength="125"
                                                     name="donation_destinity_id" id="tipo" required>
@@ -147,15 +143,18 @@
                                                     <option value="Primicias">Primicias</option>
                                                 </select>
                                             </div>
-
                                         </div>
                                         <div class="row">
                                             <div class="form-group col">
-                                                <button data-loading-text="Loading..." id="submitPaypal"
+                                                {{-- <button data-loading-text="Loading..." id="submitPaypal"
                                                     class="btn btn-outline btn-primary rounded-0 py-3 px-5 font-weight-semibold"
                                                     style="font-size: 18px;">
                                                     Donar
                                                     con Mercado Pago
+                                                </button> --}}
+                                                <button data-loading-text="Loading..." id="submitPaypal" class="boton-fuego">
+                                                    <i class="fa fa-credit-card" aria-hidden="true" style="font-size: 20px;"></i>
+                                                    &nbsp; Donar con mercado pago
                                                 </button>
                                             </div>
                                         </div>
@@ -198,11 +197,15 @@
                                         </div>
                                         <div class="row">
                                             <div class="form-group col">
-                                                <button data-loading-text="Loading..." id="submitPaypal"
+                                                {{-- <button data-loading-text="Loading..." id="submitPaypal"
                                                     class="btn btn-outline btn-primary rounded-0 py-3 px-5 font-weight-semibold"
                                                     style="font-size: 18px;">
                                                     Donar
                                                     con Paypal
+                                                </button> --}}
+                                                <button data-loading-text="Loading..." id="submitPaypal" class="boton-fuego">
+                                                    <i class="fa fa-usd" aria-hidden="true" style="font-size: 20px;"></i>
+                                                    &nbsp; Donar con paypal
                                                 </button>
                                             </div>
                                         </div>
