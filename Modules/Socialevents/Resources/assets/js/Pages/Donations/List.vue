@@ -120,10 +120,10 @@
                                             {{ donation.tipo_moneda }}
                                         </td>
                                         <td class="py-2 px-2 dark:border-strokedark">
-                                            {{ (donation.monto*donation.comision/100)+donation.comision_fija+(((donation.monto*donation.comision/100)+donation.comision_fija)*0.18) }}
+                                            {{ parseFloat((donation.monto*donation.comision/100)+donation.comision_fija+(((donation.monto*donation.comision/100)+donation.comision_fija)*0.18)).toFixed(2) }}
                                         </td>
                                         <td class="py-2 px-2 dark:border-strokedark">
-                                            {{ donation.monto - ((donation.monto*donation.comision/100)+donation.comision_fija+(((donation.monto*donation.comision/100)+donation.comision_fija)*0.18)) }}
+                                            {{ parseFloat(donation.monto - ((donation.monto*donation.comision/100)+donation.comision_fija+(((donation.monto*donation.comision/100)+donation.comision_fija)*0.18))).toFixed(2) }}
                                         </td>
                                         <td class="py-2 px-2 dark:border-strokedark">
                                             {{ donation.origen_pago }}
