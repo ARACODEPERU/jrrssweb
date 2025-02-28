@@ -82,10 +82,16 @@
                                         Tipo de ingreso
                                     </th>
                                     <th class="py-2 px-4 font-medium text-black dark:text-white">
-                                        Monto
+                                        Monto Depositado
                                     </th>
                                     <th class="py-2 px-4 font-medium text-black dark:text-white">
                                         Moneda
+                                    </th>
+                                    <th class="py-2 px-4 font-medium text-black dark:text-white">
+                                        Comisión por transacción
+                                    </th>
+                                    <th class="py-2 px-4 font-medium text-black dark:text-white">
+                                        Monto Neto recibido
                                     </th>
                                     <th class="py-2 px-4 font-medium text-black dark:text-white">
                                         Medio de Pago
@@ -112,6 +118,12 @@
                                         </td>
                                         <td class="py-2 px-2 dark:border-strokedark">
                                             {{ donation.tipo_moneda }}
+                                        </td>
+                                        <td class="py-2 px-2 dark:border-strokedark">
+                                            {{ (donation.monto*donation.comision)+donation.comision_fija+(((donation.monto*donation.comision)+donation.comision_fija)*0.18) }}
+                                        </td>
+                                        <td class="py-2 px-2 dark:border-strokedark">
+                                            {{ donation.monto - (donation.monto*donation.comision)+donation.comision_fija+(((donation.monto*donation.comision)+donation.comision_fija)*0.18) }}
                                         </td>
                                         <td class="py-2 px-2 dark:border-strokedark">
                                             {{ donation.origen_pago }}
