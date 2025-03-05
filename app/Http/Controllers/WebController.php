@@ -1152,8 +1152,21 @@ class WebController extends Controller
             )
             ->orderBy('cms_section_items.position')
             ->first();
+        
+        
+        $infoformulario = CmsSection::where('component_id', 'donar_seccion_formulario_78')  //siempre cambiar el id del componente
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+            ->orderBy('cms_section_items.position')
+            ->get();
+
         return view('jrrss/donar', [
             'banner' => $banner,
+            'infoformulario' => $infoformulario
         ]);
     }
 

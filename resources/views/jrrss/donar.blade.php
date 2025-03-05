@@ -86,16 +86,15 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <p class="mb-1">SOMOS JRRSS</p>
-                                <h3 class="font-weight-bold text-capitalize text-7 mb-3">TU SEMILLA TIENE UN
-                                    PROPÓSITO</h3>
+                                <h3 class="font-weight-bold text-capitalize text-7 mb-3">
+                                    {{ $infoformulario[0]->content }}
+                                </h3>
                             </div>
                         </div>
                         <div class="row pb-4">
                             <div class="col-md-12 pb-5 ">
-
                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lectus lacus, rutrum
-                                    sit amet placerat et, bibendum nec mauris. Duis molestie purus eget placerat viverra.
+                                    {{ $infoformulario[1]->content }}
                                 </p>
                                 <ul class="nav nav-tabs" style="margin-bottom: 50px">
                                     <li class="nav-item">
