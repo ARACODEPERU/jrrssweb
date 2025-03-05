@@ -27,7 +27,7 @@
                 <img style="max-width: 100%; height: auto;"  src="{{ $banner->content }}" alt="">
             </section> --}}
 
-            <div class="container-lg" style="padding: 30px 0px 60px 0px;">
+            <div class="container-lg" style="padding: 30px 20px 60px 20px;">
                 <div class="row">
                     <div class="col-md-6">
                         <br>

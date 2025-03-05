@@ -18,7 +18,7 @@
                             {{-- <p class="mb-1">
                                 #{{ $event->category->description }}
                             </p> --}}
-                            <h3 class="text-secondary font-weight-bold text-capitalize text-7 mb-3">
+                            <h3 class="text-secondary font-weight-bold text-capitalize text-7 mb-3" style="line-height: 35px;">
                                 {{ $event->title }}
                             </h3>
                             <p>
