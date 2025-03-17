@@ -22,7 +22,8 @@ class EvenEventTickeClientController extends Controller
 
         if (request()->has('search')) {
             $tickets->where('full_name', 'Like', '%' . request()->input('search') . '%')
-                ->orWhere('even_events.title', 'Like', '%' . request()->input('search') . '%');
+                    ->where('response_date_approved', '!=', null)
+                    ->orWhere('even_events.title', 'Like', '%' . request()->input('search') . '%');
         }
         $tickets = $tickets->with('event');
         $tickets = $tickets->with('type');

@@ -127,6 +127,12 @@
                                         Nombre de cliente
                                     </th>
                                     <th class="py-2 px-4 font-medium text-black dark:text-white">
+                                        Teléfono
+                                    </th>
+                                    <th class="py-2 px-4 font-medium text-black dark:text-white">
+                                        Email
+                                    </th>
+                                    <th class="py-2 px-4 font-medium text-black dark:text-white">
                                         Ticket Precio
                                     </th>
                                     <th class="py-2 px-4 font-medium text-black dark:text-white">
@@ -150,6 +156,12 @@
                                             {{ ticket.full_name }}
                                         </td>
                                         <td class="py-2 px-2 dark:border-strokedark">
+                                            {{ ticket.phone }}
+                                        </td>
+                                        <td class="py-2 px-2 dark:border-strokedark">
+                                            {{ ticket.email }}
+                                        </td>
+                                        <td class="py-2 px-2 dark:border-strokedark">
                                             {{ ticket.type.type_id }} S/. {{ ticket.type.price }}
                                         </td>
                                         <td class="text-right py-2 px-2 dark:border-strokedark">
@@ -168,6 +180,6 @@
                 </div>
             </div>
         </div>
-        
+
     </AppLayout>
 </template>
