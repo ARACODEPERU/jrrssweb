@@ -168,8 +168,8 @@
                                             {{ ticket.quantity }}
                                         </td>
                                         <td class="text-center py-2 px-2 dark:border-strokedark">
-                                            <span v-if="ticket.status" class="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">Valido</span>
-                                            <span v-else class="bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400">Pendiente de Pago</span>
+                                            <span v-if="ticket.response_date_approved!=null" class="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">Valido</span>
+                                            <span v-else class="bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400">Sin-Pagar</span>
                                         </td>
                                     </tr>
                                 </template>
