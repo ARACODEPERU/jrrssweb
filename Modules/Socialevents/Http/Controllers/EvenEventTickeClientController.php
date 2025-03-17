@@ -18,7 +18,7 @@ class EvenEventTickeClientController extends Controller
     public function index()
     {
         $tickets = (new EvenEventTicketClient())->newQuery();
-        $tickets = $tickets->join('even_events', 'event_id', 'even_events.id');
+        $tickets = $tickets->join('even_events', 'event_id', 'even_events.id')->where('response_date_approved', '!=', null);
 
         if (request()->has('search')) {
             $tickets->where('full_name', 'Like', '%' . request()->input('search') . '%')
