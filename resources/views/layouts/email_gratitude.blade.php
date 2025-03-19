@@ -176,7 +176,7 @@
         </div>
         <br>
         <p>
-            Puede cordinar la entrega de su entrada fisica mediante el siguiente número de teléfono: (+51) 977627207
+            Puede cordinar la entrega de su entrada fisica mediante el siguiente número de teléfono: (+51) 989533683
         </p>
         <p>
             <b>Atentamente,</b><br>
@@ -184,7 +184,7 @@
         </p>
         <br>
         <p style="text-align: center; font-size: 14px;">
-            JESÚS REY DE REYES Y SEÑOR DE SEÑORES, Av Saenz Peña 876, Callao, Perú, +51 977627207
+            JESÚS REY DE REYES Y SEÑOR DE SEÑORES, Av Saenz Peña 876, Callao, Perú, +51 989533683
         </p>
         <footer>
             <p style="text-align: center; font-size: 15px;">
