@@ -29,6 +29,7 @@ Route::get('/test-image/{content}/{fecha?}', [WebController::class, 'testimage']
 
 Route::get('/', [WebController::class, 'index'])->name('cms_principal');
 Route::get('/quienes-somos', [WebController::class, 'quienessomos'])->name('web_quienes_somos');
+Route::get('/predicas', [WebController::class, 'predicas'])->name('web_predicas');
 
 // SEDES
 Route::get('/sedes', [WebController::class, 'sedes'])->name('web_sedes');
@@ -74,6 +75,7 @@ Route::post('/donar/tarjeta', [WebController::class, 'donarTarjeta'])->name('web
 Route::put('/donar-pagar/procesar', [WebController::class, 'processDonacion'])->name('web_process_donacion');
 
 Route::get('/gracias/{id}/pagado', [WebController::class, 'gracias'])->name('web_gracias');
+
 // eventos
 Route::post('/eventos/registrar/store', [EvenEventTickeClientController::class, 'store'])->name('web_eventos_registrarse');
 Route::get('/emailprueba', [WebController::class, 'email'])->name('web_email');

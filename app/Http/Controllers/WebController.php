@@ -167,6 +167,33 @@ class WebController extends Controller
         ]);
     }
 
+    public function predicas()
+    {
+        $banner = CmsSection::where('component_id', 'banner_predicas_79')  //siempre cambiar el id del componente
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+            ->orderBy('cms_section_items.position')
+            ->first();
+
+        $group_video = CmsSection::where('component_id', 'predicas_videoteca_80')->first();
+
+        $videos = CmsSectionItem::with(['group' => function ($query) {
+            $query->where('type_id', 5);
+        }, 'group.items'])
+            ->where('section_id', $group_video->id)
+            ->paginate(25);
+        //dd($videos);
+
+        return view('jrrss/predicas', [
+            'banner' => $banner,
+            'videos' => $videos
+        ]);
+    }
+
     public function sedes()
     {
         $banner = CmsSection::where('component_id', 'banner_sedes_5')  //siempre cambiar el id del componente
