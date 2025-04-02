@@ -145,18 +145,13 @@
 
             <br><br>
 
-            <div class="container py-4">
+            <div class="container-lg py-4">
                 <div class="row">
-                    <div class="col" style="min-height: 250px;">
-                        <div class="row portfolio-list lightbox"
-                            data-plugin-options="{'delegate': 'a.lightbox-portfolio', 'type': 'image', 'gallery': {'enabled': true}}">
                             @foreach ($videos as $video)
-                                <div class="col-md-6" style="padding: 15px;">
+                                <div class="col-md-4" style="padding: 15px;">
                                     {!! $video->group->items[0]->content !!}
                                 </div>
                             @endforeach
-                        </div>
-                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4"></div>

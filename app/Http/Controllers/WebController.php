@@ -881,7 +881,7 @@ class WebController extends Controller
             $query->where('type_id', 5);
         }, 'group.items'])
             ->where('section_id', $group_video->id)
-            ->paginate(4);
+            ->paginate(6);
         //dd($videos);
 
         $rsociales = CmsSection::where('component_id', 'ecelt_redes_sociales_40')  //siempre cambiar el id del componente
