@@ -24,11 +24,17 @@
 
             <div class="container-lg py-4">
                 <div class="row">
-                            @foreach ($videos as $video)
-                                <div class="col-md-4" style="padding: 15px;">
-                                    {!! $video->group->items[0]->content !!}
+                    @foreach ($videos as $video)
+                        <div class="col-md-4" style="padding: 15px;">
+                            <div class="card">
+                                {!! $video->group->items[2]->content !!}
+                                <div class="card-content">
+                                    <h2 class="card-title">{{ $video->group->items[0]->content }}</h2>
+                                    <p class="card-description">{{ $video->group->items[1]->content }}</p>
                                 </div>
-                            @endforeach
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
                 <div class="row">
                     <div class="col-md-4"></div>
@@ -37,6 +43,30 @@
                     </div>
                     <div class="col-md-4"></div>
                 </div>
+                <style>
+                    .card {
+                        background: white;
+                        border-radius: 10px;
+                        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+                        overflow: hidden;
+                        width: 100%;
+                        transition: transform 0.3s;
+                    }
+                    .card:hover {
+                        transform: scale(1.05);
+                    }
+                    .card-content {
+                        padding: 10px 20px 2px 20px;
+                    }
+                    .card-title {
+                        font-size: 1.2em;
+                        font-weight: 500;
+                    }
+                    .card-description {
+                        color: #555;
+                        margin: 5px 0;
+                    }
+                </style>
             </div>
 
         </div>
