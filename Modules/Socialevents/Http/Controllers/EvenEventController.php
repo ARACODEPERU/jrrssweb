@@ -252,7 +252,7 @@ class EvenEventController extends Controller
             }
         }
 
-        if (count($exhibitors) > 0) {
+        if ($exhibitors && count($exhibitors) > 0) {
             foreach ($exhibitors as $exhibitor) {
                 EvenEventExhibitor::create([
                     'event_id' => $event->id,
