@@ -213,7 +213,8 @@ class EvenEventController extends Controller
                 'description' => 'required',
                 'advertising_video' => 'required',
                 'tickets_quantity' => 'required',
-                'date' => 'required'
+                'date' => 'required',
+                'exhibitors' => 'required',
             ]
         );
 
