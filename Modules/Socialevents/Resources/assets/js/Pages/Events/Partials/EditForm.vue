@@ -59,8 +59,8 @@ const props = defineProps({
 });
 const dateFormat = 'YYYY-MM-DD';
 const value4 = ref([
-  dayjs(props.socialevent.date_start, dateFormat),
-  dayjs(props.socialevent.date_end, dateFormat),
+    dayjs(props.socialevent.date_start, dateFormat),
+    dayjs(props.socialevent.date_end, dateFormat),
 ]);
 const iimg = ref(assetUrl + 'storage/' + props.socialevent.image1);
 
@@ -80,7 +80,8 @@ const form = useForm({
     tickets_quantity: props.socialevent.tickets_quantity,
     broadcast: props.socialevent.broadcast == 1 ? true : false,
     locales: props.eventLocales,
-    exhibitors: props.eventExhibitors
+    exhibitors: props.eventExhibitors,
+    status: props.socialevent.status
 });
 
 const updateNow = () => {
@@ -206,6 +207,21 @@ const cropImageAndSave = (res) => {
                         id="tickets_quantity"
                         v-model:value="form.tickets_quantity"
                     />
+                    <InputError :message="form.errors.tickets_quantity" class="mt-2" />
+                </div>
+                <div class="col-span-6 sm:col-span-2">
+                    <InputLabel for="tickets_quantity" value="Estado del evento *" class="mb-1" />
+                    <Select
+                        ref="select"
+                        v-model:value="form.status"
+                        style="width: 100%"
+                        >
+                        <SelectOption value="PE">PENDIENTE</SelectOption>
+                        <SelectOption value="CA">CANCELADO</SelectOption>
+                        <SelectOption value="PR">PROCESO</SelectOption>
+                        <SelectOption value="TE">TERMINADO</SelectOption>
+                        <SelectOption value="PO">POSTERGADO</SelectOption>
+                    </Select>
                     <InputError :message="form.errors.tickets_quantity" class="mt-2" />
                 </div>
             </ConfigProvider>
