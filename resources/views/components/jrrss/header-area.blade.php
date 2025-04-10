@@ -310,6 +310,12 @@
                                                             EVENTOS
                                                         </a>
                                                     </li>
+                                                    <li class="dropdown">
+                                                        <a class="dropdown-item {{ request()->routeIs('web_predicas') ? 'active' : '' }}"
+                                                            href="{{ route('web_predicas') }}">
+                                                            PREDICAS
+                                                        </a>
+                                                    </li>
                                                     {{-- <li class="dropdown">
                                                         <a class="dropdown-item {{ request()->routeIs('web_eventos') ? 'active' : '' }}"
                                                             href="{{ route('web_eventos') }}">
