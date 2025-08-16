@@ -31,12 +31,6 @@ const menuSocialevents = {
             text: "Ticket Vendidos",
             permissions: "even_ventas_listado",
         },
-        {
-            route: route("even_donacion_listado"),
-            status: false,
-            text: "Donaciones",
-            permissions: "even_donacion_listado",
-        },
     ],
 };
 export default menuSocialevents;

@@ -11,8 +11,8 @@ import Keypad from '@/Components/Keypad.vue';
 import swal from 'sweetalert';
 import { watchEffect, defineComponent, ref, onMounted } from 'vue';
 
-import { 
-    ConfigProvider, Divider, Space, Button, Select, Input, message
+import {
+    ConfigProvider, Divider, Space, Button, Select, Input, message, TreeSelect
 } from 'ant-design-vue';
 
 import esES from 'ant-design-vue/es/locale/es_ES';
@@ -29,6 +29,10 @@ const props = defineProps({
     brands: {
         type: Object,
         default: () => ({}),
+    },
+    P000014: {
+        type: String,
+        default: "1",
     }
 });
 
@@ -36,9 +40,29 @@ const categoriesData = ref([]);
 const brandsData = ref([]);
 
 onMounted(()=>{
-    categoriesData.value = props.categories.map(item => ({ value: item.id, label: item.description }));
+    if(props.P000014 == "1"){
+    // cuando las categorias no tiene sub niveles
+        categoriesData.value = props.categories.map(item => ({ value: item.id, label: item.description }));
+    } else if(props.P000014 == "2"){
+        categoriesData.value = props.categories.map((obj) => ({
+            value: obj.id,
+            label: obj.description,
+            children: obj.subcategories.map(item => ({
+                value: item.id,
+                label: item.description,
+                children: item.subcategories && item.subcategories.length > 0
+                    ? item.subcategories.map(sub => ({
+                        value: sub.id,
+                        label: sub.description
+                    }))
+                    : null // Si item.subcategories no existe o está vacío, se asigna null
+            }))
+        }));
+    }
     brandsData.value = props.brands.map(item => ({ value: item.id, label: item.description }));
 });
+
+
 
 const VNodes = defineComponent({
   props: {
@@ -92,7 +116,7 @@ const createProduct = () => {
         forceFormData: true,
         errorBag: 'createProduct',
         preserveScroll: true,
-        onSuccess: () =>{ 
+        onSuccess: () =>{
             form.reset()
             swal('Producto registrado con exito.')
         },
@@ -136,7 +160,7 @@ const addCategory = () => {
                 message.success('Se registró correctamente');
                 categoriesData.value.push({
                     value: res.data.category.id,
-                    label: res.data.category.description 
+                    label: res.data.category.description
                 })
             }
         }).then(() => {
@@ -156,7 +180,7 @@ const addBrand = () => {
                 message.success('Se registró correctamente');
                 brandsData.value.push({
                     value: res.data.brand.id,
-                    label: res.data.brand.description 
+                    label: res.data.brand.description
                 })
             }
         }).then(() => {
@@ -181,6 +205,8 @@ const addBrand = () => {
             <ConfigProvider :locale="esES">
                 <div class="col-span-6 sm:col-span-3">
                     <InputLabel for="category_id" value="Categoría" />
+                    <!-- cuando es solo un nivel de las categorias-->
+                    <!--
                     <Select
                         id="category_id"
                         v-model:value="form.category_id"
@@ -201,7 +227,25 @@ const addBrand = () => {
                                 </Button>
                             </Space>
                         </template>
-                    </Select>
+                    </Select> -->
+
+                    <!-- cuando tienes sub niveles -->
+                    <TreeSelect
+                        v-model:value="form.category_id"
+                        show-search
+                        style="width: 100%"
+                        :dropdown-style="{ maxHeight: '400px', overflow: 'auto' }"
+                        placeholder="Seleccionar Categoría"
+                        allow-clear
+                        :tree-data="categoriesData"
+                        tree-node-filter-prop="label"
+                        :height="233"
+                    >
+                        <template #title="{ value: val, label }">
+                            <b v-if="val === 'parent 1-1'" style="color: #08c">sss</b>
+                            <template v-else>{{ label }}</template>
+                        </template>
+                    </TreeSelect>
                     <InputError :message="form.errors.category_id" class="mt-2" />
                 </div>
                 <div class="col-span-6 sm:col-span-3">
@@ -231,10 +275,10 @@ const addBrand = () => {
                 </div>
                 <div class="col-span-6 sm:col-span-2">
                     <InputLabel for="stablishment" value="Establecimiento" />
-                    <Select 
+                    <Select
                         style="width: 100%;"
-                        v-model:value="form.local_id" 
-                        id="stablishment" 
+                        v-model:value="form.local_id"
+                        id="stablishment"
                         :options="establishments.map((obj) => ({ value:obj.id, label:obj.description }))"
                     >
                     </Select>
@@ -290,7 +334,42 @@ const addBrand = () => {
                         type="text"
                         class="block w-full mt-1"
                     />
+                    <small>Solo Numeros</small>
                     <InputError :message="form.errors.purchase_prices" class="mt-2" />
+                </div>
+
+                <div class="col-span-6 sm:col-span-2">
+                    <InputLabel for="sale_prices" value="Precio de venta" />
+                    <TextInput
+                        id="sale_prices_high"
+                        v-model="form.sale_prices.high"
+                        type="text"
+                        class="block w-full mt-1"
+                    />
+                    <small>Solo Numeros</small>
+                    <InputError :message="form.errors[`sale_prices.high`]" class="mt-2" />
+                </div>
+                <div class="col-span-6 sm:col-span-2">
+                    <InputLabel for="sale_prices_medium" value="Precio de venta Medio" />
+                    <TextInput
+                        id="sale_prices_medium"
+                        v-model="form.sale_prices.medium"
+                        type="text"
+                        class="block w-full mt-1"
+                    />
+                    <small>Solo Numeros</small>
+                    <InputError :message="form.errors[`sale_prices.medium`]" class="mt-2" />
+                </div>
+                <div class="col-span-6 sm:col-span-2">
+                    <InputLabel for="sale_prices_under" value="Precio de venta Minimo" />
+                    <TextInput
+                        id="sale_prices_under"
+                        v-model="form.sale_prices.under"
+                        type="text"
+                        class="block w-full mt-1"
+                    />
+                    <small>Solo Numeros</small>
+                    <InputError :message="form.errors[`sale_prices.under`]" class="mt-2" />
                 </div>
                 <div class="col-span-6 sm:col-span-2">
                     <InputLabel for="sale_prices_under" value="Stock" />
@@ -304,80 +383,52 @@ const addBrand = () => {
                     />
                     <InputError :message="form.errors.stock" class="mt-2" />
                 </div>
-                <div class="col-span-6 sm:col-span-2">
-                    <InputLabel for="sale_prices" value="Precio de venta" />
-                    <TextInput
-                        id="sale_prices_high"
-                        v-model="form.sale_prices.high"
-                        type="text"
-                        class="block w-full mt-1"
-                    />
-                    <InputError :message="form.errors[`sale_prices.high`]" class="mt-2" />
-                </div>
-                <div class="col-span-6 sm:col-span-2">
-                    <InputLabel for="sale_prices_medium" value="Precio de venta Medio" />
-                    <TextInput
-                        id="sale_prices_medium"
-                        v-model="form.sale_prices.medium"
-                        type="text"
-                        class="block w-full mt-1"
-                    />
-                    <InputError :message="form.errors[`sale_prices.medium`]" class="mt-2" />
-                </div>
-                <div class="col-span-6 sm:col-span-2">
-                    <InputLabel for="sale_prices_under" value="Precio de venta Minimo" />
-                    <TextInput
-                        id="sale_prices_under"
-                        v-model="form.sale_prices.under"
-                        type="text"
-                        class="block w-full mt-1"
-                    />
-                    <InputError :message="form.errors[`sale_prices.under`]" class="mt-2" />
-                </div>
                 <div class="col-span-6 sm:col-span-3">
                     <div class="flex items-center">
                         <input v-model="form.presentations" id="checked-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label for="checked-checkbox" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">¿Tiene diferentes tallas?</label>
+                        <label for="checked-checkbox" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">¿Tiene presentaciones?</label>
                     </div>
                 </div>
                 <div v-show="form.presentations" class="col-span-6 sm:col-span-6">
                     <label>
-                        Tallas
+                        Detalles
                         <button @click="addSize" type="button" class="inline-block px-6 py-2.5 bg-transparent text-blue-600 font-medium text-xs leading-tight uppercase rounded hover:text-blue-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:ring-0 active:bg-gray-200 transition duration-150 ease-in-out">Agregar</button>
                     </label>
                     <div v-for="(item, index) in form.sizes" v-bind:key="index">
                         <table style="width: 100%;">
-                            <tr>
-                                <td style="padding: 4px;">
-                                    <div class="col-span-3 sm:col-span-2">
-                                        <InputLabel value="Talla" />
-                                        <TextInput
-                                            v-model="item.size"
-                                            type="text"
-                                            class="block w-full mt-1"
-                                            autofocus
-                                        />
-                                        <InputError :message="form.errors[`sizes.${index}.size`]" class="mt-2" />
-                                    </div>
-                                </td>
-                                <td style="padding: 4px;">
-                                    <div class="col-span-3 sm:col-span-2">
-                                        <InputLabel value="Cantidad" />
-                                        <TextInput
-                                            v-model="item.quantity"
-                                            type="number"
-                                            class="block w-full mt-1"
-                                            autofocus
-                                        />
-                                        <InputError :message="form.errors[`sizes.${index}.quantity`]" class="mt-2" />
-                                    </div>
-                                </td>
-                                <td style="padding: 4px;" valign="bottom">
-                                    <button @click="removeSize(index)" type="button" class="px-2 py-1 inline-block rounded-full bg-blue-600 text-white leading-normal uppercase shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
-                                        <font-awesome-icon :icon="faTrashAlt" />
-                                    </button>
-                                </td>
-                            </tr>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 4px;">
+                                        <div class="col-span-3 sm:col-span-2">
+                                            <InputLabel value="Descripcion" />
+                                            <TextInput
+                                                v-model="item.size"
+                                                type="text"
+                                                class="block w-full mt-1"
+                                                autofocus
+                                            />
+                                            <InputError :message="form.errors[`sizes.${index}.size`]" class="mt-2" />
+                                        </div>
+                                    </td>
+                                    <td style="padding: 4px;">
+                                        <div class="col-span-3 sm:col-span-2">
+                                            <InputLabel value="Cantidad" />
+                                            <TextInput
+                                                v-model="item.quantity"
+                                                type="number"
+                                                class="block w-full mt-1"
+                                                autofocus
+                                            />
+                                            <InputError :message="form.errors[`sizes.${index}.quantity`]" class="mt-2" />
+                                        </div>
+                                    </td>
+                                    <td style="padding: 4px;" valign="bottom">
+                                        <button @click="removeSize(index)" type="button" class="px-2 py-1 inline-block rounded-full bg-blue-600 text-white leading-normal uppercase shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
+                                            <font-awesome-icon :icon="faTrashAlt" />
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>

@@ -1,14 +1,11 @@
 <script setup>
-    import AppLayout from '@/Layouts/AppLayout.vue';
-    import { useForm } from '@inertiajs/vue3';
-    import { faTimes, faCopy, faPrint, faWarehouse } from "@fortawesome/free-solid-svg-icons";
+    import AppLayout from '@/Layouts/Vristo/AppLayout.vue';
+    import { faGears } from "@fortawesome/free-solid-svg-icons";
     import Pagination from '@/Components/Pagination.vue';
     import Keypad from '@/Components/Keypad.vue';
-    import PrimaryButton from '@/Components/PrimaryButton.vue';
-    import { ref } from 'vue';
-    import ModalSmall from '@/Components/ModalSmall.vue';
-    import swal from "sweetalert";
-    import { Link } from '@inertiajs/vue3';
+    import { Link, router, useForm } from '@inertiajs/vue3';
+    import { Dropdown, Menu, MenuItem, Input, Select, Textarea, message } from 'ant-design-vue';
+    import Navigation from '@/Components/vristo/layout/Navigation.vue';
 
     const props = defineProps({
         parameters: {
@@ -23,40 +20,30 @@
     const form = useForm({
         search: props.filters.search,
     });
+
+    const updateDefaultValue = (id, value) => {
+        axios.get(route('parameters_update_default_value',[id,value])).then(()=>{
+            message.success('Se actualizó correctamente');
+        });
+    }
 </script>
 
 <template>
-    <AppLayout title="Ventas">
-        <div class="max-w-screen-2xl  mx-auto p-4 md:p-6 2xl:p-10">
-            <!-- Breadcrumb Start -->
-            <nav class="flex px-4 py-3 border border-stroke text-gray-700 mb-4 bg-gray-50 dark:bg-gray-800 dark:border-gray-700" aria-label="Breadcrumb">
-                <ol class="inline-flex items-center space-x-1 md:space-x-3">
-                    <li class="inline-flex items-center">
-                        <Link :href="route('dashboard')" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
-                        <svg aria-hidden="true" class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
-                        Inicio
-                        </Link>
-                    </li>
-                    <li>
-                        <div class="flex items-center">
-                        <svg aria-hidden="true" class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                        <!-- <a href="#" class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">Productos</a> -->
-                        <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Configuraciones</span>
-                        </div>
-                    </li>
-                    <li aria-current="page">
-                        <div class="flex items-center">
-                        <svg aria-hidden="true" class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                        <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Parámetros</span>
-                        </div>
-                    </li>
-                </ol>
-            </nav>
+    <AppLayout title="Parametros">
+        <Navigation >
+            <li class="before:content-['/'] ltr:before:mr-2 rtl:before:ml-2">
+                <span>Configuraciones</span>
+            </li>
+            <li class="before:content-['/'] ltr:before:mr-2 rtl:before:ml-2">
+                <span>Parametros</span>
+            </li>
+        </Navigation>
+        <div class="mt-5">
             <!-- ====== Table Section Start -->
             <div class="flex flex-col gap-10">
                 <!-- ====== Table One Start -->
-                <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
-                    <div class="w-full p-4 border-b border-gray-200 bg-gray-50 rounded-t-xl dark:border-gray-600 dark:bg-gray-700">
+                <div class="panel p-0">
+                    <div class="w-full p-4">
                         <div class="grid grid-cols-3">
                             <div class="col-span-3 sm:col-span-1">
                                 <form @submit.prevent="form.get(route('parameters'))">
@@ -72,64 +59,145 @@
                             <div class="col-span-3 sm:col-span-2">
                                 <Keypad>
                                     <template #botones>
-                                        
                                         <Link :href="route('parameters_create')" class="inline-block px-6 py-2.5 bg-blue-900 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Nuevo</Link>
                                     </template>
                                 </Keypad>
                             </div>
                         </div>
                     </div>
-                    <div class="max-w-full overflow-x-auto">
-                        <table class="w-full table-auto">
-                            <thead class="border-b border-stroke">
-                                <tr class="bg-gray-50 text-left dark:bg-meta-4">
-                                    <th class="py-4 px-4 text-center font-medium text-black dark:text-white">
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr >
+                                    <th class="text-center">
                                         Acciones
                                     </th>
-                                    <th class="py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
+                                    <th>
                                         Código
                                     </th>
-                                    <th class="py-4 px-4 font-medium text-black dark:text-white">
+                                    <th>
                                         Descripción
                                     </th>
-                                    <th class="py-4 px-4 font-medium text-black dark:text-white">
+                                    <th>
                                         Valor
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(parameter, index) in parameters.data" :key="parameter.id" >
-                                    <td class="text-center border-b border-stroke py-4 px-4 pl-9 dark:border-strokedark xl:pl-11">
-                                        <button @click="printTicket(parameter.id)" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                            <font-awesome-icon :icon="faPrint" />
-                                        </button>
-                                        <button v-role="'admin'" type="button" class="px-3 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-                                            @click="deleteSale(parameter.id)"
-                                            >
-                                            <font-awesome-icon :icon="faTimes" />
-                                        </button>
-                                        <Link v-role="'admin'" type="button" class="px-2.5 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
-                                            :href="route('saledocuments_create_from_ticket',parameter.id)"
-                                            >
-                                            <font-awesome-icon :icon="faCopy" />
-                                        </Link>
+                                <tr v-for="(parameter, index) in parameters" :key="parameter.id" >
+                                    <td>
+                                        <Dropdown :placement="'bottomLeft'" arrow>
+                                            <button class="border py-1.5 px-2 dropdown-button inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm" type="button">
+                                                <font-awesome-icon :icon="faGears" />
+                                            </button>
+                                            <template #overlay>
+                                            <Menu>
+                                                <MenuItem>
+                                                    <Link :href="route('parameters_edit',parameter.id)" type="Link">Editar</Link>
+                                                </MenuItem>
+                                                <MenuItem>
+                                                    <a href="javascript:;">Eliminar</a>
+                                                </MenuItem>
+                                            </Menu>
+                                            </template>
+                                        </Dropdown>
                                     </td>
-                                    <td class="text-center border-b border-stroke py-4 px-4 pl-9 dark:border-strokedark xl:pl-11">
+                                    <td>
                                         <pre>{{ parameter.parameter_code }}</pre>
                                     </td>
-                                    <td class="border-b border-stroke py-4 px-4 dark:border-strokedark">
+                                    <td>
                                         {{ parameter.description }}
                                     </td>
-                                    <td class="text-right border-b border-stroke py-4 px-4 dark:border-strokedark">
-                                        {{ parameter.value_default }}
+                                    <td>
+                                        <template v-if="parameter.control_type == 'in'">
+                                            <Input
+                                                v-model:value="parameter.value_default"
+                                                @pressEnter="updateDefaultValue(parameter.id, parameter.value_default)"
+                                            />
+                                            <small>presionar enter para guardar cambios</small>
+                                        </template>
+                                        <template v-else-if="parameter.control_type == 'sq'">
+                                            <Select
+                                                v-model:value="parameter.value_default"
+                                                style="width: 100%"
+                                                :options="JSON.parse(parameter.json_query_data).map((obj) => ({value: obj.id, label:obj.description}))"
+                                                @change="updateDefaultValue(parameter.id, parameter.value_default)"
+                                            />
+                                        </template>
+                                        <template v-else-if="parameter.control_type == 'sa'">
+                                            <Select
+                                                v-model:value="parameter.value_default"
+                                                style="width: 100%"
+                                                :options="JSON.parse(parameter.json_query_data)"
+                                                @change="updateDefaultValue(parameter.id, parameter.value_default)"
+                                            />
+                                        </template>
+                                        <template v-else-if="parameter.control_type == 'tx'">
+                                            <Textarea
+                                                v-model:value="parameter.value_default"
+                                                style="width: 100%"
+                                                show-count
+                                                :maxlength="5000"
+                                                @change="updateDefaultValue(parameter.id, parameter.value_default)"
+                                                >
+                                            </Textarea>
+                                        </template>
+                                        <template v-else-if="parameter.control_type == 'rdj'">
+                                            <div>
+                                                <template v-for="(rdj, kec) in JSON.parse(parameter.json_query_data)">
+                                                    <label class="inline-flex">
+                                                        <input
+                                                            v-model="parameter.value_default"
+                                                            type="radio"
+                                                            :value="rdj.value"
+                                                            :name="`radio-j-${index}`"
+                                                            class="form-radio rounded-none"
+                                                            @change="updateDefaultValue(parameter.id, parameter.value_default)"
+                                                        />
+                                                        <span>{{ rdj.label }}</span>
+                                                    </label>
+                                                </template>
+                                            </div>
+                                        </template>
+                                        <template v-else-if="parameter.control_type == 'chj'">
+                                            <div>
+                                                <template v-for="(rdj, kec) in JSON.parse(parameter.json_query_data)">
+                                                    <label class="inline-flex" :for="`checkbox-j-${index}-${kec}`">
+                                                        <input
+                                                            v-model="parameter.value_default"
+                                                            type="checkbox"
+                                                            :value="rdj.value"
+                                                            :name="`checkbox-j-${index}-${kec}`"
+                                                            :id="`checkbox-j-${index}-${kec}`"
+                                                            class="form-checkbox"
+                                                            @change="updateDefaultValue(parameter.id, rdj.value)"
+                                                        />
+                                                        <span>{{ rdj.label }}</span>
+                                                    </label>
+                                                </template>
+                                            </div>
+                                        </template>
+                                        <template v-else-if="parameter.control_type == 'chx'">
+                                            <label class="w-12 h-6 relative">
+                                                <input
+                                                    v-model="parameter.value_default"
+                                                    type="checkbox"
+                                                    class="custom_switch absolute w-full h-full opacity-0 z-10 cursor-pointer peer"
+                                                    :id="`custom_switch_checkbox-${index}`"
+                                                    :value="1"
+                                                    @change="updateDefaultValue(parameter.id, parameter.value_default)"
+                                                />
+                                                <span :for="`custom_switch_checkbox-${index}`" class="bg-[#ebedf2] dark:bg-dark block h-full before:absolute before:left-1 before:bg-white dark:before:bg-white-dark dark:peer-checked:before:bg-white before:bottom-1 before:w-4 before:h-4 peer-checked:before:left-7 peer-checked:bg-primary before:transition-all before:duration-300 "></span>
+                                            </label>
+                                        </template>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
-                        <Pagination :data="parameters" />
                     </div>
                 </div>
             </div>
         </div>
+
     </AppLayout>
 </template>

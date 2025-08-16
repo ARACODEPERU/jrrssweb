@@ -34,7 +34,18 @@ class Person extends Model
         'father_lastname',
         'mother_lastname',
         'ocupacion',
-        'presentacion'
+        'presentacion',
+        'gender',
+        'status',
+        'social_networks',
+        'ubigeo_description',
+        'company_person_id', /// se registra la empresa a la que pertenese
+        'industry',
+        'profession',
+        'company',
+        'industry_id',
+        'profession_id',
+        'occupation_id'
     ];
     // se esta guardando la ruta completa por eso se comento
     // public function getImageAttribute($value)

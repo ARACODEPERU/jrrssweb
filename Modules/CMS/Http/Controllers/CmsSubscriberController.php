@@ -8,8 +8,9 @@ use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Facades\Validator;
 use Modules\CMS\Entities\CmsSubscriber;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NotificacionDescarga_brochure;
 use Inertia\Inertia;
-use Modules\CMS\Entities\CmsSection;
 
 class CmsSubscriberController extends Controller
 {
@@ -32,65 +33,28 @@ class CmsSubscriberController extends Controller
         return view('cms::create');
     }
 
-    public function store(Request $request)
-    {
-        $validator = Validator::make(
-            $request->all(),
-            [
-                'email' => 'required|email|max:255',
-                'full_name' => 'required|max:255',
-            ],
-            [
-                'full_name.max' => 'Limita la longitud máxima del campo de nombre a 255 caracteres',
-                'email.required' => 'El correo electrónico es obligatorio',
-                'email.email' => 'Por favor, ingrese una dirección de correo electrónico válida.',
-                'email.max' => 'Limita la longitud máxima del campo de correo electrónico a 255 caracteres',
-            ]
-        );
-
-        // Verificar si las validaciones fallaron
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
-
-        CmsSubscriber::create([
-            'full_name'     => $request->get('full_name') ?? null,
-            'email'         => $request->get('email'),
-            'phone'         => $request->get('phone') ?? null,
-            'client_ip'     => $request->ip(),
-            'read'          => 0,
-            'subject'       => $request->get('subject') ?? null,
-            'message'       => $request->get('message') ?? null,
-        ]);
-
-        $banner = CmsSection::where('component_id', 'banner_contacto_13')  //siempre cambiar el id del componente
-            ->join('cms_section_items', 'section_id', 'cms_sections.id')
-            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
-            ->select(
-                'cms_items.content',
-                'cms_section_items.position'
-            )
-            ->orderBy('cms_section_items.position')
-            ->first();
-
-        return view('jrrss.suscrito', [
-            'persoNames' => $request->get('full_name'),
-            'banner' => $banner
-        ]);
-    }
-
+    /**
+     * Store a newly created resource in storage.
+     * @param Request $request
+     * @return Renderable
+     */
     public function apiStore(Request $request)
     {
+
         $validator = Validator::make(
             $request->all(),
             [
                 'email' => 'required|email|max:255',
+                'full_name' => 'required',
+                'phone' => 'required',
             ],
             [
-                'email.unique' => 'El correo electrónico ya existe',
+                //'email.unique' => 'El correo electrónico ya existe',
                 'email.required' => 'El correo electrónico es obligatorio',
                 'email.email' => 'Por favor, ingrese una dirección de correo electrónico válida.',
                 'email.max' => 'Limita la longitud máxima del campo de correo electrónico a 255 caracteres',
+                'full_name' => 'Agrega tu nombre por favor.',
+                'phone' => 'Ponga un numero de teléfono valido por favor.'
             ]
         );
 
@@ -99,7 +63,7 @@ class CmsSubscriberController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        CmsSubscriber::create([
+        $Subscriber = CmsSubscriber::create([
             'full_name'     => $request->get('full_name') ?? null,
             'email'         => $request->get('email'),
             'phone'         => $request->get('phone') ?? null,
@@ -108,6 +72,15 @@ class CmsSubscriberController extends Controller
             'subject'       => $request->get('subject') ?? null,
             'message'       => $request->get('message') ?? null,
         ]);
+
+        try {
+            //Correo a Ronald
+        Mail::to(env("MAIL_ADMIN"))
+        ->send(new NotificacionDescarga_brochure($Subscriber));
+
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
 
         return response()->json([
             'success' => true,
@@ -115,16 +88,39 @@ class CmsSubscriberController extends Controller
         ]);
     }
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
+    public function store(Request $request)
     {
-        return view('cms::show');
-    }
+        $this->validate(
+            $request,
+            [
+                'full_name' => 'required|max:255',
+                'email' => 'required|max:255',
+                'phone' => 'required|max:255',
+                'message' => 'required',
+            ],
+            [
+                'full_name.required' => 'El nombre completo es requerido',
+                'email.required' => 'El email es requerido',
+                'phone.required' => 'El teléfono es requerido',
+                'message.required' => 'El mensaje es requerido',
+                'full_name.max' => 'La cantidad maxima es de 255 caracteres',
+                'email.max' => 'La cantidad maxima es de 255 caracteres',
+                'phone.max' => 'La cantidad maxima es de 255 caracteres',
+            ]
+        );
 
+        CmsSubscriber::create([
+            'full_name'     => $request->get('full_name') ?? null,
+            'email'         => $request->get('email'),
+            'phone'         => $request->get('phone') ?? null,
+            'client_ip'     => $request->ip(),
+            'read'          => 0,
+            'subject'       => $request->get('subject') ?? null,
+            'message'       => $request->get('message') ?? null,
+        ]);
+
+        return to_route('index_main');
+    }
     /**
      * Show the form for editing the specified resource.
      * @param int $id

@@ -1,6 +1,6 @@
 <script setup>
-    import AppLayout from '@/Layouts/AppLayout.vue';
-    import { useForm } from '@inertiajs/vue3';
+    import AppLayout from '@/Layouts/Vristo/AppLayout.vue';
+    import { useForm, router } from '@inertiajs/vue3';
     import { faTimes, faCopy, faGears } from "@fortawesome/free-solid-svg-icons";
     import Pagination from '@/Components/Pagination.vue';
     import Keypad from '@/Components/Keypad.vue';
@@ -11,6 +11,7 @@
     import { Link } from '@inertiajs/vue3';
     import { Badge } from 'flowbite-vue'
     import { ConfigProvider, Dropdown,Menu,MenuItem,Button } from 'ant-design-vue';
+    import Navigation from '@/Components/vristo/layout/Navigation.vue';
 
     const props = defineProps({
         sales: {
@@ -30,6 +31,10 @@
     const printTicket = (id) => {
         //window.location.href = "../pdf/sales/ticket/" + id;
         let url = route('ticketpdf_sales',id)
+        window.open(url, "_blank");
+    }
+    const printA4Pdf = (id) => {
+        let url = route('printA4pdf_sales',id)
         window.open(url, "_blank");
     }
 
@@ -62,8 +67,6 @@
         //window.location.href = "../print/sales/user/" + formPrint.date;
     }
 
-    const formDelete= useForm({});
-
     const deleteSale = (id) => {
         swal({
             title: "Estas seguro",
@@ -73,11 +76,19 @@
             dangerMode: true,
         }).then((willDelete) => {
             if (willDelete) {
-                formDelete.delete(route('sales.destroy',id),{
-                    preserveScroll: true,
-                    onSuccess: () => {
-                        swal('Venta Anulada correctamente');
-                    }
+                axios({
+                    method: 'delete',
+                    url: route('sales.destroy',id),
+                }).then((response) => {
+                    swal(response.data.message);
+                    router.visit(route('sales.index'), {
+                        method: 'get',
+                        replace: false,
+                        preserveState: true,
+                        preserveScroll: true,
+                    });
+                }).catch(function (error) {
+                    console.log(error)
                 });
             } 
         });
@@ -86,36 +97,17 @@
 
 <template>
     <AppLayout title="Ventas">
-        <div class="max-w-screen-2xl  mx-auto p-4 md:p-6 2xl:p-10">
-            <!-- Breadcrumb Start -->
-            <nav class="flex px-4 py-3 border border-stroke text-gray-700 mb-4 bg-gray-50 dark:bg-gray-800 dark:border-gray-700" aria-label="Breadcrumb">
-                <ol class="inline-flex items-center space-x-1 md:space-x-3">
-                    <li class="inline-flex items-center">
-                        <Link :href="route('dashboard')" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
-                        <svg aria-hidden="true" class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
-                        Inicio
-                        </Link>
-                    </li>
-                    <li>
-                        <div class="flex items-center">
-                        <svg aria-hidden="true" class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                        <!-- <a href="#" class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">Productos</a> -->
-                        <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Ventas</span>
-                        </div>
-                    </li>
-                    <li aria-current="page">
-                        <div class="flex items-center">
-                        <svg aria-hidden="true" class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                        <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Listado</span>
-                        </div>
-                    </li>
-                </ol>
-            </nav>
+        <Navigation :routeModule="route('sales_dashboard')" :titleModule="'Ventas'">
+            <li class="before:content-['/'] ltr:before:mr-2 rtl:before:ml-2">
+                <span>Punto de Ventas</span>
+            </li>
+        </Navigation>
+        <div class="mt-5">
             <!-- ====== Table Section Start -->
             <div class="flex flex-col gap-10">
                 <!-- ====== Table One Start -->
-                <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-                    <div class="w-full p-4 border-b border-gray-200 bg-gray-50 dark:border-gray-600 dark:bg-gray-700">
+                <div class="panel p-0">
+                    <div class="w-full p-4">
                         <div class="grid grid-cols-3">
                             <div class="col-span-3 sm:col-span-1">
                                 <form @submit.prevent="form.get(route('sales.index'))">
@@ -143,37 +135,37 @@
                             </div>
                         </div>
                     </div>
-                    <div class="max-w-full overflow-x-auto">
+                    <div class="table-responsive">
                         <ConfigProvider>
-                        <table class="w-full table-auto">
-                            <thead class="border-b border-stroke">
-                                <tr class="bg-gray-50 text-left dark:bg-meta-4">
-                                    <th class="py-2 px-2 text-center font-medium text-black dark:text-white">
+                        <table >
+                            <thead >
+                                <tr >
+                                    <th>
                                         Acciones
                                     </th>
-                                    <th class="text-center py-2 px-2 font-medium text-black dark:text-white xl:pl-11">
+                                    <th >
                                         Documento 
                                     </th>
-                                    <th class="py-2 px-2 font-medium text-black dark:text-white">
+                                    <th >
                                         Nmr. Ticket
                                     </th>
-                                    <th class="py-2 px-2 font-medium text-black dark:text-white">
+                                    <th >
                                         Fecha
                                     </th>
-                                    <th class="py-2 px-2 font-medium text-black dark:text-white">
+                                    <th >
                                         Cliente
                                     </th>
-                                    <th class="py-2 px-2 font-medium text-black dark:text-white">
+                                    <th >
                                         Total
                                     </th>
-                                    <th class="py-2 px-2 font-medium text-black dark:text-white">
+                                    <th >
                                         Estado
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="(sale, index) in sales.data" :key="sale.id" >
-                                    <td class="text-center border-b border-stroke py-2 px-2 pl-9 dark:border-strokedark xl:pl-11">
+                                    <td >
                                         <Dropdown :placement="'bottomLeft'">
                                             <button class="border py-1.5 px-2 dropdown-button inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm" type="button">
                                                 <font-awesome-icon :icon="faGears" />
@@ -181,8 +173,13 @@
                                             <template #overlay>
                                                 <Menu>
                                                     <MenuItem>
+                                                        <Button @click="printA4Pdf(sale.id)" type="button">
+                                                            pdf A4
+                                                        </Button>
+                                                    </MenuItem>
+                                                    <MenuItem>
                                                         <Button @click="printTicket(sale.id)" type="button">
-                                                            Imprimir
+                                                            pdf 80x250
                                                         </Button>
                                                     </MenuItem>
                                                     <MenuItem v-if="sale.have_document <= 1">
@@ -199,24 +196,25 @@
                                             </template>
                                         </Dropdown>
                                     </td>
-                                    <td class="text-center border-b border-stroke py-2 px-2 pl-9 dark:border-strokedark xl:pl-11">
+                                    <td >
                                         {{ sale.name_document }}  
                                     </td>
-                                    <td class="w-32 border-b border-stroke py-2 px-2 dark:border-strokedark">
+                                    <td >
                                         {{ sale.serie }}-{{ sale.number }}
                                     </td>
-                                    <td class="border-b border-stroke py-2 px-2 dark:border-strokedark">
+                                    <td >
                                         {{ sale.fecha }}
                                     </td>
-                                    <td class="border-b border-stroke py-2 px-2 dark:border-strokedark">
+                                    <td >
                                         {{ sale.full_name }}
                                     </td>
-                                    <td class="text-right border-b border-stroke py-2 px-2 dark:border-strokedark">
+                                    <td >
                                         {{ sale.total }}
                                     </td>
-                                    <td class="border-b border-stroke py-2 px-2 dark:border-strokedark">
+                                    <td >
                                         <template v-if="sale.have_document <= 1">
                                             <Badge v-if="sale.status == 1" type="yellow">Registrado</Badge>
+                                            <Badge v-else-if="sale.status == 9" type="yellow">Con documento vinculado</Badge>
                                             <Badge v-else type="red">Anulado</Badge>
                                         </template>
                                         <template v-else>
@@ -228,9 +226,10 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <Pagination :data="sales" />
+                        
                         </ConfigProvider>
                     </div>
+                    <Pagination :data="sales" />
                 </div>
             </div>
         </div>

@@ -8,9 +8,11 @@
     <title inertia>{{ config('app.name', 'Laravel') }}</title>
     <link rel="icon" href="{{ asset('img/isotipo.png') }}">
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Scripts -->
     @routes
     @php
@@ -22,13 +24,19 @@
         @vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}.vue"])
     @endif
     @inertiaHead
+    <style>
+        .swal2-container {
+            z-index: 99999999 !important;
+        }
+    </style>
 </head>
 
-<body class="font-sans antialiased">
+<body>
     @inertia
+    <script>
+        window.assetUrl = @json(asset(''));
+    </script>
+
 </body>
-<script>
-    window.assetUrl = @json(asset(''));
-</script>
 
 </html>

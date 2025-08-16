@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Modules\Onlineshop\Entities\OnliItem;
 
 class AcaCourse extends Model
 {
@@ -23,7 +24,11 @@ class AcaCourse extends Model
         'modality_id',
         'type_description',
         'teacher_id',
-        'sector_description'
+        'sector_description',
+        'price',
+        'certificate_description',
+        'discount',
+        'discount_applies'
     ];
 
     protected static function newFactory()
@@ -68,5 +73,20 @@ class AcaCourse extends Model
     public function registrations(): HasMany
     {
         return $this->hasMany(AcaCapRegistration::class, 'course_id');
+    }
+
+    public function questions(): HasMany
+    {
+        return $this->hasMany(AcaThemeQuestion::class, 'course_id');
+    }
+
+    public function comments(): HasMany
+    {
+        return $this->hasMany(AcaThemeComment::class, 'course_id');
+    }
+
+    public function onlitem(): HasOne
+    {
+        return $this->hasOne(OnliItem::class, 'id', 'item_id');
     }
 }

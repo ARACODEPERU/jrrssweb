@@ -1,5 +1,5 @@
 <script setup>
-import AppLayout from '@/Layouts/AppLayout.vue';
+import AppLayout from '@/Layouts/Vristo/AppLayout.vue';
 import DeleteUserForm from './Partials/DeleteUserForm.vue';
 import LogoutOtherBrowserSessionsForm from './Partials/LogoutOtherBrowserSessionsForm.vue';
 import SectionBorder from '@/Components/SectionBorder.vue';
@@ -14,7 +14,7 @@ defineProps({
 </script>
 
 <template>
-    <AppLayout title="Profile">
+    <AppLayout title="Perfil">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Profile

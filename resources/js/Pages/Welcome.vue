@@ -7,6 +7,7 @@ defineProps({
     laravelVersion: String,
     phpVersion: String,
 });
+const xassetUrl = assetUrl;
 </script>
 
 <template>
@@ -23,7 +24,8 @@ defineProps({
 
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
             <div class="flex justify-center pt-8 mt-8 sm:justify-start sm:pt-0 sm:mt-0" >
-                <img src="/img/logo176x32.png" class="h-auto max-w-xs">
+                <img v-if="$page.props.company.logo" :src="xassetUrl + 'storage/' + $page.props.company.logo" class="h-auto max-w-xs">
+                <img v-else src="/img/logo176x32.png" class="h-auto max-w-xs">
             </div>
             <div class="mt-2 text-justify p-8 sm:p-0">
                 AraSoftware es una avanzada plataforma de gestión empresarial diseñada para brindar una experiencia completa y eficiente en la administración de diversos aspectos clave de tu organización. Este sistema integrado ofrece módulos especializados para abordar las complejidades de la gestión académica, content management system (CMS), odontología, facturación electrónica, ventas e inventario y mas.

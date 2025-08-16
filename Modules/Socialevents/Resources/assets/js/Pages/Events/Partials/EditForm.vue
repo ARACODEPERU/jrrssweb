@@ -9,16 +9,16 @@ import Keypad from '@/Components/Keypad.vue';
 import Swal2 from 'sweetalert2';
 import { ref, watch, onMounted } from 'vue';
 import Editor from '@tinymce/tinymce-vue'
-import {
+import { 
     ConfigProvider,
-    Select,
+    Select, 
     SelectOption,
     InputNumber,
     Textarea,
     DatePicker,
     RangePicker,
-    Switch,
-    Input,
+    Switch, 
+    Input, 
     Upload,
     Button
 } from 'ant-design-vue';
@@ -59,8 +59,8 @@ const props = defineProps({
 });
 const dateFormat = 'YYYY-MM-DD';
 const value4 = ref([
-    dayjs(props.socialevent.date_start, dateFormat),
-    dayjs(props.socialevent.date_end, dateFormat),
+  dayjs(props.socialevent.date_start, dateFormat),
+  dayjs(props.socialevent.date_end, dateFormat),
 ]);
 const iimg = ref(assetUrl + 'storage/' + props.socialevent.image1);
 
@@ -80,8 +80,7 @@ const form = useForm({
     tickets_quantity: props.socialevent.tickets_quantity,
     broadcast: props.socialevent.broadcast == 1 ? true : false,
     locales: props.eventLocales,
-    exhibitors: props.eventExhibitors,
-    status: props.socialevent.status
+    exhibitors: props.eventExhibitors
 });
 
 const updateNow = () => {
@@ -119,9 +118,9 @@ const cropImageAndSave = (res) => {
             <ConfigProvider :locale="esES">
                 <div class="col-span-6 sm:col-span-2">
                     <InputLabel for="category_id" value="Categoría *" class="mb-1" />
-                    <Select
+                    <Select 
                         style="width: 100%;"
-                        v-model:value="form.category_id"
+                        v-model:value="form.category_id" 
                         id="category_id"
                         :options="categories.map((obj) => ({value:obj.id,label:obj.description}))"
                     />
@@ -150,7 +149,7 @@ const cropImageAndSave = (res) => {
                     <InputError :message="form.errors.description" class="mt-2" />
                 </div>
                 <div class="col-span-6">
-                    <InputLabel for="advertising_video" value="Spot publicitario(código de inserción de Youtube)*" class="mb-1" />
+                    <InputLabel for="advertising_video" value="Spot publicitario*" class="mb-1" />
                     <Textarea
                         id="advertising_video"
                         v-model:value="form.advertising_video"
@@ -167,7 +166,7 @@ const cropImageAndSave = (res) => {
                     <InputError :message="form.errors.iframe_transmission" class="mt-2" />
                 </div>
 
-
+                
                 <div class="col-span-6">
                     <InputLabel for="file_input" value="Imagen *" />
                     <CropperImage
@@ -184,7 +183,7 @@ const cropImageAndSave = (res) => {
                     <Select
                         id="exhibitors"
                         v-model:value="form.exhibitors"
-                        :options="instructors.map((obj) => ({value: obj.person.id,label:obj.person.names+' '+obj.person.father_lastname}))"
+                        :options="instructors.map((obj) => ({value: obj.person.id,label:obj.person.full_name}))"
                         style="width: 100%;"
                         mode="multiple"
                     />
@@ -207,21 +206,6 @@ const cropImageAndSave = (res) => {
                         id="tickets_quantity"
                         v-model:value="form.tickets_quantity"
                     />
-                    <InputError :message="form.errors.tickets_quantity" class="mt-2" />
-                </div>
-                <div class="col-span-6 sm:col-span-2">
-                    <InputLabel for="tickets_quantity" value="Estado del evento *" class="mb-1" />
-                    <Select
-                        ref="select"
-                        v-model:value="form.status"
-                        style="width: 100%"
-                        >
-                        <SelectOption value="PE">PENDIENTE</SelectOption>
-                        <SelectOption value="CA">CANCELADO</SelectOption>
-                        <SelectOption value="PR">PROCESO</SelectOption>
-                        <SelectOption value="TE">TERMINADO</SelectOption>
-                        <SelectOption value="PO">POSTERGADO</SelectOption>
-                    </Select>
                     <InputError :message="form.errors.tickets_quantity" class="mt-2" />
                 </div>
             </ConfigProvider>

@@ -127,12 +127,6 @@
                                         Nombre de cliente
                                     </th>
                                     <th class="py-2 px-4 font-medium text-black dark:text-white">
-                                        Teléfono
-                                    </th>
-                                    <th class="py-2 px-4 font-medium text-black dark:text-white">
-                                        Email
-                                    </th>
-                                    <th class="py-2 px-4 font-medium text-black dark:text-white">
                                         Ticket Precio
                                     </th>
                                     <th class="py-2 px-4 font-medium text-black dark:text-white">
@@ -156,20 +150,14 @@
                                             {{ ticket.full_name }}
                                         </td>
                                         <td class="py-2 px-2 dark:border-strokedark">
-                                            {{ ticket.phone }}
-                                        </td>
-                                        <td class="py-2 px-2 dark:border-strokedark">
-                                            {{ ticket.email }}
-                                        </td>
-                                        <td class="py-2 px-2 dark:border-strokedark">
                                             {{ ticket.type.type_id }} S/. {{ ticket.type.price }}
                                         </td>
                                         <td class="text-right py-2 px-2 dark:border-strokedark">
                                             {{ ticket.quantity }}
                                         </td>
                                         <td class="text-center py-2 px-2 dark:border-strokedark">
-                                            <span v-if="ticket.response_date_approved!=null" class="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">Valido</span>
-                                            <span v-else class="bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400">Sin-Pagar</span>
+                                            <span v-if="ticket.status" class="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">Valido</span>
+                                            <span v-else class="bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400">Pendiente de Pago</span>
                                         </td>
                                     </tr>
                                 </template>
@@ -180,6 +168,6 @@
                 </div>
             </div>
         </div>
-
+        
     </AppLayout>
 </template>

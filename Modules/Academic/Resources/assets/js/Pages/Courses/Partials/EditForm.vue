@@ -8,6 +8,7 @@ import TextInput from '@/Components/TextInput.vue';
 import Keypad from '@/Components/Keypad.vue';
 import Swal2 from 'sweetalert2';
 import { ref, watch } from 'vue';
+import ImageCompressorjs from '@/Components/ImageCompressorjs.vue';
 
 const props = defineProps({
     course: {
@@ -21,8 +22,27 @@ const props = defineProps({
     categories: {
         type: Object,
         default: () => ({}),
+    },
+    types: {
+        type: Object,
+        default: () => ({}),
+    },
+    sectors: {
+        type: Object,
+        default: () => ({}),
+    },
+    P000018: {
+        type: Boolean,
+        default: false,
     }
 });
+
+
+const baseUrl = assetUrl;
+
+const getImage = (path) => {
+    return baseUrl + 'storage/'+ path;
+}
 
 const form = useForm({
     id: props.course.id,
@@ -31,10 +51,14 @@ const form = useForm({
     course_date: props.course.course_year+'-'+props.course.course_month+'-'+props.course.course_day,
     category_id: props.course.category_id,
     image: null,
-    image_preview: props.course.image,
+    image_preview: getImage(props.course.image),
     modality_id: props.course.modality_id,
     type_description: props.course.type_description,
-    sector_description: props.course.sector_description
+    sector_description: props.course.sector_description,
+    price: props.course.price,
+    certificate_description: props.course.certificate_description,
+    discount: props.course.discount,
+    discount_applies: props.course.discount_applies
 });
 
 const updateCourse = () => {
@@ -47,23 +71,31 @@ const updateCourse = () => {
                 title: 'Enhorabuena',
                 text: 'Se Actualizó correctamente',
                 icon: 'success',
+                padding: '2em',
+                customClass: 'sweet-alerts',
             });
         },
     });
 }
 
-watch(() => form.image, (newValue) => {
-    if (newValue instanceof File) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            form.image_preview = e.target.result;
-        };
-        reader.readAsDataURL(newValue);
-    } else {
-        // Puedes manejar el caso en el que newValue no sea un objeto File válido
-        console.error("El objeto no es un archivo válido.");
-    }
-});
+// watch(() => form.image, (newValue) => {
+//     if (newValue instanceof File) {
+//         const reader = new FileReader();
+//         reader.onload = (e) => {
+//             form.image_preview = e.target.result;
+//         };
+//         reader.readAsDataURL(newValue);
+//     } else {
+//         Puedes manejar el caso en el que newValue no sea un objeto File válido
+//         console.error("El objeto no es un archivo válido.");
+//     }
+// });
+
+const handleImageCompressed = (file) => {
+    form.image = file;
+    form.image_preview = file;
+};
+
 </script>
 
 <template>
@@ -78,29 +110,45 @@ watch(() => form.image, (newValue) => {
 
         <template #form>
             <div class="col-span-6 sm:col-span-2 ">
-                <InputLabel for="type_description" value="Tipo *" />
-                <select v-model="form.type_description" id="type_description" class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <InputLabel for="category_id" value="Categoría *" />
+                <select v-model="form.category_id" id="category_id" class="form-select text-white-dark">
                     <option value="" selected>Seleccionar</option>
-                    <option value="Diplomado" selected>Diplomado</option>
-                    <option value="Curso" selected>Curso</option>
+                    <option v-for="(category) in categories" :value="category.id">{{ category.description=="Publico" ? "Público" : category.description }}</option>
+                </select>
+                <InputError :message="form.errors.category_id" class="mt-2" />
+            </div>
+            <div class="col-span-6 sm:col-span-2 ">
+                <InputLabel for="type_description" value="Tipo *" />
+                <select v-model="form.type_description" id="type_description" class="form-select text-white-dark">
+                    <option value="" selected>Seleccionar</option>
+                    <option v-for="(type) in types" :value="type" > {{ type }}</option>
                 </select>
                 <InputError :message="form.errors.type_description" class="mt-2" />
             </div>
             <div class="col-span-6 sm:col-span-2 ">
                 <InputLabel for="modality_id" value="Modalidad *" />
-                <select v-model="form.modality_id" id="modality_id" class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <select v-model="form.modality_id" id="modality_id" class="form-select text-white-dark">
                     <option value="" selected>Seleccionar</option>
                     <option v-for="(modality) in modalities" :value="modality.id">{{ modality.description }}</option>
                 </select>
                 <InputError :message="form.errors.modality_id" class="mt-2" />
             </div>
             <div class="col-span-6 sm:col-span-2 ">
-                <InputLabel for="category_id" value="Sector *" />
-                <select v-model="form.category_id" id="category_id" class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <InputLabel for="sector_description" value="Sector *" />
+                <select v-model="form.sector_description" id="sector_description" class="form-select text-white-dark">
                     <option value="" selected>Seleccionar</option>
-                    <option v-for="(category) in categories" :value="category.id">{{ category.description=="Publico" ? "Público" : category.description }}</option>
+                    <option v-for="(sector) in sectors" :value="sector" >{{ sector }}</option>
                 </select>
-                <InputError :message="form.errors.category_id" class="mt-2" />
+                <InputError :message="form.errors.sector_description" class="mt-2" />
+            </div>
+            <div class="col-span-6 sm:col-span-4 ">
+                <InputLabel for="description" value="Nombre *" />
+                <TextInput
+                    id="description"
+                    v-model="form.description"
+                    type="text"
+                />
+                <InputError :message="form.errors.description" class="mt-2" />
             </div>
             <div class="col-span-6">
                 <InputLabel for="file_input" value="Imagen *" />
@@ -110,34 +158,64 @@ watch(() => form.image, (newValue) => {
                         <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400">Imagen Actual</figcaption>
                     </figure>
                 </div>
-                <input @input="form.image = $event.target.files[0]" accept=".svg, .png, .jpg, .jpeg, .gif" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file">
+                <ImageCompressorjs :onImageCompressed="handleImageCompressed" />
+                <!-- <input @input="form.image = $event.target.files[0]" accept=".svg, .png, .jpg, .jpeg, .gif" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file"> -->
                 <InputError :message="form.errors.image" class="mt-2" />
             </div>
-            <div class="col-span-6 sm:col-span-6 ">
-                <InputLabel for="description" value="Nombre *" />
-                <textarea 
-                    id="description"
-                    v-model="form.description"
-                    type="text"
-                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    
-                >
-               </textarea> 
-                <InputError :message="form.errors.description" class="mt-2" />
-            </div>
+
             <div class="col-span-6 sm:col-span-3 ">
                 <InputLabel for="course_date" value="Fecha Inicio *" />
                 <TextInput
                     id="course_date"
                     v-model="form.course_date"
                     type="date"
-                    class="block w-full mt-1"
-                    
+
                 />
                 <InputError :message="form.errors.course_date" class="mt-2" />
             </div>
+            <div class="col-span-6 sm:col-span-3 ">
+                <InputLabel for="price" value="Precio *" />
+                <TextInput
+                    id="price"
+                    v-model="form.price"
+                    type="number"
+                />
+                <InputError :message="form.errors.price" class="mt-2" />
+            </div>
+            <div v-if="P000018 == 1 || P000018 == true || P000018 == 'true'" class="col-span-6">
+                <InputLabel for="certificate_description" value="Descripción de los certificados *" />
+                <textarea
+                    id="certificate_description"
+                    v-model="form.certificate_description"
+                    class="form-textarea"
+                    rows="6"
+                >
+                </textarea>
+                <InputError :message="form.errors.certificate_description" class="mt-2" />
+            </div>
+            <div v-if="P000018 == 1 || P000018 == true || P000018 == 'true'" class="col-span-6 sm:col-span-4">
+                <InputLabel for="discount" value="Descuento (Opcional)" />
+                <div>
+                    <input type="range" id="discount" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700" min="0" max="100" v-model="form.discount" />
+                    <div class="font-bold ltr:text-right rtl:text-left">
+                        <input type="text" class="form-input text-xs form-input-sm w-10 text-right px-2" :value="form.discount"> <span>%</span>
+                    </div>
+                </div>
+            </div>
+            <div v-if="P000018 == 1 || P000018 == true || P000018 == 'true'" class="col-span-6 sm:col-span-2">
+                <InputLabel value="¿A que alumnos les aplica el descuento?" />
+                <div class="flex items-center space-x-2">
+                    <label class="inline-flex">
+                        <input v-model="form.discount_applies" value="01" type="radio" name="square_radio" class="form-radio rounded-none" />
+                        <span>Todos</span>
+                    </label>
+                    <label class="inline-flex">
+                        <input v-model="form.discount_applies" value="02" type="radio" name="square_radio" class="form-radio rounded-none" />
+                        <span>Suscripción</span>
+                    </label>
+                </div>
+            </div>
             <div class="col-span-6 sm:col-span-3">
-                <InputLabel value="Estado" />
                 <div class="flex items-center">
                     <input v-model="form.status" id="link-checkbox" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                     <label for="link-checkbox" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Activo</label>
@@ -146,7 +224,7 @@ watch(() => form.image, (newValue) => {
         </template>
 
         <template #actions>
-            
+
             <Keypad>
                 <template #botones>
                     <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">

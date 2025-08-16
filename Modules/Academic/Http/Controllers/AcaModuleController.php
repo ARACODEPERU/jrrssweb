@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Facades\DB;
+use Inertia\Inertia;
+use Modules\Academic\Entities\AcaCourse;
 use Modules\Academic\Entities\AcaModule;
 use Modules\Academic\Entities\AcaTheme;
 
@@ -14,13 +16,25 @@ class AcaModuleController extends Controller
 {
     use ValidatesRequests;
 
+    public function index($id)
+    {
+        $course = AcaCourse::where('id', $id)
+            ->with('teachers.teacher.person')
+            ->with('modules.themes.contents.exam.questions.answers')
+            ->first();
+
+        return Inertia::render('Academic::Courses/Modules', [
+            'course' => $course
+        ]);
+    }
+
     public function store(Request $request)
     {
         $this->validate(
             $request,
             [
-                'position' => 'required',
-                'description' => 'required|max:255'
+                'position' => 'required|max:4',
+                'description' => 'required|max:200'
             ]
         );
 
@@ -41,8 +55,8 @@ class AcaModuleController extends Controller
         $this->validate(
             $request,
             [
-                'position' => 'required',
-                'description' => 'required|max:255'
+                'position' => 'required|max:4',
+                'description' => 'required|max:200'
             ]
         );
 
@@ -93,5 +107,19 @@ class AcaModuleController extends Controller
     {
         $themes = AcaTheme::with('contents')->where('module_id', $id)->get();
         return response()->json(['themes' => $themes]);
+    }
+
+    public function updateTeacher(Request $request)
+    {
+        $module_id = $request->get('module_id');
+        $teacher_id = $request->get('teacher_id');
+        $module = AcaModule::findOrFail($module_id);
+        if ($module) {
+            $module->update([
+                'teacher_id' => $teacher_id ?? null
+            ]);
+        }
+
+        return response()->json(['success' => true]);
     }
 }

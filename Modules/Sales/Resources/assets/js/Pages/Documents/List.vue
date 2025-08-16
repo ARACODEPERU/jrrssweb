@@ -1,5 +1,5 @@
 <script setup>
-    import AppLayout from '@/Layouts/AppLayout.vue';
+    import AppLayout from '@/Layouts/Vristo/AppLayout.vue';
     import { useForm } from '@inertiajs/vue3';
     import { faGears } from "@fortawesome/free-solid-svg-icons";
     import Pagination from '@/Components/Pagination.vue';
@@ -11,21 +11,26 @@
     import InputLabel from '@/Components/InputLabel.vue';
     import TextInput from '@/Components/TextInput.vue';
     import InputError from '@/Components/InputError.vue';
-    import SecondaryButton from '@/Components/SecondaryButton.vue';
+    import DangerButton from '@/Components/DangerButton.vue';
     import DialogModal from '@/Components/DialogModal.vue';
     import Swal from "sweetalert2";
     import { Link, router } from '@inertiajs/vue3';
-    import { ConfigProvider, Dropdown,Menu,MenuItem,Button } from 'ant-design-vue';
+
+    import Navigation from '@/Components/vristo/layout/Navigation.vue';
+    import DataTable from 'datatables.net-vue3';
+    import DataTablesCore from 'datatables.net';
+    import 'datatables.net-responsive';
+    import '@/Components/vristo/datatables/datatables.css'
+    import '@/Components/vristo/datatables/style.css'
+    import 'datatables.net-buttons'; // Importa el plugin de botones
+    import 'datatables.net-buttons-dt'; // Importa los estilos de los botones
+    import es_PE from '@/Components/vristo/datatables/datatables-es.js'
+
+
+
+    DataTable.use(DataTablesCore);
 
     const props = defineProps({
-        documents: {
-            type: Object,
-            default: () => ({}),
-        },
-        filters: {
-            type: Object,
-            default: () => ({}),
-        },
         affectations: {
             type: Object,
             default: () => ({}),
@@ -33,14 +38,27 @@
         unitTypes:{
             type: Object,
             default: () => ({}),
+        },
+        operationTypes:{
+            type: Object,
+            default: () => ({}),
+        },
+        creditNoteType: {
+            type: Object,
+            default: () => ({}),
+        },
+        debitNoteType: {
+            type: Object,
+            default: () => ({}),
         }
     });
 
-    const form = useForm({
-        search: props.filters.search,
-    });
-    
+    const findObjectById = (data, id) => {
+        return data.find(item => item.id === id);
+    };
+
     const displayModalDetails = ref(false);
+    const displayLoaderDetails = ref(false);
     const documentDetails = ref([]);
     const disabledButtonDetailsSave = ref(false);
     const opemModalDetails = async (sales) => {
@@ -49,9 +67,8 @@
         }else{
             disabledButtonDetailsSave.value = true
         }
-
-        documentDetails.value = sales.documents[0];
-        initializeDropdownItems();
+        console.log(sales)
+        documentDetails.value = sales.document;
         displayModalDetails.value = true;
     }
 
@@ -60,29 +77,7 @@
         showteButtonSave.value = false;
     }
 
-    const formDelete= useForm({});
-
-    const deleteSale = (id) => {
-        swal({
-            title: "Estas seguro",
-            text: "No podrás revertir esto!",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        }).then((willDelete) => {
-            if (willDelete) {
-                formDelete.delete(route('sales.destroy',id),{
-                    preserveScroll: true,
-                    onSuccess: () => {
-                        swal('Venta Anulada correctamente');
-                    }
-                });
-            } 
-        });
-    }
-
     const sendSunatDocument = (document) => {
-        initializeDropdownItems();
         Swal.fire({
             title: document.serie+'-'+document.number,
             text: 'Enviar documento',
@@ -98,7 +93,6 @@
                             cadena += `<br>Nota: ${notes}`;
                         }
                         Swal.showValidationMessage(cadena)
-                        router.visit(route('saledocuments_list'), { replace: true });
                     }
                     return res
                 });
@@ -116,30 +110,16 @@
                     title: `${result.value.data.message}`,
                     html: `${cadena}`,
                     icon: 'success',
+                    padding: '2em',
+                    customClass: 'sweet-alerts',
                 }).then(() => {
-                    router.visit(route('saledocuments_list'),{
-                        method: 'get'
-                    });
+                    refreshTable();
                 });
 
             }
         });
     }
-    const dropdownItems = ref([]);
 
-    const toggleDropdown = (index) => {
-        dropdownItems.value = dropdownItems.value.map((item, i) => ({
-            ...item,
-            showDropdown: i === index ? !item.showDropdown : false
-        }));
-    };
-    const initializeDropdownItems = () => {
-        dropdownItems.value = props.documents.data.map(() => ({ showDropdown: false }));
-    };
-
-    onMounted(() => {
-        initializeDropdownItems();
-    });
 
     const getAffectation = (id) => {
         const selectedAffectation = props.affectations.find(affectation => affectation.id === id);
@@ -165,22 +145,26 @@
     }
 
     const saveChangesDetails = () =>{
+        displayLoaderDetails.value = true;
         axios.post(route('saledocuments_update_details'), documentDetails.value ).then((response) => {
             if(response.data.success){
                 Swal.fire({
                     title: `Enhorabuena`,
                     html: `${response.data.message}`,
                     icon: 'success',
+                    padding: '2em',
+                    customClass: 'sweet-alerts',
                 }).then(() => {
-                    router.visit(route('saledocuments_list'),{
-                        method: 'get'
-                    });
+                    displayLoaderDetails.value = false;
+                    refreshTable();
                 });
             }else{
                 Swal.fire({
                     title: `Error`,
                     html: `${response.data.message}`,
                     icon: 'error',
+                    padding: '2em',
+                    customClass: 'sweet-alerts',
                 });
             }
         });
@@ -203,9 +187,9 @@
 
     }
 
-    const downloadDocument = (id,type,file) => {
-        let url = route('saledocuments_download',[id, type,file])
-        window.open(url, "_blank");      
+    const downloadDocument = (id,type,file,format = 'A4') => {
+        let url = route('saledocuments_download',[id, type,file,format])
+        window.open(url, "_blank");
     }
 
     const displayEditDocument = ref(false);
@@ -221,7 +205,9 @@
         client_phone: null,
         client_email: null,
         invoice_broadcast_date: null,
-        invoice_due_date: null
+        invoice_due_date: null,
+        invoice_status: null,
+        type_operation: null
     });
     const closeModalEditDocument = () => {
         displayEditDocument.value = false ;
@@ -239,184 +225,283 @@
         formHead.client_email = document.client_email;
         formHead.invoice_broadcast_date = document.invoice_broadcast_date;
         formHead.invoice_due_date = document.invoice_due_date;
+        formHead.invoice_status = document.invoice_status;
+        formHead.type_operation = document.invoice_type_operation;
         displayEditDocument.value = true ;
     }
 
     const saveHeadDocument = () => {
-        formHead.post(route('saledocuments_update_head'), {
-            preserveScroll: true,
-            onSuccess: () => {
+        formHead.processing = true;
+        axios.post(route('saledocuments_update_head'),formHead).then(() =>{
+            Swal.fire({
+                title: `Enhorabuena`,
+                html: `Documento Actualizado correctamente`,
+                icon: 'success',
+                padding: '2em',
+                customClass: 'sweet-alerts',
+            });
+            formHead.processing = false;
+            formHead.reset();
+            displayEditDocument.value = false ;
+            refreshTable();
+        });
+    }
+
+    const formatDate = (dateString) => {
+        const date = new Date(dateString)
+        return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}:${String(date.getSeconds()).padStart(2, '0')}`
+    }
+
+    const createFormReason = () => {
+
+        let formHTML = document.createElement('form');
+        formHTML.classList.add('max-w-sm', 'mx-auto');
+
+
+        let rLabel = document.createElement('label');
+        rLabel.setAttribute('for', 'ctnTextareaReason');
+        rLabel.classList.add('text-left','text-sm','mt-4');
+        rLabel.textContent = 'Ingresar motivo de anulacion';
+
+        let rInput = document.createElement('textarea');
+        rInput.id = 'ctnTextareaReason';
+        rInput.classList.add(
+            'form-textarea'
+        );
+
+        rInput.required = true;
+        rInput.rows = 3;
+
+        formHTML.appendChild(rLabel);
+        formHTML.appendChild(rInput);
+
+        return formHTML;
+
+    }
+
+    const cancelDocument = (index, item) => {
+        Swal.fire({
+            icon: 'question',
+            title: '¿Estas seguro?',
+            text: "¡No podrás revertir esto!",
+            showCancelButton: true,
+            confirmButtonText: '¡Sí, Anularlo!',
+            cancelButtonText: '¡No, cancelar!',
+            padding: '2em',
+            customClass: 'sweet-alerts',
+        }).then((result) => {
+            if (result.value) {
                 Swal.fire({
-                    title: `Enhorabuena`,
-                    html: `Documento Actualizado correctamente`,
-                    icon: 'success',
-                });
-                formHead.reset();
-                router.visit(route('saledocuments_list'),{
-                    method: 'get'
+                    html: createFormReason(),
+                    showCloseButton: true,
+                    showCancelButton: true,
+                    focusConfirm: false,
+                    confirmButtonText: 'Aceptar',
+                    cancelButtonText: 'Cancelar',
+                    padding: '2em',
+                    customClass: 'sweet-alerts',
+                    showLoaderOnConfirm: true,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    preConfirm: async (input) => {
+                        let textarea = document.getElementById("ctnTextareaReason").value;
+                        let resp = null;
+                        if(textarea){
+                            resp = axios.post(route('saledocuments_cancel_document'), {
+                                reason: textarea,
+                                id: item.document_id,
+                                type: item.invoice_type_doc
+                            }).then((res) => {
+                                if (!res.data.success) {
+                                    Swal.showValidationMessage(res.data.alert)
+                                }
+                                return res
+                            });
+                        }else{
+                            Swal.showValidationMessage('El motivo es obligatorio')
+                        }
+                        return resp;
+                    },
+                    allowOutsideClick: () => !Swal.isLoading()
+                }).then((res) => {
+                    if (res.isConfirmed) {
+                        showMessage('El documento fue anulado correctamente');
+                        //refreshTable();
+                    }
+                    refreshTable();
                 });
             }
         });
     }
+
+    const showMessage = (msg = '', type = 'success') => {
+        const toast = Swal.mixin({
+            toast: true,
+            position: 'top',
+            showConfirmButton: false,
+            timer: 3000,
+            customClass: { container: 'toast' },
+        });
+        toast.fire({
+            icon: type,
+            title: msg,
+            padding: '10px 20px',
+        });
+    };
+
+    const columns = [
+        {
+            data: null,
+            render: '#action',
+            title: 'Acciones'
+        },
+        { data: null, render: '#document', title: 'Nmr. Documento' },
+        { data: null, render: '#created',title: 'Fecha Registrado' },
+        { data: 'invoice_broadcast_date', title: 'Fecha Emitido' },
+        { data: 'full_name', title: 'Cliente' },
+        { data: 'total', title: 'Total' },
+        { data: null, render: '#status', title: 'Estado' },
+        { data: null, render: '#forma_pago', title: 'Forma de pago' },
+    ];
+
+    const options = {
+        responsive: true,
+        language: es_PE,
+        order: [[2, 'desc']]
+    }
+
+    const documentTable = ref(null);
+    let instance = null;
+
+    onMounted(() => {
+        instance = documentTable.value?.dt;
+    });
+
+    const refreshTable = () => {
+        // accede a la instancia del DataTable
+        if (instance) {
+            instance.ajax.url(route('saledocuments_table_document')).load();
+        }
+    };
+
+
 </script>
 
 <template>
     <AppLayout title="Documentos">
-        <div class="max-w-screen-2xl  mx-auto p-4 md:p-6 2xl:p-10">
-            <!-- Breadcrumb Start -->
-            <nav class="flex px-4 py-3 border border-stroke text-gray-700 mb-4 bg-gray-50 dark:bg-gray-800 dark:border-gray-700" aria-label="Breadcrumb">
-                <ol class="inline-flex items-center space-x-1 md:space-x-3">
-                    <li class="inline-flex items-center">
-                        <Link :href="route('dashboard')" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
-                        <svg aria-hidden="true" class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
-                        Inicio
-                        </Link>
-                    </li>
-                    <li>
-                        <div class="flex items-center">
-                        <svg aria-hidden="true" class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                        <!-- <a href="#" class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">Productos</a> -->
-                        <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Facturación Electrónica</span>
-                        </div>
-                    </li>
-                    <li aria-current="page">
-                        <div class="flex items-center">
-                        <svg aria-hidden="true" class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                        <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Lista de Documentos</span>
-                        </div>
-                    </li>
-                </ol>
-            </nav>
-            <!-- ====== Table Section Start -->
-            <div class="flex flex-col gap-10">
-                <!-- ====== Table One Start -->
-                <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-                    <div class="w-full p-4 border-b border-gray-200 bg-gray-50 rounded-t-xl dark:border-gray-600 dark:bg-gray-700">
-                        <div class="grid grid-cols-3">
-                            <div class="col-span-3 sm:col-span-1">
-                                <form @submit.prevent="form.get(route('saledocuments_list'))">
-                                <label for="table-search" class="sr-only">Search</label>
-                                    <div class="relative">
-                                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                            <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
-                                        </div>
-                                        <input v-model="form.search" type="text" id="table-search-users" class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Buscar por cliente">
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="col-span-3 sm:col-span-2">
-                                <Keypad>
-                                    <template #botones>
-                                        <Link :href="route('saledocuments_create')" class="inline-block px-6 py-2.5 bg-blue-900 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Nuevo</Link>
-                                    </template>
-                                </Keypad>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="max-w-full overflow-x-auto">
-                        <ConfigProvider>
-                        <table class="w-full table-auto">
-                            <thead class="border-b border-stroke">
-                                <tr class="bg-gray-50 text-left dark:bg-meta-4">
-                                    <th style="width: 75px;" class="py-1 px-4 text-center font-medium text-black dark:text-white">
-                                        Acciones
-                                    </th>
-                                    <th class="py-1 px-4 font-medium text-black dark:text-white">
-                                        Nmr. Documento
-                                    </th>
-                                    <th class="py-1 px-4 font-medium text-black dark:text-white">
-                                        Fecha
-                                    </th>
-                                    <th class="py-1 px-4 font-medium text-black dark:text-white">
-                                        Cliente
-                                    </th>
-                                    <th class="py-1 px-4 font-medium text-black dark:text-white">
-                                        Total
-                                    </th>
-                                    <th class="py-1 px-4 font-medium text-black dark:text-white">
-                                        Estado
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <template v-for="(document, index) in documents.data" :key="document.id">
-                                    <tr :style="document.invoice_status ==='registrado' || document.invoice_status ==='Pendiente' ? '' : document.invoice_status ==='Rechazada' ? 'color: #CF1504': 'color: #051BC6'" :class="document.invoice_status ==='registrado' || document.invoice_status ==='Pendiente' ? 'border-b border-stroke' : ''">
-                                        <td :rowspan="document.invoice_status ==='registrado' || document.invoice_status ==='Pendiente' ? 1 : 2" class="text-center py-1 px-4 dark:border-strokedark">
-                                            <Dropdown :placement="'bottomLeft'">
-                                                <button class="border py-1.5 px-2 dropdown-button inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm" type="button">
-                                                    <font-awesome-icon :icon="faGears" />
-                                                </button>
-                                                <template #overlay>
-                                                    <Menu>
-                                                        <MenuItem v-if="document.invoice_status != 'Aceptada'">
-                                                            <Button @click="showModalEditDocument(document)" type="button" >Editar</Button>
-                                                        </MenuItem>
-                                                        <MenuItem v-if="document.invoice_status != 'Aceptada'">
-                                                            <Button v-can="'invo_documento_envio_sunat'" @click="sendSunatDocument(document)" type="button" >Enviar a Sunat</Button>
-                                                        </MenuItem>
-                                                        <MenuItem>
-                                                            <Button @click="opemModalDetails(document)" type="button" >Detalles</Button>
-                                                        </MenuItem>
-                                                        <MenuItem v-if="document.invoice_status != 'Aceptada'">
-                                                            <Button @click="deletePanel(index,board.id)" type="button" >Eliminar</Button>
-                                                        </MenuItem>
-                                                        <MenuItem v-if="document.invoice_status === 'Aceptada'">
-                                                            <Button @click="downloadDocument(document.document_id,document.invoice_type_doc,'PDF')"
-                                                                type="button"
-                                                                >Imprimir PDF</Button>
-                                                        </MenuItem>
-                                                        <MenuItem v-if="document.invoice_status === 'Aceptada'">
-                                                            <Button @click="downloadDocument(document.document_id,document.invoice_type_doc,'XML')" type="button" >Descargar XML</Button>
-                                                        </MenuItem>
-                                                        <MenuItem v-if="document.invoice_status === 'Aceptada'" >
-                                                            <Button @click="downloadDocument(document.document_id,document.invoice_type_doc,'CDR')" type="button" >Descargar CDR</Button>
-                                                        </MenuItem>
-                                                    </Menu>
-                                                </template>
-                                            </Dropdown>
-                                        </td>
-                                        <td class="w-32 py-1 dark:border-strokedark">
-                                            {{ document.serie }}-{{ document.number }}
-                                        </td>
-                                        <td class="py-1 px-4 dark:border-strokedark">
-                                            {{ document.created_at }}
-                                        </td>
-                                        <td class="py-1 px-4 dark:border-strokedark">
-                                            {{ document.full_name }}
-                                        </td>
-                                        <td class="text-right py-1 px-4 dark:border-strokedark">
-                                            {{ document.total }}
-                                        </td>
-                                        <td  class="text-center py-1 px-4 dark:border-strokedark">
-                                            <span v-if="document.status == 1" class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-yellow-300 border border-yellow-300">Activa</span>
-                                            <span v-else class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400">Anulado</span>
-                                        </td>
-                                    </tr>
-                                    <template v-if="document.invoice_status =='Rechazada' || document.invoice_status === 'Aceptada' || document.invoice_status === 'Anulada'" >
-                                        <tr :style="document.invoice_status ==='registrado' ? '' : document.invoice_status ==='Rechazada' ? 'color: #CF1504': 'color: #051BC6'" class="border-b border-stroke" >
-                                            <td colspan="4" class="text-xs">
-                                                <code v-if="document.invoice_response_code != 0">
-                                                    Código: {{ document.invoice_response_code }}
-                                                </code>
-                                                <code>
-                                                    Descripción: {{ document.invoice_response_description }}
-                                                </code>
-                                            </td>
-                                            <td class="text-center text-xs">
-                                                <small>Estado Sunat:</small>
-                                                {{ document.invoice_status }}
-                                            </td>
-                                        </tr>
-                                    </template>
-                                </template>
-                            </tbody>
-                        </table>
-                        <Pagination :data="documents" />
-                        </ConfigProvider>
+        <Navigation :routeModule="route('sales_dashboard')" :titleModule="'Facturación Electrónica'">
+            <li class="before:content-['/'] ltr:before:mr-2 rtl:before:ml-2">
+                <span>Lista de Documentos </span>
+            </li>
+        </Navigation>
+        <div class="mt-5">
+            <div class="flex items-center justify-between flex-wrap gap-4">
+                <h2 class="text-xl">Lista de Documentos </h2>
+                <div class="flex sm:flex-row flex-col sm:items-center sm:gap-3 gap-4 w-full sm:w-auto">
+                    <div class="flex gap-3">
+                        <Keypad>
+                            <template #botones>
+                                <div v-can="'invo_documento_nuevo'">
+                                    <Link :href="route('saledocuments_create')" class="inline-block px-6 py-2.5 bg-blue-900 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Nuevo</Link>
+                                </div>
+                            </template>
+                        </Keypad>
+
                     </div>
                 </div>
             </div>
+            <div class="panel pb-1.5 mt-6">
+
+                <DataTable ref="documentTable" :options="options" :ajax="route('saledocuments_table_document')" :columns="columns">
+                    <template #action="props">
+                        <div class="flex gap-4 items-center justify-center">
+                            <div class="dropdown">
+                                <Popper :placement="'bottom-start'" offsetDistance="0" class="align-middle">
+                                    <button type="button" class="btn btn-outline-primary px-2 py-2 dropdown-toggle">
+                                        <font-awesome-icon :icon="faGears" />
+                                    </button>
+                                    <template #content="{ close }">
+                                    <ul @click="close()" class="whitespace-nowrap">
+                                        <li v-if="props.rowData.invoice_status != 'Aceptada'">
+                                            <a @click="showModalEditDocument(props.rowData)" href="javascript:;">Editar</a>
+                                        </li>
+                                        <li v-if="props.rowData.invoice_status == 'Pendiente' && props.rowData.invoice_type_doc != '03'">
+                                            <a @click="sendSunatDocument(props.rowData)" v-can="'invo_documento_envio_sunat'" href="javascript:;">Enviar a Sunat</a>
+                                        </li>
+                                        <li>
+                                            <a @click="opemModalDetails(props.rowData)" href="javascript:;">Detalles</a>
+                                        </li>
+                                        <li v-if="props.rowData.status == 1 && props.rowData.invoice_type_doc == '03'">
+                                            <a @click="cancelDocument(index, props.rowData)" href="javascript:;">Anular</a>
+                                        </li>
+                                        <li>
+                                            <a @click="downloadDocument(props.rowData.document_id,props.rowData.invoice_type_doc,'PDF')" href="javascript:;">PDF A4</a>
+                                        </li>
+                                        <li>
+                                            <a @click="downloadDocument(props.rowData.document_id,props.rowData.invoice_type_doc,'PDF','t80')" href="javascript:;">PDF 80x250</a>
+                                        </li>
+                                        <template v-if="props.rowData.invoice_type_doc == '01'">
+                                            <li v-if="props.rowData.invoice_status === 'Aceptada'">
+                                                <a @click="downloadDocument(props.rowData.document_id,props.rowData.invoice_type_doc,'XML')" href="javascript:;">Descargar XML</a>
+                                            </li>
+                                            <li v-if="props.rowData.invoice_status === 'Aceptada'">
+                                                <a @click="downloadDocument(props.rowData.document_id,props.rowData.invoice_type_doc,'CDR')" href="javascript:;">Descargar CDR</a>
+                                            </li>
+                                        </template>
+                                    </ul>
+                                    </template>
+                                </Popper>
+                            </div>
+                        </div>
+                    </template>
+                    <template #document="props">
+                        <div>
+                            <h6 class="font-semibold" :class="props.rowData.status == 3 ? 'line-through': ''" >
+                                {{ props.rowData.serie }}-{{ props.rowData.invoice_correlative }}
+                            </h6>
+                            <span v-if="props.rowData.invoice_response_description" class="block text-xs">
+                                <code v-if="props.rowData.invoice_response_code != 0">
+                                    Código: {{ props.rowData.invoice_response_code }}
+                                </code>
+                                <code>
+                                    Descripción: {{ props.rowData.invoice_response_description }}
+                                </code>
+                            </span>
+                        </div>
+                        <div v-if="props.rowData.status == 3 && props.rowData.document.note">
+                            <h6 class="font-semibold" >
+                                NOTA DE {{ props.rowData.document.note.invoice_type_doc == '07' ? 'CRÉDITO': 'DÉBITO' }}: {{ props.rowData.document.note.invoice_serie }}-{{ props.rowData.document.note.invoice_correlative }}
+                            </h6>
+                            <p  class="text-xs font-black text-danger">
+                                <template v-if="props.rowData.document.note.invoice_type_doc == '07'" class="text-xs font-black text-danger">MOTIVO: {{ findObjectById(creditNoteType,props.rowData.document.note.note_type_operation_id)?.description }}</template>
+                                <template v-if="props.rowData.document.note.invoice_type_doc == '08'" class="text-xs font-black text-danger">MOTIVO: {{ findObjectById(debitNoteType,props.rowData.document.note.note_type_operation_id)?.description }}</template>
+                            </p>
+                        </div>
+                    </template>
+                    <template #created="props">
+                        {{ formatDate(props.rowData.created_at) }}
+                    </template>
+                    <template #status="props">
+                        <div>
+                            <span v-if="props.rowData.status == 1" class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-yellow-300 border border-yellow-300">Activa</span>
+                            <span v-else-if="props.rowData.status == 3" class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400">Anulado</span>
+                        </div>
+                        <span v-if="props.rowData.invoice_status">
+                            <small>Estado Sunat:</small>
+                            {{ props.rowData.invoice_status }}
+                        </span>
+                    </template>
+                    <template #forma_pago="props">
+                        <span v-if="props.rowData.document.forma_pago == 'Credito'" class="relative inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-gray-500 text-white z-10">
+                            Al crédito
+                        </span>
+                        <span v-else class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-yellow-500 text-white">Al contado</span>
+                    </template>
+                </DataTable>
+
+            </div>
         </div>
+
         <ModalLargeX
             :show="displayModalDetails"
             :onClose="closeModalDetails"
@@ -469,34 +554,34 @@
                                 </th>
                                 <td class="px-4 py-2">
                                     <span v-show="!showteButtonSave">{{ item.decription_product }}</span>
-                                    <textarea v-show="showteButtonSave" v-model="item.decription_product" class="invoice-textarea"></textarea>
+                                    <textarea v-show="showteButtonSave" v-model="item.decription_product" class="form-textarea" rows="3"></textarea>
                                 </td>
                                 <td class="px-4 py-2 text-center">
                                     <span v-show="!showteButtonSave">{{ getUnitTypes(item.unit_type) }}</span>
-                                    <select v-show="showteButtonSave" v-model="item.unit_type" class="invoice-select">
+                                    <select v-show="showteButtonSave" v-model="item.unit_type" class="form-select form-select-sm">
                                         <option v-for="(row, ci) in unitTypes" :value="row.id">{{ row.description }}</option>
                                     </select>
                                 </td>
                                 <td style="display: none;" class="px-4 py-2">
                                     <span v-show="!showteButtonSave">{{ getAffectation(item.type_afe_igv) }}</span>
-                                    <select v-show="showteButtonSave" v-model="item.type_afe_igv" class="invoice-select">
+                                    <select v-show="showteButtonSave" v-model="item.type_afe_igv" class="form-select form-select-sm">
                                         <option v-for="(row, ci) in affectations" :value="row.id">{{ row.description }}</option>
                                     </select>
                                 </td>
                                 <td style="width: 110px;" class="px-4 py-2 text-right">
                                     <span v-show="!showteButtonSave">{{ item.quantity }}</span>
-                                    <input v-show="showteButtonSave" v-model="item.quantity" @input="calculateItemTotals(ko)"  class="invoice-imput text-right" type="text" />
+                                    <input v-show="showteButtonSave" v-model="item.quantity" @input="calculateItemTotals(ko)"  class="form-input form-input-sm text-right" type="text" />
                                 </td>
                                 <td style="width: 110px;" class="px-4 py-2 text-right">
                                     <span v-show="!showteButtonSave">{{ item.price_sale }}</span>
-                                    <input v-show="showteButtonSave" v-model="item.price_sale" @input="calculateItemTotals(ko)"  class="invoice-imput text-right" type="text" />
+                                    <input v-show="showteButtonSave" v-model="item.price_sale" @input="calculateItemTotals(ko)"  class="form-input form-input-sm text-right" type="text" />
                                 </td>
                                 <td style="width: 120px;" class="px-4 py-2 text-right">
                                     {{ (item.quantity * item.price_sale).toFixed(2) }}
                                 </td>
                                 <td style="width: 120px;" class="px-4 py-2 text-right">
                                     <span v-show="!showteButtonSave">{{ item.mto_discount }}</span>
-                                    <input v-show="showteButtonSave" v-model="item.mto_discount" @input="calculateItemTotals(ko)"  class="invoice-imput text-right" type="text" />
+                                    <input v-show="showteButtonSave" v-model="item.mto_discount" @input="calculateItemTotals(ko)"  class="form-input form-input-sm text-right" type="text" />
                                 </td>
                                 <td style="width: 120px;" class="px-4 py-2 text-right">
                                     {{ item.mto_total }}
@@ -511,10 +596,19 @@
                     :disabled="disabledButtonDetailsSave"
                     @click="editDetailsDocument"
                     class="mr-2"
-               >Modificar</GreenButton> 
+                >
+                    Modificar
+                </GreenButton>
                <PrimaryButton v-if="showteButtonSave" class="mr-2"
-               @click="saveChangesDetails"
-               >Guardar Cambios</PrimaryButton> 
+                    :class="{ 'opacity-25': displayLoaderDetails }" :disabled="displayLoaderDetails"
+                    @click="saveChangesDetails"
+                >
+                    <svg v-show="displayLoaderDetails" aria-hidden="true" role="status" class="inline w-4 h-4 mr-3 text-gray-200 animate-spin dark:text-gray-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+                        <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="#1C64F2"/>
+                    </svg>
+                    Guardar Cambios
+                </PrimaryButton>
             </template>
         </ModalLargeX>
         <DialogModal :show="displayEditDocument" @close="closeModalEditDocument">
@@ -580,41 +674,43 @@
                         <TextInput id="invoice_due_date" v-model="formHead.invoice_due_date" type="date" class="block w-full mt-1"/>
                         <InputError :message="formHead.errors.invoice_due_date" class="mt-2" />
                     </div>
+                    <div class="col-span-6 sm:col-span-2">
+                        <InputLabel for="invoice_status" value="Estado sunat" />
+                        <select v-model="formHead.invoice_status" id="invoice_status" class="form-select">
+                            <option :value="'Pendiente'">Pendiente</option>
+                            <option :value="'Rechazada'">Rechazada</option>
+                        </select>
+                        <InputError :message="formHead.errors.invoice_status" class="mt-2" />
+                    </div>
+                    <div class="col-span-6 sm:col-span-2">
+                        <InputLabel for="type_operation" value="Tipo de operación" />
+                        <select v-model="formHead.type_operation" id="type_operation" class="form-select">
+                            <template v-for="operationType in operationTypes">
+                                <option :value="operationType.id">{{ operationType.description }}</option>
+                            </template>
+                        </select>
+                        <InputError :message="formHead.errors.type_operation" class="mt-2" />
+                    </div>
                 </div>
             </template>
 
             <template #footer>
-                <PrimaryButton class="mr-2"
+                <PrimaryButton class="mr-2" type="button"
                     @click="saveHeadDocument"
+                    :class="{ 'opacity-25': formHead.processing }"
+                    :disabled="formHead.processing"
                 >
+                    <svg v-show="formHead.processing" aria-hidden="true" role="status" class="inline w-4 h-4 mr-3 text-gray-200 animate-spin dark:text-gray-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+                        <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="#1C64F2"/>
+                    </svg>
                     Guardar Cambios
-                </PrimaryButton> 
-                <SecondaryButton @click="closeModalEditDocument">
+                </PrimaryButton>
+                <DangerButton @click="closeModalEditDocument" type="button">
                     Cancel
-                </SecondaryButton>
+                </DangerButton>
             </template>
         </DialogModal>
     </AppLayout>
 </template>
-<style scoped>
-.invoice-select{
-    margin: 0px !important;
-    padding: 1px !important;
-    height: 26px !important;
-    width: 100% !important;
-    font-size: 12px;
-}
-.invoice-imput{
-    margin: 0px !important;
-    padding: 1px !important;
-    height: 26px !important;
-    width: 100% !important;
-    font-size: 12px;
-}
-.invoice-textarea{
-    margin: 0px !important;
-    padding: 1px !important;
-    width: 100% !important;
-    font-size: 12px;
-}
-</style>
+

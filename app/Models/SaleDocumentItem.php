@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class SaleDocumentItem extends Model
 {
@@ -31,10 +32,16 @@ class SaleDocumentItem extends Model
         'mto_total',
         'mto_discount',
         'json_discounts',
+        'entity_name_product',
     ];
 
     public function document(): BelongsTo
     {
         return $this->belongsTo(SaleDocument::class, 'document_id', 'id');
+    }
+
+    public function product(): HasOne
+    {
+        return $this->hasOne(Product::class, 'id', 'product_id');
     }
 }

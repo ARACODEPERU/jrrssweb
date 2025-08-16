@@ -1,6 +1,7 @@
 <script setup>
-import AppLayout from '../../Layouts/AppLayout.vue';
-import InformationForm from './Partials/InformationForm.vue';
+import AppLayout from "@/Layouts/Vristo/AppLayout.vue";
+import InformationCompany from "./Partials/InformationCompany.vue";
+import Navigation from "@/Components/vristo/layout/Navigation.vue";
 
 const props = defineProps({
     company: {
@@ -9,23 +10,41 @@ const props = defineProps({
     },
     ubigeo: {
         type: Object,
-        default: () => ({})
+        default: () => ({}),
     },
+    banks: {
+        type: Object,
+        default: () => ({}),
+    },
+    bankAccounts: {
+        type: Object,
+        default: () => ({}),
+    },
+    currencyTypes: {
+        type: Object,
+        default: () => ({}),
+    }
 });
 </script>
 
 <template>
-    <AppLayout title="Profile">
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Mi empresa
-            </h2>
-        </template>
-
-        <div>
-            <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
-                <InformationForm :company="company" :ubigeo="ubigeo"></InformationForm>
-            </div>
+    <AppLayout title="Empresa">
+        <Navigation>
+            <li class="before:content-['/'] ltr:before:mr-2 rtl:before:ml-2">
+                <span>Configuraciones</span>
+            </li>
+            <li class="before:content-['/'] ltr:before:mr-2 rtl:before:ml-2">
+                <span>Empresa</span>
+            </li>
+        </Navigation>
+        <div class="mt-5">
+            <InformationCompany
+                :company="company"
+                :ubigeo="ubigeo"
+                :banks="banks"
+                :bankAccounts="bankAccounts"
+                :currencyTypes="currencyTypes"
+            ></InformationCompany>
         </div>
     </AppLayout>
 </template>

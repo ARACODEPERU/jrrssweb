@@ -14,6 +14,7 @@ use App\Models\Sale;
 use App\Models\SaleDocument;
 use App\Models\SaleProduct;
 use App\Models\Serie;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,6 +24,7 @@ use Inertia\Inertia;
 use PDF;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Support\Facades\Log;
 
 class SaleController extends Controller
 {
@@ -41,8 +43,8 @@ class SaleController extends Controller
         $isAdmin = Auth::user()->hasRole('admin');
 
         $sales = $sales->join('people', 'client_id', 'people.id')
-            ->join('sale_documents', 'sale_documents.sale_id', 'sales.id')
-            ->join('series', 'sale_documents.serie_id', 'series.id')
+            ->leftJoin('sale_documents', 'sale_documents.sale_id', 'sales.id')
+            ->leftJoin('series', 'sale_documents.serie_id', 'series.id')
             ->select(
                 'sales.id',
                 'people.full_name',
@@ -58,7 +60,7 @@ class SaleController extends Controller
                 DB::raw("(SELECT CONCAT(invoice_serie,'-',LPAD(invoice_correlative, 8, '0')) FROM sale_documents WHERE sale_documents.sale_id=sales.id AND invoice_serie IS NOT NULL) AS name_document"),
                 DB::raw("(SELECT COUNT(sale_id) FROM sale_documents WHERE sale_documents.sale_id=sales.id) AS have_document")
             )
-            ->where('series.document_type_id', 5)
+            ->where('physical', 1)
             ->when(!$isAdmin, function ($q) use ($search) {
                 return $q->where('sales.user_id', Auth::id());
             })
@@ -86,12 +88,17 @@ class SaleController extends Controller
         $payments = PaymentMethod::all();
         $client = Person::find(1);
         $documentTypes = DB::table('identity_document_type')->get();
+        $sizes = (new Product)->getUniqueSizes();
+
         return Inertia::render('Sales::Sales/Create', [
             'payments'      => $payments,
             'client'        => $client,
-            'documentTypes' => $documentTypes
+            'documentTypes' => $documentTypes,
+            'sizeslist'         => $sizes
         ]);
     }
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -109,13 +116,14 @@ class SaleController extends Controller
                 'payments.*.type' => 'required',
                 'payments.*.amount' => 'required|numeric|min:0|not_in:0|regex:/^[\d]{0,11}(\.[\d]{1,2})?$/',
                 'client.id' => 'required',
+                'sale_date' => 'required'
             ],
             [
                 'payments.*.type.required' => 'Seleccione un tipo de pago',
                 'payments.*.amount.required' => 'Ingrese monto',
             ]
         );
-
+        //dd($request->all());
         try {
             $res = DB::transaction(function () use ($request) {
 
@@ -138,6 +146,7 @@ class SaleController extends Controller
                 $serie_id = $serie->id;
 
                 $sale = Sale::create([
+                    'sale_date' => $request->get('sale_date'),
                     'user_id' => Auth::id(),
                     'client_id' => $request->get('client')['id'],
                     'local_id' => $local_id,
@@ -145,13 +154,19 @@ class SaleController extends Controller
                     'advancement' => $request->get('total'),
                     'total_discount' => 0,
                     'payments' => json_encode($request->get('payments')),
-                    'petty_cash_id' => $petty_cash->id
+                    'petty_cash_id' => $petty_cash->id,
+                    'physical' => 1
                 ]);
 
                 $document = SaleDocument::create([
                     'sale_id'   => $sale->id,
                     'serie_id'  => $serie_id,
                     'number'    => str_pad($serie->number, 9, '0', STR_PAD_LEFT),
+                    'overall_total'     => $request->get('total'),
+                    'user_id'  => Auth::id(),
+                    'invoice_type_doc' => '80',
+                    'invoice_serie' => $serie->description,
+                    'invoice_correlative' => $serie->number
                 ]);
 
                 $serie->increment('number', 1);
@@ -164,55 +179,61 @@ class SaleController extends Controller
                         'product_id' => $produc['id'],
                         'product' => json_encode(Product::find($produc['id'])),
                         'saleProduct' => json_encode($produc),
-                        'size'      => $produc['size'],
+                        //'size'      => $produc['size'],
                         'price' => $produc['price'],
                         'discount' => $produc['discount'],
                         'quantity' => $produc['quantity'],
                         'total' => $produc['total']
                     ]);
 
-                    $k = Kardex::create([
-                        'date_of_issue' => Carbon::now()->format('Y-m-d'),
-                        'motion' => 'sale',
-                        'product_id' => $produc['id'],
-                        'local_id' => $local_id,
-                        'quantity' => - ($produc['quantity']),
-                        'document_id' => $document->id,
-                        'document_entity' => SaleDocument::class,
-                        'description' => 'Venta'
-                    ]);
-
                     $product = Product::find($produc['id']);
 
-                    if ($product->presentations) {
-                        KardexSize::create([
-                            'kardex_id' => $k->id,
+
+                    if ($product->is_product) {
+
+                        $k = Kardex::create([
+                            'date_of_issue' => Carbon::now()->format('Y-m-d'),
+                            'motion' => 'sale',
                             'product_id' => $produc['id'],
                             'local_id' => $local_id,
-                            'size'      => $produc['size'],
-                            'quantity'  => (-$produc['quantity'])
+                            'quantity' => - ($produc['quantity']),
+                            'document_id' => $document->id,
+                            'document_entity' => SaleDocument::class,
+                            'description' => 'Venta'
                         ]);
-                        $tallas = $product->sizes;
-                        $n_tallas = [];
-                        foreach (json_decode($tallas, true) as $k => $talla) {
-                            if ($talla['size'] == $produc['size']) {
-                                $n_tallas[$k] = array(
-                                    'size' => $talla['size'],
-                                    'quantity' => ($talla['quantity'] - $produc['quantity'])
-                                );
-                            } else {
-                                $n_tallas[$k] = array(
-                                    'size' => $talla['size'],
-                                    'quantity' => $talla['quantity']
-                                );
-                            }
-                        }
-                        $product->update([
-                            'sizes' => json_encode($n_tallas)
-                        ]);
-                    }
 
-                    Product::find($produc['id'])->decrement('stock', $produc['quantity']);
+
+
+                        if ($product->presentations) {
+                            KardexSize::create([
+                                'kardex_id' => $k->id,
+                                'product_id' => $produc['id'],
+                                'local_id' => $local_id,
+                                'size'      => $produc['size'],
+                                'quantity'  => (-$produc['quantity'])
+                            ]);
+                            $tallas = $product->sizes;
+                            $n_tallas = [];
+                            foreach (json_decode($tallas, true) as $k => $talla) {
+                                if ($talla['size'] == $produc['size']) {
+                                    $n_tallas[$k] = array(
+                                        'size' => $talla['size'],
+                                        'quantity' => ($talla['quantity'] - $produc['quantity'])
+                                    );
+                                } else {
+                                    $n_tallas[$k] = array(
+                                        'size' => $talla['size'],
+                                        'quantity' => $talla['quantity']
+                                    );
+                                }
+                            }
+                            $product->update([
+                                'sizes' => json_encode($n_tallas)
+                            ]);
+                        }
+
+                        Product::find($produc['id'])->decrement('stock', $produc['quantity']);
+                    }
                 }
                 return $sale;
             });
@@ -221,11 +242,6 @@ class SaleController extends Controller
         } catch (\Exception $e) {
             return response()->json(['message' => $e]);
         }
-        //return response()->json(['message' => 'Success']);
-
-        // return redirect()->route('sales.index')
-        //     ->with('message', __('Venta creada con éxito'));
-
     }
 
     public function destroy(Sale $sale)
@@ -235,69 +251,88 @@ class SaleController extends Controller
 
                 $sale->update(['status' => false]);
 
+                // Busca el SaleDocument asociado a la venta
                 $document = SaleDocument::where('sale_id', $sale->id)->first();
 
-                $document->update([
-                    'status' => false
-                ]);
+                // Verifica si se encontró el documento antes de intentar actualizarlo
+                if ($document) {
+                    $document->update([
+                        'status' => 3
+                    ]);
+                } else {
+                    // Opcional: Manejar el caso donde no se encontró el documento
+                    // Por ejemplo, loguear un error, emitir una advertencia, o lanzar una excepción.
+                    // Esto es útil para depurar o entender por qué falta el documento.
+                    Log::warning("No se encontró SaleDocument para la venta con ID: " . $sale->id . ". No se pudo actualizar el estado.");
+                    // O si es un error crítico:
+                    // throw new \Exception("SaleDocument no encontrado para la venta ID: " . $sale->id);
+                }
 
                 $products = SaleProduct::where('sale_id', $sale->id)->get();
 
-                foreach ($products as $produc) {
+                foreach ($products as $item) {
+                    if($item->entity_name_product == Product::class){
+                        if (json_decode($item->product)->is_product == 1) {
+                            $k = Kardex::create([
+                                'date_of_issue' => Carbon::now()->format('Y-m-d'),
+                                'motion' => 'sale',
+                                'product_id' => $item->product_id,
+                                'local_id' => $sale->local_id,
+                                'quantity' => $item->quantity,
+                                'document_id' => $document->id,
+                                'document_entity' => SaleDocument::class,
+                                'description' => 'Anulacion de Venta'
+                            ]);
 
-                    $k = Kardex::create([
-                        'date_of_issue' => Carbon::now()->format('Y-m-d'),
-                        'motion' => 'sale',
-                        'product_id' => $produc->product_id,
-                        'local_id' => $sale->local_id,
-                        'quantity' => $produc->quantity,
-                        'document_id' => $document->id,
-                        'document_entity' => SaleDocument::class,
-                        'description' => 'Anulacion de Venta'
-                    ]);
+                            $product = Product::find($item->product_id);
+
+                            if ($product->presentations) {
+
+                                KardexSize::create([
+                                    'kardex_id' => $k->id,
+                                    'product_id' => $item->product_id,
+                                    'local_id' => $sale->local_id,
+                                    'size'      => json_decode($item->saleProduct)->size,
+                                    'quantity'  => $item->quantity
+                                ]);
 
 
+                                $tallas = json_decode($product->sizes, true);
+                                $n_tallas = [];
+                                foreach ($tallas as &$size) {
+                                    // Si el tamaño es igual a 22
+                                    if ($size["size"] == json_decode($item->saleProduct)->size) {
 
-                    $product = Product::find($produc->product_id);
+                                        // Obtiene la cantidad actual
+                                        $currentQuantity = intval($size["quantity"]); // Convierte a entero
 
-                    if ($product->presentations) {
+                                        // Suma 1 a la cantidad actual
+                                        $newQuantity = $currentQuantity + $item->quantity;
 
-                        KardexSize::create([
-                            'kardex_id' => $k->id,
-                            'product_id' => $produc->product_id,
-                            'local_id' => $sale->local_id,
-                            'size'      => json_decode($produc->product)->size,
-                            'quantity'  => $produc->quantity
-                        ]);
+                                        // Actualiza la cantidad
+                                        $size["quantity"] = $newQuantity;
+                                    }
+                                }
 
-                        $tallas = $product->sizes;
-                        $n_tallas = [];
-                        foreach (json_decode($tallas, true) as $k => $talla) {
-                            if ($talla['size'] == $produc['size']) {
-                                $n_tallas[$k] = array(
-                                    'size' => $talla['size'],
-                                    'quantity' => ($talla['quantity'] + $produc->quantity)
-                                );
-                            } else {
-                                $n_tallas[$k] = array(
-                                    'size' => $talla['size'],
-                                    'quantity' => $talla['quantity']
-                                );
+                                $n_tallas = $tallas;
+
+
+                                $product->update([
+                                    'sizes' => json_encode($n_tallas)
+                                ]);
                             }
+                            //Product::find($produc->product_id)->increment('stock', $produc->quantity);
                         }
-                        $product->update([
-                            'sizes' => json_encode($n_tallas)
-                        ]);
                     }
-                    Product::find($produc->product_id)->increment('stock', $produc->quantity);
                 }
                 return $sale;
             });
 
-            return redirect()->route('sales.index')
-                ->with('message', 'Venta Anulado con éxito.');
+            return response()->json([
+                'message' => 'Venta Anulado con éxito.'
+            ]);
         } catch (\Exception $e) {
-            return response()->json(['message' => $e]);
+            return response()->json(['message' => $e->getMessage()]);
         }
     }
 
@@ -315,18 +350,59 @@ class SaleController extends Controller
         $local = LocalSale::find($sale->local_id);
         $products = SaleProduct::where('sale_id', $sale->id)->get();
         $company = Company::first();
+        $seller = User::find($sale->user_id);
+        $payments = PaymentMethod::all();
 
         $data = [
             'local'     => $local,
             'sale'      => $sale,
             'products'  => $products,
             'document'  => $document,
-            'company'   => $company
+            'company'   => $company,
+            'seller'    => $seller,
+            'payments'  => $payments
         ];
 
-        $file = public_path('ticket/') . 'ticket.pdf';
+        $file = public_path('ticket/') . $seller->id . '-ticket.pdf';
         $pdf = PDF::loadView('sales::sales.ticket_pdf', $data);
         $pdf->setPaper(array(0, 0, 273, 500), 'portrait');
+        $pdf->save($file);
+
+        return response()->download($file);
+    }
+
+    public function printA4Pdf($id)
+    {
+        $sale = Sale::find($id);
+        $document = SaleDocument::join('series', 'serie_id', 'series.id')
+            ->select(
+                'series.description',
+                'sale_documents.created_at',
+                'sale_documents.number'
+            )
+            ->where('sale_documents.sale_id', $sale->id)
+            ->first();
+        $local = LocalSale::find($sale->local_id);
+        $products = SaleProduct::where('sale_id', $sale->id)->get();
+        $company = Company::first();
+        $seller = User::find($sale->user_id);
+        $client = Person::find($sale->client_id);
+
+        $data = [
+            'local'     => $local,
+            'sale'      => $sale,
+            'products'  => $products,
+            'document'  => $document,
+            'company'   => $company,
+            'seller'    => $seller,
+            'client'    => $client
+        ];
+
+        //return view('sales::sales.A4_pdf', $data);
+
+        $file = public_path('ticket/') . $seller->id . '-A4.pdf';
+        $pdf = PDF::loadView('sales::sales.A4_pdf', $data);
+        $pdf->setPaper('a4', 'portrait');
         $pdf->save($file);
 
         return response()->download($file);

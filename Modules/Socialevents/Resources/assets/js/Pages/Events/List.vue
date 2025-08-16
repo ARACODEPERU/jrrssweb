@@ -4,15 +4,15 @@
     import Keypad from '@/Components/Keypad.vue';
     import Pagination from '@/Components/Pagination.vue';
     import ModalSmall from '@/Components/ModalSmall.vue';
-    import {
+    import { 
         ConfigProvider,
-        Dropdown,
-        Menu,
-        MenuItem,
-        Image,
-        AvatarGroup,
-        Avatar,
-        Tooltip,
+        Dropdown, 
+        Menu, 
+        MenuItem, 
+        Image, 
+        AvatarGroup, 
+        Avatar, 
+        Tooltip, 
         Badge,
         InputNumber,
         Input
@@ -23,7 +23,7 @@
     import esES from 'ant-design-vue/es/locale/es_ES';
     import { ref } from 'vue';
     import DangerButton from '@/Components/DangerButton.vue';
-
+    
     const props = defineProps({
         socialevents: {
             type: Object,
@@ -121,7 +121,7 @@
             if(pricesArray.length > 0){
                 foundObject = pricesArray.find(obj => obj.type_id === typeIdToFind);
             }
-
+            
             if (foundObject) {
                 ty.description = typ.description;
                 ty.price = foundObject.price;
@@ -251,9 +251,6 @@
                                     <th class="text-right py-2 px-4 font-medium text-black dark:text-white">
                                         Cantidad de Entradas
                                     </th>
-                                    <th class="text-center py-2 px-4 font-medium text-black dark:text-white">
-                                        Estado
-                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -315,13 +312,6 @@
                                         </td>
                                         <td class="text-right py-2 px-2 dark:border-strokedark">
                                             {{ socialevent.tickets_quantity }}
-                                        </td>
-                                        <td class="text-left py-2 px-2 dark:border-strokedark">
-                                            <span v-if="socialevent.status == 'PE'" class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-gray-700 dark:text-blue-400 border border-blue-400">PENDIENTE</span>
-                                            <span v-else-if="socialevent.status == 'PR'" class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-gray-700 dark:text-gray-400 border border-gray-500">EN PROCESO</span>
-                                            <span v-else-if="socialevent.status == 'CA'" class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-gray-700 dark:text-red-400 border border-red-400">CANCELADO</span>
-                                            <span v-else-if="socialevent.status == 'TE'" class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-gray-700 dark:text-green-400 border border-green-400">TERMINADO</span>
-                                            <span v-else-if="socialevent.status == 'PO'" class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-gray-700 dark:text-purple-400 border border-purple-400">POSTERGADO</span>
                                         </td>
                                     </tr>
                                 </template>

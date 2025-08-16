@@ -198,7 +198,7 @@ const cancelSale = () => {
 }
 </script>
 <template>
-    <AppLayout title="Institución">
+    <AppLayout title="Vender">
         <div class="max-w-screen-2xl  mx-auto p-4 md:p-6 2xl:p-10">
             <!-- Breadcrumb Start -->
             <nav class="flex px-4 py-3 border border-stroke text-gray-700 mb-4 bg-gray-50 dark:bg-gray-800 dark:border-gray-700" aria-label="Breadcrumb">
@@ -375,7 +375,7 @@ const cancelSale = () => {
                                         Cobrar
                                     </PrimaryButton>
                                 </Popconfirm>
-                                <Link :href="route('res_menu_list')"  class="ml-2 inline-block px-6 py-2.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out">Ir al Listado</Link>
+                                <Link :href="route('res_sales_list')"  class="ml-2 inline-block px-6 py-2.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out">Ir al Listado</Link>
                             </template>
                         </Keypad>
                     </div>

@@ -1,12 +1,14 @@
 <?php
 
-
+use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\KenthaController;
 use App\Http\Controllers\CapperuController;
 use App\Http\Controllers\KardexController;
+use App\Http\Controllers\LandingController;
 use App\Http\Controllers\LocalSaleController;
+use App\Http\Controllers\ModuloController;
 use App\Http\Controllers\ParametersController;
 use App\Http\Controllers\PersonController;
 use Illuminate\Support\Facades\Route;
@@ -26,7 +28,7 @@ use Modules\Socialevents\Http\Controllers\EvenEventTickeClientController;
 
 Route::get('/test-image/{content}/{fecha?}', [WebController::class, 'testimage'])->name('test-image');
 
-
+Route::get('landing', [LandingController::class, 'index'])->name('index_main');
 Route::get('/', [WebController::class, 'index'])->name('cms_principal');
 Route::get('/quienes-somos', [WebController::class, 'quienessomos'])->name('web_quienes_somos');
 Route::get('/predicas', [WebController::class, 'predicas'])->name('web_predicas');
@@ -79,7 +81,9 @@ Route::get('/gracias/{id}/pagado', [WebController::class, 'gracias'])->name('web
 // eventos
 Route::post('/eventos/registrar/store', [EvenEventTickeClientController::class, 'store'])->name('web_eventos_registrarse');
 Route::get('/emailprueba', [WebController::class, 'email'])->name('web_email');
-
+Route::resource('modulos', ModuloController::class);
+    Route::get('modulos/permissions/{id}/add', [ModuloController::class, 'permissions'])->name('modulos_permissions');
+    Route::post('modulos/permissions/store', [ModuloController::class, 'storePermissions'])->name('modulos_permissions_store');
 /* PayPal */
 Route::post('/paypal/donate', [PaypalController::class, 'payment'])->name('paypal_donate');
 Route::get('/paypal/success/{donationId}', [PaypalController::class, 'success'])->name('paypal_success');
@@ -169,7 +173,12 @@ Route::middleware('auth')->group(function () {
         [KardexController::class, 'generalStock']
     )->name('generalstock');
 
-
+    Route::get('parameters/list', [ParametersController::class, 'index'])->name('parameters');
+    Route::get('parameters/create', [ParametersController::class, 'create'])->name('parameters_create');
+    Route::post('parameters/store', [ParametersController::class, 'store'])->name('parameters_store');
+    Route::get('parameters/{id}/edit', [ParametersController::class, 'edit'])->name('parameters_edit');
+    Route::put('parameters/update/{id}', [ParametersController::class, 'update'])->name('parameters_update');
+    Route::get('parameters/{id}/{val}/default', [ParametersController::class, 'updateDefaultValue'])->name('parameters_update_default_value');
 
     Route::get(
         'company/show',
@@ -220,6 +229,14 @@ Route::middleware('auth')->group(function () {
         'person/update_information/store',
         [PersonController::class, 'updateInformationPerson']
     )->name('user-update-profile-store');
+
+    Route::post(
+        'person/birthdays',
+        [PersonController::class, 'getBirthdays']
+    )->name('person-birthdays');
+
+    Route::get('calendar/index', [CalendarController::class, 'index'])->name('calendar');
 });
 
 require __DIR__ . '/auth.php';
+require __DIR__ . '/system.php';

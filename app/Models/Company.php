@@ -30,7 +30,9 @@ class Company extends Model
         'logo_dark',
         'isotipo',
         'isotipo_negative',
-        'isotipo_dark'
+        'isotipo_dark',
+        'social_networks',
+        'withdrawal_account_number'
     ];
 
     public function district(): HasOne

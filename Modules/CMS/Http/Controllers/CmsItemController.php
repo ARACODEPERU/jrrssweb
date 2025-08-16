@@ -10,10 +10,12 @@ use Modules\CMS\Entities\CmsItem;
 use Modules\CMS\Entities\CmsItemType;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Facades\DB;
+use DataTables;
 
 class CmsItemController extends Controller
 {
     use ValidatesRequests;
+
     /**
      * Display a listing of the resource.
      * @return Renderable
@@ -21,28 +23,10 @@ class CmsItemController extends Controller
     public function index()
     {
         $types = CmsItemType::all();
-        $items = (new CmsItem())->newQuery();
-        if (request()->has('search')) {
-            $items->where('description', 'like', '%' . request()->input('search') . '%');
-        }
-        if (request()->query('sort')) {
-            $attribute = request()->query('sort');
-            $sort_order = 'ASC';
-            if (strncmp($attribute, '-', 1) === 0) {
-                $sort_order = 'DESC';
-                $attribute = substr($attribute, 1);
-            }
-            $items->orderBy($attribute, $sort_order);
-        } else {
-            $items->latest();
-        }
-
-        $items = $items->paginate(20)->onEachSide(2);
 
         return Inertia::render('CMS::Items/List', [
             'types' => $types,
-            'items' => $items,
-            'filters' => request()->all('search'),
+
         ]);
     }
 
@@ -92,7 +76,7 @@ class CmsItemController extends Controller
                 'public'
             );
 
-            $content = $type_id == 1 ? asset('storage/' . $path) : $path;
+            $content = $type_id == 1 ? $path : $path;
         }
         if ($type_id == 2 || $type_id == 4) {
             $content = $request->get('content');
@@ -161,7 +145,7 @@ class CmsItemController extends Controller
                 'public'
             );
 
-            $content = $type_id == 1 ? asset('storage/' . $path) : $path;
+            $content = $type_id == 1 ?  $path : $path;
         }
         if ($type_id == 2 || $type_id == 4) {
             $content = $request->get('content');
@@ -209,5 +193,14 @@ class CmsItemController extends Controller
             'success' => $success,
             'message' => $message
         ]);
+    }
+
+
+    public function getData()
+    {
+        $model = CmsItem::query();
+        $model = $model->select('id', 'type_id', 'content', 'description');
+
+        return DataTables::of($model)->toJson();
     }
 }

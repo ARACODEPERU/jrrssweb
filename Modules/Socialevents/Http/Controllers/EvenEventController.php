@@ -29,8 +29,7 @@ class EvenEventController extends Controller
 
     public function __construct()
     {
-        //$this->P000010  = Parameter::where('parameter_code', 'P000010')->value('value_default');
-        $this->P000010  = env('TINY_API_KEY');
+        $this->P000010  = Parameter::where('parameter_code', 'P000010')->value('value_default');
     }
     public function index()
     {
@@ -141,7 +140,7 @@ class EvenEventController extends Controller
                 if (PHP_OS == 'WINNT') {
                     $tempFile = tempnam(sys_get_temp_dir(), 'img');
                 } else {
-                    $tempFile = tempnam('/var/www/html', 'img');
+                    $tempFile = tempnam('/var/www/html/img_temp', 'img');
                 }
                 //dd($tempFile);
                 file_put_contents($tempFile, $fileData);
@@ -213,8 +212,7 @@ class EvenEventController extends Controller
                 'description' => 'required',
                 'advertising_video' => 'required',
                 'tickets_quantity' => 'required',
-                'date' => 'required',
-                'exhibitors' => 'required',
+                'date' => 'required'
             ]
         );
 
@@ -234,8 +232,7 @@ class EvenEventController extends Controller
             'number_days'   => $days + 1,
             'tickets_quantity' => $request->get('tickets_quantity'),
             'broadcast' => $request->get('broadcast') ? true : false,
-            'tickets_available' => $request->get('tickets_quantity'),
-            'status' => $request->get('status')
+            'tickets_available' => $request->get('tickets_quantity')
         ]);
 
         EvenEventLocal::where('event_id', $event->id)->delete();
@@ -253,7 +250,7 @@ class EvenEventController extends Controller
             }
         }
 
-        if ($exhibitors && count($exhibitors) > 0) {
+        if (count($exhibitors) > 0) {
             foreach ($exhibitors as $exhibitor) {
                 EvenEventExhibitor::create([
                     'event_id' => $event->id,
@@ -274,7 +271,7 @@ class EvenEventController extends Controller
                 if (PHP_OS == 'WINNT') {
                     $tempFile = tempnam(sys_get_temp_dir(), 'img');
                 } else {
-                    $tempFile = tempnam('/var/www/html', 'img');
+                    $tempFile = tempnam('/var/www/html/img_temp', 'img');
                 }
 
                 file_put_contents($tempFile, $fileData);

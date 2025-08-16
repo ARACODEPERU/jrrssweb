@@ -5,6 +5,7 @@ namespace Modules\Sales\Http\Controllers;
 use App\Models\Kardex;
 use App\Models\KardexSize;
 use App\Models\LocalSale;
+use App\Models\Parameter;
 use App\Models\Product;
 use App\Models\ProductEstablishmentPrice;
 use Carbon\Carbon;
@@ -20,15 +21,23 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Sales\Entities\SaleProductBrand;
 use Modules\Sales\Entities\SaleProductCategory;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PDF;
 
 class ProductController extends Controller
 {
     use ValidatesRequests;
+
+    protected $P000014;
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->P000014 = Parameter::where('parameter_code', 'P000014')->value('value_default');
+    }
     public function index()
     {
         $product = request()->input('displayProduct') ? request()->input('displayProduct') : true;
@@ -83,21 +92,17 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = SaleProductCategory::whereNull('category_id')->get();
+        $categories = SaleProductCategory::with('subcategories.subcategories')->whereNull('category_id')->get();
         $brands = SaleProductBrand::get();
 
         return Inertia::render('Sales::Products/Create', [
             'establishments' => LocalSale::all(),
             'categories'     => $categories ?? [],
-            'brands'         => $brands ?? []
+            'brands'         => $brands ?? [],
+            'P000014' => $this->P000014
         ]);
     }
-    public function createService()
-    {
-        return Inertia::render('Sales::Services/Create', [
-            'establishments' => LocalSale::all(),
-        ]);
-    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -112,16 +117,23 @@ class ProductController extends Controller
             $request,
             [
                 'interne' => 'required|unique:products,interne',
-                'description' => 'required',
+                'description' => 'required|max:300',
                 'purchase_prices' => 'required',
-                'sale_prices.high' => 'required'
+                'sale_prices.high' => 'required|numeric',
+                'sale_prices.medium' => 'nullable|numeric',
+                'sale_prices.under' => 'nullable|numeric',
+            ],
+            [
+                'sale_prices.high.numeric' => 'Ingrese solo numeros',
+                'sale_prices.medium.numeric' => 'Ingrese solo numeros',
+                'sale_prices.under.numeric' => 'Ingrese solo numeros',
             ]
         );
         if ($presentations) {
             $this->validate(
                 $request,
                 [
-                    'sizes.*.size' => 'required|numeric',
+                    'sizes.*.size' => 'required',
                     'sizes.*.quantity' => 'required|numeric',
                 ],
                 [
@@ -130,22 +142,7 @@ class ProductController extends Controller
                 ]
             );
         }
-        // $path = 'img' . DIRECTORY_SEPARATOR . 'imagen-no-disponible.jpeg';
-        // $destination = 'uploads' . DIRECTORY_SEPARATOR . 'products';
-        $path = 'img/imagen-no-disponible.jpg';
-        $destination = 'uploads/products';
-        $file = $request->file('image');
-        if ($file) {
-            $original_name = strtolower(trim($file->getClientOriginalName()));
-            $original_name = str_replace(" ", "_", $original_name);
-            $extension = $file->getClientOriginalExtension();
-            $file_name = trim($request->get('interne')) . '.' . $extension;
-            $path = $request->file('image')->storeAs(
-                $destination,
-                $file_name,
-                'public'
-            );
-        }
+
         $total = 0;
         if ($presentations) {
             foreach ($request->get('sizes') as $k => $item) {
@@ -155,11 +152,11 @@ class ProductController extends Controller
             $total = $request->get('stock') ?? 1;
         }
 
+
         $pr = Product::create([
             'usine' => $request->get('usine'),
             'interne' => $request->get('interne'),
             'description' => $request->get('description'),
-            'image' => $path,
             'purchase_prices' => $request->get('purchase_prices'),
             'sale_prices' => json_encode($request->get('sale_prices')),
             'sizes' => $presentations ? json_encode($request->get('sizes')) : null,
@@ -174,6 +171,26 @@ class ProductController extends Controller
             'category_id' => $request->get('category_id') ?? null,
             'brand_id' => $request->get('brand_id') ?? null
         ]);
+
+        $path = 'img/imagen-no-disponible.jpg';
+        $destination = 'uploads/products';
+        $file = $request->file('image');
+        if ($file) {
+            $original_name = strtolower(trim($file->getClientOriginalName()));
+            $original_name = str_replace(" ", "_", $original_name);
+            $extension = $file->getClientOriginalExtension();
+            $file_name = $pr->id . '.' . $extension;
+            $path = $request->file('image')->storeAs(
+                $destination,
+                $file_name,
+                'public'
+            );
+
+            $pr->image = $path;
+            $pr->save();
+        }
+
+
 
         $k = Kardex::create([
             'date_of_issue' => Carbon::now()->format('Y-m-d'),
@@ -199,34 +216,6 @@ class ProductController extends Controller
             ->with('message', __('Producto creado con éxito'));
     }
 
-    public function storeService(Request $request)
-    {
-        $this->validate(
-            $request,
-            [
-                'interne' => 'required|unique:products,interne',
-                'description' => 'required',
-                'sale_prices.high' => 'required'
-            ]
-        );
-        Product::create([
-            'usine' => $request->get('usine'),
-            'interne' => $request->get('interne'),
-            'description' => $request->get('description'),
-            'image' => 'img/imagen-no-disponible.jpg',
-            'purchase_prices' => 0,
-            'sale_prices' => json_encode($request->get('sale_prices')),
-            'sizes' => null,
-            'stock_min' => 1,
-            'stock' => 1,
-            'presentations' => false,
-            'is_product' => false,
-            'type_sale_affectation_id' => '10',
-            'type_purchase_affectation_id' => '10',
-            'type_unit_measure_id' => 'ZZ',
-            'status' => true
-        ]);
-    }
 
 
     /**
@@ -237,13 +226,14 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        $categories = SaleProductCategory::whereNull('category_id')->get();
+        $categories = SaleProductCategory::with('subcategories')->whereNull('category_id')->get();
         $brands = SaleProductBrand::get();
 
         return Inertia::render('Sales::Products/Edit', [
             'product'       => $product,
             'categories'    => $categories,
-            'brands'        => $brands
+            'brands'        => $brands,
+            'P000014' => $this->P000014
         ]);
     }
 
@@ -259,7 +249,7 @@ class ProductController extends Controller
         //dd($request->all());
         $this->validate($request, [
             'interne' => 'required|unique:products,interne,' . $product->id,
-            'description' => 'required',
+            'description' => 'required|max:300',
             'purchase_prices' => 'required',
             'sale_prices.high' => 'required',
         ]);
@@ -291,18 +281,30 @@ class ProductController extends Controller
             ->with('message', __('Producto eliminado con éxito'));
     }
 
-    public function searchProduct(Request $request)
+    public function searchProductByDescriptionCode($local_id, $search)
     {
-        $local_id = Auth::user()->local_id;
-        $search = $request->get('search');
-        $products = [];
-        $success = false;
-        $message = null;
-        if ($local_id) {
-            $products = DB::table('products as t1')
-                ->select(
-                    't1.*',
-                    DB::raw(`
+        $products = DB::table('products as t1')
+            ->select(
+                't1.id',
+                't1.usine',
+                't1.interne',
+                't1.description',
+                't1.image',
+                't1.purchase_prices',
+                't1.sale_prices',
+                't1.sizes',
+                't1.stock_min',
+                't1.stock',
+                't1.presentations',
+                't1.is_product',
+                't1.type_sale_affectation_id',
+                't1.type_purchase_affectation_id',
+                't1.type_unit_measure_id',
+                't1.status',
+                't1.category_id',
+                't1.brand_id',
+                't1.icbper',
+                DB::raw(`
                 SELECT
                     JSON_ARRAYAGG(JSON_OBJECT('size', size, 'quantity', quantity_sum)) AS productos
                     FROM (
@@ -310,22 +312,137 @@ class ProductController extends Controller
                         FROM kardex_sizes
                         WHERE kardex_sizes.product_id=t1.id AND local_id = ` . $local_id . `GROUP BY size
                     ) AS local_sizes`)
-                )
-                ->selectSub(function ($query) use ($local_id) {
-                    $query->from('product_establishment_prices')
-                        ->selectRaw("JSON_OBJECT('high', high, 'under', under,'medium',MEDIUM)")
-                        ->whereColumn('product_establishment_prices.product_id', 't1.id')
-                        ->where('product_establishment_prices.local_id', $local_id);
-                }, 'local_prices')
-                ->leftJoin('kardexes', 't1.id', '=', 'kardexes.product_id')
-                ->where(function ($query) use ($search) {
-                    $query->where('t1.interne', '=', $search)
-                        ->orWhere('t1.usine', '=', $search)
-                        ->orWhere('t1.description', 'like', '%' . $search . '%');
-                })
-                ->where('kardexes.local_id', '=', $local_id)
-                ->groupBy('t1.id')
-                ->get();
+            )
+            ->selectSub(function ($query) use ($local_id) {
+                $query->from('product_establishment_prices')
+                    ->selectRaw("JSON_OBJECT('high', high, 'under', under,'medium',MEDIUM)")
+                    ->whereColumn('product_establishment_prices.product_id', 't1.id')
+                    ->where('product_establishment_prices.local_id', $local_id);
+            }, 'local_prices')
+            ->leftJoin('kardexes', 't1.id', '=', 'kardexes.product_id')
+            ->where(function ($query) use ($search) {
+                $query->where('t1.interne', '=', $search)
+                    ->orWhere('t1.usine', '=', $search)
+                    ->orWhere('t1.description', 'like', '%' . $search . '%');
+            })
+            //->where('kardexes.local_id', '=', $local_id)
+            ->where(function ($query) use ($local_id) {
+                $query->where('t1.is_product', '=', false)
+                    ->orWhere('kardexes.local_id', '=', $local_id);
+            })
+            ->groupBy([
+                't1.id',
+                't1.usine',
+                't1.interne',
+                't1.description',
+                't1.image',
+                't1.purchase_prices',
+                't1.sale_prices',
+                't1.sizes',
+                't1.stock_min',
+                't1.stock',
+                't1.presentations',
+                't1.is_product',
+                't1.type_sale_affectation_id',
+                't1.type_purchase_affectation_id',
+                't1.type_unit_measure_id',
+                't1.status',
+                't1.category_id',
+                't1.brand_id',
+                't1.icbper',
+            ])
+            ->get();
+
+        return $products;
+    }
+
+    public function getProductsBySize($local_id, $size)
+    {
+
+        $products =  DB::table('products as t1')->select(
+            't1.id',
+            't1.usine',
+            't1.interne',
+            't1.description',
+            't1.image',
+            't1.purchase_prices',
+            't1.sale_prices',
+            't1.sizes',
+            't1.stock_min',
+            't1.stock',
+            't1.presentations',
+            't1.is_product',
+            't1.type_sale_affectation_id',
+            't1.type_purchase_affectation_id',
+            't1.type_unit_measure_id',
+            't1.status',
+            't1.category_id',
+            't1.brand_id',
+            't1.icbper',
+            DB::raw(`
+                SELECT
+                    JSON_ARRAYAGG(JSON_OBJECT('size', size, 'quantity', quantity_sum)) AS productos
+                    FROM (
+                        SELECT size, SUM(quantity) AS quantity_sum
+                        FROM kardex_sizes
+                        WHERE kardex_sizes.product_id=t1.id AND local_id = ` . $local_id . `GROUP BY size
+                    ) AS local_sizes`)
+        )
+            ->selectSub(function ($query) use ($local_id) {
+                $query->from('product_establishment_prices')
+                    ->selectRaw("JSON_OBJECT('high', high, 'under', under,'medium',MEDIUM)")
+                    ->whereColumn('product_establishment_prices.product_id', 't1.id')
+                    ->where('product_establishment_prices.local_id', $local_id);
+            }, 'local_prices')
+            ->leftJoin('kardexes', 't1.id', '=', 'kardexes.product_id')
+            ->whereRaw("JSON_CONTAINS(sizes, '{\"size\": \"$size\"}')")
+            //->where('kardexes.local_id', '=', $local_id)
+            ->where(function ($query) use ($local_id) {
+                $query->where('t1.is_product', '=', false)
+                    ->orWhere('kardexes.local_id', '=', $local_id);
+            })
+            ->groupBy([
+                't1.id',
+                't1.usine',
+                't1.interne',
+                't1.description',
+                't1.image',
+                't1.purchase_prices',
+                't1.sale_prices',
+                't1.sizes',
+                't1.stock_min',
+                't1.stock',
+                't1.presentations',
+                't1.is_product',
+                't1.type_sale_affectation_id',
+                't1.type_purchase_affectation_id',
+                't1.type_unit_measure_id',
+                't1.status',
+                't1.category_id',
+                't1.brand_id',
+                't1.icbper',
+                't1.created_at',
+                't1.updated_at',
+                't1.deleted_at'
+            ])
+            ->get();
+
+        return $products; // Devuelve los productos que tienen esa talla
+    }
+    public function searchProduct(Request $request)
+    {
+        // dd($request->all());
+        $local_id = Auth::user()->local_id;
+        $search = $request->get('search');
+        $products = [];
+        $success = false;
+        $message = null;
+        if ($local_id) {
+            if ($request->get('presentation')) {
+                $products = $this->getProductsBySize($local_id, $request->input('presentation'));
+            } else {
+                $products = $this->searchProductByDescriptionCode($local_id, $search);
+            }
 
             if (count($products) > 0) {
                 $success = true;
@@ -347,6 +464,7 @@ class ProductController extends Controller
     public function searchScanerProduct(Request $request)
     {
         $search = $request->get('search');
+
         $local_id = Auth::user()->local_id;
         $success = false;
         $message = null;
@@ -378,7 +496,27 @@ class ProductController extends Controller
                         ->orWhere('t1.usine', '=', $search);
                 })
                 ->where('kardexes.local_id', '=', $local_id)
-                ->groupBy('t1.id')
+                ->groupBy([
+                    't1.id',
+                    't1.usine',
+                    't1.interne',
+                    't1.description',
+                    't1.image',
+                    't1.purchase_prices',
+                    't1.sale_prices',
+                    't1.sizes',
+                    't1.stock_min',
+                    't1.stock',
+                    't1.presentations',
+                    't1.is_product',
+                    't1.type_sale_affectation_id',
+                    't1.type_purchase_affectation_id',
+                    't1.type_unit_measure_id',
+                    't1.status',
+                    't1.category_id',
+                    't1.brand_id',
+                    't1.icbper',
+                ])
                 ->first();
 
             if ($product) {
@@ -532,7 +670,7 @@ class ProductController extends Controller
         if (PHP_OS == 'WINNT') {
             $tempFile = tempnam(sys_get_temp_dir(), 'img');
         } else {
-            $tempFile = tempnam('/var/www/html', 'img');
+            $tempFile = tempnam('/var/www/html/img_temp', 'img');
         }
         file_put_contents($tempFile, $fileData);
         $mime = mime_content_type($tempFile);
@@ -543,7 +681,9 @@ class ProductController extends Controller
         $path = null;
         if ($file) {
             $original_name = strtolower(trim($file->getClientOriginalName()));
-            $file_name = time() . rand(100, 999) . $original_name;
+            $original_name = str_replace(" ", "_", $original_name);
+            $extension = $file->getClientOriginalExtension();
+            $file_name = $product_id . '_up.' . $extension;
             $path = Storage::disk('public')->putFileAs($destination, $file, $file_name);
         }
         $product = [];
@@ -615,6 +755,7 @@ class ProductController extends Controller
         $products = Product::where('interne', $search)
             ->orWhere('description', 'like', '%' . $search . '%')
             ->get();
+
         $success = false;
 
         if (count($products) > 0) {
@@ -778,7 +919,9 @@ class ProductController extends Controller
 
 
             $json_prices = array(
-                "high" => $data[3], "under" =>  $data[5], "medium" => $data[4]
+                "high" => $data[3],
+                "under" =>  $data[5],
+                "medium" => $data[4]
             );
 
             $pr = Product::create([
@@ -811,5 +954,22 @@ class ProductController extends Controller
             dd($ex->getMessage());
             // Note any method of class PDOException can be called on $ex.
         }
+    }
+
+    public function printBarcode($id)
+    {
+        $dir = 'storage' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'products';
+        $file = public_path($dir) .  DIRECTORY_SEPARATOR . 'ticket.pdf';
+
+        $pdf = PDF::loadView('sales::products.barcode_f1', [
+            'product' => Product::find($id),
+        ]);
+
+        $pdf->setPaper(array(0, 0, 302, 113), 'portrait');
+        $pdf->save($file);
+
+        return response()->download($file, $id . '.pdf', [
+            'Content-Type' => 'application/pdf',
+        ]);
     }
 }

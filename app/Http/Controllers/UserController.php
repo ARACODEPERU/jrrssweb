@@ -2,44 +2,42 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\District;
 use App\Models\LocalSale;
+use App\Models\Person;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 use Spatie\Permission\Models\Role;
+use DataTables;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
     public function index()
     {
-        $users = (new User())->newQuery();
-        if (request()->has('search')) {
-            $users->where('name', 'Like', '%' . request()->input('search') . '%');
-        }
-        if (request()->query('sort')) {
-            $attribute = request()->query('sort');
-            $sort_order = 'ASC';
-            if (strncmp($attribute, '-', 1) === 0) {
-                $sort_order = 'DESC';
-                $attribute = substr($attribute, 1);
-            }
-            $users->orderBy($attribute, $sort_order);
-        } else {
-            $users->latest();
-        }
-
-        $users = $users->paginate(10)->onEachSide(2);
-
-        return Inertia::render('Users/List', [
-            'users' => $users
-        ]);
+        return Inertia::render('Users/List');
     }
 
+    public function getUsers()
+    {
+        $users = (new User())->newQuery();
+        $users = $users->leftJoin('people', 'people.id', 'users.person_id');
+        $users = $users->select(
+            'users.*',
+            'people.full_name',
+            'people.image',
+            'people.number'
+        );
+
+        return DataTables::of($users)->toJson();
+    }
     public function create()
     {
         return Inertia::render('Users/Create', [
-            'establishments' => LocalSale::all()
+            'establishments' => LocalSale::all(),
+            'roles' => Role::all()
         ]);
     }
     public function store(Request $request)
@@ -52,14 +50,21 @@ class UserController extends Controller
             'password' => 'required|string'
         ]);
 
-        User::create([
-            'name'          => $request->get('name'),
-            'email'         => $request->get('email'),
+        $user = User::create([
+            'name'          => trim($request->get('name')),
+            'email'         => trim($request->get('email')),
             'password'      => Hash::make($request->get('password')),
             'local_id'      => $request->get('local_id')
         ]);
 
-        return redirect()->route('users.create')
+        $user->assignRole($request->get('role'));
+
+        $token = $user->createToken($request->get('email'))->plainTextToken;
+
+        $user->api_token = $token;
+        $user->save();
+
+        return redirect()->route('users.index')
             ->with('message', __('Usuario creado con éxito'));
     }
 
@@ -72,11 +77,28 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
+        $person = Person::find($user->person_id);
+
+        $identityDocumentTypes = DB::table('identity_document_type')->get();
+
+        $ubigeo = District::join('provinces', 'province_id', 'provinces.id')
+            ->join('departments', 'provinces.department_id', 'departments.id')
+            ->select(
+                'districts.id AS district_id',
+                'districts.name AS district_name',
+                'provinces.name AS province_name',
+                'departments.name AS department_name'
+            )
+            ->get();
+
         return Inertia::render('Users/Edit', [
             'establishments' => LocalSale::all(),
             'xuser' => $user,
-            'xrole' => $user->roles->pluck('name')->first(),
-            'roles' => Role::all()
+            'xrole' => $user->getRoleNames(),
+            'roles' => Role::all(),
+            'person' => $person,
+            'identityDocumentTypes' => $identityDocumentTypes,
+            'ubigeo'       => $ubigeo
         ]);
     }
     public function update(Request $request, User $user)
@@ -96,12 +118,15 @@ class UserController extends Controller
         ]);
 
 
-        $user->name = $request->get('name');
-        $user->email = $request->get('email');
+        $user->syncRoles([]);
+
+        $user->name = trim($request->get('name'));
+        $user->email = trim($request->get('email'));
 
         if ($request->get('password')) {
             $user->password = Hash::make($request->get('password'));
         }
+
         $user->assignRole($request->get('role'));
 
         $user->save();

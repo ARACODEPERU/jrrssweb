@@ -12,7 +12,9 @@ class AcaStudent extends Model
     use HasFactory;
 
     protected $fillable = [
-        'student_code', 'person_id'
+        'student_code',
+        'person_id',
+        'new_student'
     ];
 
     protected static function newFactory()
@@ -23,5 +25,9 @@ class AcaStudent extends Model
     public function person(): HasOne
     {
         return $this->hasOne(Person::class, 'id', 'person_id');
+    }
+    public function registrations()
+    {
+        return $this->hasMany(AcaCapRegistration::class, 'student_id');
     }
 }

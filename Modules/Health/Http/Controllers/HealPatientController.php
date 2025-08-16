@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Modules\Health\Entities\HealPatient;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Modules\Dental\Entities\DentAppointment;
 
 class HealPatientController extends Controller
 {
@@ -36,7 +37,8 @@ class HealPatientController extends Controller
                 'people.address',
                 'people.birthdate',
                 'heal_patients.created_at',
-                'people.image'
+                'people.image',
+                'people.gender'
             );
         if (request()->has('search')) {
             $patients->where('people.full_name', 'Like', '%' . request()->input('search') . '%');
@@ -56,7 +58,7 @@ class HealPatientController extends Controller
 
         $patients = $patients->paginate(10)->onEachSide(2);
 
-        return Inertia::render('Health::Patients/List', [
+        return Inertia::render('Health::Patients/CardList', [
             'patients' => $patients,
             'filters' => request()->all('search')
         ]);
@@ -103,7 +105,8 @@ class HealPatientController extends Controller
                 'number'            => 'required|max:12',
                 'number'            => 'unique:people,number,' . $update_id . ',id,document_type_id,' . $request->get('document_type_id'),
                 'telephone'         => 'required|max:12',
-                'email'             => 'required|max:255',
+                'email'             => 'required|max:255|unique:people,email',
+                'email'             => 'required|max:255|unique:users,email',
                 'address'           => 'required|max:255',
                 'ubigeo'            => 'required|max:255',
                 'birthdate'         => 'required|',
@@ -123,6 +126,7 @@ class HealPatientController extends Controller
             $original_name = str_replace(" ", "_", $original_name);
             $extension = $file->getClientOriginalExtension();
             $file_name = date('YmdHis') . '.' . $extension;
+            //dd($destination);
             $path = $request->file('image')->storeAs(
                 $destination,
                 $file_name,
@@ -146,7 +150,8 @@ class HealPatientController extends Controller
             'birthdate'             => $request->get('birthdate'),
             'names'                 => $request->get('names'),
             'father_lastname'       => $request->get('father_lastname'),
-            'mother_lastname'       => $request->get('mother_lastname')
+            'mother_lastname'       => $request->get('mother_lastname'),
+            'gender'                => $request->get('gender')
         ]);
 
         HealPatient::create([
@@ -281,5 +286,54 @@ class HealPatientController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function patientPanel($id)
+    {
+        $patient = HealPatient::with('person')
+            ->where('id', $id)
+            ->first();
+
+        return Inertia::render('Health::Patients/Panel', [
+            'patient' => $patient
+        ]);
+    }
+
+    public function appointments($id)
+    {
+        ///citas odontologicas 
+        $appointmentsDental = DentAppointment::where('patient_id', $id)->get();
+
+        return response()->json([
+            [
+                'title' => 'Odontología',
+                'icon' => 'dental',
+                'model' => DentAppointment::class,
+                'appointments' => $appointmentsDental
+            ],
+        ]);
+    }
+
+    public function searchPatient(Request $request)
+    {
+        $search = $request->get('search');
+
+        $patients = HealPatient::with('person')
+            ->whereHas('person', function ($query) use ($search) {
+                $query->where('full_name', 'like', '%' . $search . '%')
+                    ->orWhere('number', $search);
+            })
+            ->get();
+
+        if (count($patients) > 0) {
+            return response()->json([
+                'success' => true,
+                'patients' => $patients
+            ]);
+        } else {
+            return response()->json([
+                'success' => false
+            ]);
+        }
     }
 }

@@ -1,5 +1,5 @@
 <script setup>
-    import AppLayout from '@/Layouts/AppLayout.vue';
+    import AppLayout from '@/Layouts/Vristo/AppLayout.vue';
     import DangerButton from '@/Components/PrimaryButton.vue';
     import SecondaryButton from '@/Components/SecondaryButton.vue';
     import SearchClients from './Partials/SearchClients.vue';
@@ -78,6 +78,7 @@
         total: 0,
         total_taxed: 0, //operaciones gravadas
         payments: JSON.parse(props.sale.payments),
+        additional_description: null
     });
 
     const series = ref([]);
@@ -436,6 +437,8 @@
             }
         });
     }
+
+    const asetUrl = assetUrl;
 </script>
 <template>
     <AppLayout title="Punto de Ventas">
@@ -470,7 +473,7 @@
                     <div class="flex justify-between items-center pb-4 border-b border-gray-200 dark:border-gray-700 mb-3">
                         <div class="flex flex-col">
                             <div class="text-3xl font-bold mb-1">
-                                <img style="width: 242px;height: 53.2333px;" class="inline-block h-auto ltr:mr-2 rtl:ml-2" :src="company.logo">
+                                <img style="width: 242px;height: 53.2333px;" class="inline-block h-auto ltr:mr-2 rtl:ml-2" :src="asetUrl+'storage/'+company.logo">
                             </div>
                             <p class="text-sm">Ancash, Chimbote<br>{{ company.fiscal_address }}</p>
                         </div>

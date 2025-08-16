@@ -20,7 +20,6 @@ const props = defineProps({
     }
 });
 
-
 const form = useForm({
     id: null,
     teacher_id: null,
@@ -50,6 +49,8 @@ const createTeacher = () => {
                 title: 'Enhorabuena',
                 text: 'Se registró correctamente',
                 icon: 'success',
+                padding: '2em',
+                customClass: 'sweet-alerts',
             });
             form.reset()
         },
@@ -81,7 +82,7 @@ const loadFile = (event) => {
 
     // Obtén una referencia al elemento de imagen a través de Vue.js
     const imagePreview = document.getElementById('preview_img');
-    
+
     // Crea un objeto de archivo de imagen y asigna la URL al formulario
     const imageFile = URL.createObjectURL(event.target.files[0]);
     form.image_preview = imageFile;
@@ -95,76 +96,44 @@ const loadFile = (event) => {
 
 const createFormSearch = () => {
 
-    const formHTML = document.createElement('form');
+    let formHTML = document.createElement('form');
     formHTML.classList.add('max-w-sm', 'mx-auto');
 
-    const selectLabel = document.createElement('label');
+    let selectLabel = document.createElement('label');
     selectLabel.setAttribute('for', 'identityDocument');
-    selectLabel.classList.add('block', 'mb-2', 'text-sm', 'font-medium', 'text-gray-900', 'dark:text-white');
+    selectLabel.classList.add('text-left','text-sm');
     selectLabel.textContent = 'Tipo de documento de identidad';
 
-    const typeSelect = document.createElement('select');
+    let typeSelect = document.createElement('select');
     typeSelect.id = 'identityDocument';
     typeSelect.classList.add(
-        'mb-2',
-        'bg-gray-50',
-        'border',
-        'border-gray-300',
-        'text-gray-900',
-        'text-sm',
-        'rounded-lg',
-        'focus:ring-blue-500',
-        'focus:border-blue-500',
-        'block',
-        'w-full',
-        'p-2.5',
-        'dark:bg-gray-700',
-        'dark:border-gray-600',
-        'dark:placeholder-gray-400',
-        'dark:text-white',
-        'dark:focus:ring-blue-500',
-        'dark:focus:border-blue-500'
+        'form-select',
+        'text-white-dark',
     );
 
-    const defaultOption = document.createElement('option');
+    let defaultOption = document.createElement('option');
     defaultOption.value = '';
     defaultOption.textContent = 'Seleccionar tipo de documento';
     typeSelect.appendChild(defaultOption);
 
     // Crear opciones dinámicamente
     for (const [key, value] of Object.entries(props.identityDocumentTypes)) {
-        const option = document.createElement('option');
+        let option = document.createElement('option');
         option.value = value.id;
         option.textContent = value.description;
         typeSelect.appendChild(option);
     }
 
-    const dniLabel = document.createElement('label');
+    let dniLabel = document.createElement('label');
     dniLabel.setAttribute('for', 'txtdni');
-    dniLabel.classList.add('block', 'mb-2', 'text-sm', 'font-medium', 'text-gray-900', 'dark:text-white');
+    dniLabel.classList.add('text-left','text-sm','mt-4');
     dniLabel.textContent = 'Número de DNI';
 
-    const dnilInput = document.createElement('input');
+    let dnilInput = document.createElement('input');
     dnilInput.type = 'text';
     dnilInput.id = 'txtdni';
     dnilInput.classList.add(
-        'bg-gray-50',
-        'border',
-        'border-gray-300',
-        'text-gray-900',
-        'text-sm',
-        'rounded-lg',
-        'focus:ring-blue-500',
-        'focus:border-blue-500',
-        'block',
-        'w-full',
-        'p-2.5',
-        'dark:bg-gray-700',
-        'dark:border-gray-600',
-        'dark:placeholder-gray-400',
-        'dark:text-white',
-        'dark:focus:ring-blue-500',
-        'dark:focus:border-blue-500'
+        'form-input'
     );
 
     dnilInput.placeholder = 'Escribir número de identificación';
@@ -176,7 +145,6 @@ const createFormSearch = () => {
     formHTML.appendChild(dnilInput);
 
     return formHTML;
-
 }
 
 onMounted(() => {
@@ -195,6 +163,8 @@ const openSwal2Search = () => {
         allowOutsideClick: false,
         allowEscapeKey: false,
         icon: "question",
+        padding: '2em',
+        customClass: 'sweet-alerts',
         preConfirm: async (login) => {
             let data = {
                 document_type: document.getElementById("identityDocument").value,
@@ -202,6 +172,8 @@ const openSwal2Search = () => {
             }
             return axios.post(route('search_person_number'),data).then((res) => {
                 if (!res.data.status) {
+                    form.document_type_id = data.document_type,
+                    form.number = data.number,
                     Swal2.showValidationMessage(res.data.alert)
                 }
                 return res
@@ -217,8 +189,10 @@ const openSwal2Search = () => {
                 text: `Ya fue registrado con el DNI ` + result.value.data.person.number,
                 imageHeight: 180,
                 imageWidth: 180,
+                padding: '2em',
+                customClass: 'sweet-alerts',
                 customClass: {
-                    image: 'rounded-full',  
+                    image: 'rounded-full',
                 },
             }).then((res) => {
                 if (res.isConfirmed) {
@@ -228,6 +202,7 @@ const openSwal2Search = () => {
         }
     });
 }
+
 const getPersonData = (newValues) => {
     form.id = newValues.id,
     form.teacher_id = newValues.teacher_id,
@@ -236,7 +211,7 @@ const getPersonData = (newValues) => {
     form.telephone = newValues.telephone,
     form.email = newValues.email,
     form.image = null,
-    form.image_preview = newValues.image,
+    form.image_preview = newValues.image ? getImage(newValues.image) : null,
     form.address = newValues.address,
     form.ubigeo = newValues.ubigeo,
     form.birthdate = newValues.birthdate,
@@ -289,7 +264,7 @@ const getPersonData = (newValues) => {
                     v-model="form.birthdate"
                     type="date"
                     class="block w-full mt-1"
-                    
+
                 />
                 <InputError :message="form.errors.birthdate" class="mt-2" />
             </div>
@@ -310,7 +285,7 @@ const getPersonData = (newValues) => {
                     v-model="form.names"
                     type="text"
                     class="block w-full mt-1"
-                    
+
                 />
                 <InputError :message="form.errors.names" class="mt-2" />
             </div>
@@ -321,7 +296,7 @@ const getPersonData = (newValues) => {
                     v-model="form.father_lastname"
                     type="text"
                     class="block w-full mt-1"
-                    
+
                 />
                 <InputError :message="form.errors.father_lastname" class="mt-2" />
             </div>
@@ -332,7 +307,7 @@ const getPersonData = (newValues) => {
                     v-model="form.mother_lastname"
                     type="text"
                     class="block w-full mt-1"
-                    
+
                 />
                 <InputError :message="form.errors.mother_lastname" class="mt-2" />
             </div>
@@ -343,18 +318,18 @@ const getPersonData = (newValues) => {
                     v-model="form.address"
                     type="text"
                     class="block w-full mt-1"
-                    
+
                 />
                 <InputError :message="form.errors.address" class="mt-2" />
             </div>
             <div class="col-span-6 sm:col-span-6 ">
                 <InputLabel for="ubigeo" value="Ciudad *" />
                 <div class="relative">
-                    <TextInput 
-                    v-model="form.ubigeo_description" 
+                    <TextInput
+                    v-model="form.ubigeo_description"
                     @input="filterCities"
                     placeholder="Buscar Distrito"
-                    type="text" 
+                    type="text"
                     class="block w-full mt-1" />
                     <ul v-if="searchUbigeos && searchUbigeos.length > 0" style="max-height: 200px; overflow-y: auto;" class="list-disc list-inside absolute z-50 w-full bg-white border border-gray-300 rounded-md mt-1">
                         <li v-for="item in searchUbigeos" :key="item.id" class="px-4 cursor-pointer hover:bg-gray-100" @click="selectCity(item)">
@@ -371,7 +346,7 @@ const getPersonData = (newValues) => {
                     v-model="form.telephone"
                     type="text"
                     class="block w-full mt-1"
-                    
+
                 />
                 <InputError :message="form.errors.telephone" class="mt-2" />
             </div>
@@ -382,7 +357,7 @@ const getPersonData = (newValues) => {
                     v-model="form.email"
                     type="text"
                     class="block w-full mt-1"
-                    
+
                 />
                 <InputError :message="form.errors.email" class="mt-2" />
             </div>
@@ -391,7 +366,7 @@ const getPersonData = (newValues) => {
                 <textarea
                     id="presentacion"
                     v-model="form.presentacion"
-                    rows="4" 
+                    rows="4"
                     class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
                 </textarea>
@@ -400,7 +375,7 @@ const getPersonData = (newValues) => {
         </template>
 
         <template #actions>
-            
+
             <Keypad>
                 <template #botones>
                     <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">

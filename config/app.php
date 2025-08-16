@@ -82,7 +82,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'es',
 
     /*
     |--------------------------------------------------------------------------
@@ -95,7 +95,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'es',
 
     /*
     |--------------------------------------------------------------------------
@@ -188,17 +188,17 @@ return [
          */
         Spatie\Permission\PermissionServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
-        Laraveles\Spanish\SpanishServiceProvider::class,
 
         /*
          * Application Service Providers...
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
+        //App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        Biscolab\ReCaptcha\ReCaptchaServiceProvider::class,
+        Yajra\DataTables\DataTablesServiceProvider::class,
+        App\Providers\CustomBroadcastServiceProvider::class,
     ],
 
     /*
@@ -215,7 +215,6 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'Image' => Intervention\Image\Facades\Image::class,
-        'ReCaptcha' => Biscolab\ReCaptcha\Facades\ReCaptcha::class,
     ])->toArray(),
 
 ];

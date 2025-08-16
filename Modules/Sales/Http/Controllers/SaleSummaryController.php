@@ -9,6 +9,7 @@ use Exception;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Modules\Sales\Entities\SaleSummary;
@@ -23,8 +24,9 @@ class SaleSummaryController extends Controller
     public function index()
     {
         $summaries = (new SaleSummary())->newQuery();
-        if (request()->has('search')) {
-            $summaries->whereDate('summary_date', '=', '%' . request()->input('search') . '%');
+
+        if (request()->has('search') && request()->get('search')) {
+            $summaries->whereDate('summary_date', '=', request()->input('search'));
         }
         if (request()->query('sort')) {
             $attribute = request()->query('sort');
@@ -37,6 +39,8 @@ class SaleSummaryController extends Controller
         } else {
             $summaries->latest();
         }
+
+        $summaries = $summaries->with('details.document');
 
         $summaries = $summaries->paginate(10)->onEachSide(2);
 
@@ -55,40 +59,49 @@ class SaleSummaryController extends Controller
     {
         $documents = $request->get('documents');
         $generation_date = $request->get('generation_date');
-        $result = array();
 
-        $summary = SaleSummary::create([
-            'generation_date'   => $generation_date . ' ' . Carbon::now()->format('H:i:s'),
-            'summary_date'      => Carbon::now()->format('Y-m-d H:i:s'),
-            'status'            => 'registrado'
-        ]);
+        try {
+            $res = DB::transaction(function () use ($documents, $generation_date) {
 
-        foreach ($documents as $document) {
-            SaleSummaryDetail::create([
-                'document_id'               => $document['id'],
-                'summary_id'                => $summary->id,
-                'model_name'                => SaleDocument::class,
-                'invoice_type_doc'          => $document['invoice_type_doc'],
-                'invoice_serie'             => $document['invoice_serie'],
-                'invoice_document_name'     => $document['invoice_serie'] . '-' . $document['number'],
-                'invoice_correlative'       => $document['invoice_correlative'],
-                'status'                    => $document['status'],
-                'total'                     => $document['invoice_mto_imp_sale']
-            ]);
-            SaleDocument::where('id', $document['id'])
-                ->update(['invoice_status' => 'Enviada']);
+                $summary = SaleSummary::create([
+                    'generation_date'   => $generation_date . ' ' . Carbon::now()->format('H:i:s'),
+                    'summary_date'      => Carbon::now()->format('Y-m-d H:i:s'),
+                    'status'            => 'registrado',
+                    'user_id'           => Auth::id()
+                ]);
+
+                foreach ($documents as $document) {
+                    SaleSummaryDetail::create([
+                        'document_id'               => $document['id'],
+                        'summary_id'                => $summary->id,
+                        'model_name'                => SaleDocument::class,
+                        'invoice_type_doc'          => $document['invoice_type_doc'],
+                        'invoice_serie'             => $document['invoice_serie'],
+                        'invoice_document_name'     => $document['invoice_serie'] . '-' . $document['number'],
+                        'invoice_correlative'       => $document['invoice_correlative'],
+                        'status'                    => $document['status'],
+                        'total'                     => $document['invoice_mto_imp_sale']
+                    ]);
+
+                    SaleDocument::where('id', $document['id'])
+                        ->update(['invoice_status' => 'Enviada']);
+                }
+
+                $factura = new Resumen();
+                $result = $factura->create($summary, $documents);
+
+                return [
+                    'success' => $result['success'],
+                    'code'  => $result['code'],
+                    'message'   => $result['message'],
+                    'notes'   => $result['notes']
+                ];
+            });
+
+            return response()->json($res);
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()]);
         }
-
-        $factura = new Resumen();
-        $result = $factura->create($summary, $documents);
-
-
-        return response()->json([
-            'success' => $result['success'],
-            'code'  => $result['code'],
-            'message'   => $result['message'],
-            'notes'   => $result['notes']
-        ]);
     }
 
     /**
@@ -104,7 +117,8 @@ class SaleSummaryController extends Controller
             DB::raw('(SELECT description FROM sale_document_types WHERE sunat_id=invoice_type_doc) AS type_description')
         )
             ->whereDate('invoice_broadcast_date', $date)
-            ->whereIn('invoice_type_doc', ['03', '07'])
+            //->whereIn('invoice_type_doc', ['03', '07'])
+            ->whereIn('invoice_type_doc', ['03'])
             ->where('invoice_status', 'Pendiente')
             ->get();
 
@@ -142,7 +156,7 @@ class SaleSummaryController extends Controller
     {
         try {
             $summary = SaleSummary::find($id);
-            $documents = SaleDocument::join('sale_summary_details', 'document_id', 'sale_documents.id')
+            $documents = SaleDocument::join('sale_summary_details', 'sale_summary_details.document_id', 'sale_documents.id')
                 ->select('sale_documents.*')
                 ->where('summary_id', $summary->id)
                 ->get();
@@ -164,5 +178,19 @@ class SaleSummaryController extends Controller
         } catch (Exception $e) {
             var_dump($e);
         }
+    }
+
+    public function downloadFile($id,$type){
+        $sum = SaleSummary::find($id);
+        if ($type == 'XML'){
+            $content_type =  'application/xml';
+            $fileName = $sum->summary_name. '.xml';
+            return response()->download($sum->xml, $fileName, ['content-type' => $content_type]);
+        }else{
+            $content_type =  'application/zip';
+            $fileName = $sum->summary_name. '.zip';
+            return response()->download($sum->cdr, $fileName, ['content-type' => $content_type]);
+        }
+
     }
 }

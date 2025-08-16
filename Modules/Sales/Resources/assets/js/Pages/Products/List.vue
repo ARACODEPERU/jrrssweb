@@ -1,9 +1,9 @@
 <script setup>
-    import AppLayout from '@/Layouts/AppLayout.vue';
+    import AppLayout from '@/Layouts/Vristo/AppLayout.vue';
     import { useForm, router, Link } from '@inertiajs/vue3';
     import { faGears, faPlus } from "@fortawesome/free-solid-svg-icons";
     import Pagination from '@/Components/Pagination.vue';
-    import DialogModal from '@/Components/DialogModal.vue';
+    import DialogModal from '@/Components/ModalLarge.vue';
     import SecondaryButton from '@/Components/SecondaryButton.vue';
     import DangerButton from '@/Components/DangerButton.vue';
     import InputError from '@/Components/InputError.vue';
@@ -13,6 +13,7 @@
     import swal from 'sweetalert';
     import Keypad from '@/Components/Keypad.vue';
     import ModalLarge from '@/Components/ModalLarge.vue';
+    import ModalLargeX from '@/Components/ModalLargeX.vue';
     import ModalSmall from '@/Components/ModalSmall.vue';
     import VueMagnifier from '@websitebeaver/vue-magnifier'
     import '@websitebeaver/vue-magnifier/styles.css'
@@ -21,6 +22,8 @@
     import { 
       ConfigProvider, Dropdown, Menu, MenuItem, Button, Select, Image
     } from 'ant-design-vue';
+    import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+    import Navigation from '@/Components/vristo/layout/Navigation.vue';
 
     const props = defineProps({
         products: {
@@ -64,7 +67,6 @@
         presentations: null
     });
 
-    const formDelete = useForm({});
     const openModalDetilsProduct = ref(false);
     const openModalEntrada = ref(false);
     const openModalTraslado = ref(false);
@@ -92,11 +94,62 @@
         openModalDetilsProduct.value = true;
     }
 
-    function destroy(id) {
-        if (confirm("¿Estás seguro de que quieres eliminar?")) {
-            formDelete.delete(route('products.destroy', id));
-        }
+    const formInput = useForm({
+        type: 1,
+        motion: 'purchase',
+        product_id: '',
+        presentations: false,
+        stock: null,
+        local_id: 1,
+        local_id_destino:1,
+        local_id_origen:1,
+        quantity: null,
+        description: '',
+        sizes: [{
+            size:'',
+            quantity: ''
+        }],
+    });
 
+    function destroy(id) {
+        Swal2.fire({
+            title: '¿Estas seguro?',
+            text: "¡No podrás revertir esto!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '¡Sí, Eliminar!',
+            cancelButtonText: 'Cancelar',
+            showLoaderOnConfirm: true,
+            padding: '2em',
+            customClass: 'sweet-alerts',
+            preConfirm: () => {
+                return axios.delete(route('products.destroy', id)).then((res) => {
+                    if (!res.data.success) {
+                        Swal2.showValidationMessage(res.data.message)
+                    }
+                    return res
+                });
+            },
+            allowOutsideClick: () => !Swal2.isLoading()
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal2.fire({
+                    title: 'Enhorabuena',
+                    text: 'Se Eliminó correctamente',
+                    icon: 'success',
+                    padding: '2em',
+                    customClass: 'sweet-alerts',
+                });
+                router.visit(route('products.index'), { 
+                  replace: false,
+                  preserveState: true,
+                  preserveScroll: true,
+                  method: 'get' 
+                });
+            }
+        });
     }
     const closeModalDetailsProduct = () => {
       openModalDetilsProduct.value = false;
@@ -116,22 +169,7 @@
       openModalEntrada.value = true;
     }
 
-    const formInput = useForm({
-        type: 1,
-        motion: 'purchase',
-        product_id: '',
-        presentations: false,
-        stock: null,
-        local_id: 1,
-        local_id_destino:1,
-        local_id_origen:1,
-        quantity: null,
-        description: '',
-        sizes: [{
-            size:'',
-            quantity: ''
-        }],
-    });
+    
 
     const dataProducts= useForm({
       products: [],
@@ -163,11 +201,17 @@
     }
 
     const selectProducts = (product) => {
-      formInput.product_id = product.id;
-      formInput.presentations = product.presentations == 1 ? true : false ;
-      formInput.stock = product.stock;
-      dataProducts.search = product.interne+ ' - '+ product.description;
-      document.getElementById('resultSearch').style.display = 'none';
+        formInput.product_id = product.id;
+        formInput.presentations = product.presentations == 1 ? true : false ;
+        formInput.stock = product.stock;
+        dataProducts.search = product.interne+ ' - '+ product.description;
+
+        if(formInput.presentations){
+          formInput.sizes = JSON.parse(product.sizes);
+          console.log(formInput.sizes)
+        }
+
+        document.getElementById('resultSearch').style.display = 'none';
     }
 
     const addSize = () => {
@@ -233,7 +277,7 @@
           errorBag: 'saveProductPrices',
           preserveScroll: true,
           onSuccess: () => {
-            swal('Precios registrados correctamente');
+            showMessage('Precios registrados correctamente');
           },
       });
     }
@@ -278,7 +322,7 @@
           errorBag: 'saveRelocate',
           preserveScroll: true,
           onSuccess: () => {
-            swal('Traslado registrados correctamente');
+            showMessage('Traslado registrados correctamente');
             formReLocate.reset();
             openModalTraslado.value = false;
           },
@@ -306,7 +350,9 @@
           imageHeight: 120,
           imageAlt: 'Cargando',
           showConfirmButton: false,
-          allowOutsideClick: false
+          allowOutsideClick: false,
+          padding: '2em',
+          customClass: 'sweet-alerts',
         });
 
         displayModalImport.value = false;
@@ -333,60 +379,37 @@
       }
     }
 
-    const getProductsServices = (val) => {
-      form.displayProduct = val;
-      form.get(route('products.index'));
-    }
+    const showMessage = (msg = '', type = 'success') => {
+      const toast = Swal2.mixin({
+          toast: true,
+          position: 'top',
+          showConfirmButton: false,
+          timer: 3000,
+          customClass: { container: 'toast' },
+      });
+      toast.fire({
+          icon: type,
+          title: msg,
+          padding: '10px 20px',
+      });
+  };
 </script>
 <template>
     <AppLayout title="Productos">
       <ConfigProvider :locale="esES">
-        <div class="max-w-screen-2xl  mx-auto p-4 md:p-6 2xl:p-10">
-          <!-- Breadcrumb Start -->
-          <nav class="flex px-4 py-3 border border-stroke text-gray-700 mb-4 bg-gray-50 dark:bg-gray-800 dark:border-gray-700" aria-label="Breadcrumb">
-            <ol class="inline-flex items-center space-x-1 md:space-x-3">
-              <li class="inline-flex items-center">
-                <Link :href="route('dashboard')" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
-                  <svg aria-hidden="true" class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
-                  Inicio
-                </Link>
-              </li>
-              <li>
-                <div class="flex items-center">
-                  <svg aria-hidden="true" class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                  <!-- <a href="#" class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">Productos</a> -->
-                  <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Ventas</span>
-                </div>
-              </li>
-              <li aria-current="page">
-                <div class="flex items-center">
-                  <svg aria-hidden="true" class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                  <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Productos & servicios</span>
-                </div>
-              </li>
-            </ol>
-          </nav>
+        <Navigation :routeModule="route('sales_dashboard')" :titleModule="'Ventas'">
+            <li class="before:content-['/'] ltr:before:mr-2 rtl:before:ml-2">
+                <span>Productos</span>
+            </li>
+        </Navigation>
+        <div class="mt-5">
           <!-- Breadcrumb End -->
 
           <!-- ====== Table Section Start -->
           <div class="flex flex-col gap-10">
             <!-- ====== Table One Start -->
-            <div class="rounded-sm border border-stroke bg-white pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark">
-              <div class="border-b border-gray-200 dark:border-gray-700">
-                <ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
-                  <li class="mr-2">
-                      <a @click="getProductsServices(true)" href="#" :class="[form.displayProduct ? 'border-b-2 text-blue-600' : 'border-transparent']" class="inline-flex p-4 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group">
-                        <img src="/img/24px/orden.png" class="mr-1" />Productos
-                      </a>
-                  </li>
-                  <li class="mr-2">
-                      <a @click="getProductsServices(false)" href="#" :class="[!form.displayProduct ? 'border-b-2 text-blue-600' : 'border-transparent']" class="inline-flex p-4  rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group" aria-current="page">
-                        <img src="/img/24px/public-service.png" class="mr-1" />Servicios
-                      </a>
-                  </li>
-                </ul>
-              </div>
-              <div class="w-full p-4 border-b border-gray-200 bg-gray-50 rounded-t-xl dark:border-gray-600 dark:bg-gray-700">
+            <div class="panel p-0">
+              <div class="w-full p-4 ">
                 <div class="grid grid-cols-3">
                   <div class="col-span-3 sm:col-span-1">
                     <form @submit.prevent="form.get(route('products.index'))">
@@ -402,54 +425,47 @@
                   <div class="col-span-3 sm:col-span-2">
                     <Keypad>
                       <template #botones>
-                        <template v-if="form.displayProduct" >
                           <button v-can="'productos_salida'" @click="openModalEntradaSalida(0)" type="button" class="mr-1 inline-block px-6 py-2.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out">Salidas</button>
                           <button v-can="'productos_entrada'" @click="openModalEntradaSalida(1)" type="button" class="mr-1 inline-block px-6 py-2.5 bg-blue-700 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-800 hover:shadow-lg  focus:bg-green-600 focus:shadow-lg focus:outline-none  focus:ring-0 focus:ring-blue-300 active:shadow-lg dark:bg-blue-600 dark:hover:bg-blue-700 transition duration-150 ease-in-out">Entradas</button>
-                          <button v-can="'productos_entrada'" @click="openModalImport()" type="button" class="mr-1 inline-block px-6 py-2.5 bg-green-700 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-800 hover:shadow-lg focus:ring-green-300  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 transition duration-150 ease-in-out" >Importar</button>
+                          <button v-can="'sale_productos_importar'" @click="openModalImport()" type="button" class="mr-1 inline-block px-6 py-2.5 bg-green-700 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-800 hover:shadow-lg focus:ring-green-300  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 transition duration-150 ease-in-out" >Importar</button>
                           <Link v-can="'productos_nuevo'" :href="route('products.create')" class="flex items-center justify-center inline-block px-6 py-2.5 bg-blue-900 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
                             Nuevo
                           </Link>
-                        </template>
-                        <template v-else >
-                          <Link v-can="'productos_nuevo'" :href="route('create_service')" class="flex items-center justify-center inline-block px-6 py-2.5 bg-blue-900 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
-                            Nuevo 
-                          </Link>
-                        </template>
                       </template>
                     </Keypad>
                   </div>
                 </div>
               </div>
-              <div class="max-w-full overflow-x-auto">
-                <table class="w-full table-auto">
-                  <thead class="border-b border-stroke">
-                    <tr class="bg-gray-50 text-left dark:bg-meta-4">
-                      <th class="w-20 py-2 px-2 text-sm font-medium text-black dark:text-white xl:pl-11">
+              <div class="table-responsive">
+                <table class="w-full table-hover">
+                  <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                      <th class="text-center">
                           Acción
                       </th>
-                      <th v-if="form.displayProduct" class="py-2 px-2 text-sm font-medium text-black dark:text-white">
+                      <th v-if="form.displayProduct" class="text-center">
                           Imagen
                       </th>
-                      <th class="py-2 px-2 text-sm font-medium text-black dark:text-white">
+                      <th class="">
                           Código
                       </th>
-                      <th class="py-2 px-2 text-sm font-medium text-black dark:text-white">
+                      <th class="">
                           Descripción
                       </th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr v-for="(product, index) in products.data" :key="product.id" >
-                        <td class="text-center text-sm border-b border-stroke py-2 px-2 dark:border-strokedark">
+                        <td class="text-center">
                           
                             <Dropdown :placement="'bottomLeft'" arrow>
-                                <button class="border py-1.5 px-2 dropdown-button inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm" type="button" @click="toggle">
+                                <button class="btn btn-outline-info dropdown-toggle inline-flex px-2 py-2" type="button" @click="toggle">
                                     <font-awesome-icon :icon="faGears" />
                                 </button>
                               <template #overlay>
-                                <Menu>
+                                <Menu >
                                   <MenuItem>
-                                    <Link v-permission="'productos_editar'" :href="route('products.edit',product.id)" class="text-left block px-4 py-2 text-sm text-blue-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white" >
+                                    <Link v-permission="'productos_editar'" :href="route('products.edit',product.id)" class="text-left block px-4 py-2 text-sm text-blue-700 hover:bg-gray-100" >
                                       Editar
                                     </Link>
                                   </MenuItem>
@@ -459,9 +475,9 @@
                                     </Button>
                                   </MenuItem>
                                   <MenuItem>
-                                    <Button type="Link">
-                                        Imprimir Tiket
-                                    </Button>
+                                    <a :href="route('product_print_barcode',product.id)" target="_blank" class="text-left block px-4 py-2 text-sm text-blue-700 hover:bg-gray-100">
+                                      Imprimir codigo
+                                    </a>
                                   </MenuItem>
                                   <MenuItem>
                                     <Button @click="openModalPrices(product)" type="Link" >
@@ -483,58 +499,52 @@
                             </Dropdown>
                           
                         </td>
-                        <td v-if="form.displayProduct" class="w-32 border-b border-stroke py-4 px-4 dark:border-strokedark">
+                        <td v-if="form.displayProduct" class="text-center">
                           <Image
                             :src="product.image"
+                            style="width: 54px;height: 54px;"
                             />
                         </td>
-                        <td class="text-sm border-b border-stroke py-2 px-2 dark:border-strokedark">
+                        <td class="text-center ">
                             {{ product.interne }}
                         </td>
-                        <td class="text-sm border-b border-stroke py-2 px-2 dark:border-strokedark">
+                        <td class="text-sm ">
                             {{ product.description }}
                         </td>
                     </tr>
                   </tbody>
-                  <tfoot>
-                    <tr>
-                      <td colspan="5" class="py-4 px-4 dark:border-strokedark">
-                        <Pagination :data="products" />
-                      </td>
-                    </tr>
-                  </tfoot>
                 </table>
                 
               </div>
-              
+              <Pagination :data="products" />
             </div>
            </div>
         </div>
-        <ModalLarge :show="openModalDetilsProduct"  @close="closeModalDetailsProduct">
+        <ModalLargeX :show="openModalDetilsProduct"  @close="closeModalDetailsProduct">
             <template #title>
               {{ formDetails.interne }} - {{ formDetails.description }}
             </template>
 
             <template #content>
-              <table class="border" style="width: 100%;">
-                    <thead class="bg-white border-b">
-                      <tr class="text-xs text-white bg-blue-700 border-b dark:text-white dark:bg-gray-800">
-                        <th v-if="formDetails.presentations" class="text-lg font-medium  px-6 py-4 text-left italic hover:not-italic dark:text-white dark:bg-gray-800">
-                          Tallas
+              <table style="width: 100%;">
+                    <thead class="">
+                      <tr class="">
+                        <th v-if="formDetails.presentations" class="border-primary/20 bg-primary/20">
+                          Presentación
                         </th>
-                        <th :colspan="formDetails.presentations ? 0 : 2" class="text-lg font-medium  px-6 py-4 text-left italic hover:not-italic dark:text-white dark:bg-gray-800">
+                        <th :colspan="formDetails.presentations ? 0 : 2" class="border-primary/20 bg-primary/20">
                           Cantidad
                         </th>
-                        <th v-if="formDetails.sale_prices.high" class="text-lg font-medium  px-6 py-4 text-left italic hover:not-italic dark:text-white dark:bg-gray-800">
+                        <th v-if="formDetails.sale_prices.high" class="border-primary/20 bg-primary/20">
                           Precio V. Normal
                         </th>
-                        <th v-if="formDetails.sale_prices.medium" class="text-lg font-medium  px-6 py-4 text-left italic hover:not-italic dark:text-white dark:bg-gray-800">
+                        <th v-if="formDetails.sale_prices.medium" class="border-primary/20 bg-primary/20">
                           Precio V. Medio
                         </th>
-                        <th v-if="formDetails.sale_prices.under" class="text-lg font-medium  px-6 py-4 text-left italic hover:not-italic dark:text-white dark:bg-gray-800">
+                        <th v-if="formDetails.sale_prices.under" class="border-primary/20 bg-primary/20">
                           Precio V. Minimo
                         </th>
-                        <th class="text-lg font-medium  px-6 py-4 text-left italic hover:not-italic dark:text-white dark:bg-gray-800">
+                        <th class="border-primary/20 bg-primary/20">
                           Precio de Compra
                         </th>
                       </tr>
@@ -622,13 +632,7 @@
                     </tbody>
                   </table>
             </template>
-
-            <template #footer>
-                <SecondaryButton @click="closeModalDetailsProduct">
-                    Cancel
-                </SecondaryButton>
-            </template>
-        </ModalLarge>
+        </ModalLargeX>
 
         <DialogModal
           :show="openModalEntrada"
@@ -670,7 +674,7 @@
                 <div class="grid grid-cols-2 gap-4">
                   <div class="col-span-2 sm:col-span-1">
                     <InputLabel for="stablishment" value="Establecimiento" />
-                    <select v-model="formInput.local_id" id="stablishment" class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <select v-model="formInput.local_id" id="stablishment" class="form-select">
                       <template v-for="(establishment, index) in props.establishments" :key="index">
                           <option :value="establishment.id">{{ establishment.description }}</option>
                       </template>
@@ -683,8 +687,7 @@
                         id="description"
                         v-model="formInput.description"
                         type="text"
-                        class="block w-full mt-1"
-                        autofocus
+                       
                     />
                     <InputError :message="formInput.errors.description" class="mt-2" />
                   </div>
@@ -703,8 +706,6 @@
                                             <TextInput
                                                 v-model="item.size"
                                                 type="text"
-                                                class="block w-full mt-1"
-                                                autofocus
                                             />
                                             <InputError :message="formInput.errors[`sizes.${index}.size`]" class="mt-2" />
                                         </div>
@@ -715,7 +716,6 @@
                                             <TextInput
                                                 v-model="item.quantity"
                                                 type="number"
-                                                class="block w-full mt-1"
                                                 autofocus
                                             />
                                             <InputError :message="formInput.errors[`sizes.${index}.quantity`]" class="mt-2" />
@@ -738,7 +738,6 @@
                           id="stock"
                           v-model="formInput.stock"
                           type="number"
-                          class="block w-full mt-1"
                           disabled
                       />
                       <InputError :message="formInput.errors.stock" class="mt-2" />
@@ -749,7 +748,6 @@
                           id="quantity"
                           v-model="formInput.quantity"
                           type="number"
-                          class="block w-full mt-1"
                       />
                       <InputError :message="formInput.errors.quantity" class="mt-2" />
                     </div>
@@ -757,11 +755,7 @@
                 </div>
             </template>
 
-            <template #footer>
-                <SecondaryButton @click="closeModalEntradaSalida">
-                    Cancel
-                </SecondaryButton>
-
+            <template #buttons>
                 <DangerButton
                     class="ml-3"
                     :class="{ 'opacity-25': formInput.processing }"
@@ -883,7 +877,7 @@
                 </div>
             </template>
 
-            <template #footer>
+            <template #buttons>
                 <DangerButton
                     :class="{ 'opacity-25': formReLocate.processing }"
                     :disabled="formReLocate.processing"
@@ -895,9 +889,6 @@
                   </svg>
                   Guardar
                 </DangerButton>
-                <SecondaryButton class="ml-3" @click="closeModalTrasladoMercaderia()">
-                    Cancel
-                </SecondaryButton>
             </template>
         </DialogModal>
         <ModalLarge

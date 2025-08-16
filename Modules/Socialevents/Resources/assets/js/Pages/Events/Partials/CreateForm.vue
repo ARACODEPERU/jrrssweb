@@ -180,7 +180,7 @@ watch(() => form.just_transmit, (data) => {
                     <Select
                         id="exhibitors"
                         v-model:value="form.exhibitors"
-                        :options="instructors.map((obj) => ({value: obj.person.id,label:obj.person.names+' '+obj.person.father_lastname}))"
+                        :options="instructors.map((obj) => ({value: obj.person.id,label:obj.person.full_name}))"
                         style="width: 100%;"
                         mode="multiple"
                     />

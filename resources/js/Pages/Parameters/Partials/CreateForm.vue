@@ -1,35 +1,48 @@
 <script setup>
-import { useForm, Link } from '@inertiajs/vue3';
-import FormSection from '@/Components/FormSection.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
-import Keypad from '@/Components/Keypad.vue';
-import Swal2 from 'sweetalert2';
+    import { useForm, Link } from '@inertiajs/vue3';
+    import FormSection from '@/Components/FormSection.vue';
+    import InputError from '@/Components/InputError.vue';
+    import InputLabel from '@/Components/InputLabel.vue';
+    import PrimaryButton from '@/Components/PrimaryButton.vue';
+    import TextInput from '@/Components/TextInput.vue';
+    import Keypad from '@/Components/Keypad.vue';
+    import Swal2 from 'sweetalert2';
+    import { watch } from 'vue';
 
-const form = useForm({
-    parameter_code: null,
-    description: null,
-    control_type: null,
-    json_query_data: null,
-    value_default: null
-});
-
-const createParameter = () => {
-    form.post(route('parameters_store'), {
-        errorBag: 'createParameter',
-        preserveScroll: true,
-        onSuccess: () => {
-            Swal2.fire({
-                title: 'Enhorabuena',
-                text: 'Se registró correctamente',
-                icon: 'success',
-            });
-            form.reset()
-        },
+    const form = useForm({
+        parameter_code: null,
+        description: null,
+        control_type: null,
+        json_query_data: null,
+        value_default: null
     });
-}
+
+    const createParameter = () => {
+        form.post(route('parameters_store'), {
+            errorBag: 'createParameter',
+            preserveScroll: true,
+            onSuccess: () => {
+                Swal2.fire({
+                    title: 'Enhorabuena',
+                    text: 'Se registró correctamente',
+                    icon: 'success',
+                });
+                form.reset()
+            },
+        });
+    }
+
+    watch(() => form.control_type, (newValue) => {
+        // Cuando 'control_type' es 'chx' (checkbox),
+        // queremos que 'value_default' sea true.
+        if (newValue === 'chx') {
+            form.value_default = true;
+        } else {
+            // En cualquier otro caso (si no es 'chx'),
+            // queremos que 'value_default' sea false.
+            form.value_default = null;
+        }
+    }, { immediate: true }); // 'immediate: true' para que se ejecute la primera vez al cargar el componente
 </script>
 
 <template>
@@ -62,45 +75,61 @@ const createParameter = () => {
                     class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
                     <option value="in">Texto</option>
-                    <option value="ra">Elegir una opción</option>
+                    <option value="chx">Checkbox Switch</option>
                     <option value="sq">Lista (consulta a una tabla de la BD)</option>
                     <option value="sa">Lista (desde un arreglo json)</option>
-                    <option value="ch">Elegir varias opciones</option>
+                    <option value="rdq">Elegir una opciones (consulta a una tabla de la BD)</option>
+                    <option value="rdj">Elegir una opciones (desde un arreglo json)</option>
+                    <option value="chq">Elegir varias opciones (consulta a una tabla de la BD)</option>
+                    <option value="chj">Elegir varias opciones (desde un arreglo json)</option>
                     <option value="tx">Texto amplio</option>
-                    <option value="rg">Rango entre dos valores</option>
+                    <option value="rgq">Rango entre dos valores(consulta a una tabla de la BD)</option>
+                    <option value="rgj">Rango entre dos valores(desde un arreglo json)</option>
                     <option value="fl">Archivo</option>
                 </select>
                 <InputError :message="form.errors.control_type" class="mt-2" />
             </div>
-            <div class="col-span-6 sm:col-span-2 ">
+            <div v-if="form.control_type == 'tx'" class="col-span-6">
+                <InputLabel for="value_default" value="Valor *" />
+                <textarea
+                    class="mt-1 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    id="value_default"
+                    v-model="form.value_default"
+                ></textarea>
+                <InputError :message="form.errors.value_default" class="mt-2" />
+            </div>
+            <div v-else class="col-span-6 sm:col-span-2 ">
                 <InputLabel for="value_default" value="Valor *" />
                 <TextInput
                     id="value_default"
                     v-model="form.value_default"
                     type="text"
                     class="block w-full mt-1"
-                    
+
                 />
                 <InputError :message="form.errors.value_default" class="mt-2" />
             </div>
             <div class="col-span-6 ">
                 <InputLabel for="description" value="Descripción *" />
                 <textarea
-                    class="mt-1 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    class="form-textarea"
                     id="description"
                     v-model="form.description"
                 ></textarea>
                 <InputError :message="form.errors.description" class="mt-2" />
             </div>
-            <div class="col-span-6 " v-show="form.control_type == 'sq' || form.control_type == 'sa'">
+            <div class="col-span-6 " v-show="form.control_type == 'sq' || form.control_type == 'sa' ||  form.control_type == 'chq' || form.control_type == 'chj' || form.control_type == 'rgq' || form.control_type == 'rgj' || form.control_type == 'rdq' || form.control_type == 'rdj'">
                 <InputLabel for="json_query_data" value="Contenido de la lista *" />
                 <textarea
                     rows="10"
-                    class="mt-1 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    class="form-textarea"
                     id="json_query_data"
                     v-model="form.json_query_data"
                 ></textarea>
                 <InputError :message="form.errors.json_query_data" class="mt-2" />
+                <code>[{"value": "1","label":"ejemplo"},{"value": "2","label":"ejemplo"}]</code><br>
+                <code>Cuando el id es String: SELECT id, description FROM tutabla</code><br />
+                <code>Cuando el id es Integer: SELECT CAST(id AS CHAR) AS id, description FROM tutabla</code>
             </div>
 
         </template>

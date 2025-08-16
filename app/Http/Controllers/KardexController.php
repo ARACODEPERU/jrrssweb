@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kardex;
 use App\Models\KardexSize;
 use App\Models\LocalSale;
+use App\Models\Product;
 use App\Models\SaleProduct;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -99,14 +100,19 @@ class KardexController extends Controller
             ->sum('quantity');
 
         $stock_sales = SaleProduct::join('sales', 'sale_id', 'sales.id')
+            ->join('products', 'sale_products.product_id', 'products.id')
             ->whereDate('sale_products.created_at', $current_date)
             ->where('sales.local_id', $local_id)
+            ->where('sales.status', true)
+            ->where('products.is_product', true)
             ->sum('quantity');
 
         $stock_input = Kardex::whereDate('created_at', '=', $current_date)
             ->where('motion', '=', 'purchase')
             ->where('local_id', $local_id)
             ->sum('quantity');
+
+        $total = Product::where('is_product', true)->sum('stock');
 
         $stock_today = Kardex::where('local_id', $local_id)->sum('quantity');
 
@@ -115,7 +121,8 @@ class KardexController extends Controller
             'stock_sales' => (int) $stock_sales,
             'stock_today' => (int) $stock_today,
             'stock_input' => (int) $stock_input,
-            'local' => $local
+            'local' => $local,
+            'total' => $total
         ]);
     }
 }

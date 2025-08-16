@@ -17,6 +17,10 @@ use Modules\Academic\Entities\AcaTeacher;
 use Modules\Academic\Entities\AcaTeacherCourse;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
+use Modules\Academic\Entities\AcaCapRegistration;
+use Modules\Academic\Entities\AcaStudent;
 
 class AcaCourseController extends Controller
 {
@@ -26,14 +30,15 @@ class AcaCourseController extends Controller
      * @return Renderable
      */
     protected $P000010; ///token Tiny
+    protected $P000018;
 
     protected $RPTABLE;
 
     public function __construct()
     {
         $this->RPTABLE = env('RECORDS_PAGE_TABLE') ?? 10;
-        //$this->P000010  = Parameter::where('parameter_code', 'P000010')->value('value_default');
-        $this->P000010  = env('TINY_API_KEY');
+        $this->P000010  = Parameter::where('parameter_code', 'P000010')->value('value_default');
+        $this->P000018  = Parameter::where('parameter_code', 'P000018')->value('value_default');
     }
 
     public function index()
@@ -45,7 +50,6 @@ class AcaCourseController extends Controller
         $courses->orderBy('id', 'DESC');
         $courses->with('category');
         $courses->with('modality');
-        $courses->with('modules');
         $courses = $courses->paginate($this->RPTABLE)->onEachSide(2);
 
         $institutions = AcaInstitution::where('status', true)->get();
@@ -64,10 +68,15 @@ class AcaCourseController extends Controller
     {
         $categories = AcaCategoryCourse::all();
         $modalities = AcaModality::all();
+        $types = getEnumValues('aca_courses', 'type_description');
+        $sectors = getEnumValues('aca_courses', 'sector_description');
 
         return Inertia::render('Academic::Courses/Create', [
             'modalities'    => $modalities,
-            'categories'    => $categories
+            'categories'    => $categories,
+            'types'    => $types,
+            'sectors'    => $sectors,
+            'P000018' => $this->P000018
         ]);
     }
 
@@ -90,24 +99,6 @@ class AcaCourseController extends Controller
             ]
         );
 
-
-        $path = null;
-
-        $destination = 'uploads/courses';
-        $file = $request->file('image');
-        if ($file) {
-            $original_name = strtolower(trim($file->getClientOriginalName()));
-            $original_name = str_replace(" ", "_", $original_name);
-            $extension = $file->getClientOriginalExtension();
-            $file_name = date('YmdHis') . '.' . $extension;
-            $img = $request->file('image')->storeAs(
-                $destination,
-                $file_name,
-                'public'
-            );
-
-            $path = asset('storage/' . $img);
-        }
         $timestamp = strtotime($request->get('course_date'));
 
         $courseNew = AcaCourse::create([
@@ -117,11 +108,46 @@ class AcaCourseController extends Controller
             'course_month'      => date("m", $timestamp),
             'course_year'       => date("Y", $timestamp),
             'category_id'       => $request->get('category_id'),
-            'image'             => $path,
             'modality_id'       => $request->get('modality_id'),
             'type_description'  => $request->get('type_description'),
-            'sector_description' => AcaCategoryCourse::find($request->get('category_id'))->description
+            'sector_description' => $request->get('sector_description'),
+            'price'                     => $request->get('price') ?? 0,
+            'certificate_description'   => trim($request->get('certificate_description')) ?? null,
+            'discount'  => $request->get('discount'),
+            'discount_applies'  => $request->get('discount_applies')
         ]);
+
+        $path = null;
+
+        $destination = 'uploads/courses';
+        $base64Image = $request->get('image');
+
+        if ($base64Image) {
+            $fileData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $base64Image));
+            if (PHP_OS == 'WINNT') {
+                $tempFile = tempnam(sys_get_temp_dir(), 'img');
+            } else {
+                $tempFile = tempnam('/var/www/html/img_temp', 'img');
+            }
+            file_put_contents($tempFile, $fileData);
+            $mime = mime_content_type($tempFile);
+
+            $name = uniqid('', true) . '.' . str_replace('image/', '', $mime);
+            $file = new UploadedFile(realpath($tempFile), $name, $mime, null, true);
+
+            if ($file) {
+                // $original_name = strtolower(trim($file->getClientOriginalName()));
+                // $file_name = time() . rand(100, 999) . $original_name;
+                $original_name = strtolower(trim($file->getClientOriginalName()));
+                $original_name = str_replace(" ", "_", $original_name);
+                $extension = $file->getClientOriginalExtension();
+                $file_name = time() . rand(100, 999) . '.' . $extension;
+                $path = Storage::disk('public')->putFileAs($destination, $file, $file_name);
+                $courseNew->image = $path;
+                $courseNew->save();
+            }
+        }
+
 
         return redirect()->route('aca_courses_information', $courseNew->id)
             ->with('message', 'Curso creado con éxito, registrar informacion del curso');
@@ -163,11 +189,16 @@ class AcaCourseController extends Controller
     {
         $categories = AcaCategoryCourse::all();
         $modalities = AcaModality::all();
+        $types = getEnumValues('aca_courses', 'type_description');
+        $sectors = getEnumValues('aca_courses', 'sector_description');
 
         return Inertia::render('Academic::Courses/Edit', [
             'course'        => AcaCourse::find($id),
             'modalities'    => $modalities,
-            'categories'    => $categories
+            'categories'    => $categories,
+            'types'    => $types,
+            'sectors'    => $sectors,
+            'P000018' => $this->P000018
         ]);
     }
 
@@ -195,7 +226,7 @@ class AcaCourseController extends Controller
         $course = AcaCourse::find($id);
         $timestamp = strtotime($request->get('course_date'));
 
-
+        //dd($request->get('category_id'));
         $course->status           = $request->get('status') ? true : false;
         $course->description      = $request->get('description');
         $course->course_day       = date("d", $timestamp);
@@ -204,22 +235,38 @@ class AcaCourseController extends Controller
         $course->category_id      = $request->get('category_id');
         $course->modality_id       = $request->get('modality_id');
         $course->type_description  = $request->get('type_description');
-        $course->sector_description = AcaCategoryCourse::find($request->get('category_id'))->description;
+        $course->sector_description = $request->get('sector_description');
+        $course->price                   = $request->get('price') ?? 0;
+        $course->certificate_description  = trim($request->get('certificate_description')) ?? null;
+        $course->discount = $request->get('discount') ?? 0;
+        $course->discount_applies = $request->get('discount_applies') ?? null;
 
         $destination = 'uploads/courses';
-        $file = $request->file('image');
-        if ($file) {
-            $original_name = strtolower(trim($file->getClientOriginalName()));
-            $original_name = str_replace(" ", "_", $original_name);
-            $extension = $file->getClientOriginalExtension();
-            $file_name = date('YmdHis') . '.' . $extension;
-            $img = $request->file('image')->storeAs(
-                $destination,
-                $file_name,
-                'public'
-            );
+        $base64Image = $request->get('image');
 
-            $course->image  = asset('storage/' . $img);
+        if ($base64Image) {
+            $fileData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $base64Image));
+            if (PHP_OS == 'WINNT') {
+                $tempFile = tempnam(sys_get_temp_dir(), 'img');
+            } else {
+                $tempFile = tempnam('/var/www/html/img_temp', 'img');
+            }
+            file_put_contents($tempFile, $fileData);
+            $mime = mime_content_type($tempFile);
+
+            $name = uniqid('', true) . '.' . str_replace('image/', '', $mime);
+            $file = new UploadedFile(realpath($tempFile), $name, $mime, null, true);
+
+            if ($file) {
+                // $original_name = strtolower(trim($file->getClientOriginalName()));
+                // $file_name = time() . rand(100, 999) . $original_name;
+                $original_name = strtolower(trim($file->getClientOriginalName()));
+                $original_name = str_replace(" ", "_", $original_name);
+                $extension = $file->getClientOriginalExtension();
+                $file_name = time() . rand(100, 999) . '.' . $extension;
+                $path = Storage::disk('public')->putFileAs($destination, $file, $file_name);
+                $course->image = $path;
+            }
         }
 
         $course->save();
@@ -272,6 +319,25 @@ class AcaCourseController extends Controller
 
         return response()->json([
             'courses' => $courses
+        ]);
+    }
+
+    public function enrolledStudents($id)
+    {
+        $course = AcaCourse::find($id);
+
+        $students = AcaCapRegistration::with(['student.person', 'document'])
+            ->where('course_id', $id)
+            ->paginate(20) // Puedes ajustar el número de resultados por página
+            ->through(function ($student) {
+                $student->checkbox = false;
+                $student->email_send = $student->document_id && $student->sale_note_id ? true : false;
+                return $student;
+            });
+
+        return Inertia::render('Academic::Courses/EnrolledStudents', [
+            'course' => $course,
+            'students' => $students
         ]);
     }
 }

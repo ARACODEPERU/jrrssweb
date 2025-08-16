@@ -2,12 +2,14 @@
 
 namespace Modules\Blog\Http\Controllers;
 
+use App\Models\Company;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Inertia\Inertia;
 use Modules\Blog\Entities\BlogArticle;
 use Modules\Blog\Entities\BlogCategory;
+use Modules\CMS\Entities\CmsSection;
 
 class BlogController extends Controller
 {
@@ -34,11 +36,21 @@ class BlogController extends Controller
             ->take(4) // Limita el resultado a 4 registros
             ->get();
 
+        $banner = CmsSection::where('component_id', 'blog_banner_area_16')  //siempre cambiar el id del componente
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+            ->orderBy('cms_section_items.position')
+            ->first();
 
-        return view('blog::index_kentha', [
+        return view('pages.blog', [
             'categories'        => $categories,
             'articles'          => $articles,
-            'latest_articles'   => $latest_articles
+            'latest_articles'   => $latest_articles,
+            'banner' => $banner
         ]);
     }
 
@@ -66,23 +78,31 @@ class BlogController extends Controller
                 ->first();
         }
 
-        $latest_articles = BlogArticle::select(
-            'title',
-            'imagen',
-            'url',
-            'created_at'
-        )
+        $latest_articles = BlogArticle::with('author')
             ->where('status', true)
             ->latest('created_at') // Ordena por la columna created_at en orden descendente
             ->take(4) // Limita el resultado a 4 registros
             ->get();
 
+        //$company = Company::first();
         $article->increment('views');
 
-        return view('blog::kentha.article', [
+        $logo = CmsSection::where('component_id', 'header_area_1')  //siempre cambiar el id del componente
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+            ->orderBy('cms_section_items.position')
+            ->get();
+
+        return view('pages.blog-articulo', [
             'categories'        => $categories,
             'article'           => $article,
-            'latest_articles'   => $latest_articles
+            'latest_articles'   => $latest_articles,
+            'logo'   => $logo
+            // 'company'           => $company
         ]);
     }
 
@@ -208,5 +228,4 @@ class BlogController extends Controller
             'latest_articles'   => $latest_articles
         ]);
     }
-
 }

@@ -2,7 +2,9 @@
 
 namespace Modules\Sales\Http\Controllers;
 
+use App\Helpers\Invoice\Documents\Factura;
 use App\Helpers\Invoice\Documents\LowCommunication;
+use App\Models\Sale;
 use App\Models\SaleDocument;
 use Carbon\Carbon;
 use Exception;
@@ -12,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Modules\Sales\Entities\SaleLowCommunication;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Support\Facades\Auth;
 use Modules\Sales\Entities\SaleLowcoDetail;
 
 class SaleLowCommunicationController extends Controller
@@ -85,32 +88,41 @@ class SaleLowCommunicationController extends Controller
         $lowco = SaleLowCommunication::create([
             'generation_date'       => $generation_date . ' ' . Carbon::now()->format('H:i:s'),
             'communication_date'    => Carbon::now()->format('Y-m-d H:i:s'),
-            'status'                => 'registrado'
+            'status'                => 'registrado',
+            'user_id'               => Auth::id()
         ]);
-
-        foreach ($documents as $document) {
-            if ($document['edit_low']) {
-                SaleLowcoDetail::create([
-                    'document_id'  => $document['id'],
-                    'lowco_id' => $lowco->id,
-                    'model_name' => SaleDocument::class,
-                    'invoice_type_doc' => $document['invoice_type_doc'],
-                    'invoice_serie' => $document['invoice_serie'],
-                    'invoice_document_name' => $document['invoice_serie'] . '-' . $document['number'],
-                    'invoice_correlative' => $document['invoice_correlative'],
-                    'invoice_description' => $document['description_low']
-                ]);
-
-                SaleDocument::where('id', $document['id'])
-                    ->update([
-                        'status'            => 3,
-                        'invoice_status'    => 'Enviada Por Anular'
-                    ]);
-            }
-        }
 
         $voided = new LowCommunication();
         $result = $voided->create($lowco, $documents);
+
+
+
+        if ($result['success']) {
+            foreach ($documents as $document) {
+                if ($document['edit_low']) {
+                    SaleLowcoDetail::create([
+                        'document_id'  => $document['id'],
+                        'lowco_id' => $lowco->id,
+                        'model_name' => SaleDocument::class,
+                        'invoice_type_doc' => $document['invoice_type_doc'],
+                        'invoice_serie' => $document['invoice_serie'],
+                        'invoice_document_name' => $document['invoice_serie'] . '-' . $document['number'],
+                        'invoice_correlative' => $document['invoice_correlative'],
+                        'invoice_description' => $document['description_low']
+                    ]);
+
+                    $document = SaleDocument::where('id', $document['id'])->first();
+                    $document->update([
+                        'status'            => 3,
+                        'invoice_status'    => 'Enviada Por Anular'
+                    ]);
+
+                    Sale::find($document->sale_id)->update([
+                        'status'            => 0
+                    ]);
+                }
+            }
+        }
 
         return response()->json([
             'success' => $result['success'],
@@ -140,6 +152,7 @@ class SaleLowCommunicationController extends Controller
                 ->select('sale_documents.*')
                 ->where('lowco_id', $low->id)
                 ->get();
+
             foreach ($documents as $document) {
                 SaleDocument::where('id', $document['id'])
                     ->update([

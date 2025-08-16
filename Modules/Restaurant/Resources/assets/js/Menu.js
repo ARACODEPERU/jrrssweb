@@ -16,7 +16,7 @@ const menuRestaurant = {
         {
             route: route("res_menu_list"),
             status: false,
-            text: "Menu Del Día",
+            text: "Carta Del Día",
             permissions: "res_menu",
         },
         {
@@ -24,6 +24,12 @@ const menuRestaurant = {
             status: false,
             text: "Vender",
             permissions: "res_venta_nuevo",
+        },
+        {
+            route: route("res_sales_list"),
+            status: false,
+            text: "Listado de Ventas",
+            permissions: "res_venta",
         },
     ],
 };

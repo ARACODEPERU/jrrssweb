@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Modules\Sales\Entities\SaleDocumentQuota;
 
 class SaleDocument extends Model
 {
@@ -54,6 +56,16 @@ class SaleDocument extends Model
         'invoice_status',
         'invoice_mto_discount',
         'invoice_json_discounts',
+        'reason_cancellation',
+        'user_id',
+        'additional_description',
+        'overall_total',
+        'document_id',
+        'note_type_operation_id',
+        'forma_pago',
+        'status_pay',
+        'overdue_fee',
+        'single_payment'
     ];
 
     public function items(): HasMany
@@ -63,5 +75,24 @@ class SaleDocument extends Model
     public function sale(): BelongsTo
     {
         return $this->belongsTo(Sale::class, 'sale_id', 'id');
+    }
+
+    public function note(): HasOne
+    {
+        return $this->hasOne(SaleDocument::class,'document_id', 'id');
+    }
+
+    public function invoice(): HasOne
+    {
+        return $this->hasOne(SaleDocument::class, 'id' , 'document_id');
+    }
+
+    public function serie(): BelongsTo
+    {
+        return $this->belongsTo(Serie::class,'serie_id','id');
+    }
+    public function quotas(): HasMany
+    {
+        return $this->hasMany(SaleDocumentQuota::class,'sale_document_id','id');
     }
 }

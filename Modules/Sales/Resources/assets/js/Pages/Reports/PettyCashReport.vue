@@ -1,24 +1,32 @@
 
 <script setup>
-import AppLayout from '@/Layouts/AppLayout.vue';
+    import AppLayout from '@/Layouts/Vristo/AppLayout.vue';
 import { useForm, Link } from '@inertiajs/vue3';
 import { ref, onMounted } from 'vue';
 import Keypad from '@/Components/Keypad.vue';
 import * as XLSX from 'xlsx/dist/xlsx.full.min';
 import jsPDF from 'jspdf';
-import autoTable from 'jspdf-autotable';  
-import InputLabel from '@/Components/InputLabel.vue';
+import autoTable from 'jspdf-autotable';
+import Navigation from '@/Components/vristo/layout/Navigation.vue';
 
 const props = defineProps({
     locals: {
         type: Object,
         default: () => ({}),
     },
-    sales: {
+    tickets: {
         type: Object,
         default: () => ({}),
     },
-    start:{
+    physicals: {
+        type: Object,
+        default: () => ({}),
+    },
+    documents: {
+        type: Object,
+        default: () => ({}),
+    },
+    start: {
         type: String,
         default: null
     },
@@ -37,8 +45,13 @@ const props = defineProps({
     expenses: {
         type: Object,
         default: () => ({}),
+    },
+    total : {
+        type: Number,
+        default: 0,
     }
 });
+
 const form = useForm({
     local_id: props.petty_cash.local_sale_id,
 });
@@ -53,30 +66,24 @@ const  getLocal = (id = null) => {
     } else{
         local_name.value = "TODOS LOS LOCALES"
     }
-    
+
 }
 const getTotalQuantities = () => {
     let quantities=0;
-    let arreglo = props.sales;
+    let arreglo = props.tickets;
     arreglo.forEach(sale => {
-        quantities+=JSON.parse(sale.product).quantity;
+        quantities+=sale.quantity;
     });
     return quantities;
 }
-const getTotalPrices = () => {
-    let prices=0;
-    props.sales.forEach(sale => {
-        prices+=JSON.parse(sale.product).quantity*JSON.parse(sale.product).price;
-    });
-    return prices;
-}
+
 
 const getTotalExpenses = () => {
     let expenses=0.0;
     props.expenses.forEach(expense=> {
         expenses+=parseFloat(expense.amount);
     });
-    return expenses;
+    return expenses.toFixed(2);
 }
 
 const downloadExcel = () => {
@@ -117,7 +124,7 @@ const downloadPdf = () => {
     pdf.text(titulo, 200, 20); //X e Y
 
     titulo="Día: "+ props.petty_cash.state == 0 ? props.petty_cash.date_opening : 'Caja abierta';
-    
+
     pdf.text(titulo, 200, 40);
         // Genera la tabla PDF utilizando jsPDF
         pdf.autoTable({
@@ -131,57 +138,34 @@ const downloadPdf = () => {
 
 onMounted(()=>{
     getLocal();
-    getTotalPrices();
     getTotalQuantities();
 });
 </script>
 
 <template>
     <AppLayout title="Ventas en caja">
-        <div class="max-w-screen-2xl  mx-auto p-4 md:p-6 2xl:p-10">
-            <!-- Breadcrumb Start -->
-            <nav class="flex px-4 py-3 border border-stroke text-gray-700 mb-4 bg-gray-50 dark:bg-gray-800 dark:border-gray-700" aria-label="Breadcrumb">
-                <ol class="inline-flex items-center space-x-1 md:space-x-3">
-                    <li class="inline-flex items-center">
-                        <Link :href="route('dashboard')" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
-                        <svg aria-hidden="true" class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
-                        Inicio
-                        </Link>
-                    </li>
-                    <li>
-                        <div class="flex items-center">
-                        <svg aria-hidden="true" class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                        <!-- <a href="#" class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">Productos</a> -->
-                        <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Ventas</span>
-                        </div>
-                    </li>
-                    <li aria-current="page">
-                        <div class="flex items-center">
-                            <svg aria-hidden="true" class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                            <Link :href="route('pettycash.index')" class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">Caja Chica</Link>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="flex items-center">
-                        <svg aria-hidden="true" class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                        <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Reporte</span>
-                        </div>
-                    </li>
-                </ol>
-            </nav>
+        <Navigation :routeModule="route('sales_dashboard')" :titleModule="'Ventas'">
+            <li class="before:content-['/'] ltr:before:mr-2 rtl:before:ml-2">
+                <Link :href="route('pettycash.index')" class="text-primary hover:underline">Caja Chica</Link>
+            </li>
+            <li class="before:content-['/'] ltr:before:mr-2 rtl:before:ml-2">
+                <span>Reporte</span>
+            </li>
+        </Navigation>
+        <div class="mt-5">
             <!-- Breadcrumb End -->
             <!-- ====== Table Section Start -->
             <div class="flex flex-col gap-10">
                 <!-- ====== Table One Start -->
-                <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-                    <div class="w-full p-4 border-b border-gray-200 bg-gray-50 dark:border-gray-600 dark:bg-gray-700">
+                <div class="panel p-0">
+                    <div class="w-full p-4">
                         <div class="grid grid-cols-3">
                             <div class="col-span-3 sm:col-span-1">
                                 <form @submit.prevent="form.get(route('pettycash.index'))">
                                     <select v-model="form.local_id" v-on:change="getReport()"
                                         id="stablishment"
                                         disabled
-                                        class="w-5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        class="form-select text-white-dark">
                                         <option value="0">Todos los Locales</option>
                                         <template v-for="(local, index) in props.locals" :key="index">
                                             <option :value="local.id">{{ local.description }}</option>
@@ -192,7 +176,7 @@ onMounted(()=>{
                             <div class="col-span-3 sm:col-span-2">
                                 <Keypad>
                                     <template #botones>
-                                        
+
                                         <button v-if="false" v-on:click="downloadExcel()"
                                             class="px-3 py-1 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                             >Exportar en Excel
@@ -208,116 +192,147 @@ onMounted(()=>{
                             </div>
                         </div>
                     </div>
-                    <div class="relative overflow-x-auto">
-                        <table id="table_export" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                <tr class="bg-gray-50 text-left dark:bg-meta-4">
-                                    <th colspan="2" class="py-1 px-4 text-left font-medium text-black dark:text-white"><strong>LOCAL:</strong> </th>
-                                    <th colspan="4" class="py-1 px-4 text-left font-medium text-black dark:text-white">{{ local_name }}</th>
+                    <div class="table-responsive">
+                        <table id="table_export">
+                            <thead class="text-xs uppercase">
+                                <tr class="bg-primary/20 border-primary/20">
+                                    <th colspan="2" class=""><strong>LOCAL:</strong> </th>
+                                    <th colspan="3" class="">{{ local_name }}</th>
                                 </tr>
-                                <tr class="bg-gray-50 text-left dark:bg-meta-4">
-                                    <th colspan="2" class="py-1 px-4 text-left font-medium text-black dark:text-white">
-                                        <strong>Desde: </strong> 
+                                <tr class="bg-primary/20 border-primary/20">
+                                    <th colspan="2" class="">
+                                        <strong>Desde: </strong>
                                     </th>
-                                    <th colspan="4" class="py-1 px-4 text-left font-medium text-black dark:text-white">
+                                    <th colspan="3" class="text-left font-medium">
                                         <span v-if="petty_cash.state == 0">
                                             {{ petty_cash.date_opening +" "+ petty_cash.time_opening.slice(0, -3) }}
                                         </span>
                                     </th>
                                 </tr>
-                                <tr class="bg-gray-50 text-left dark:bg-meta-4">
-                                    <th colspan="2" class="py-1 px-4 text-left font-medium text-black dark:text-white">
-                                        <strong>HASTA: </strong> 
+                                <tr class="bg-primary/20 border-primary/20">
+                                    <th colspan="2" class="text-left font-medium">
+                                        <strong>HASTA: </strong>
                                     </th>
-                                    <th colspan="4" class="py-1 px-4 text-left font-medium text-black dark:text-white">
+                                    <th colspan="3" class="text-left font-medium">
                                         <span v-if="petty_cash.state == 0">
                                             {{ petty_cash.date_closed +" "+ petty_cash.time_closed }}
                                         </span>
                                     </th>
                                 </tr>
-                                <tr class="bg-gray-50 border-b border-stroke text-left dark:bg-meta-4">
-                                    <th colspan="2"  class="py-1 px-4 text-left font-medium text-black dark:text-white"><strong>Monto final en Caja:</strong></th>
-                                    <th colspan="4"  class="py-1 px-4 text-left font-medium text-black dark:text-white">{{ petty_cash.final_balance }}</th>
+                                <tr class="bg-primary/20 border-primary/20">
+                                    <th colspan="2"  class="text-left font-medium"><strong>Monto final en Caja:</strong></th>
+                                    <th colspan="3"  class="text-left font-medium ">{{ petty_cash.final_balance }}</th>
                                 </tr>
-                                <tr class="bg-gray-50 text-left dark:bg-meta-4">
-                                    <th class="text-left text-sm py-2 px-4 text-black dark:text-white dark:border-strokedark" colspan="6">Ventas</th>
+                                <tr class="bg-primary/20 border-primary/20">
+                                    <td class="text-center text-sm" colspan="5"><b>Ventas</b></td>
                                 </tr>
-                                <tr class="border border-stroke">
-                                    <th scope="col" class="px-6 py-3">
+                                <tr>
+                                    <th scope="col">
                                         Fecha
                                     </th>
-                                    <th scope="col" class="px-6 py-3">
+                                    <th>
                                         Tienda
                                     </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Producto
+                                    <th>
+                                        Serie / Número
                                     </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Precio Vendido
+                                    <th>
+                                        Tipo
                                     </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Cantidad
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
+                                    <th>
                                         Total
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(sale, index) in sales" :key="sale.id" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                    <th class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ sale.created_at }}
+                                <tr v-for="(ticket, index) in tickets" :key="ticket.id">
+                                    <th class="font-medium whitespace-nowrap">
+                                        {{ ticket.sale_date }}
                                     </th>
-                                    <td class="px-6 py-4">
-                                        {{ getLocal(sale.local_id) }}
+                                    <td>
+                                        {{ ticket.establishment.description }}
                                     </td>
-                                    <td class="px-6 py-4">
-                                        {{ sale.interne + " - " + sale.product_description }}
+                                    <td>
+                                        {{ ticket.document.invoice_serie + "-" + ticket.document.invoice_correlative }}
                                     </td>
-                                    <td class="px-6 py-4">
-                                        {{ JSON.parse(sale.product).price }}
+                                    <td class="text-right">
+                                        {{ ticket.document.serie.document_type.description }}
                                     </td>
-                                    <td class="px-6 py-4">
-                                        {{ JSON.parse(sale.product).quantity }}
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        {{ JSON.parse(sale.product).quantity * JSON.parse(sale.product).price }}
+                                    <td class="text-right">
+                                        {{ ticket.total }}
                                     </td>
                                 </tr>
-                                <tr class="border-b dark:bg-gray-800 dark:border-gray-700">
-                                    <th colspan="4" class="text-right  px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">Totales En Ventas</th>
-                                    <th class="px-6 py-4 text-right ">{{ getTotalQuantities()}}</th>
-                                    <th class="px-6 py-4 text-right ">S/ {{ getTotalPrices()}}</th>
-                                </tr>
-                            </tbody>
-                            <tfoot>
-                                <template v-if="expenses.length > 0">
-                                    <tr class="bg-gray-50 text-left dark:bg-meta-4">
-                                        <th class="border border-stroke text-left text-sm py-2 px-4 text-black dark:text-white dark:border-strokedark" colspan="6">GASTOS</th>
-                                    </tr>
-                                    <tr class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                        
-                                        <th scope="col" class="px-6 py-3">N° Documento</th>
-                                        <th scope="col" colspan="4" class="px-6 py-3">Motivo o Descripción</th>
-                                        <th scope="col" class="px-6 py-3">Monto</th>
-                                    </tr>
-                                    <tr v-for="(expense, index) in expenses" :key="expense.id" class="border border-stroke">  
-                                        <td class="border border-stroke text-left text-sm py-2 px-4 text-black dark:text-white dark:border-strokedark">
-                                            {{ expense.document }}
+                                <template v-for="(physical, key) in physicals">
+                                     <tr>
+                                        <th class="font-medium whitespace-nowrap">
+                                            {{ physical.sale_date }}
+                                        </th>
+                                        <td>
+                                            {{ physical.establishment.description }}
                                         </td>
-                                        <td colspan="4" class="border border-stroke text-left text-sm py-2 px-4 text-black dark:text-white dark:border-strokedark">
-                                            {{ expense.description }}
-                                        </td>      
-                                        <td class="border border-stroke text-right text-sm py-2 px-4 text-black dark:text-white dark:border-strokedark">
-                                            {{ expense.amount }}
-                                        </td>                          
-                                    </tr>
-                                    <tr class="bg-gray-50 text-left dark:bg-meta-4">
-                                        <th colspan="5" class="border border-stroke text-right text-sm py-2 px-4 text-black dark:text-white dark:border-strokedark">Total en Gastos:</th>
-                                        <th class="border border-stroke text-right text-sm py-2 px-4 text-black dark:text-white dark:border-strokedark">S/ {{ getTotalExpenses() }}</th>
+                                        <td>
+                                            {{ physical.physical_document.serie + " - " + physical.physical_document.correlative }}
+                                        </td>
+                                        <td class="text-right" style="text-align: right;">
+                                            {{ physical.physical_document.sale_document_type.description }}
+                                        </td>
+                                        <td class="text-right" style="text-align: right;">
+                                            {{ physical.total }}
+                                        </td>
                                     </tr>
                                 </template>
-                            </tfoot>
+                                <tr v-for="(document, index) in documents" :key="document.id">
+                                    <th class="font-medium whitespace-nowrap">
+                                        {{ document.sale_date }}
+                                    </th>
+                                    <td>
+                                        {{ document.establishment.description }}
+                                    </td>
+                                    <td>
+                                        {{ document.document.invoice_serie + "-" + document.document.invoice_correlative }}
+                                    </td>
+                                    <td class="text-right">
+                                        {{ document.document.serie.document_type.description }}
+                                    </td>
+                                    <td class="text-right">
+                                        {{ document.total }}
+                                    </td>
+                                </tr>
+                                <tr class="">
+                                    <td colspan="4" class="text-right font-medium whitespace-nowrap" style="text-align: right;">
+                                        <strong>Totales En Ventas</strong>
+                                    </td>
+                                    <td class="text-right" style="text-align: right;">
+                                        <strong>S/ {{ total }}</strong>
+                                    </td>
+                                </tr>
+                                <template v-if="expenses.length > 0">
+                                    <tr class="bg-danger/20 border-danger/20 uppercase">
+                                        <td class="text-center text-sm" colspan="5"><b>GASTOS</b></td>
+                                    </tr>
+                                    <tr class="bg-danger/20 border-danger/20 uppercase">
+
+                                        <td scope="col" ><b>N° Documento</b></td>
+                                        <td scope="col" colspan="3"><b>Motivo o Descripción</b></td>
+                                        <td scope="col" ><b>Monto</b></td>
+                                    </tr>
+                                    <tr v-for="(expense, index) in expenses" :key="expense.id" class="bg-danger/20 border-danger/20">
+                                        <td class="text-left">
+                                            {{ expense.document }}
+                                        </td>
+                                        <td colspan="3" class="text-left">
+                                            {{ expense.description }}
+                                        </td>
+                                        <td class="text-right" style="text-align: right;">
+                                            {{ expense.amount }}
+                                        </td>
+                                    </tr>
+                                    <tr class="bg-danger/20 border-danger/20">
+                                        <td colspan="4" class="text-right" style="text-align: right;">Total en Gastos:</td>
+                                        <td class="text-right" style="text-align: right;">S/ {{ getTotalExpenses() }}</td>
+                                    </tr>
+                                </template>
+                            </tbody>
 
                         </table>
                     </div>

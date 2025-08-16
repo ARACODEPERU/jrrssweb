@@ -8,6 +8,8 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
@@ -19,6 +21,8 @@ use Modules\Onlineshop\Entities\OnliSaleDetail;
 use MercadoPago\MercadoPagoConfig;
 use MercadoPago\Client\Preference\PreferenceClient;
 use MercadoPago\Exceptions\MPApiException;
+use Modules\Academic\Entities\AcaCourse;
+use Modules\Academic\Entities\AcaStudentSubscription;
 
 class OnliSaleController extends Controller
 {
@@ -28,28 +32,81 @@ class OnliSaleController extends Controller
      */
     public function index()
     {
-        $sales = (new OnliSale())->newQuery();
-        if (request()->has('search')) {
-            $sales->whereDate('created_at', '=', request()->input('search'));
-        }
-        if (request()->query('sort')) {
-            $attribute = request()->query('sort');
-            $sort_order = 'ASC';
-            if (strncmp($attribute, '-', 1) === 0) {
-                $sort_order = 'DESC';
-                $attribute = substr($attribute, 1);
-            }
-            $sales->orderBy($attribute, $sort_order);
-        } else {
-            $sales->latest();
-        }
-        $sales = $sales->with('person');
-        $sales = $sales->with('details.item');
-        $sales = $sales->paginate(20)->onEachSide(2);
+        $inputs = request()->has('search');
+        $search = request()->input('search');
+
+        $sales = DB::table('onli_sales')
+            ->join('people', 'onli_sales.person_id', '=', 'people.id')
+            ->leftJoin('sales', 'sales.id', 'onli_sales.nota_sale_id')
+            ->select(
+                'onli_sales.*',
+                'people.telephone',
+                'people.email',
+                'people.full_name AS student_name',
+                'people.number AS student_number',
+                DB::raw("(
+                    SELECT JSON_ARRAYAGG(
+                        JSON_OBJECT(
+                            'id', osd.id,
+                            'price', osd.price,
+                            'quantity', osd.quantity,
+                            'product', CASE
+                                WHEN osd.entitie = 'Modules\\\Academic\\\Entities\\\AcaCourse' THEN
+                                    (SELECT JSON_OBJECT(
+                                        'id', aca_courses.id,
+                                        'description', aca_courses.description,
+                                        'title', NULL,
+                                        'origin', 'ACA'
+                                    )
+                                    FROM aca_courses
+                                    WHERE aca_courses.id = osd.item_id)
+                                WHEN osd.entitie = 'Modules-Academic-Entities-AcaCourse' THEN
+                                    (SELECT JSON_OBJECT(
+                                        'id', aca_courses.id,
+                                        'description', aca_courses.description,
+                                        'title', NULL,
+                                        'origin', 'ACA'
+                                    )
+                                    FROM aca_courses
+                                    WHERE aca_courses.id = osd.item_id)
+                                WHEN osd.entitie = 'Modules\\\Academic\\\Entities\\\AcaSubscriptionType' THEN
+                                    (SELECT JSON_OBJECT(
+                                        'id', aca_subscription_types.id,
+                                        'description', aca_subscription_types.description,
+                                        'title', aca_subscription_types.title,
+                                        'origin', 'ACA'
+                                    )
+                                    FROM aca_subscription_types
+                                    WHERE aca_subscription_types.id = osd.item_id)
+                                WHEN osd.entitie = 'App\\\Models\\\Product' THEN
+                                    (SELECT JSON_OBJECT(
+                                        'id', products.id,
+                                        'description', products.description,
+                                        'title', products.interne,
+                                        'origin', 'PRO'
+                                    )
+                                    FROM products
+                                    WHERE products.id = osd.item_id)
+                                ELSE NULL
+                            END
+                        )
+                    )
+                    FROM onli_sale_details osd
+                    WHERE osd.sale_id = onli_sales.id
+                ) AS details"),
+                'sales.invoice_type',
+                'sales.invoice_razon_social',
+                'sales.invoice_ruc',
+            )
+            ->when($inputs, function ($query) use ($search) {
+                $query->whereDate('created_at', '=', $search);
+            })
+            ->orderBy('onli_sales.id', 'DESC')
+            ->paginate(20);
 
         return Inertia::render('Onlineshop::Sales/List', [
             'sales' => $sales,
-            'filters' => request()->all('search')
+            'filters' => request()->all('search'),
         ]);
     }
 
@@ -57,9 +114,72 @@ class OnliSaleController extends Controller
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create()
+    public function shoppingCart($mo)
     {
-        return view('onlineshop::create');
+        return Inertia::render('Onlineshop::Sales/ShoppingCart', [
+            'personInvoice' => Person::find(Auth::user()->person_id),
+            'payTipe' => $mo
+        ]);
+    }
+
+    public function formMercadopago(Request $request)
+    {
+        MercadoPagoConfig::setAccessToken(env('MERCADOPAGO_TOKEN'));
+        $client = new PreferenceClient();
+        $items = [];
+        $msg = null;
+        $success = true;
+        $preference_id = null;
+        $personInvoice = $request->get('person');
+        $products = $request->get('items');
+        $student_id = AcaStudent::where('person_id', Auth::user()->person_id)->value('id');
+        $studentSubscribed = AcaStudentSubscription::where('student_id', $student_id)
+            ->where('status', true)
+            ->first();
+
+        if (count($products) > 0) {
+            foreach ($products as $product) {
+                $xpro = AcaCourse::find($product['id']);
+                $price = 0;
+
+                if ($xpro->discount && $xpro->discount > 0) {
+                    if ($xpro->discount_applies == '01') {
+
+                        $price = number_format($xpro->price - ($xpro->price * $xpro->discount / 100), 2, '.', '');
+                    } elseif ($xpro->discount_applies == '02') {
+                        if ($studentSubscribed && $studentSubscribed->status == 1) {
+                            $price = number_format($xpro->price - ($xpro->price * $xpro->discount / 100), 2, '.', '');
+                        } else {
+                            $price = number_format($xpro->price, 2, '.', '');
+                        }
+                    }
+                } else {
+                    $price = number_format($xpro->price, 2, '.', '');
+                }
+
+                array_push($items, [
+                    'id' => $xpro->id,
+                    'title' => trim($xpro->description),
+                    'quantity'      => floatval(1),
+                    'currency_id'   => 'PEN',
+                    'unit_price'    => floatval($price)
+                ]);
+            }
+
+            $preference = $client->create([
+                "items" => $items,
+            ]);
+
+            $success = true;
+            $preference_id =  $preference->id;
+        } else {
+            $success = false;
+        }
+
+        return Inertia::render('Onlineshop::Sales/MercadopagoForm', [
+            'preference_id' => $preference_id,
+            'personInvoice' => $personInvoice
+        ]);
     }
 
     /**

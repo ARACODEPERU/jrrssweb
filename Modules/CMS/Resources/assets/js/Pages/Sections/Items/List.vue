@@ -1,5 +1,5 @@
 <script setup>
-    import AppLayout from '@/Layouts/AppLayout.vue';
+import AppLayout from '@/Layouts/Vristo/AppLayout.vue';
     import Keypad from '@/Components/Keypad.vue';
     import Pagination from '@/Components/Pagination.vue';
     import { ref, onMounted } from 'vue';
@@ -126,6 +126,8 @@
             },
         });
     }
+
+    const xassetUrl = assetUrl;
 </script>
 
 <template>
@@ -171,10 +173,10 @@
             <div class="flex flex-col gap-10">
                 <!-- ====== Table One Start -->
                 <div class="xl:pb-1">
-                    <div class="max-w-full overflow-x-auto md:max-w-2xl">
-                        <div class="md:flex">
+                    <div class="max-w-full overflow-x-auto">
+                        <div class="flex">
                             <div class="w-full">
-                                <div class="p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                                <div class="w-full p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                                     <h2 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">Items Disponibles</h2>
                                     <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
                                         <template v-for="(item, index) in form.items" >
@@ -182,7 +184,7 @@
                                                 <template v-if="item.type_id == 1">
                                                     <label @click="addItem(item,index)" :for="'react-option'+index" class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border-2 border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-blue-600 hover:text-gray-600 dark:peer-checked:text-gray-300 peer-checked:text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">                           
                                                         <div class="block">
-                                                            <img  :src="item.content" style="width: 60px;" />
+                                                            <img  :src="xassetUrl + 'storage/' + item.content" style="width: 60px;" />
                                                             <div class="w-full text-sm">{{ item.description }}</div>
                                                             <!-- <a :href="item.content" target="_blank" class="w-full text-sm">{{ item.content }}</a> -->
                                                         </div>
@@ -226,14 +228,14 @@
                             </div>
                             <div class="w-3 px-2"></div>
                             <div class="w-full">
-                                <div class="p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                                <div class="w-full p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                                     <h2 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">Items Elegidos</h2>
                                     <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
                                         <li v-for="(item, index) in arrayItems.data" class="py-3 sm:py-4">
                                             <template v-if="item.type_id == 1">
                                                 <label :for="'react-option'+index" class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border-2 border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-blue-600 hover:text-gray-600 dark:peer-checked:text-gray-300 peer-checked:text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">                           
                                                     <div class="block">
-                                                        <img  :src="item.content" style="width: 60px;" />
+                                                        <img  :src="xassetUrl + 'storage/' + item.content" style="width: 60px;" />
                                                         <div class="w-full text-sm">{{ item.description }}</div>
                                                         <!-- <a :href="item.content" target="_blank" class="w-full text-sm">{{ item.content }}</a> -->
                                                     </div>
