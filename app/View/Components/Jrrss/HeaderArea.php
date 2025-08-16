@@ -28,7 +28,7 @@ class HeaderArea extends Component
             ->get();
 
         $this->transmissions = EvenEvent::where('broadcast', true)->first();
-
+                //dd($this->transmissions);
     }
 
     public function render(): View|Closure|string
