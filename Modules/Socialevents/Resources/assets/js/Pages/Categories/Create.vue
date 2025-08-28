@@ -1,5 +1,5 @@
 <script setup>
-import AppLayout from '@/Layouts/AppLayout.vue';
+    import AppLayout from '@/Layouts/Vristo/AppLayout.vue';
 import CreateForm from './Partials/CreateForm.vue';
 import { Link } from '@inertiajs/vue3';
 
@@ -38,7 +38,7 @@ import { Link } from '@inertiajs/vue3';
                     </li>
                 </ol>
             </nav>
-            <CreateForm /> 
+            <CreateForm />
         </div>
     </AppLayout>
 </template>
