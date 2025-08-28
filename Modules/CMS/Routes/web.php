@@ -73,5 +73,6 @@ Route::middleware(['auth', 'verified'])->prefix('cms')->group(function () {
     Route::middleware(['permission:cms_publicidad'])->get('advertising/create', [CmsAdvertisingController::class, 'create'])->name('cms_advertising_create');
 });
 
+Route::post('subscriber', [CmsSubscriberController::class, 'store'])->name('web_subscriber');
 
-Route::post('subscriber', 'CmsSubscriberController@store')->name('subscriber_public');
+Route::post('subscriber2', 'CmsSubscriberController@store')->name('subscriber_public');
