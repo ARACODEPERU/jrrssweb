@@ -238,5 +238,6 @@ Route::middleware('auth')->group(function () {
     Route::get('calendar/index', [CalendarController::class, 'index'])->name('calendar');
 });
 
+
 require __DIR__ . '/auth.php';
 require __DIR__ . '/system.php';

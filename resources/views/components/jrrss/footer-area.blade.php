@@ -116,7 +116,7 @@
             <div class="container py-2">
                 <div class="row py-2">
                     <div class="col d-flex align-items-center justify-content-center mb-4 mb-lg-0">
-                        <p>© Copyright 2025. Todos los Derechos Reservados a Jesús Rey de Reyes y Señor de Señores | Desarrollado por <a href=""><b>Aracode Smart Solutión</b></a></p>
+                        <p>© Copyright 2025. Todos los Derechos Reservados a Jesús Rey de Reyes y Señor de Señores | Desarrollado por <a href=""><b>Aracode Smart Solutions</b></a></p>
                     </div>
                 </div>
             </div>

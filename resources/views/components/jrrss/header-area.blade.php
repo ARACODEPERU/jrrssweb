@@ -67,7 +67,7 @@
             color: white;
         }
     </style>
-    
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const sswitch = document.querySelector(".switch");
@@ -106,12 +106,12 @@
     </script>
 
     <header id="header"
-        data-plugin-options="{'stickyEnabled': true, 'stickyEnableOnBoxed': true, 
-                            'stickyEnableOnMobile': false, 'stickyStartAt': 164, 'stickySetTop': '-164px', 
+        data-plugin-options="{'stickyEnabled': true, 'stickyEnableOnBoxed': true,
+                            'stickyEnableOnMobile': false, 'stickyStartAt': 164, 'stickySetTop': '-164px',
                             'stickyChangeLogo': false}">
         <div class="header-body border-0">
             <div class="view-pc" style="position: relative; overflow: hidden; height: 160px;">
-                <img style="width: 100%; height: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" 
+                <img style="width: 100%; height: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
                         src="{{ $header[0]->content }}" alt="">
             </div>
             {{-- <div class="ara_centrado_total view-pc">
@@ -147,7 +147,7 @@
 																			<span class="dropdown-mega-sub-title">NOSOTROS</span>
 																			<ul class="dropdown-mega-sub-nav">
 																				<li>
-                                                                                    <a class="dropdown-item {{ request()->routeIs('web_quienes_somos') ? 'active' : '' }}" 
+                                                                                    <a class="dropdown-item {{ request()->routeIs('web_quienes_somos') ? 'active' : '' }}"
                                                                                         href="{{ route('web_quienes_somos') }}">
                                                                                         ¿Quienes Somos?
                                                                                     </a>
@@ -158,19 +158,19 @@
 																			<span class="dropdown-mega-sub-title">MINISTERIOS</span>
 																			<ul class="dropdown-mega-sub-nav">
 																				<li>
-                                                                                    <a class="dropdown-item {{ request()->routeIs('web_ecelt') ? 'active' : '' }}" 
+                                                                                    <a class="dropdown-item {{ request()->routeIs('web_ecelt') ? 'active' : '' }}"
                                                                                         href="{{ route('web_ecelt') }}">
                                                                                         El Cielo En La Tierra (ECELT)
                                                                                     </a>
                                                                                 </li>
 																				<li>
-                                                                                    <a class="dropdown-item {{ request()->routeIs('web_revolucion_juvenil') ? 'active' : '' }}" 
+                                                                                    <a class="dropdown-item {{ request()->routeIs('web_revolucion_juvenil') ? 'active' : '' }}"
                                                                                         href="{{ route('web_revolucion_juvenil') }}">
                                                                                         Revolución Juvenil
                                                                                     </a>
                                                                                 </li>
 																				<li>
-                                                                                    <a class="dropdown-item {{ request()->routeIs('web_kids') ? 'active' : '' }}" 
+                                                                                    <a class="dropdown-item {{ request()->routeIs('web_kids') ? 'active' : '' }}"
                                                                                         href="{{ route('web_kids') }}">
                                                                                         Escuelita KIDS
                                                                                     </a>
@@ -181,25 +181,25 @@
 																			<span class="dropdown-mega-sub-title">INSTITUTO SOBRENATURAL AL MUNDO</span>
 																			<ul class="dropdown-mega-sub-nav">
 																				<li>
-                                                                                    <a class="dropdown-item {{ request()->routeIs('web_proceso_miembro') ? 'active' : '' }}" 
+                                                                                    <a class="dropdown-item {{ request()->routeIs('web_proceso_miembro') ? 'active' : '' }}"
                                                                                         href="{{ route('web_proceso_miembro') }}">
                                                                                         Proceso de Miembro
                                                                                     </a>
-                                                                                </li>						
+                                                                                </li>
 																				<li>
-                                                                                    <a class="dropdown-item {{ request()->routeIs('web_proceso_discipulo') ? 'active' : '' }}" 
+                                                                                    <a class="dropdown-item {{ request()->routeIs('web_proceso_discipulo') ? 'active' : '' }}"
                                                                                         href="{{ route('web_proceso_discipulo') }}">
                                                                                         Proceso de Discípulo
                                                                                     </a>
                                                                                 </li>
 																				<li>
-                                                                                    <a class="dropdown-item {{ request()->routeIs('web_proceso_lideres') ? 'active' : '' }}" 
+                                                                                    <a class="dropdown-item {{ request()->routeIs('web_proceso_lideres') ? 'active' : '' }}"
                                                                                         href="{{ route('web_proceso_lideres') }}">
                                                                                         Proceso de Lideres
                                                                                     </a>
                                                                                 </li>
 																				<li>
-                                                                                    <a class="dropdown-item {{ request()->routeIs('web_proceso_lideres') ? 'active' : '' }}" 
+                                                                                    <a class="dropdown-item {{ request()->routeIs('web_proceso_lideres') ? 'active' : '' }}"
                                                                                         href="{{ route('web_ism') }}">
                                                                                         Instituto Sobrenatural al mundo
                                                                                     </a>
@@ -210,13 +210,13 @@
 																			<span class="dropdown-mega-sub-title">¿NECESITAS AYUDA?</span>
 																			<ul class="dropdown-mega-sub-nav">
 																				<li>
-                                                                                    <a class="dropdown-item {{ request()->routeIs('web_oracion') ? 'active' : '' }}" 
+                                                                                    <a class="dropdown-item {{ request()->routeIs('web_oracion') ? 'active' : '' }}"
                                                                                         href="{{ route('web_oracion') }}">
                                                                                         Oración
                                                                                     </a>
                                                                                 </li>
 																				<li>
-                                                                                    <a class="dropdown-item {{ request()->routeIs('web_empleo') ? 'active' : '' }}" 
+                                                                                    <a class="dropdown-item {{ request()->routeIs('web_empleo') ? 'active' : '' }}"
                                                                                         href="{{ route('web_empleo') }}">
                                                                                         Empleo
                                                                                     </a>
@@ -241,27 +241,27 @@
                                                         </a>
                                                     </li> --}}
                                                     <li class="dropdown">
-														<a href="" 
+														<a href=""
                                                             class="nav-link dropdown-toggle {{ request()->routeIs('web_sedes') ? 'active' : '' }}">
                                                             SEDES &nbsp;<i class="fa fa-caret-down" aria-hidden="true"></i>
                                                         </a>
 														<ul class="dropdown-menu">
 															<li>
-                                                                <a href="{{ route('web_sedes_peru') }}" 
+                                                                <a href="{{ route('web_sedes_peru') }}"
                                                                     class="dropdown-item  {{ request()->routeIs('web_sedes_peru') ? 'active' : '' }}">
                                                                     <img style="width: 15px; height: 15px;" src="{{ asset('themes/jrrss/assets/img/flags/peru.png') }}" alt="">
                                                                     &nbsp; Perú
                                                                 </a>
                                                             </li>
 															<li>
-                                                                <a href="{{ route('web_sedes_estados_unidos') }}" 
+                                                                <a href="{{ route('web_sedes_estados_unidos') }}"
                                                                     class="dropdown-item  {{ request()->routeIs('web_sedes_estados_unidos') ? 'active' : '' }}">
                                                                     <img style="width: 15px; height: 15px;" src="{{ asset('themes/jrrss/assets/img/flags/estados-unidos.png') }}" alt="">
                                                                     &nbsp; Estados Unidos
                                                                 </a>
                                                             </li>
 															<li>
-                                                                <a href="{{ route('web_sedes_españa') }}" 
+                                                                <a href="{{ route('web_sedes_españa') }}"
                                                                     class="dropdown-item  {{ request()->routeIs('web_sedes_españa') ? 'active' : '' }}">
                                                                     <img style="width: 15px; height: 15px;" src="{{ asset('themes/jrrss/assets/img/flags/españa.png') }}" alt="">
                                                                     &nbsp; España
@@ -276,27 +276,27 @@
                                                         </a>
                                                     </li> --}}
                                                     <li class="dropdown">
-														<a href="" 
+														<a href="{{ route('web_coberturas_peru') }}"
                                                             class="nav-link dropdown-toggle {{ request()->routeIs('web_cobertura') ? 'active' : '' }}">
                                                             COBERTURAS &nbsp;<i class="fa fa-caret-down" aria-hidden="true"></i>
                                                         </a>
 														<ul class="dropdown-menu">
 															<li>
-                                                                <a href="{{ route('web_coberturas_peru') }}" 
+                                                                <a href="{{ route('web_coberturas_peru') }}"
                                                                     class="dropdown-item">
                                                                     <img style="width: 15px; height: 15px;" src="{{ asset('themes/jrrss/assets/img/flags/peru.png') }}" alt="">
                                                                     &nbsp; Perú
                                                                 </a>
                                                             </li>
 															{{-- <li>
-                                                                <a href="" 
+                                                                <a href=""
                                                                     class="dropdown-item">
                                                                     <img style="width: 15px; height: 15px;" src="{{ asset('themes/jrrss/assets/img/flags/estados-unidos.png') }}" alt="">
                                                                     &nbsp; Estados Unidos
                                                                 </a>
                                                             </li>
 															<li>
-                                                                <a href="" 
+                                                                <a href=""
                                                                     class="dropdown-item">
                                                                     <img style="width: 15px; height: 15px;" src="{{ asset('themes/jrrss/assets/img/flags/españa.png') }}" alt="">
                                                                     &nbsp; España
@@ -323,25 +323,25 @@
                                                         </a>
                                                     </li> --}}
                                                     <li class="dropdown">
-														<a href="{{ route('web_benefactora') }}" 
+														<a href="{{ route('web_benefactora') }}"
                                                             class="nav-link dropdown-toggle {{ request()->routeIs('web_benefactora') ? 'active' : '' }}">
                                                             BENEFACTORA &nbsp;<i class="fa fa-caret-down" aria-hidden="true"></i>
                                                         </a>
 														<ul class="dropdown-menu">
 															<li>
-                                                                <a href="{{ route('web_panes_y_peces') }}" 
+                                                                <a href="{{ route('web_panes_y_peces') }}"
                                                                     class="dropdown-item  {{ request()->routeIs('web_panes_y_peces') ? 'active' : '' }}">
                                                                     5 Panes y 2 Peces
                                                                 </a>
                                                             </li>
 															<li>
-                                                                <a href="{{ route('web_el_buen_samaritano') }}" 
+                                                                <a href="{{ route('web_el_buen_samaritano') }}"
                                                                     class="dropdown-item  {{ request()->routeIs('web_el_buen_samaritano') ? 'active' : '' }}">
                                                                     El Buen Samaritano
                                                                 </a>
                                                             </li>
 															<li>
-                                                                <a href="{{ route('web_sembrando_sonrisas') }}" 
+                                                                <a href="{{ route('web_sembrando_sonrisas') }}"
                                                                     class="dropdown-item  {{ request()->routeIs('web_sembrando_sonrisas') ? 'active' : '' }}">
                                                                     Sembrando Sonrisas
                                                                 </a>
