@@ -65,7 +65,6 @@ const hasAnyRole = (rolesToCheck) => {
                         <SalesSummary v-if="hasAnyRole(['admin', 'webAdmin', 'Administrador','Contabilidad'])" />
                     </div>
                 </template>
-
                 <!--modulo academico -->
                 <div v-if="hasAnyRole(['admin', 'webAdmin', 'Administrador'])" class="col-span-3 sm:col-span-2 space-y-6">
                     <template v-if="P000009 == 1">
