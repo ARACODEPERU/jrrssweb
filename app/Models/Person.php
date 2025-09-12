@@ -45,8 +45,12 @@ class Person extends Model
         'company',
         'industry_id',
         'profession_id',
-        'occupation_id'
+        'occupation_id',
+        'country_id'
     ];
+
+    protected $appends = ['formatted_name'];
+
     // se esta guardando la ruta completa por eso se comento
     // public function getImageAttribute($value)
     // {
@@ -64,5 +68,31 @@ class Person extends Model
     public function resumes(): HasMany
     {
         return $this->hasMany(AcaTeachingResume::class, 'person_id');
+    }
+
+    public function country(): HasOne
+    {
+        return $this->hasOne(Country::class, 'id', 'country_id');
+    }
+
+    public function getFormattedNameAttribute()
+    {
+        // buscamos el parámetro una sola vez
+        static $format = null;
+
+        if ($format === null) {
+            $format = Parameter::where('parameter_code', 'P000020')->value('value_default') ?? 1;
+        }
+
+        switch ($format) {
+            case 1: // Apellidos + Nombres
+                return trim("{$this->father_lastname} {$this->mother_lastname} {$this->names}");
+            case 2: // Nombres + Apellidos
+                return trim("{$this->names} {$this->father_lastname} {$this->mother_lastname}");
+            case 3: // Nombres + Apellido paterno solamente
+                return trim("{$this->names} {$this->father_lastname}");
+            default: // fallback
+                return $this->full_name;
+        }
     }
 }

@@ -5,6 +5,7 @@ namespace Modules\Academic\Http\Controllers;
 use App\Helpers\Barios;
 use App\Models\Parameter;
 use App\Rules\AcaRegistrationExists;
+use App\Models\Person;
 use Carbon\Carbon;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
@@ -485,5 +486,40 @@ class AcaCertificateController extends Controller
                 ]);
             }
         }
+    }
+
+    public function certificado_validar($dni=0, $course_id=0)
+    {
+        $person="";
+        $certificates="";
+        $course="";
+        if ($dni != 0) {
+            $person = Person::where('number', $dni)->select('full_name', 'image', 'number')->first();
+            if($course_id==0){
+                $certificates = DB::table('people')
+                                ->join('aca_students', 'people.id', '=', 'aca_students.person_id')
+                                ->join('aca_certificates', 'aca_students.id', '=', 'aca_certificates.student_id')
+                                ->join('aca_courses', 'aca_certificates.course_id', '=', 'aca_courses.id')
+                                ->where('people.number', $dni)
+                                ->select('aca_certificates.created_at as fecha', 'aca_courses.description', 'aca_courses.id as course_id')
+                                ->get();
+            }else{
+                $course=1;
+                $certificates = DB::table('people')
+                                ->join('aca_students', 'people.id', '=', 'aca_students.person_id')
+                                ->join('aca_certificates', 'aca_students.id', '=', 'aca_certificates.student_id')
+                                ->join('aca_courses', 'aca_certificates.course_id', '=', 'aca_courses.id')
+                                ->join('aca_brochures', 'aca_brochures.course_id', '=', 'aca_certificates.course_id')
+                                ->where('people.number', $dni)->where('aca_certificates.course_id', $course_id)
+                                ->select('aca_certificates.created_at as fecha', 'aca_courses.description', 'aca_brochures.curriculum_plan', 'aca_courses.id as course_id')
+                                ->get();
+            }
+
+        }
+        return view('academic::certificado_validar.certificado_validar', [
+            'person' => $person,
+            'certificates' => $certificates,
+            'course' => $course,
+        ]);
     }
 }
