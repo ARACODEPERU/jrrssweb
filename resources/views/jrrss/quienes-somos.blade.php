@@ -39,7 +39,7 @@
                         </p>
                     </div>
                     <div class="col-md-6 ara_centrado_total">
-                        <img width="100%;" src="{{ $presentacion[2]->content ?? '' }}" alt="Presentación">
+                        <img width="100%;" src="{{ asset('storage/' . $presentacion[2]->content ?? '')  }}" alt="Presentación">
                     </div>
                 </div>
             </div>
