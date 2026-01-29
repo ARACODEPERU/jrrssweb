@@ -13,8 +13,6 @@
             
             <x-jrrss.main-slider :slides="$sliders" />
 
-            <br><br>
-
             <section class="pb-5 mb-4">
                 <div class="container-lg"> 
                     <div class="row">
