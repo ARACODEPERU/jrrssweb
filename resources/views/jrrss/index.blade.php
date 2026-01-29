@@ -11,52 +11,7 @@
 
         <div role="main" class="main">
             
-            <div class="owl-carousel owl-carousel-light owl-carousel-light-init-fadeIn owl-theme manual 
-                dots-inside dots-vertical-center dots-align-right dots-orientation-portrait custom-dots-style-1 show-dots-hover 
-                show-dots-xs nav-style-1 nav-inside nav-inside-plus nav-dark nav-lg nav-font-size-lg show-nav-hover mb-0 view-pc" 
-                data-plugin-options="{'autoplayTimeout': 6500}" 
-                data-dynamic-height="['650px','650px','650px','550px','500px']">
-                <div class="owl-stage-outer">
-                    <div class="owl-stage ara_centrado_total">
-                        @foreach ($sliders as $slide)
-                        <div  class="owl-item position-relative " 
-
-                                style="background-size: cover; background-position: center;">
-                                <img style="max-width: 100%; height: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"  src="{{ asset('storage/' . $slide->content) }}" alt="Slide de la página principal {{ $loop->iteration }}">
-                        </div>
-                        @endforeach
-                    </div>
-                </div>
-                </div>
-                <div class="owl-dots mb-5">
-                    @foreach ($sliders as $key => $slide)
-                        <button role="button" class="owl-dot {{ $loop->first ? 'active' : '' }}" aria-label="Ir a la diapositiva {{ $loop->iteration }}"><span></span></button>
-                    @endforeach
-                </div>
-            </div>
-
-            <div class="view-movile owl-carousel owl-carousel-light owl-carousel-light-init-fadeIn owl-theme manual 
-                dots-inside dots-vertical-center dots-align-right dots-orientation-portrait custom-dots-style-1 show-dots-hover 
-                show-dots-xs nav-style-1 nav-inside nav-inside-plus nav-dark nav-lg nav-font-size-lg show-nav-hover mb-0 " 
-                data-plugin-options="{'autoplayTimeout': 6500}" 
-                data-dynamic-height="['200px','200px','200px','200px','130px']" 
-                style="height: 350px;">
-                <div class="owl-stage-outer">
-                    <div class="owl-stage ara_centrado_total">
-                        @foreach ($sliders as $slide)
-                        <div  class="owl-item position-relative" 
-                                style="background-size: cover; background-position: center;">
-                                <img style="max-width: 100%; height: auto;"  src="{{ asset('storage/' . $slide->content) }}" alt="Slide de la página principal {{ $loop->iteration }}">
-                        </div>
-                        @endforeach
-                    </div>
-                </div>
-                <div class="owl-dots mb-5">
-                    @foreach ($sliders as $key => $slide)
-                        <button role="button" class="owl-dot {{ $loop->first ? 'active' : '' }}" aria-label="Ir a la diapositiva {{ $loop->iteration }}"><span></span></button>
-                    @endforeach
-                </div>
-            </div>
+            <x-jrrss.main-slider :slides="$sliders" />
 
             <br><br>
 
