@@ -112,7 +112,7 @@
         <div class="header-body border-0">
             <div class="view-pc" style="position: relative; overflow: hidden; height: 160px;">
                 <img style="width: 100%; height: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
-                        src="{{ $header[0]->content }}" alt="">
+                        src="{{ asset('storage/' . $header[0]->content) }}" alt="">
             </div>
             {{-- <div class="ara_centrado_total view-pc">
                 <img style="max-width: 100%;
