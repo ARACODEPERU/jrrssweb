@@ -13,13 +13,13 @@
             <section data-plugin-parallax data-plugin-options="{'speed': 1.2}" class="view-pc"
                 style="position: relative; height: 310px; overflow: hidden;">
                 <img style="width: 100%; height: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
-                    src="{{ $banner->content }}" alt="">
+                    src="{{ asset('storage/' . ($banner->content ?? '')) }}" alt="">
             </section>
 
             <section data-plugin-parallax data-plugin-options="{'speed': 1.2}" class="view-movile"
                 style="position: relative; height: 80px; overflow: hidden;">
                 <img style="width: 100%; height: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
-                    src="{{ $banner->content }}" alt="">
+                    src="{{ asset('storage/' . ($banner->content ?? '')) }}" alt="">
             </section>
 
 
@@ -150,12 +150,6 @@
                                         </div>
                                         <div class="row">
                                             <div class="form-group col">
-                                                {{-- <button data-loading-text="Loading..." id="submitPaypal"
-                                                    class="btn btn-outline btn-primary rounded-0 py-3 px-5 font-weight-semibold"
-                                                    style="font-size: 18px;">
-                                                    Donar
-                                                    con Mercado Pago
-                                                </button> --}}
                                                 <button data-loading-text="Loading..." id="submitPaypal" class="boton-fuego">
                                                     <i class="fa fa-credit-card" aria-hidden="true" style="font-size: 20px;"></i>
                                                     &nbsp; Donar con mercado pago
@@ -201,12 +195,6 @@
                                         </div>
                                         <div class="row">
                                             <div class="form-group col">
-                                                {{-- <button data-loading-text="Loading..." id="submitPaypal"
-                                                    class="btn btn-outline btn-primary rounded-0 py-3 px-5 font-weight-semibold"
-                                                    style="font-size: 18px;">
-                                                    Donar
-                                                    con Paypal
-                                                </button> --}}
                                                 <button data-loading-text="Loading..." id="submitPaypal" class="boton-fuego">
                                                     <i class="fa fa-usd" aria-hidden="true" style="font-size: 20px;"></i>
                                                     &nbsp; Donar con paypal

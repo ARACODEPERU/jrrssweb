@@ -14,13 +14,13 @@
             <section data-plugin-parallax data-plugin-options="{'speed': 1.2}" class="view-pc"
                 style="position: relative; height: 310px; overflow: hidden;">
                 <img style="width: 100%; height: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
-                    src="{{ $banner->content }}" alt="">
+                    src="{{ asset('storage/' . ($banner->content ?? '')) }}" alt="">
             </section>
 
             <section data-plugin-parallax data-plugin-options="{'speed': 1.2}" class="view-movile"
                 style="position: relative; height: 80px; overflow: hidden;">
                 <img style="width: 100%; height: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
-                    src="{{ $banner->content }}" alt="">
+                    src="{{ asset('storage/' . ($banner->content ?? '')) }}" alt="">
             </section>
 
             <div class="container-lg" style="margin-top: 20px;">
@@ -30,10 +30,10 @@
                             <div class="">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <img style="width: 100%; margin-top:-20px;" src="{{ $sede->item->items[0]->content }}" alt="">
+                                        <img style="width: 100%; margin-top:-20px;" src="{{ asset('storage/' . ($sede->item->items[0]->content ?? '')) }}" alt="">
                                         <h5 style="background: #000; color: #fff; padding: 8px 10px; z-index: 9999; top: 0px; position: relative;">
-                                            <img style="width: 30px;" src="{{ $sede->item->items[1]->content }}" alt="">
-                                            &nbsp; {{ $sede->item->items[2]->content }}
+                                            <img style="width: 30px;" src="{{ asset('storage/' . ($sede->item->items[1]->content ?? '')) }}" alt="">
+                                            &nbsp; {{ $sede->item->items[2]->content ?? '' }}
                                         </h5>
                                     </div>
                                 </div>
@@ -41,12 +41,12 @@
                                     <div class="col-md-3 ara_centrado_total">
                                         <img style=" width: 60px; border-radius: 50%; 
                                                     overflow: hidden; border: 1px solid #000;"
-                                                    src="{{ $sede->item->items[3]->content }}"
+                                                    src="{{ asset('storage/' . ($sede->item->items[3]->content ?? '')) }}"
                                             alt="img">
                                     </div>
                                     <div class="col-md-9" style="margin-left: -10px;">
-                                        <h5 style="margin-top: 8px; text-align:left; padding: 3px 0px;">{{ $sede->item->items[4]->content }}</h5>
-                                        <div style="margin-top: -20px; text-align:left; padding: 3px 0px;">{{ $sede->item->items[5]->content }}</div>
+                                        <h5 style="margin-top: 8px; text-align:left; padding: 3px 0px;">{{ $sede->item->items[4]->content ?? '' }}</h5>
+                                        <div style="margin-top: -20px; text-align:left; padding: 3px 0px;">{{ $sede->item->items[5]->content ?? '' }}</div>
                                     </div>
                                 </div>
                                 <br>
@@ -54,16 +54,16 @@
                                     <div class="col-md-12" style="padding: 0px 35px;">
                                         
                                             <p style="line-height: 15px;">
-                                                <b>Dirección:</b><br> {{ $sede->item->items[6]->content }}
+                                                <b>Dirección:</b><br> {{ $sede->item->items[6]->content ?? '' }}
                                             </p>
                                             <p style="line-height: 15px;">
-                                                <b>Teléfono:</b><br> {{ $sede->item->items[7]->content }}
+                                                <b>Teléfono:</b><br> {{ $sede->item->items[7]->content ?? '' }}
                                             </p>
                                             <p style="line-height: 15px;">
-                                                <b>Correo Electrónico:</b><br> {{ $sede->item->items[8]->content }}
+                                                <b>Correo Electrónico:</b><br> {{ $sede->item->items[8]->content ?? '' }}
                                             </p>
                                             <p style="line-height: 15px;">
-                                                <b>Horario de Reunión:</b><br> {{ $sede->item->items[9]->content }}
+                                                <b>Horario de Reunión:</b><br> {{ $sede->item->items[9]->content ?? '' }}
                                             </p>
                                     </div>
                                 </div>

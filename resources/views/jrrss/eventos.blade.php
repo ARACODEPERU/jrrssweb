@@ -15,9 +15,6 @@
                 <div class="container-lg container-xl-custom pt-5">
                     <div class="row">
                         <div class="col-md-12" style="text-align: center;">
-                            {{-- <p class="mb-1">
-                                #{{ $event->category->description }}
-                            </p> --}}
                             <h3 class="text-secondary font-weight-bold text-capitalize text-7 mb-3" style="line-height: 35px;">
                                 {{ $event->title }}
                             </h3>
@@ -204,10 +201,6 @@
     
                                                                 </div>
                                                                 <div class="col-md-12 d-grid">
-                                                                    {{-- <button type="submit" class="btn btn-primary" style="font-size: 20px; width: 100%;">
-                                                                        <i class="fa fa-shopping-cart" style="font-size: 22px;" aria-hidden="true"></i>
-                                                                        Continuar
-                                                                    </button> --}}
                                                                     <br>
                                                                     <button type="submit" class="boton-fuego">
                                                                         <i class="fa fa-shopping-cart" style="font-size: 20px;"></i>&nbsp; Continuar
@@ -232,128 +225,6 @@
                                         </div>
                                 @endif
                             </div>
-                            {{-- <div class="row" style="text-align:center;">
-                                <div class="form-group col">
-                                    <a href="{{ route('web_comprar_entrada', $event->id) }}"
-                                        class="btn  btn-primary rounded-0 py-3 px-5 font-weight-semibold"
-                                        style="font-size: 20px; width: 95%;">
-                                        <i class="fa fa-shopping-cart" style="font-size: 22px;" aria-hidden="true"></i>
-                                        &nbsp;&nbsp; Adquirir entrada
-                                    </a>
-                                </div>
-                            </div> --}}
-                            <!--
-                                    <div class="custom-card-style-2 card-contact-us mb-5">
-                                        <div class="m-4">
-                                            <div class="row flex-column px-5 pt-3 pb-4">
-                                                <div class="row px-3 mb-3">
-                                                    <h3 class="text-secondary font-weight-bold text-capitalize my-3">Registro Online
-                                                    </h3>
-                                                    <p>Lorem inpsum dolor sit amet, consectetur adipiscing elit. Sed eget risus
-                                                        pora,
-                                                        tincidunt turpis at, intermedum tortor.</p>
-                                                </div>
-                                                <form class=" custom-form-style-1" method="POST"
-                                                    action="{{ route('web_eventos_registrarse') }}" id="pageContactForm">
-                                                    @csrf
-                                                    <input type="hidden" value="{{ $event->id }}" name="event_id" />
-                                                    <div class="row">
-                                                        <div class="form-group col">
-                                                            <input type="text" placeholder="Nombres Completos"
-                                                                value="{{ old('full_name') }}"
-                                                                data-msg-required="Por favor ingresa tus nombres completos."
-                                                                maxlength="125" class="form-control bg-color-tertiary"
-                                                                name="full_name" id="full_name" required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="form-group col">
-                                                            <input type="text" placeholder="Número de identificación"
-                                                                value="{{ old('identification_number') }}"
-                                                                data-msg-required="Por favor ingresa Número de identificación."
-                                                                maxlength="100" class="form-control bg-color-tertiary"
-                                                                name="identification_number" id="identification_number" required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="form-group col">
-                                                            <input type="text" placeholder="Teléfono"
-                                                                value="{{ old('phone') }}"
-                                                                data-msg-required="Por favor ingresa tu número de teléfono."
-                                                                maxlength="100" class="form-control bg-color-tertiary"
-                                                                name="phone" id="phone" required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="form-group col">
-                                                            <input type="email" placeholder="Dirección E-mail"
-                                                                value="{{ old('email') }}"
-                                                                data-msg-required="Por favor ingresa tu correo electrónico."
-                                                                data-msg-email="Please enter a valid email address." maxlength="100"
-                                                                class="form-control bg-color-tertiary" name="email" id="email"
-                                                                required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="form-group col">
-                                                            <input class="form-control bg-color-tertiary" list="datalistOptions"
-                                                                name="lugar" id="exampleDataList"
-                                                                placeholder="Desde que ciudad viene?"
-                                                                value="{{ old('lugar') }}">
-                                                            <datalist id="datalistOptions">
-                                                                @foreach ($ubigeo as $row)
-                                                                <option value="{{ $row->city_name }}" />
-                                                                @endforeach
-                                                            </datalist>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="form-group col-md-7">
-                                                            <select class="form-select form-control bg-color-tertiary"
-                                                                aria-label="Default select example" name="tipo" id="tipo"
-                                                                required>
-                                                                <option selected>Tipo de ticket </option>
-                                                                @foreach ($event->prices as $row)
-                                                                    @if ($row->price > 0)
-                                                                    <option value="{{ $row->id }}">
-                                                                            {{ $row->type->description }} S/.
-                                                                            {{ $row->price }}
-                                                                        </option>
-                                                                @endif
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group col-md-5">
-                                                            <input type="number" placeholder="Cantidad"
-                                                                value="{{ old('quantity') }}"
-                                                                data-msg-required="Por favor ingresa la cantidad de entrada."
-                                                                maxlength="125" class="form-control bg-color-tertiary"
-                                                                name="quantity" id="quantity" required>
-                                                        </div>
-                                                    </div>
-                                                    @if ($errors->any())
-                                                        <div class="alert alert-danger">
-                                                            <ul>
-                                                                @foreach ($errors->all() as $error)
-                                                                <li>{{ $error }}</li>
-                                                                @endforeach
-                                                            </ul>
-                                                        </div>
-                                                    @endif
-                                                    <div class="row">
-                                                        <div class="form-group col">
-                                                            <button data-loading-text="Loading..." id="submitPageContactButton"
-                                                                class="btn btn-outline btn-primary rounded-0 py-3 px-5 font-weight-semibold"
-                                                                style="font-size: 14px;">
-                                                                <i class="fa fa-edit" aria-hidden="true"></i> Inscripción
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    -->
                         </div>
                     </div>
                 </div>

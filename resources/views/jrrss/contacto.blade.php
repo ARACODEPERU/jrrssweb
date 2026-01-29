@@ -13,13 +13,13 @@
             <section data-plugin-parallax data-plugin-options="{'speed': 1.2}" class="view-pc"
                 style="position: relative; height: 310px; overflow: hidden;">
                 <img style="width: 100%; height: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
-                    src="{{ $banner->content }}" alt="">
+                    src="{{ asset('storage/' . ($banner->content ?? '')) }}" alt="">
             </section>
 
             <section data-plugin-parallax data-plugin-options="{'speed': 1.2}" class="view-movile"
                 style="position: relative; height: 80px; overflow: hidden;">
                 <img style="width: 100%; height: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
-                    src="{{ $banner->content }}" alt="">
+                    src="{{ asset('storage/' . ($banner->content ?? '')) }}" alt="">
             </section>
 
 
@@ -67,10 +67,6 @@
                             <div class="row">
                                 <div class="form-group col">
 
-                                    {{-- <button type="submit" class="btn btn-primary rounded-0 py-3 px-5 font-weight-semibold">
-                                        Enviar Ahora
-                                    </button> --}}
-                                    
                                     <button type="submit" class="boton-fuego">
                                         <i class="fa fa-paper-plane" aria-hidden="true" style="font-size: 20px;"></i>&nbsp; Enviar Ahora
                                     </button>

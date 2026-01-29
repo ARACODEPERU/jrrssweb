@@ -19,11 +19,9 @@
                         <div class="container mt-4">
                             <div class="row justify-content-center ">
                                 <div class="col-md-12 text-center">
-                                    <h2 class="custom-highlight-text-1 d-inline-block line-height-4
-                                                text-4 positive-ls-3 font-weight-medium text-color-primary
-                                                mb-2 appear-animation"
+                                    <h2 class="custom-highlight-text-1 d-inline-block line-height-4 text-4 positive-ls-3 font-weight-medium text-color-primary mb-2 appear-animation"
                                                 data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
-                                                {{ $reuniones[0]->item->content ?? 'Reuniones' }}
+                                        {{ $reuniones[0]->item->content ?? 'Reuniones' }}
                                     </h2>
                                     <h3 class="text-9 line-height-3 text-transform-none font-weight-semibold mb-4 appear-animation"
                                         data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
@@ -37,23 +35,25 @@
                             </div>
                         </div> 
                     <div class="row">
-                        @foreach ($reuniones->slice(1, 4) as $key => $reunion)
-                                <div class="col-md-6 p-3 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="{{ ($loop->iteration * 200) + 600 }}">
-                                    <div class="ih-item square colored effect8 scale_down">
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#reuniones{{ $key }}">
-                                            <div class="img">
-                                                <img src="{{ asset('storage/' . ($reunion->item->items[1]->content ?? 'default.jpg')) }}" alt="{{ $reunion->item->items[0]->content ?? 'Imagen' }}">
-                                            </div>
-                                            <div class="info">
-                                                <h4 class="p-2"><b>{{ $reunion->item->items[2]->content ?? '' }}: {{ $reunion->item->items[3]->content ?? '' }}</b> </h4>
-                                                <p class="mt-n4">
-                                                    <b>Horario de Reunión:</b> {{ $reunion->item->items[5]->content ?? '' }}
-                                                </p>
-                                            </div>
-                                        </a>
-                                    </div>
+                    @foreach ($reuniones->slice(1, 4) as $key => $reunion)
+                            <div class="col-md-6 p-3 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="{{ ($loop->iteration * 200) + 600 }}">
+                                <div class="ih-item square colored effect8 scale_down">
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#reuniones{{ $key }}">
+                                        <div class="img">
+                                            <img src="{{ asset('storage/' . ($reunion->item->items[1]->content ?? 'default.jpg')) }}" alt="{{ $reunion->item->items[0]->content ?? 'Imagen' }}">
+                                        </div>
+                                        <div class="info">
+                                            <h4 class="p-2"><b>{{ $reunion->item->items[2]->content ?? '' }}: {{ $reunion->item->items[3]->content ?? '' }}</b> </h4>
+                                            <p class="mt-n4">
+                                                <b>Horario de Reunión:</b> {{ $reunion->item->items[5]->content ?? '' }}
+                                            </p>
+                                        </div>
+                                    </a>
                                 </div>
-                        @endforeach
+                            </div>
+                    @endforeach
+                </div>
+                </div>
                 </div>
             </section>
             <section class="section section-parallax section-height-5 overlay overlay-show overlay-op-7 border-0 m-0"
@@ -80,14 +80,11 @@
                         <div class="container mt-4">
                             <div class="row justify-content-center">
                                 <div class="col-md-12 text-center">
-                                    <h2 class="custom-highlight-text-1 d-inline-block line-height-5
-                                                text-4 positive-ls-3 font-weight-medium text-color-primary
-                                                mb-2 appear-animation"
+                                    <h2 class="custom-highlight-text-1 d-inline-block line-height-5 text-4 positive-ls-3 font-weight-medium text-color-primary mb-2 appear-animation"
                                                 data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
-                                                {{ $ministerios[0]->item->content ?? 'Ministerios' }}
+                                        {{ $ministerios[0]->item->content ?? 'Ministerios' }}
                                     </h2>
-                                    <h3 class="text-9 line-height-3 text-transform-none font-weight-semibold mb-4
-                                        appear-animation"
+                                    <h3 class="text-9 line-height-3 text-transform-none font-weight-semibold mb-4 appear-animation"
                                         data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
                                         {{ $ministerios[4]->item->content ?? '' }}
                                     </h3>
@@ -149,21 +146,18 @@
                     <div class="row">
                         <div class="col-md-1 p-3"></div>
                         <div class="col-md-4 box-zoom p-4 text-center">
-                            <h2 class="custom-highlight-text-1 d-inline-block line-height-5
-                                        text-4 positive-ls-3 font-weight-medium text-color-primary
-                                        mb-2 appear-animation"
+                            <h2 class="custom-highlight-text-1 d-inline-block line-height-5 text-4 positive-ls-3 font-weight-medium text-color-primary mb-2 appear-animation"
                                         data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
                                         #SOMOSJRRSS
                             </h2>
-                            <h4 class="line-height-1 text-transform-none font-weight-semibold
-                                appear-animation"
+                            <h4 class="line-height-1 text-transform-none font-weight-semibold appear-animation"
                                 data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400" style="font-size: 30px;">
                                 {{ $difusion[0]->content }}
                             </h4>
                             <br>
                             <img class="mb-1 appear-animation w-100 mt-n1"
                                 data-appear-animation="fadeInUpShorter" data-appear-animation-delay="600"
-                                src="{{ asset('storage/' . $difusion[2]->content) }}" alt="Canal de difusión JRRSS">
+                                src="{{ asset('storage/' . ($difusion[2]->content ?? '')) }}" alt="Canal de difusión JRRSS">
                             <p class="text-3-5 pb-3 mb-1 appear-animation mt-n3"
                                 data-appear-animation="fadeInUpShorter"
                                 data-appear-animation-delay="800">
@@ -178,20 +172,17 @@
                         </div>
                         <div class="col-md-2 p-3"></div>
                         <div class="col-md-4 box-zoom p-4 text-center">
-                            <h2 class="custom-highlight-text-1 d-inline-block line-height-5
-                                        text-4 positive-ls-3 font-weight-medium text-color-primary
-                                        mb-2 appear-animation"
+                            <h2 class="custom-highlight-text-1 d-inline-block line-height-5 text-4 positive-ls-3 font-weight-medium text-color-primary mb-2 appear-animation"
                                         data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
                                         #SOMOSJRRSS
                             </h2>
-                            <h4 class="line-height-1 text-transform-none font-weight-semibold
-                                appear-animation"
+                            <h4 class="line-height-1 text-transform-none font-weight-semibold appear-animation"
                                 data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400" style="font-size: 30px;">
                                 {{ $difusion[4]->content }}
                             </h4>
                             <img class="mb-1 appear-animation w-100 mt-n2"
                                 data-appear-animation="fadeInUpShorter" data-appear-animation-delay="600"
-                                src="{{ asset('storage/' . $difusion[6]->content) }}" alt="Canal de difusión RMNT">
+                                src="{{ asset('storage/' . ($difusion[6]->content ?? '')) }}" alt="Canal de difusión RMNT">
                             <p class=" pb-3 mb-1 appear-animation mt-n3"
                                     data-appear-animation="fadeInUpShorter"
                                 data-appear-animation-delay="800">

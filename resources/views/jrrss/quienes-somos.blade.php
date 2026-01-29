@@ -23,10 +23,6 @@
                     src="{{ asset('storage/' . $banner->content ?? '') }}" alt="Banner Quiénes Somos">
             </section>
 
-            {{-- <section data-plugin-parallax data-plugin-options="{'speed': 1.2}">
-                <img style="max-width: 100%; height: auto;"  src="{{ $banner->content }}" alt="">
-            </section> --}}
-
             <div class="container-lg" style="padding: 30px 20px 60px 20px;">
                 <div class="row">
                     <div class="col-md-6">
@@ -39,7 +35,7 @@
                         </p>
                     </div>
                     <div class="col-md-6 ara_centrado_total">
-                        <img width="100%;" src="{{ asset('storage/' . $presentacion[2]->content ?? '')  }}" alt="Presentación">
+                        <img style="width: 100%;" src="{{ asset('storage/' . ($presentacion[2]->content ?? '')) }}" alt="Presentación">
                     </div>
                 </div>
             </div>
