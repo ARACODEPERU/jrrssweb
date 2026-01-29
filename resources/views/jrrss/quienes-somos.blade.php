@@ -47,7 +47,7 @@
 
             <section class="section section-parallax section-height-5 overlay overlay-show overlay-op-7 border-0 m-0 appear-animation animated fadeIn appear-animation-visible"
                     data-appear-animation="fadeIn" data-plugin-parallax="" data-plugin-options="{'speed': 1.5, 'parallaxHeight': '138%'}"
-                    data-image-src="{{ $parallax[0]->content ?? '' }}" style="position: relative; overflow: hidden; animation-delay: 100ms;">
+                    data-image-src="{{asset('storage/' . $parallax[0]->content ?? '')   }}" style="position: relative; overflow: hidden; animation-delay: 100ms;">
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-md-2"></div>
