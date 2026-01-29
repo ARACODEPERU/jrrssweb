@@ -22,15 +22,15 @@
                                     <h2 class="custom-highlight-text-1 d-inline-block line-height-4
                                                 text-4 positive-ls-3 font-weight-medium text-color-primary
                                                 mb-2 appear-animation"
-                                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1300">
+                                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
                                                 {{ $reuniones[0]->item->content ?? 'Reuniones' }}
                                     </h2>
                                     <h3 class="text-9 line-height-3 text-transform-none font-weight-semibold mb-4 appear-animation"
-                                        data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1500">
+                                        data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
                                         {{ $reuniones[5]->item->content ?? '' }}
                                     </h3>
                                     <p class="pb-3 mb-4 appear-animation"
-                                        data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1900">
+                                        data-appear-animation="fadeInUpShorter" data-appear-animation-delay="600">
                                         {{ $reuniones[6]->item->content ?? '' }}
                                     </p>
                                 </div>
@@ -38,7 +38,7 @@
                         </div> 
                     <div class="row">
                         @foreach ($reuniones->slice(1, 4) as $key => $reunion)
-                                <div class="col-md-6 p-3">
+                                <div class="col-md-6 p-3 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="{{ ($loop->iteration * 200) + 600 }}">
                                     <div class="ih-item square colored effect8 scale_down">
                                         <a href="#" data-bs-toggle="modal" data-bs-target="#reuniones{{ $key }}">
                                             <div class="img">
@@ -83,17 +83,17 @@
                                     <h2 class="custom-highlight-text-1 d-inline-block line-height-5
                                                 text-4 positive-ls-3 font-weight-medium text-color-primary
                                                 mb-2 appear-animation"
-                                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1300">
+                                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
                                                 {{ $ministerios[0]->item->content ?? 'Ministerios' }}
                                     </h2>
                                     <h3 class="text-9 line-height-3 text-transform-none font-weight-semibold mb-4
                                         appear-animation"
-                                        data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1500">
+                                        data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
                                         {{ $ministerios[4]->item->content ?? '' }}
                                     </h3>
                                     <p class="text-3-5 pb-3 mb-4 appear-animation"
                                         data-appear-animation="fadeInUpShorter"
-                                        data-appear-animation-delay="1900">
+                                        data-appear-animation-delay="600">
                                         {{ $ministerios[5]->item->content ?? '' }}
                                     </p>
                                 </div>
@@ -101,7 +101,7 @@
                     </div>
                     <div class="row">
                         @foreach ($ministerios->slice(1, 3) as $key => $ministerio)
-                            <div class="col-md-4 p-2">
+                            <div class="col-md-4 p-2 appear-animation" data-appear-animation="fadeInLeftShorter" data-appear-animation-delay="{{ ($loop->iteration * 200) + 600 }}">
                                 <div class="ih-item square colored effect8 scale_down">
                                     <a href="{{ $ministerio->item->items[3]->content ?? '#' }}">
                                         <div class="img">
@@ -135,7 +135,7 @@
                                     {{ $gods_meeting[1]->content }}
                                 </p>
                                 <br>
-                                <a href="{{ route('web_contacto') }}">
+                                <a href="{{ route('web_contacto') }}" class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="600">
                                     <button class="boton-fuego"><i class="fa fa-edit"></i> Escribenos</button>
                                 </a>
                             </div>
@@ -152,25 +152,25 @@
                             <h2 class="custom-highlight-text-1 d-inline-block line-height-5
                                         text-4 positive-ls-3 font-weight-medium text-color-primary
                                         mb-2 appear-animation"
-                                        data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1300">
+                                        data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
                                         #SOMOSJRRSS
                             </h2>
                             <h4 class="line-height-1 text-transform-none font-weight-semibold
                                 appear-animation"
-                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1500" style="font-size: 30px;">
+                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400" style="font-size: 30px;">
                                 {{ $difusion[0]->content }}
                             </h4>
                             <br>
                             <img class="mb-1 appear-animation w-100 mt-n1"
-                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="2100"
+                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="600"
                                 src="{{ asset('storage/' . $difusion[2]->content) }}" alt="Canal de difusión JRRSS">
                             <p class="text-3-5 pb-3 mb-1 appear-animation mt-n3"
                                 data-appear-animation="fadeInUpShorter"
-                                data-appear-animation-delay="1900">
+                                data-appear-animation-delay="800">
                                 {{ $difusion[1]->content }}
                             </p>
                                 
-                            <a href="{{ $difusion[3]->content }}">
+                            <a href="{{ $difusion[3]->content }}" class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1000">
                                 <button class="boton-fuego">
                                     <i class="fab fa-whatsapp fs-4"></i> &nbsp; ¡Canal de difusión!
                                 </button>
@@ -181,24 +181,24 @@
                             <h2 class="custom-highlight-text-1 d-inline-block line-height-5
                                         text-4 positive-ls-3 font-weight-medium text-color-primary
                                         mb-2 appear-animation"
-                                        data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1300">
+                                        data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
                                         #SOMOSJRRSS
                             </h2>
                             <h4 class="line-height-1 text-transform-none font-weight-semibold
                                 appear-animation"
-                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1500" style="font-size: 30px;">
+                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400" style="font-size: 30px;">
                                 {{ $difusion[4]->content }}
                             </h4>
                             <img class="mb-1 appear-animation w-100 mt-n2"
-                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="2100"
+                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="600"
                                 src="{{ asset('storage/' . $difusion[6]->content) }}" alt="Canal de difusión RMNT">
                             <p class=" pb-3 mb-1 appear-animation mt-n3"
                                     data-appear-animation="fadeInUpShorter"
-                                data-appear-animation-delay="1900">
+                                data-appear-animation-delay="800">
                                 {{ $difusion[5]->content }}
                             </p>
                                 
-                            <a href="{{ $difusion[7]->content }}">
+                            <a href="{{ $difusion[7]->content }}" class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1000">
                                 <button class="boton-fuego">
                                     <i class="fab fa-whatsapp fs-4"></i> &nbsp; ¡Canal de difusión!
                                 </button>
