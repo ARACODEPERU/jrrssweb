@@ -23,7 +23,7 @@
                         <div  class="owl-item position-relative " 
 
                                 style="background-size: cover; background-position: center;">
-                                <img style="max-width: 100%; height: auto;"  src="{{ asset('storage/' . $slide->content) }}" alt="">
+                                <img style="max-width: 100%; height: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"  src="{{ asset('storage/' . $slide->content) }}" alt="Slide de la página principal {{ $loop->iteration }}">
                         </div>
                         @endforeach
                     </div>
@@ -46,7 +46,7 @@
                         @foreach ($sliders as $slide)
                         <div  class="owl-item position-relative" 
                                 style="background-size: cover; background-position: center;">
-                                <img style="max-width: 100%; height: auto;"  src="{{ asset('storage/' . $slide->content) }}" alt="">
+                                <img style="max-width: 100%; height: auto;"  src="{{ asset('storage/' . $slide->content) }}" alt="Slide de la página principal {{ $loop->iteration }}">
                         </div>
                         @endforeach
                     </div>
@@ -58,37 +58,9 @@
                 </div>
             </div>
 
-            {{-- <section class="section-custom-medical view-pc">
-                <div class="container">
-                    <div class="row medical-schedules">
-                        <div class="col-xl-3 box-two bg-color-primary appear-animation" data-appear-animation="fadeInLeft" data-appear-animation-delay="0">
-                            <div class="feature-box-info">
-                                <h3 class="m-0 p-0" style="color: #fff;">{{ $home[0]->content }}</h3>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 box-two bg-color-dark appear-animation" data-appear-animation="fadeInLeft" data-appear-animation-delay="600">
-                            <div class="feature-box-info">
-                                <h3 class="m-0 p-0" style="color: #fff;">{{ $home[1]->content }}</h3>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 box-two bg-color-primary appear-animation" data-appear-animation="fadeInLeft" data-appear-animation-delay="1200">
-                            <div class="feature-box-info">
-                                <h3 class="m-0 p-0" style="color: #fff;">{{ $home[2]->content }}</h3>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 box-two bg-color-dark appear-animation" data-appear-animation="fadeInLeft" data-appear-animation-delay="1800">
-                            <div class="feature-box-info">
-                                <h3 class="m-0 p-0" style="color: #fff;">{{ $home[3]->content }}</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <br><br> --}}
             <br><br>
 
-            <section style="padding-bottom: 90px;">
+            <section class="pb-5 mb-4">
                 <div class="container-lg"> 
                     <div class="row">
                         <div class="container mt-4">
@@ -125,8 +97,8 @@
                                             <div class="info">
                                                 <h3>{{ $reunion->item->items[0]->content }}</h3>
                                                 <br>
-                                                <h4 style="padding: 10px;"><b>{{ $reunion->item->items[2]->content }}: {{ $reunion->item->items[3]->content }}</b> </h4>
-                                                <p style="margin-top: -25px;">
+                                                <h4 class="p-2"><b>{{ $reunion->item->items[2]->content }}: {{ $reunion->item->items[3]->content }}</b> </h4>
+                                                <p class="mt-n4">
                                                     <b>Horario de Reunión:</b> {{ $reunion->item->items[5]->content }}
                                                 </p>
                                             </div>
@@ -144,8 +116,8 @@
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-lg-9 text-center">
-                                <h1 class="text-color-light font-weight-bold custom-tertiary-font ls-0 mb-4 appear-animation"
-                                    data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200" style="font-family: 'Montserrat', serif !important;">
+                                <h1 class="text-color-light font-weight-bold custom-tertiary-font ls-0 mb-4 appear-animation font-montserrat"
+                                    data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
                                     {{ $bible[1]->content }}
                                 </h1>
                                 <p class="text-color-light opacity-7 text-3 px-5 mx-5 mb-0 appear-animation"
@@ -194,7 +166,7 @@
                                         <div class="info">
                                             <h3>{{ $ministerio->item->items[1]->content }}</h3>
                                             <br>
-                                            <p style="margin-top: -25px;">
+                                            <p class="mt-n4">
                                                 <b>{{ $ministerio->item->items[2]->content }}</b>
                                             </p>
                                             <button class="btn btn-dark">Ingresar</button>
@@ -213,12 +185,12 @@
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-lg-9 text-center">
-                                <h1 class="text-color-light font-weight-bold custom-tertiary-font ls-0 mb-4 appear-animation"
-                                    data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200" style="font-family: 'Montserrat', serif !important;">
+                                <h1 class="text-color-light font-weight-bold custom-tertiary-font ls-0 mb-4 appear-animation font-montserrat"
+                                    data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
                                     {{ $gods_meeting[0]->content }}
                                 </h1>
-                                <p class="text-color-light opacity-7 px-5 mx-5 mb-0 appear-animation"
-                                    data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400" style="font-size: 18px;">
+                                <p class="text-color-light opacity-7 px-5 mx-5 mb-0 appear-animation fs-5"
+                                    data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
                                     {{ $gods_meeting[1]->content }}
                                 </p>
                                 <br>
@@ -244,23 +216,22 @@
                             </h2>
                             <h4 class="line-height-1 text-transform-none font-weight-semibold
                                 appear-animation"
-                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1500" style="margin-top: -5px; font-size: 30px;">
+                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1500" style="font-size: 30px;">
                                 {{ $difusion[0]->content }}
                             </h4>
                             <br>
-                            <img class="mb-1 appear-animation"
+                            <img class="mb-1 appear-animation w-100 mt-n1"
                                 data-appear-animation="fadeInUpShorter" data-appear-animation-delay="2100"
-                                style="margin-top: -5px; width: 100%;" 
                                 src="{{ asset('storage/' . $difusion[2]->content) }}" alt="Canal de difusión JRRSS">
-                            <p class="text-3-5 pb-3 mb-1 appear-animation"
+                            <p class="text-3-5 pb-3 mb-1 appear-animation mt-n3"
                                 data-appear-animation="fadeInUpShorter"
-                                data-appear-animation-delay="1900" style="margin-top: -20px;">
+                                data-appear-animation-delay="1900">
                                 {{ $difusion[1]->content }}
                             </p>
                                 
                             <a href="{{ $difusion[3]->content }}">
                                 <button class="boton-fuego">
-                                    <i class="fab fa-whatsapp" style="font-size: 24px;"></i> &nbsp; ¡Canal de difusión!
+                                    <i class="fab fa-whatsapp fs-4"></i> &nbsp; ¡Canal de difusión!
                                 </button>
                             </a>
                         </div>
@@ -274,22 +245,21 @@
                             </h2>
                             <h4 class="line-height-1 text-transform-none font-weight-semibold
                                 appear-animation"
-                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1500" style="margin-top: -5px; font-size: 30px;">
+                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1500" style="font-size: 30px;">
                                 {{ $difusion[4]->content }}
                             </h4>
-                            <img class="mb-1 appear-animation"
+                            <img class="mb-1 appear-animation w-100 mt-n2"
                                 data-appear-animation="fadeInUpShorter" data-appear-animation-delay="2100"
-                                style="margin-top: -10px; width: 100%;" 
                                 src="{{ asset('storage/' . $difusion[6]->content) }}" alt="Canal de difusión RMNT">
-                            <p class=" pb-3 mb-1 appear-animation"
+                            <p class=" pb-3 mb-1 appear-animation mt-n3"
                                     data-appear-animation="fadeInUpShorter"
-                                data-appear-animation-delay="1900" style="margin-top: -20px;">
+                                data-appear-animation-delay="1900">
                                 {{ $difusion[5]->content }}
                             </p>
                                 
                             <a href="{{ $difusion[7]->content }}">
                                 <button class="boton-fuego">
-                                    <i class="fab fa-whatsapp" style="font-size: 24px;"></i> &nbsp; ¡Canal de difusión!
+                                    <i class="fab fa-whatsapp fs-4"></i> &nbsp; ¡Canal de difusión!
                                 </button>
                             </a>
                         </div>
