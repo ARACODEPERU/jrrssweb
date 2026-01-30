@@ -13,13 +13,13 @@
             <section data-plugin-parallax data-plugin-options="{'speed': 1.2}" class="view-pc"
                 style="position: relative; height: 310px; overflow: hidden;">
                 <img style="width: 100%; height: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
-                    src="{{ $banner->content }}" alt="">
+                    src="{{ asset('storage/' . ($banner->content ?? '')) }}" alt="">
             </section>
 
             <section data-plugin-parallax data-plugin-options="{'speed': 1.2}" class="view-movile"
                 style="position: relative; height: 80px; overflow: hidden;">
                 <img style="width: 100%; height: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
-                    src="{{ $banner->content }}" alt="">
+                    src="{{ asset('storage/' . ($banner->content ?? '')) }}" alt="">
             </section>
 
             <div class="container-lg pt-5">
@@ -27,14 +27,14 @@
                     <div class="col-md-6">
                         <br>
                         <h2 style="font-weight: 700;">
-                            {{ $presentation[0]->content }}
+                            {{ $presentation[0]->content ?? '' }}
                         </h2>
                         <p style="padding: 5px 0px;">
-                            {{ $presentation[1]->content }}
+                            {{ $presentation[1]->content ?? '' }}
                         </p>
                     </div>
                     <div class="col-md-6 ara_centrado_total">
-                        {!! $presentation[2]->content !!}
+                        {!! $presentation[2]->content ?? '' !!}
                     </div>
                 </div>
             </div>
@@ -54,10 +54,10 @@
                                         <span
                                             class="thumb-info thumb-info-lighten thumb-info-centered-icons border-radius-0">
                                             <span class="thumb-info-wrapper border-radius-0">
-                                                <img src="{{ $item->group->items[0]->content }}"
+                                                <img src="{{ asset('storage/' . ($item->group->items[0]->content ?? '')) }}"
                                                     class="img-fluid border-radius-0" alt="">
                                                 <span class="thumb-info-action">
-                                                    <a href="{{ $item->group->items[0]->content }}"
+                                                    <a href="{{ asset('storage/' . ($item->group->items[0]->content ?? '')) }}"
                                                         class="lightbox-portfolio">
                                                         <span class="thumb-info-action-icon thumb-info-action-icon-light"><i
                                                                 class="fas fa-search text-dark"></i></span>
@@ -84,32 +84,17 @@
             <div class="container pt-2" style="text-align:center;">
                 <div class="row">
                     <div class="col-md-12">
-                        {{-- <a href="{{ $rsociales[0]->content }}" target="_blank" 
-                            class="btn btn-primary" style="font-size: 16px; padding: 10px 25px; margin: 10px;">
-                            <i class="fab fa-facebook" style="font-size: 18px;" aria-hidden="true"></i>
-                            &nbsp;&nbsp; Facebook
-                        </a> --}}
-                        <a href="{{ $rsociales[0]->content }}" target="_blank">
+                        <a href="{{ $rsociales[0]->content ?? '#' }}" target="_blank">
                             <button class="boton-fuego">
                                 <i class="fab fa-facebook" style="font-size: 24px;"></i>&nbsp; Facebook
                             </button>
                         </a>
-                        {{-- <a href="{{ $rsociales[1]->content }}" target="_blank" 
-                            class="btn btn-primary" style="font-size: 16px; padding: 10px 25px; margin: 10px;">
-                            <i class="fab fa-instagram" style="font-size: 18px;" aria-hidden="true"></i>
-                            &nbsp;&nbsp; Instagram
-                        </a> --}}
-                        <a href="{{ $rsociales[1]->content }}" target="_blank">
+                        <a href="{{ $rsociales[1]->content ?? '#' }}" target="_blank">
                             <button class="boton-fuego">
                                 <i class="fab fa-instagram" style="font-size: 24px;"></i>&nbsp; Instagram
                             </button>
                         </a>
-                        {{-- <a href="{{ $rsociales[2]->content }}" target="_blank" 
-                            class="btn btn-primary" style="font-size: 16px; padding: 10px 25px; margin: 10px;">
-                            <i class="fab fa-instagram" style="font-size: 18px;" aria-hidden="true"></i>
-                            &nbsp;&nbsp; Tik Tok
-                        </a> --}}
-                        <a href="{{ $rsociales[2]->content }}" target="_blank" >
+                        <a href="{{ $rsociales[2]->content ?? '#' }}" target="_blank" >
                             <button class="boton-fuego">
                                 <i class="fab fa-tiktok" style="font-size: 24px;"></i>&nbsp; Tik Tok
                             </button>
@@ -123,7 +108,7 @@
             <section
                 class="section section-parallax section-height-5 overlay overlay-show overlay-op-7 border-0 m-0 appear-animation animated fadeIn appear-animation-visible"
                 data-appear-animation="fadeIn" data-plugin-parallax=""
-                data-plugin-options="{'speed': 1.5, 'parallaxHeight': '138%'}" data-image-src="{{ $biblico[0]->content }}"
+                data-plugin-options="{'speed': 1.5, 'parallaxHeight': '138%'}" data-image-src="{{ asset('storage/' . ($biblico[0]->content ?? '')) }}"
                 style="position: relative; overflow: hidden; animation-delay: 100ms;">
                 <div class="container">
                     <div class="row justify-content-center" style="padding: 80px 0px;">
@@ -131,12 +116,12 @@
                             <h2 class="text-color-light font-weight-bold custom-tertiary-font ls-0 mb-4 appear-animation animated fadeInUpShorter appear-animation-visible"
                                 data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200"
                                 style="animation-delay: 200ms;">
-                                {{ $biblico[1]->content }}
+                                {{ $biblico[1]->content ?? '' }}
                             </h2>
                             <p class="text-color-light opacity-7 text-3 px-5 mx-5 mb-0 appear-animation animated fadeInUpShorter appear-animation-visible"
                                 data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400"
                                 style="animation-delay: 400ms;">
-                                {{ $biblico[2]->content }}
+                                {{ $biblico[2]->content ?? '' }}
                             </p>
                         </div>
                     </div>
@@ -149,7 +134,7 @@
                 <div class="row">
                             @foreach ($videos as $video)
                                 <div class="col-md-4" style="padding: 15px;">
-                                    {!! $video->group->items[0]->content !!}
+                                    {!! $video->group->items[0]->content ?? '' !!}
                                 </div>
                             @endforeach
                 </div>
