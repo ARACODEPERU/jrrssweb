@@ -14,13 +14,13 @@
             <section data-plugin-parallax data-plugin-options="{'speed': 1.2}" class="view-pc"
                 style="position: relative; height: 310px; overflow: hidden;">
                 <img style="width: 100%; height: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
-                    src="{{ $banner->content }}" alt="">
+                    src="{{ asset('storage/' . ($banner->content ?? '')) }}" alt="">
             </section>
 
             <section data-plugin-parallax data-plugin-options="{'speed': 1.2}" class="view-movile"
                 style="position: relative; height: 80px; overflow: hidden;">
                 <img style="width: 100%; height: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
-                    src="{{ $banner->content }}" alt="">
+                    src="{{ asset('storage/' . ($banner->content ?? '')) }}" alt="">
             </section>
 
             <div class="container-lg pt-5">
@@ -35,7 +35,7 @@
                         </p>
                     </div>
                     <div class="col-md-6 ara_centrado_total">
-                        <img width="100%;" src="{{ $presentacion[2]->content }}" alt="">
+                        <img width="100%;" src="{{ asset('storage/' . ($presentacion[2]->content ?? '')) }}" alt="">
                     </div>
                 </div>
             </div>
@@ -55,10 +55,10 @@
                                         <span
                                             class="thumb-info thumb-info-lighten thumb-info-centered-icons border-radius-0">
                                             <span class="thumb-info-wrapper border-radius-0">
-                                                <img src="{{ $item->group->items[0]->content }}"
+                                                <img src="{{ asset('storage/' . ($item->group->items[0]->content ?? '')) }}"
                                                     class="img-fluid border-radius-0" alt="">
                                                 <span class="thumb-info-action">
-                                                    <a href="{{ $item->group->items[0]->content }}"
+                                                    <a href="{{ asset('storage/' . ($item->group->items[0]->content ?? '')) }}"
                                                         class="lightbox-portfolio">
                                                         <span class="thumb-info-action-icon thumb-info-action-icon-light"><i
                                                                 class="fas fa-search text-dark"></i></span>
