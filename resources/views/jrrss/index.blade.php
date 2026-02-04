@@ -15,25 +15,22 @@
 
             <section class="pb-5 mb-4">
                 <div class="container-lg"> 
-                    <div class="row">
-                        <div class="container mt-4">
-                            <div class="row justify-content-center ">
-                                <div class="col-md-12 text-center">
-                                    <h2 class="custom-highlight-text-1 d-inline-block line-height-4 text-4 positive-ls-3 font-weight-medium text-color-primary mb-2 appear-animation"
-                                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
-                                        {{ $reuniones[0]->item->content ?? 'Reuniones' }}
-                                    </h2>
-                                    <h3 class="text-9 line-height-3 text-transform-none font-weight-semibold mb-4 appear-animation"
-                                        data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
-                                        {{ $reuniones[5]->item->content ?? '' }}
-                                    </h3>
-                                    <p class="pb-3 mb-4 appear-animation"
-                                        data-appear-animation="fadeInUpShorter" data-appear-animation-delay="600">
-                                        {{ $reuniones[6]->item->content ?? '' }}
-                                    </p>
-                                </div>
-                            </div>
-                        </div> 
+                    <div class="row justify-content-center mt-4">
+                        <div class="col-md-12 text-center">
+                            <h2 class="custom-highlight-text-1 d-inline-block line-height-4 text-4 positive-ls-3 font-weight-medium text-color-primary mb-2 appear-animation"
+                                        data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
+                                {{ $reuniones[0]->item->content ?? 'Reuniones' }}
+                            </h2>
+                            <h3 class="text-9 line-height-3 text-transform-none font-weight-semibold mb-4 appear-animation"
+                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
+                                {{ $reuniones[5]->item->content ?? '' }}
+                            </h3>
+                            <p class="pb-3 mb-4 appear-animation"
+                                data-appear-animation="fadeInUpShorter" data-appear-animation-delay="600">
+                                {{ $reuniones[6]->item->content ?? '' }}
+                            </p>
+                        </div>
+                    </div>
                     <div class="row">
                     @foreach ($reuniones->slice(1, 4) as $key => $reunion)
                             <div class="col-md-6 p-3 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="{{ ($loop->iteration * 200) + 600 }}">
@@ -52,7 +49,6 @@
                                 </div>
                             </div>
                     @endforeach
-                </div>
                 </div>
                 </div>
             </section>
@@ -229,6 +225,10 @@
 
 
         </div>
+
+        <!-- Footer - area start -->
+        <x-jrrss.footer-area></x-jrrss.footer-area>
+        <!-- Footer - area end -->
 
     </div>
 
