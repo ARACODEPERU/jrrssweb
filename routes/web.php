@@ -43,7 +43,7 @@ Route::get('/sedes-españa', [WebController::class, 'sedesespaña'])->name('web_
 Route::get('/coberturas', [WebController::class, 'coberturas'])->name('web_coberturas');
 Route::get('/coberturas-peru', [WebController::class, 'coberturasperu'])->name('web_coberturas_peru');
 
-Route::get('/tmc', [WebController::class, 'eventos'])->name('web_eventos');
+Route::get('/ese26', [WebController::class, 'eventos'])->name('web_eventos');
 Route::get('/eventos-pagar/{id}/evento', [WebController::class, 'eventospagar'])->name('web_eventos_pagar');
 Route::get('/comprar-entrada/{id}', [WebController::class, 'entrada'])->name('web_comprar_entrada');
 Route::put('/comprar-entrada/procesar/{id}', [WebController::class, 'processPayment'])->name('web_process_payment');
