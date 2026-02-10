@@ -35,7 +35,7 @@
                                             <div class="position-relative col-12 col-md-3 lazyloaded" 
                                                 data-bg-src="{{ $item->exhibitor->image }}"
                                                 style="background-position: center center; background-size: cover; min-height: 302px;
-                                                    background-image: url(&quot;{{ $item->exhibitor->image }}&quot;);">
+                                                    background-image: url(&quot;{{ asset('storage/' . $item->exhibitor->image) }}&quot;);">
                                             </div>
                                             <div class="col-md-9 p-5">
                                                 <div class="d-md-flex mb-4">
