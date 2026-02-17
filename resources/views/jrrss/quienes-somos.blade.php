@@ -41,7 +41,7 @@
             </div>
 
 
-            <section class="section section-parallax section-height-5 overlay overlay-show overlay-op-7 border-0 m-0 appear-animation animated fadeIn appear-animation-visible"
+            {{-- <section class="section section-parallax section-height-5 overlay overlay-show overlay-op-7 border-0 m-0 appear-animation animated fadeIn appear-animation-visible"
                     data-appear-animation="fadeIn" data-plugin-parallax="" data-plugin-options="{'speed': 1.5, 'parallaxHeight': '138%'}"
                     data-image-src="{{asset('storage/' . $parallax[0]->content ?? '')   }}" style="position: relative; overflow: hidden; animation-delay: 100ms;">
                     <div class="container">
@@ -61,7 +61,44 @@
                             <div class="col-md-2"></div>
                         </div>
                     </div>
+            </section> --}}
+
+            {{-- INICIO: NUEVA PROPUESTA (GLASSMORPHISM) --}}
+            <style>
+                .glass-card {
+                    background: rgba(255, 255, 255, 0.1);
+                    backdrop-filter: blur(10px);
+                    -webkit-backdrop-filter: blur(10px);
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                    border-radius: 20px;
+                    padding: 3rem;
+                    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+                }
+            </style>
+            <section class="section section-parallax section-height-5 overlay overlay-show overlay-op-7 border-0 m-0 d-flex align-items-center appear-animation"
+                data-appear-animation="fadeIn"
+                data-plugin-parallax data-plugin-options="{'speed': 1.5, 'parallaxHeight': '138%'}"
+                data-image-src="{{ asset('storage/' . ($parallax[0]->content ?? '')) }}"
+                style="min-height: 500px;">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-10 col-xl-8">
+                            <div class="glass-card text-center appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
+                                <h2 class="text-white font-weight-bold text-9 mb-3" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5); font-family: 'Montserrat', serif !important;">
+                                    {{ $parallax[1]->content ?? '' }}
+                                </h2>
+                                <div class="divider divider-small divider-small-center divider-light mb-4">
+                                    <hr style="width: 50px; border-top: 3px solid #fff; opacity: 1;">
+                                </div>
+                                <p class="text-white text-4 mb-0 font-weight-light" style="line-height: 1.8; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">
+                                    {{ $parallax[2]->content ?? '' }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
+            {{-- FIN: NUEVA PROPUESTA --}}
 
             <div class="container-lg pt-4">
                 <div class="row">
