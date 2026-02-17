@@ -198,7 +198,7 @@
             {{-- FIN: TERCERA PROPUESTA --}}
 
 
-            <section class="section section-parallax section-height-5 overlay overlay-show overlay-op-7 border-0 m-0"
+            {{-- <section class="section section-parallax section-height-5 overlay overlay-show overlay-op-7 border-0 m-0"
                 data-aos="fade-in" data-plugin-parallax data-plugin-options="{'speed': 1.5, 'parallaxHeight': '138%'}"
                 data-image-src="{{ asset('storage/' . ($bible[0]->content ?? '')) }}">
                 <div class="container">
@@ -215,7 +215,35 @@
                         </div>
                     </div>
                 </div>
+            </section> --}}
+
+            {{-- INICIO: NUEVA PROPUESTA PARA SECCIÓN BIBLE (ESTILO GLASSMORPHISM) --}}
+            <section class="section section-parallax section-height-5 overlay overlay-show overlay-op-7 border-0 m-0 d-flex align-items-center"
+                data-aos="fade-in" data-plugin-parallax data-plugin-options="{'speed': 1.5, 'parallaxHeight': '138%'}"
+                data-image-src="{{ asset('storage/' . ($bible[0]->content ?? '')) }}"
+                style="min-height: 500px;">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-10 col-xl-8">
+                            <div class="glass-card text-center" data-aos="zoom-in" data-aos-delay="200">
+                                <div class="mb-4">
+                                    <i class="fas fa-bible text-white text-8 opacity-8"></i>
+                                </div>
+                                <h2 class="text-white font-weight-bold text-9 mb-3" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
+                                    {{ $bible[1]->content ?? '' }}
+                                </h2>
+                                <div class="divider divider-small divider-small-center divider-light mb-4">
+                                    <hr style="width: 50px; border-top: 3px solid #fff; opacity: 1;">
+                                </div>
+                                <p class="text-white text-5 mb-0 font-weight-light font-italic" style="line-height: 1.8; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">
+                                    "{{ $bible[2]->content ?? '' }}"
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
+            {{-- FIN: NUEVA PROPUESTA SECCIÓN BIBLE --}}
 
             {{-- <section class="py-5 my-4">
                 <div class="row">
@@ -304,7 +332,7 @@
             {{-- FIN: NUEVA PROPUESTA MINISTERIOS --}}
 
             
-            <section class="section section-parallax section-height-5 overlay overlay-show overlay-op-7 border-0 m-0"
+            {{-- <section class="section section-parallax section-height-5 overlay overlay-show overlay-op-7 border-0 m-0"
                 data-aos="fade-in" data-plugin-parallax data-plugin-options="{'speed': 1.5, 'parallaxHeight': '138%'}"
                 data-image-src="{{ asset('themes/jrrss/assets/img/parallax/parallax_index.jpg') }}">
                 <div class="container">
@@ -326,8 +354,68 @@
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> --}}
 
+            {{-- INICIO: NUEVA PROPUESTA PARA SECCIÓN PARALLAX (ESTILO GLASSMORPHISM) --}}
+            <style>
+                .glass-card {
+                    background: rgba(255, 255, 255, 0.1);
+                    backdrop-filter: blur(10px);
+                    -webkit-backdrop-filter: blur(10px);
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                    border-radius: 20px;
+                    padding: 3rem;
+                    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+                }
+                .cta-button-modern {
+                    background: linear-gradient(45deg, #ff512f, #dd2476);
+                    border: none;
+                    color: white;
+                    padding: 15px 30px;
+                    text-align: center;
+                    text-decoration: none;
+                    display: inline-block;
+                    font-size: 16px;
+                    border-radius: 50px;
+                    transition: transform 0.3s, box-shadow 0.3s;
+                    font-weight: 600;
+                    letter-spacing: 1px;
+                }
+                .cta-button-modern:hover {
+                    transform: translateY(-3px);
+                    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+                    color: white;
+                }
+            </style>
+
+            <section class="section section-parallax section-height-5 overlay overlay-show overlay-op-7 border-0 m-0 d-flex align-items-center"
+                data-aos="fade-in" data-plugin-parallax data-plugin-options="{'speed': 1.5, 'parallaxHeight': '138%'}"
+                data-image-src="{{ asset('themes/jrrss/assets/img/parallax/parallax_index.jpg') }}"
+                style="min-height: 500px;">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-10 col-xl-8">
+                            <div class="glass-card text-center" data-aos="zoom-in" data-aos-delay="200">
+                                <h2 class="text-white font-weight-bold text-9 mb-3" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
+                                    {{ $gods_meeting[0]->content ?? 'Encuentro con Dios' }}
+                                </h2>
+                                <div class="divider divider-small divider-small-center divider-light mb-4">
+                                    <hr style="width: 50px; border-top: 3px solid #fff; opacity: 1;">
+                                </div>
+                                <p class="text-white text-4 mb-5 font-weight-light" style="line-height: 1.8; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">
+                                    {{ $gods_meeting[1]->content ?? '' }}
+                                </p>
+                                <a href="{{ route('web_contacto') }}" class="text-decoration-none">
+                                    <button class="cta-button-modern">
+                                        <i class="fa fa-paper-plane me-2"></i> Escríbenos Ahora
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            {{-- FIN: NUEVA PROPUESTA PARALLAX --}}
 
             <section class="py-5">
                 <div class="container-lg">
