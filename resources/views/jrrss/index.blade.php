@@ -217,7 +217,7 @@
                 </div>
             </section>
 
-            <section class="py-5 my-4">
+            {{-- <section class="py-5 my-4">
                 <div class="row">
                     <div class="container mt-4">
                         <div class="row justify-content-center">
@@ -258,7 +258,52 @@
                             </div>
                         @endforeach
                     </div>
+            </section> --}}
+
+            {{-- INICIO: NUEVA PROPUESTA PARA MINISTERIOS (ESTILO MODERNO) --}}
+            <section class="" style="background-color: #fff;">
+                <div class="container-lg py-5">
+                    <div class="row justify-content-center mb-5">
+                        <div class="col-md-12 text-center">
+                            <h2 class="custom-highlight-text-1 d-inline-block line-height-5 text-4 positive-ls-3 font-weight-medium text-color-primary mb-2"
+                                data-aos="fade-up" data-aos-delay="200">
+                                {{ $ministerios[0]->item->content ?? 'Ministerios' }}
+                            </h2>
+                            <h3 class="text-9 line-height-3 text-transform-none font-weight-semibold mb-4"
+                                data-aos="fade-up" data-aos-delay="400">
+                                {{ $ministerios[4]->item->content ?? '' }}
+                            </h3>
+                            <p class="text-3-5 pb-3 mb-4" data-aos="fade-up" data-aos-delay="600">
+                                {{ $ministerios[5]->item->content ?? '' }}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        @foreach ($ministerios->slice(1, 3) as $key => $ministerio)
+                            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="{{ ($loop->iteration * 100) + 200 }}">
+                                <a href="{{ $ministerio->item->items[3]->content ?? '#' }}" class="meeting-card-v3">
+                                    <img src="{{ asset('storage/' . ($ministerio->item->items[0]->content ?? '')) }}"
+                                        alt="{{ $ministerio->item->items[1]->content ?? '' }}"
+                                        class="meeting-card-v3__image">
+                                    <div class="meeting-card-v3__overlay"></div>
+                                    <div class="meeting-card-v3__content">
+                                        <h4 class="meeting-card-v3__title">{{ $ministerio->item->items[1]->content ?? '' }}</h4>
+                                        <div class="meeting-card-v3__details">
+                                            <p class="meeting-card-v3__schedule">
+                                                <b>{{ $ministerio->item->items[2]->content ?? '' }}</b>
+                                            </p>
+                                            <span class="meeting-card-v3__cta">Ingresar</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
             </section>
+            {{-- FIN: NUEVA PROPUESTA MINISTERIOS --}}
+
+            
             <section class="section section-parallax section-height-5 overlay overlay-show overlay-op-7 border-0 m-0"
                 data-aos="fade-in" data-plugin-parallax data-plugin-options="{'speed': 1.5, 'parallaxHeight': '138%'}"
                 data-image-src="{{ asset('themes/jrrss/assets/img/parallax/parallax_index.jpg') }}">
