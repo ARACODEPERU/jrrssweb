@@ -263,7 +263,7 @@
             {{-- INICIO: NUEVA PROPUESTA PARA MINISTERIOS (ESTILO MODERNO) --}}
             <section class="" style="background-color: #fff;">
                 <div class="container-lg py-5">
-                    <div class="row justify-content-center mb-5">
+                    <div class="row justify-content-center mb-2">
                         <div class="col-md-12 text-center">
                             <h2 class="custom-highlight-text-1 d-inline-block line-height-5 text-4 positive-ls-3 font-weight-medium text-color-primary mb-2"
                                 data-aos="fade-up" data-aos-delay="200">
