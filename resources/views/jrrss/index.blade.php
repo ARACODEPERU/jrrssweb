@@ -151,7 +151,7 @@
                 }
             </style>
 
-            <section class="py-5 my-4" style="background-color: #fff;">
+            <section class="" style="background-color: #fff;">
                     <div class="container-lg py-5">
                         <div class="row justify-content-center mt-4">
                             <div class="col-md-12 text-center">
