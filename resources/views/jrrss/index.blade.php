@@ -387,30 +387,42 @@
             </section>
 
             @foreach ($reuniones->slice(1, 4) as $key => $reunion)
-                <div class="modal fade" id="reuniones{{ $key }}" tabindex="-1"
-                    aria-labelledby="reunionesLabel{{ $key }}" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title" id="reunionesLabel{{ $key }}">
-                                    {{ $reunion->item->items[0]->content ?? '' }}</h4>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <h5><b>{{ $reunion->item->items[2]->content ?? '' }}:
-                                        {{ $reunion->item->items[3]->content ?? '' }}</b> </h5>
-                                <p class="mt-n3">
-                                    <b>Horario de Reunión:</b> {{ $reunion->item->items[5]->content ?? '' }}
-                                </p>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        {!! $reunion->item->items[4]->content ?? '' !!}
-                                    </div>
+                <div class="modal fade" id="reuniones{{ $key }}" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content border-0 shadow-lg" style="border-radius: 15px; overflow: hidden;">
+                            <div class="position-relative">
+                                <img src="{{ asset('storage/' . ($reunion->item->items[1]->content ?? 'default.jpg')) }}"
+                                    alt="{{ $reunion->item->items[0]->content ?? 'Imagen' }}"
+                                    class="w-100" style="height: 250px; object-fit: cover;">
+                                <div class="position-absolute top-0 end-0 p-3">
+                                    <button type="button" class="btn-close btn-close-white bg-white rounded-circle p-2 opacity-75"
+                                        data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="position-absolute bottom-0 start-0 w-100 p-4"
+                                    style="background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);">
+                                    <h3 class="text-white font-weight-bold mb-0 text-shadow">{{ $reunion->item->items[0]->content ?? '' }}</h3>
                                 </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <div class="modal-body p-4">
+                                <div class="d-flex align-items-center mb-4 p-3 rounded" style="background-color: #f8f9fa;">
+                                    <i class="far fa-clock fa-2x text-primary me-3"></i>
+                                    <div>
+                                        <small class="text-muted text-uppercase font-weight-bold d-block">Horario</small>
+                                        <span class="text-dark font-weight-bold text-4">{{ $reunion->item->items[5]->content ?? '' }}</span>
+                                    </div>
+                                </div>
+
+                                <h5 class="font-weight-bold text-dark mb-3">
+                                    {{ $reunion->item->items[2]->content ?? '' }} {{ $reunion->item->items[3]->content ?? '' }}
+                                </h5>
+
+                                <div class="text-muted" style="font-size: 1rem; line-height: 1.6;">
+                                    {!! $reunion->item->items[4]->content ?? '' !!}
+                                </div>
+                            </div>
+                            <div class="modal-footer bg-light border-0 p-3">
+                                <button type="button" class="btn btn-dark px-4 py-2 rounded-pill font-weight-bold"
+                                    data-bs-dismiss="modal">Cerrar</button>
                             </div>
                         </div>
                     </div>
