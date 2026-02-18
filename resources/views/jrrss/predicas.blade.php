@@ -3,6 +3,9 @@
 @section('content')
     <div class="body">
 
+        <!-- AOS Animation CSS -->
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
         <!-- Header - area start -->
         <x-jrrss.header-area></x-jrrss.header-area>
         <!-- Header - area end -->
@@ -10,13 +13,13 @@
 
         <div role="main" class="main">
 
-            <section data-plugin-parallax data-plugin-options="{'speed': 1.2}" class="view-pc"
+            <section data-plugin-parallax data-plugin-options="{'speed': 1.2}" class="view-pc" data-aos="fade-in"
                 style="position: relative; height: 310px; overflow: hidden;">
                 <img style="width: 100%; height: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
                     src="{{ asset('storage/' . ($banner->content ?? '')) }}" alt="">
             </section>
 
-            <section data-plugin-parallax data-plugin-options="{'speed': 1.2}" class="view-movile"
+            <section data-plugin-parallax data-plugin-options="{'speed': 1.2}" class="view-movile" data-aos="fade-in"
                 style="position: relative; height: 80px; overflow: hidden;">
                 <img style="width: 100%; height: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
                     src="{{ asset('storage/' . ($banner->content ?? '')) }}" alt="">
@@ -25,7 +28,7 @@
             <div class="container-lg py-4">
                 <div class="row">
                     @foreach ($videos as $video)
-                        <div class="col-md-4" style="padding: 15px;">
+                        <div class="col-md-4" style="padding: 15px;" data-aos="fade-up" data-aos-delay="{{ ($loop->iteration * 100) }}">
                             <div class="card">
                                 {!! $video->group->items[2]->content !!}
                                 <div class="card-content">
@@ -78,4 +81,13 @@
 
 
     </div>
+
+    <!-- AOS Animation JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            mirror: true, // Animación al hacer scroll hacia arriba
+            once: false, // Animación cada vez que se hace scroll
+        });
+    </script>
 @endsection

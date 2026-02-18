@@ -3,18 +3,21 @@
 @section('content')
     <div class="body">
 
+        <!-- AOS Animation CSS -->
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
         <!-- Header - area start -->
         <x-jrrss.header-area></x-jrrss.header-area>
         <!-- Header - area end -->
         @if ($events)
             @foreach ($events as $event)
             <div role="main" class="main">
-                <div class="ara_centrado_total">
+                <div class="ara_centrado_total" data-aos="fade-in">
                     <img style="width: 100%; height: auto;" src="{{ asset('storage/' . $event->image1) }}">
                 </div>
                 <div class="container-lg container-xl-custom pt-5">
                     <div class="row">
-                        <div class="col-md-12" style="text-align: center;">
+                        <div class="col-md-12" style="text-align: center;" data-aos="fade-up" data-aos-delay="100">
                             <h3 class="text-secondary font-weight-bold text-capitalize text-7 mb-3" style="line-height: 35px;">
                                 {{ $event->title }}
                             </h3>
@@ -26,12 +29,13 @@
                     <br>
                     <br>
                     <div class="row pb-2">
-                        <div class="col-md-7 pb-5">
+                        <div class="col-md-7 pb-5" data-aos="fade-right" data-aos-delay="200">
                             <div class="row mb-5">
                                 <div class="col">
                                     @foreach ($event->exhibitors as $key => $item)
                                         <div class="d-flex flex-wrap bg-light custom-link-hover-effects 
-                                                    custom-instructor-details" style="padding: 15px 0px;">
+                                                    custom-instructor-details" style="padding: 15px 0px; margin-bottom: 20px;"
+                                                    data-aos="fade-up" data-aos-delay="{{ ($loop->iteration * 150) }}">
                                             <div class="position-relative col-12 col-md-3 lazyloaded" 
                                                 data-bg-src="{{ $item->exhibitor->image }}"
                                                 style="background-position: center center; background-size: cover; min-height: 302px;
@@ -76,7 +80,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-5">
+                        <div class="col-md-5" data-aos="fade-left" data-aos-delay="200">
                             <div class="row">
                                 <div class="col-md-12">
                                     {!! $event->advertising_video !!}
@@ -235,5 +239,14 @@
         <x-jrrss.footer-area></x-jrrss.footer-area>
         <!-- Footer - area end -->
     </div>
+
+    <!-- AOS Animation JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            mirror: true, // Animación al hacer scroll hacia arriba
+            once: false, // Animación cada vez que se hace scroll
+        });
+    </script>
 
 @endsection
