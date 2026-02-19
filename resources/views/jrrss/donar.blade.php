@@ -3,6 +3,9 @@
 @section('content')
     <div class="body">
 
+        <!-- AOS Animation CSS -->
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
         <!-- Header - area start -->
         <x-jrrss.header-area></x-jrrss.header-area>
         <!-- Header - area end -->
@@ -10,13 +13,13 @@
 
         <div role="main" class="main">
 
-            <section data-plugin-parallax data-plugin-options="{'speed': 1.2}" class="view-pc"
+            <section data-plugin-parallax data-plugin-options="{'speed': 1.2}" class="view-pc" data-aos="fade-in"
                 style="position: relative; height: 310px; overflow: hidden;">
                 <img style="width: 100%; height: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
                     src="{{ asset('storage/' . ($banner->content ?? '')) }}" alt="">
             </section>
 
-            <section data-plugin-parallax data-plugin-options="{'speed': 1.2}" class="view-movile"
+            <section data-plugin-parallax data-plugin-options="{'speed': 1.2}" class="view-movile" data-aos="fade-in"
                 style="position: relative; height: 80px; overflow: hidden;">
                 <img style="width: 100%; height: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
                     src="{{ asset('storage/' . ($banner->content ?? '')) }}" alt="">
@@ -25,18 +28,18 @@
 
             <div class="container container-xl-custom pt-5 ">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-6" data-aos="fade-right" data-aos-delay="200">
                         <div class="row">
                             <div class="col-md-12">
                                 <p class="mb-1">SOMOS JRRSS</p>
 
-                                <h3 class="font-weight-bold text-capitalize text-7 mb-3">FORMAS DE DAR EN PERÚ</h3>
+                                <h3 class="font-weight-bold text-capitalize text-7 mb-3" style="font-weight: 700 !important;">FORMAS DE DAR EN PERÚ</h3>
 
                             </div>
                         </div>
                         <br>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
                                 <h4>N° DE CUENTAS BBVA</h4>
                                 <p>
                                     S/. CC: 0011-0193-0200407793-05
@@ -49,7 +52,7 @@
                                     $. CCI: 011-193-0002-00412460-04
                                 </p>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6" data-aos="fade-up" data-aos-delay="400">
                                 <h4>N° DE CUENTAS BCP</h4>
                                 <p>
                                     S/. CC: 192-2949073-0-15
@@ -62,7 +65,7 @@
                                     $. CCI: 002-192-002669178102-30
                                 </p>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6" data-aos="fade-up" data-aos-delay="500">
                                 <h4>N° DE CUENTAS INTERBANK</h4>
                                 <p>
                                     S/. CC: 056-300320215-8
@@ -75,24 +78,24 @@
                                     $. CCI: 003-056-003003202165-93
                                 </p>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6" data-aos="fade-up" data-aos-delay="600">
                                 <h4>PLIN ó YAPE</h4>
                                 <img style="width: 100%;" src="{{ asset('themes/jrrss/assets/img/PLIN-YAPE.png') }}"
                                     alt="">
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6" data-aos="fade-left" data-aos-delay="200">
                         <div class="row">
                             <div class="col-md-12">
                                 <p class="mb-1">SOMOS JRRSS</p>
-                                <h3 class="font-weight-bold text-capitalize text-7 mb-3">
+                                <h3 class="font-weight-bold text-capitalize text-7 mb-3" style="font-weight: 700 !important;">
                                     {{ $infoformulario[0]->content }}
                                 </h3>
                             </div>
                         </div>
                         <div class="row pb-4">
-                            <div class="col-md-12 pb-5 ">
+                            <div class="col-md-12 pb-5" data-aos="fade-up" data-aos-delay="300">
                                 <p>
                                     {{ $infoformulario[1]->content }}
                                 </p>
@@ -244,8 +247,15 @@
         <!-- Footer - area start -->
         <x-jrrss.footer-area></x-jrrss.footer-area>
         <!-- Footer - area end -->
-
-
-
     </div>
+
+    <!-- AOS Animation JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            mirror: true, // Animación al hacer scroll hacia arriba
+            once: false, // Animación cada vez que se hace scroll
+        });
+    </script>
+
 @endsection

@@ -93,4 +93,14 @@
 
     </div>
 
+    
+    <!-- AOS Animation JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            mirror: true, // Animación al hacer scroll hacia arriba
+            once: false, // Animación cada vez que se hace scroll
+        });
+    </script>
+
 @endsection
