@@ -12,7 +12,7 @@
                 <div class="owl-item position-relative" style="background-size: cover; background-position: center; height: 100%;">
                     <img src="{{ asset('storage/' . $slide->content) }}"
                          alt="Slide {{ $loop->iteration }}"
-                         style="max-width: 100%; height: auto; transform: translate(-50%, -50%);">
+                         style="max-width: 100%; height: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
                 </div>
             @endforeach
         </div>
