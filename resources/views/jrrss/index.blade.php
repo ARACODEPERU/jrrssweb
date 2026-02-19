@@ -12,7 +12,20 @@
 
         <div role="main" class="main">
 
-            <x-jrrss.main-slider :slides="$sliders" />
+            <div class="slider-container-mobile">
+                <x-jrrss.main-slider :slides="$sliders" />
+            </div>
+
+            <style>
+                /* Ajustes para que el slider se vea bien en celulares */
+                @media (max-width: 767px) {
+                    .slider-container-mobile img {
+                        height: 350px !important; /* Altura fija suficiente para ver el contenido */
+                        object-fit: cover !important; /* Recorta la imagen sin deformarla */
+                        width: 100% !important;
+                    }
+                }
+            </style>
 
             {{-- <section class="pb-5 mb-4">
                 <div class="container-lg">
