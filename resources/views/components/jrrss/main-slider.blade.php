@@ -23,11 +23,11 @@
         @endforeach
     </div>
 </div>
-
+{{-- 
 <style>
     @media (max-width: 767px) {
         .owl-carousel {
             height: 300px !important;
         }
     }
-</style>
+</style> --}}
