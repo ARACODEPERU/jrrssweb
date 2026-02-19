@@ -11,22 +11,7 @@
 
 
         <div role="main" class="main">
-
-            <div class="slider-container-mobile">
-                <x-jrrss.main-slider :slides="$sliders" />
-            </div>
-
-            <style>
-                /* Ajustes para que el slider se vea bien en celulares */
-                @media (max-width: 767px) {
-                    .slider-container-mobile img {
-                        height: 350px !important; /* Altura fija suficiente para ver el contenido */
-                        object-fit: cover !important; /* Recorta la imagen sin deformarla */
-                        width: 100% !important;
-                    }
-                }
-            </style>
-
+            <x-jrrss.main-slider :slides="$sliders" />
             {{-- <section class="pb-5 mb-4">
                 <div class="container-lg">
                     <div class="row justify-content-center mt-4">
@@ -165,48 +150,48 @@
             </style>
 
             <section class="" style="background-color: #fff;">
-                    <div class="container-lg py-5">
-                        <div class="row justify-content-center mt-4">
-                            <div class="col-md-12 text-center">
-                                <h2 class="custom-highlight-text-1 d-inline-block line-height-4 text-4 positive-ls-3 font-weight-medium text-color-primary mb-2"
-                                    data-aos="fade-up" data-aos-delay="200">
-                                    {{ $reuniones[0]->item->content ?? 'Reuniones' }}
-                                </h2>
-                                <h3 class="text-9 line-height-3 text-transform-none font-weight-semibold mb-4"
-                                    data-aos="fade-up" data-aos-delay="400">
-                                    {{ $reuniones[5]->item->content ?? '' }}
-                                </h3>
-                                <p class="pb-3 mb-4" data-aos="fade-up" data-aos-delay="600">
-                                    {{ $reuniones[6]->item->content ?? '' }}
-                                </p>
-                            </div>
-                        </div>
-                        {{-- Aquí puedes reutilizar el mismo bloque de título de las otras propuestas si lo deseas --}}
-                        <div class="row">
-                            @foreach ($reuniones->slice(1, 4) as $key => $reunion)
-                                <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up"
-                                    data-aos-delay="{{ $loop->iteration * 100 + 200 }}">
-                                    <a href="#" data-bs-toggle="modal" data-bs-target="#reuniones{{ $key }}"
-                                        class="meeting-card-v3">
-                                        <img src="{{ asset('storage/' . ($reunion->item->items[1]->content ?? 'default.jpg')) }}"
-                                            alt="{{ $reunion->item->items[0]->content ?? 'Imagen' }}"
-                                            class="meeting-card-v3__image">
-                                        <div class="meeting-card-v3__overlay"></div>
-                                        <div class="meeting-card-v3__content">
-                                            <h4 class="meeting-card-v3__title">
-                                                {{ $reunion->item->items[0]->content ?? 'Título de Reunión' }}</h4>
-                                            <div class="meeting-card-v3__details">
-                                                <p class="meeting-card-v3__schedule"><i class="far fa-clock"></i>
-                                                    <b>Horario:</b> {{ $reunion->item->items[5]->content ?? 'Consultar' }}
-                                                </p>
-                                                <span class="meeting-card-v3__cta">Ver más detalles</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            @endforeach
+                <div class="container-lg py-5">
+                    <div class="row justify-content-center mt-4">
+                        <div class="col-md-12 text-center">
+                            <h2 class="custom-highlight-text-1 d-inline-block line-height-4 text-4 positive-ls-3 font-weight-medium text-color-primary mb-2"
+                                data-aos="fade-up" data-aos-delay="200">
+                                {{ $reuniones[0]->item->content ?? 'Reuniones' }}
+                            </h2>
+                            <h3 class="text-9 line-height-3 text-transform-none font-weight-semibold mb-4"
+                                data-aos="fade-up" data-aos-delay="400">
+                                {{ $reuniones[5]->item->content ?? '' }}
+                            </h3>
+                            <p class="pb-3 mb-4" data-aos="fade-up" data-aos-delay="600">
+                                {{ $reuniones[6]->item->content ?? '' }}
+                            </p>
                         </div>
                     </div>
+                    {{-- Aquí puedes reutilizar el mismo bloque de título de las otras propuestas si lo deseas --}}
+                    <div class="row">
+                        @foreach ($reuniones->slice(1, 4) as $key => $reunion)
+                            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up"
+                                data-aos-delay="{{ $loop->iteration * 100 + 200 }}">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#reuniones{{ $key }}"
+                                    class="meeting-card-v3">
+                                    <img src="{{ asset('storage/' . ($reunion->item->items[1]->content ?? 'default.jpg')) }}"
+                                        alt="{{ $reunion->item->items[0]->content ?? 'Imagen' }}"
+                                        class="meeting-card-v3__image">
+                                    <div class="meeting-card-v3__overlay"></div>
+                                    <div class="meeting-card-v3__content">
+                                        <h4 class="meeting-card-v3__title">
+                                            {{ $reunion->item->items[0]->content ?? 'Título de Reunión' }}</h4>
+                                        <div class="meeting-card-v3__details">
+                                            <p class="meeting-card-v3__schedule"><i class="far fa-clock"></i>
+                                                <b>Horario:</b> {{ $reunion->item->items[5]->content ?? 'Consultar' }}
+                                            </p>
+                                            <span class="meeting-card-v3__cta">Ver más detalles</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
             </section>
             {{-- FIN: TERCERA PROPUESTA --}}
 
@@ -231,10 +216,10 @@
             </section> --}}
 
             {{-- INICIO: NUEVA PROPUESTA PARA SECCIÓN BIBLE (ESTILO GLASSMORPHISM) --}}
-            <section class="section section-parallax section-height-5 overlay overlay-show overlay-op-7 border-0 m-0 d-flex align-items-center"
+            <section
+                class="section section-parallax section-height-5 overlay overlay-show overlay-op-7 border-0 m-0 d-flex align-items-center"
                 data-aos="fade-in" data-plugin-parallax data-plugin-options="{'speed': 1.5, 'parallaxHeight': '138%'}"
-                data-image-src="{{ asset('storage/' . ($bible[0]->content ?? '')) }}"
-                style="min-height: 500px;">
+                data-image-src="{{ asset('storage/' . ($bible[0]->content ?? '')) }}" style="min-height: 500px;">
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-lg-10 col-xl-8">
@@ -242,13 +227,15 @@
                                 <div class="mb-4">
                                     <i class="fas fa-bible text-white text-8 opacity-8"></i>
                                 </div>
-                                <h2 class="text-white font-weight-bold text-9 mb-3" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
+                                <h2 class="text-white font-weight-bold text-9 mb-3"
+                                    style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
                                     {{ $bible[1]->content ?? '' }}
                                 </h2>
                                 <div class="divider divider-small divider-small-center divider-light mb-4">
                                     <hr style="width: 50px; border-top: 3px solid #fff; opacity: 1;">
                                 </div>
-                                <p class="text-white text-5 mb-0 font-weight-light font-italic" style="line-height: 1.8; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">
+                                <p class="text-white text-5 mb-0 font-weight-light font-italic"
+                                    style="line-height: 1.8; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">
                                     "{{ $bible[2]->content ?? '' }}"
                                 </p>
                             </div>
@@ -321,14 +308,16 @@
                     </div>
                     <div class="row justify-content-center">
                         @foreach ($ministerios->slice(1, 3) as $key => $ministerio)
-                            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="{{ ($loop->iteration * 100) + 200 }}">
+                            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up"
+                                data-aos-delay="{{ $loop->iteration * 100 + 200 }}">
                                 <a href="{{ $ministerio->item->items[3]->content ?? '#' }}" class="meeting-card-v3">
                                     <img src="{{ asset('storage/' . ($ministerio->item->items[0]->content ?? '')) }}"
                                         alt="{{ $ministerio->item->items[1]->content ?? '' }}"
                                         class="meeting-card-v3__image">
                                     <div class="meeting-card-v3__overlay"></div>
                                     <div class="meeting-card-v3__content">
-                                        <h4 class="meeting-card-v3__title">{{ $ministerio->item->items[1]->content ?? '' }}</h4>
+                                        <h4 class="meeting-card-v3__title">{{ $ministerio->item->items[1]->content ?? '' }}
+                                        </h4>
                                         <div class="meeting-card-v3__details">
                                             <p class="meeting-card-v3__schedule">
                                                 <b>{{ $ministerio->item->items[2]->content ?? '' }}</b>
@@ -344,7 +333,7 @@
             </section>
             {{-- FIN: NUEVA PROPUESTA MINISTERIOS --}}
 
-            
+
             {{-- <section class="section section-parallax section-height-5 overlay overlay-show overlay-op-7 border-0 m-0"
                 data-aos="fade-in" data-plugin-parallax data-plugin-options="{'speed': 1.5, 'parallaxHeight': '138%'}"
                 data-image-src="{{ asset('themes/jrrss/assets/img/parallax/parallax_index.jpg') }}">
@@ -380,6 +369,7 @@
                     padding: 3rem;
                     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
                 }
+
                 .cta-button-modern {
                     background: linear-gradient(45deg, #ff512f, #dd2476);
                     border: none;
@@ -394,14 +384,16 @@
                     font-weight: 600;
                     letter-spacing: 1px;
                 }
+
                 .cta-button-modern:hover {
                     transform: translateY(-3px);
-                    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+                    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
                     color: white;
                 }
             </style>
 
-            <section class="section section-parallax section-height-5 overlay overlay-show overlay-op-7 border-0 m-0 d-flex align-items-center"
+            <section
+                class="section section-parallax section-height-5 overlay overlay-show overlay-op-7 border-0 m-0 d-flex align-items-center"
                 data-aos="fade-in" data-plugin-parallax data-plugin-options="{'speed': 1.5, 'parallaxHeight': '138%'}"
                 data-image-src="{{ asset('themes/jrrss/assets/img/parallax/parallax_index.jpg') }}"
                 style="min-height: 500px;">
@@ -409,13 +401,15 @@
                     <div class="row justify-content-center">
                         <div class="col-lg-10 col-xl-8">
                             <div class="glass-card text-center" data-aos="zoom-in" data-aos-delay="200">
-                                <h2 class="text-white font-weight-bold text-9 mb-3" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
+                                <h2 class="text-white font-weight-bold text-9 mb-3"
+                                    style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
                                     {{ $gods_meeting[0]->content ?? 'Encuentro con Dios' }}
                                 </h2>
                                 <div class="divider divider-small divider-small-center divider-light mb-4">
                                     <hr style="width: 50px; border-top: 3px solid #fff; opacity: 1;">
                                 </div>
-                                <p class="text-white text-4 mb-5 font-weight-light" style="line-height: 1.8; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">
+                                <p class="text-white text-4 mb-5 font-weight-light"
+                                    style="line-height: 1.8; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">
                                     {{ $gods_meeting[1]->content ?? '' }}
                                 </p>
                                 <a href="{{ route('web_contacto') }}" class="text-decoration-none">
@@ -493,28 +487,33 @@
                         <div class="modal-content border-0 shadow-lg" style="border-radius: 15px; overflow: hidden;">
                             <div class="position-relative">
                                 <img src="{{ asset('storage/' . ($reunion->item->items[1]->content ?? 'default.jpg')) }}"
-                                    alt="{{ $reunion->item->items[0]->content ?? 'Imagen' }}"
-                                    class="w-100" style="height: 250px; object-fit: cover;">
+                                    alt="{{ $reunion->item->items[0]->content ?? 'Imagen' }}" class="w-100"
+                                    style="height: 250px; object-fit: cover;">
                                 <div class="position-absolute top-0 end-0 p-3">
-                                    <button type="button" class="btn-close btn-close-white bg-white rounded-circle p-2 opacity-75"
+                                    <button type="button"
+                                        class="btn-close btn-close-white bg-white rounded-circle p-2 opacity-75"
                                         data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="position-absolute bottom-0 start-0 w-100 p-4"
                                     style="background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);">
-                                    <h3 class="text-white font-weight-bold mb-0 text-shadow">{{ $reunion->item->items[0]->content ?? '' }}</h3>
+                                    <h3 class="text-white font-weight-bold mb-0 text-shadow">
+                                        {{ $reunion->item->items[0]->content ?? '' }}</h3>
                                 </div>
                             </div>
                             <div class="modal-body p-4">
-                                <div class="d-flex align-items-center mb-4 p-3 rounded" style="background-color: #f8f9fa;">
+                                <div class="d-flex align-items-center mb-4 p-3 rounded"
+                                    style="background-color: #f8f9fa;">
                                     <i class="far fa-clock fa-2x text-primary me-3"></i>
                                     <div>
                                         <small class="text-muted text-uppercase font-weight-bold d-block">Horario</small>
-                                        <span class="text-dark font-weight-bold text-4">{{ $reunion->item->items[5]->content ?? '' }}</span>
+                                        <span
+                                            class="text-dark font-weight-bold text-4">{{ $reunion->item->items[5]->content ?? '' }}</span>
                                     </div>
                                 </div>
 
                                 <h5 class="font-weight-bold text-dark mb-3">
-                                    {{ $reunion->item->items[2]->content ?? '' }} {{ $reunion->item->items[3]->content ?? '' }}
+                                    {{ $reunion->item->items[2]->content ?? '' }}
+                                    {{ $reunion->item->items[3]->content ?? '' }}
                                 </h5>
 
                                 <div class="text-muted" style="font-size: 1rem; line-height: 1.6;">
