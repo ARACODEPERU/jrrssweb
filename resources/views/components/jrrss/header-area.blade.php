@@ -142,7 +142,7 @@
                         <div class="header-column">
                             <div class="header-row justify-content-end">
                                 <div class="header-nav p-0">
-                                    <img style="width: 100%; height: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
+                                    <img class="view-movile" style="width: 100%; height: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
                                         src="{{ asset('storage/' . $header[0]->content) }}" alt="">
                                     <div
                                         class="header-nav header-nav-line header-nav-divisor header-nav-spaced justify-content-lg-center">
