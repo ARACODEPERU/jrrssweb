@@ -1,3 +1,4 @@
+
 <div>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <style>
@@ -83,6 +84,14 @@
                 transform: translate(-50%, -50%) !important;
             }
         }
+
+        /* Estilos para item activo en menú (Amarillo) */
+        .header-nav-main nav > ul > li > a.active,
+        .header-nav-main nav > ul > li > a.dropdown-toggle.active,
+        .dropdown-item.active {
+            color: #fdc21c !important;
+            background-color: transparent !important;
+        }
     </style>
 
     <script>
@@ -157,7 +166,7 @@
                                                         </a>
                                                     </li>
                                                     <li class="dropdown dropdown-mega">
-                                                        <a class="dropdown-item dropdown-toggle" href="">
+                                                        <a class="dropdown-item dropdown-toggle {{ request()->routeIs(['web_quienes_somos', 'web_ecelt', 'web_revolucion_juvenil', 'web_kids', 'web_proceso_miembro', 'web_proceso_discipulo', 'web_proceso_lideres', 'web_ism', 'web_oracion', 'web_empleo']) ? 'active' : '' }}" href="">
                                                             DESCUBRE &nbsp;<i class="fa fa-caret-down"
                                                                 aria-hidden="true"></i>
                                                         </a>
@@ -270,7 +279,7 @@
                                                     </li> --}}
                                                     <li class="dropdown">
                                                         <a href=""
-                                                            class="nav-link dropdown-toggle {{ request()->routeIs('web_sedes') ? 'active' : '' }}">
+                                                            class="nav-link dropdown-toggle {{ request()->routeIs(['web_sedes*', 'web_sedes_peru', 'web_sedes_estados_unidos', 'web_sedes_españa']) ? 'active' : '' }}">
                                                             SEDES &nbsp;<i class="fa fa-caret-down"
                                                                 aria-hidden="true"></i>
                                                         </a>
@@ -312,7 +321,7 @@
                                                     </li> --}}
                                                     <li class="dropdown">
                                                         <a href="{{ route('web_coberturas_peru') }}"
-                                                            class="nav-link dropdown-toggle {{ request()->routeIs('web_cobertura') ? 'active' : '' }}">
+                                                            class="nav-link dropdown-toggle {{ request()->routeIs(['web_cobertura', 'web_coberturas_peru']) ? 'active' : '' }}">
                                                             COBERTURAS &nbsp;<i class="fa fa-caret-down"
                                                                 aria-hidden="true"></i>
                                                         </a>
@@ -362,7 +371,7 @@
                                                     </li> --}}
                                                     <li class="dropdown">
                                                         <a href="{{ route('web_benefactora') }}"
-                                                            class="nav-link dropdown-toggle {{ request()->routeIs('web_benefactora') ? 'active' : '' }}">
+                                                            class="nav-link dropdown-toggle {{ request()->routeIs(['web_benefactora', 'web_panes_y_peces', 'web_el_buen_samaritano', 'web_sembrando_sonrisas']) ? 'active' : '' }}">
                                                             BENEFACTORA &nbsp;<i class="fa fa-caret-down"
                                                                 aria-hidden="true"></i>
                                                         </a>
