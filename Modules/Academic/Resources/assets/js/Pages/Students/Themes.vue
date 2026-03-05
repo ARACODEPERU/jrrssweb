@@ -502,14 +502,14 @@
 
                                                     <div class="mt-4">
                                                         <ul class="flex space-x-4 rtl:space-x-reverse font-bold">
-                                                            <!-- <li>
+                                                            <li>
                                                                 <a href="javascript:;" class="flex items-center hover:text-primary">
                                                                 <icon-message class="mr-1 w-4 h-4" />
                                                                 Responder
                                                                 </a>
-                                                            </li> -->
+                                                            </li>
                                                             <!-- megusta y no me gusta  -->
-                                                            <!-- <li>
+                                                           <li>
                                                                 <a href="javascript:;" class="flex items-center hover:text-primary">
                                                                     <font-awesome-icon :icon="faThumbsUp" class="mr-1" />
                                                                     {{ comment.i_like == null ? 0 : comment.i_like }}
@@ -520,7 +520,7 @@
                                                                     <font-awesome-icon :icon="faThumbsDown" class="mr-1" />
                                                                     {{ comment.not_like == null ? 0 : comment.not_like }}
                                                                 </a>
-                                                            </li> -->
+                                                            </li> 
                                                             <li v-if="$page.props.auth.user.id == comment?.user?.id">
                                                                 <a @click="activeEditComment(ibex)" href="javascript:;" class="flex items-center hover:text-primary">
                                                                     <icon-edit class="mr-1 w-4 h-4" />
