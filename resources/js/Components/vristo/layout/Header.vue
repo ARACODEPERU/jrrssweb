@@ -403,7 +403,7 @@
                     <div v-can="'crm_chat_notifications'" class="dropdown shrink-0">
                         <ChatNotifications />
                     </div>
-                    <ShoppingCartMenu />
+                    <!-- <ShoppingCartMenu /> -->
                     <div class="dropdown shrink-0">
                         <Popper :placement="store.rtlClass === 'rtl' ? 'bottom-end' : 'bottom-start'" offsetDistance="8" class="!block">
                             <button id="btnHeaderPerfilUser" type="button" class="relative group block">
