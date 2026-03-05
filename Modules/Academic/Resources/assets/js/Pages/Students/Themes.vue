@@ -1,6 +1,6 @@
 <script  setup>
     import AppLayout from "@/Layouts/Vristo/AppLayout.vue";
-    import { ref } from 'vue';
+    import { ref, onMounted, computed, nextTick } from 'vue';
     import { Link, useForm, router } from '@inertiajs/vue3';
     import IconSend from '@/Components/vristo/icon/icon-send.vue';
     import IconSquareRotated from '@/Components/vristo/icon/icon-square-rotated.vue';
@@ -25,8 +25,7 @@
         }
     });
 
-    const treeview1 = ref([]);
-    const themeSelected = ref([]);
+    const themeSelected = ref(null);
     const displayModalVideo = ref(false);
     const videoSelected = ref(null);
 
@@ -37,6 +36,7 @@
     if(props.module.themes.length > 0){
         default_theme_id.value = props.module.themes[0].id;
         contentsData.value = props.module.themes[0].contents;
+        getComment(default_theme_id.value);
         //commentsData = props.module.themes[0].comments;
     }
 
@@ -95,9 +95,9 @@
 
     const activeEditComment = (index) => {
         commentsData.value[index]['edit_status'] = true;
-        setTimeout(() => {
-            document.getElementById('ctnTextarea' + index).focus();
-        }, 0);
+        nextTick(() => {
+            document.getElementById('ctnTextarea' + index)?.focus();
+        });
     }
 
     const editComment = (comment, index) => {
@@ -168,13 +168,15 @@
         return baseUrl + 'storage/'+ path;
     }
 
-    const selectedTab = ref('');
+    const selectedTab = ref(default_theme_id.value);
 
     const selectTheme = (theme) => {
         contentsData.value = theme.contents;
         selectedTab.value = theme.id
         themeSelected.value = theme;
         formComment.theme_id = theme.id
+        // Para la nueva UI, también se actualiza el tema seleccionado
+        selectThemeNewUI(theme);
         getComment(theme.id);
     }
 
@@ -182,7 +184,7 @@
         return baseUrl + 'storage/'+ path;
     }
 
-    const saveStudentHistory = (content) => {
+    const originalSaveStudentHistory = (content) => {
         let history = {
             course_id: props.course.id,
             module_id: props.module.id,
@@ -192,6 +194,9 @@
         }
 
         axios.post(route('aca_students_history_store'), history);
+
+        // Hook para la nueva UI
+        updateContentCompletionStatus(content);
     }
 
     const openExamSolve = (content,title = 'Exam', w = 800, h = 600) => {
@@ -215,6 +220,113 @@
             popup.location.href = url;
         }
     }
+
+    // =================================================================
+    // =========== INICIO: LÓGICA PARA NUEVA PROPUESTA DE UX ===========
+    // =================================================================
+
+    // Estado para la nueva UI
+    const themesWithProgress = ref([]);
+    const selectedThemeNewUI = ref(null);
+    const activeContent = ref(null); // Contenido actualmente expandido en el acordeón
+
+    // Historial local para simular el progreso
+    const studentHistoryLocal = ref([]);
+
+    // Función para procesar los temas y añadirles el estado de progreso
+    const initializeNewUI = () => {
+        if (!props.module || !props.module.themes) return;
+
+        themesWithProgress.value = props.module.themes.map(theme => {
+            const processedContents = theme.contents.map(content => ({
+                ...content,
+                completed: studentHistoryLocal.value.some(h => h.content_id === content.id),
+                isExpanded: false,
+            }));
+
+            const completedCount = processedContents.filter(c => c.completed).length;
+
+            return {
+                ...theme,
+                contents: processedContents,
+                completedCount: completedCount,
+                progress: theme.contents.length > 0 ? (completedCount / theme.contents.length) * 100 : 0
+            };
+        });
+
+        // Seleccionar el primer tema por defecto para la nueva UI
+        if (themesWithProgress.value.length > 0) {
+            selectedThemeNewUI.value = themesWithProgress.value[0];
+        }
+    };
+
+    // Seleccionar un tema en la nueva UI
+    const selectThemeNewUI = (theme) => {
+        selectedThemeNewUI.value = themesWithProgress.value.find(t => t.id === theme.id);
+        activeContent.value = null; // Cierra cualquier acordeón abierto
+        // También actualizamos la UI original para mantener consistencia
+        selectedTab.value = theme.id;
+        contentsData.value = theme.contents;
+        formComment.theme_id = theme.id;
+        getComment(theme.id);
+    };
+
+    // Abrir/Cerrar el acordeón de un contenido
+    const toggleContentAccordion = (content) => {
+        // Si ya está abierto, ciérralo
+        if (activeContent.value && activeContent.value.id === content.id) {
+            activeContent.value.isExpanded = false;
+            activeContent.value = null;
+            return;
+        }
+
+        // Cierra el que estaba abierto anteriormente
+        if (activeContent.value) {
+            activeContent.value.isExpanded = false;
+        }
+
+        // Abre el nuevo y marca como visto
+        content.isExpanded = true;
+        activeContent.value = content;
+        saveStudentHistory(content); // Marca como visto al abrir
+
+        // Carga los comentarios para el tema (demostración)
+        getComment(content.theme_id);
+    };
+
+    // Actualizar el estado de completado
+    const updateContentCompletionStatus = (contentToUpdate) => {
+        // Añade al historial local para simulación si no está
+        if (!studentHistoryLocal.value.some(h => h.content_id === contentToUpdate.id)) {
+            studentHistoryLocal.value.push({ content_id: contentToUpdate.id });
+        }
+
+        const theme = themesWithProgress.value.find(t => t.id === contentToUpdate.theme_id);
+        if (theme) {
+            const content = theme.contents.find(c => c.id === contentToUpdate.id);
+            if (content && !content.completed) {
+                content.completed = true;
+                // Recalcular progreso del tema
+                const completedCount = theme.contents.filter(c => c.completed).length;
+                theme.completedCount = completedCount;
+                theme.progress = theme.contents.length > 0 ? (completedCount / theme.contents.length) * 100 : 0;
+            }
+        }
+    };
+
+    // Envolvemos la función original para añadirle la actualización de la nueva UI
+    const saveStudentHistory = (content) => {
+        originalSaveStudentHistory(content);
+    };
+
+    // Llamar a la inicialización en onMounted
+    onMounted(() => {
+        initializeNewUI();
+    });
+
+    // ===============================================================
+    // =========== FIN: LÓGICA PARA NUEVA PROPUESTA DE UX ============
+    // ===============================================================
 
 </script>
 <template>
@@ -318,7 +430,7 @@
                                                 <div>
                                                     <a
                                                         :href="content.content"
-                                                        @click="saveStudentHistory(content)"
+                                                        @click="originalSaveStudentHistory(content)"
                                                         target="_blank"
                                                         type="button"
                                                         class="btn btn-success btn-sm flex uppercase inline-block"
@@ -375,7 +487,7 @@
                                                 <div>
                                                     <a
                                                         :href="getPath(content.content)"
-                                                        @click="saveStudentHistory(content)"
+                                                        @click="originalSaveStudentHistory(content)"
                                                         target="_blank"
                                                         type="button"
                                                         class="btn btn-success btn-sm flex uppercase inline-block"
@@ -406,7 +518,7 @@
                                                 <div>
                                                     <a
                                                         :href="content.content"
-                                                        @click="saveStudentHistory(content)"
+                                                        @click="originalSaveStudentHistory(content)"
                                                         target="_blank"
                                                         type="button"
                                                         class="btn btn-success btn-sm flex uppercase inline-block"
@@ -469,7 +581,7 @@
                                 </template>
                                 <template v-else>
                                     <template v-if="commentsData && commentsData.length > 0">
-                                        <div v-for="(comment, ibex) in commentsData" class="mt-8">
+                                        <div v-for="(comment, index) in commentsData" :key="comment.id" class="mt-8">
                                             <div class="flex align-top">
                                                 <div class="shrink-0">
                                                     <img v-if="comment.user.avatar" class="p-1 rounded-full w-14 h-14 ring-2 ring-gray-100/20" :src="getImage(comment.user.avatar)" alt="img">
@@ -481,9 +593,9 @@
                                                     <p class="mb-0 text-sm text-gray-500 dark:text-gray-300">{{ comment.created_atx }}</p>
 
                                                     <div v-show="comment.edit_status">
-                                                        <form @submit.prevent="editComment(comment,ibex)" class="mt-2 contact-form">
+                                                        <form @submit.prevent="editComment(comment,index)" class="mt-2 contact-form">
                                                             <div>
-                                                                <textarea v-model="comment.description" :id="'ctnTextarea'+ibex" :ref="'ctnTextarea' + ibex" rows="3" class="form-textarea" placeholder="Escribe aqui..." required></textarea>
+                                                                <textarea v-model="comment.description" :id="'ctnTextarea'+index" :ref="'ctnTextarea' + index" rows="3" class="form-textarea" placeholder="Escribe aqui..." required></textarea>
                                                             </div>
 
                                                             <div class="flex justify-end mt-4">
@@ -522,13 +634,13 @@
                                                                 </a>
                                                             </li> -->
                                                             <li v-if="$page.props.auth.user.id == comment.user.id">
-                                                                <a @click="activeEditComment(ibex)" href="javascript:;" class="flex items-center hover:text-primary">
+                                                                <a @click="activeEditComment(index)" href="javascript:;" class="flex items-center hover:text-primary">
                                                                     <icon-edit class="mr-1 w-4 h-4" />
                                                                     Editar
                                                                 </a>
                                                             </li>
                                                             <li v-if="$page.props.auth.user.id == comment.user.id">
-                                                                <a @click="destroyComment(comment,ibex)" href="javascript:;" class="flex items-center hover:text-primary">
+                                                                <a @click="destroyComment(comment,index)" href="javascript:;" class="flex items-center hover:text-primary">
                                                                     <icon-trash class="mr-1 w-4 h-4" />
                                                                     Eliminar
                                                                 </a>
@@ -566,6 +678,187 @@
                 </div>
             </div>
 
+            <!-- ================================================================= -->
+            <!-- =========== INICIO: NUEVA PROPUESTA DE INTERFAZ DE UX =========== -->
+            <!-- ================================================================= -->
+            <div class="pt-10">
+                <hr class="my-8 border-dashed">
+                <div class="max-w-2xl mx-auto text-center mb-6 lg:mb-8">
+                    <h2 class="text-xl font-bold md:text-xl md:leading-tight dark:text-white">--- Nueva Propuesta de Interfaz ---</h2>
+                </div>
+
+                <div class="grid grid-cols-6 gap-4">
+                    <!-- Columna de Temas con Progreso -->
+                    <div class="panel col-span-6 sm:col-span-2">
+                        <div class="flex justify-between items-center mb-5">
+                            <h1 class="font-extrabold tracking-wider">Temas</h1>
+                        </div>
+                        <div class="flex flex-col gap-4 text-sm">
+                            <div v-for="theme in themesWithProgress" :key="theme.id"
+                                @click="selectThemeNewUI(theme)"
+                                class="cursor-pointer p-3 rounded-lg shadow-sm hover:shadow-md duration-300 border"
+                                :class="selectedThemeNewUI && selectedThemeNewUI.id === theme.id ? 'bg-primary-light dark:bg-primary-dark-light border-primary' : 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700'">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-semibold" :class="selectedThemeNewUI && selectedThemeNewUI.id === theme.id ? 'text-primary' : 'text-gray-800 dark:text-white'">{{ theme.description }}</span>
+                                </div>
+                                <div class="mt-2">
+                                    <div class="flex justify-between items-center mb-1 text-xs">
+                                        <span class="text-gray-500 dark:text-gray-400">Progreso</span>
+                                        <span class="font-bold" :class="selectedThemeNewUI && selectedThemeNewUI.id === theme.id ? 'text-primary' : 'text-gray-600 dark:text-gray-300'">
+                                            {{ theme.completedCount }} / {{ theme.contents.length }}
+                                        </span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-1.5 dark:bg-gray-700">
+                                        <div class="bg-primary h-1.5 rounded-full" :style="{ width: theme.progress + '%' }"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Columna de Contenidos Interactivos -->
+                    <div class="panel col-span-6 sm:col-span-4">
+                        <div v-if="selectedThemeNewUI" class="space-y-2">
+                            <div v-for="content in selectedThemeNewUI.contents" :key="content.id" class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+                                <!-- Cabecera del Acordeón -->
+                                <div @click="toggleContentAccordion(content)" class="cursor-pointer flex items-center p-4 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700">
+                                    <!-- Icono de Completado -->
+                                    <div class="shrink-0 mr-3">
+                                        <svg v-if="content.completed" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        <svg v-else xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                    </div>
+                                    <!-- Icono de Tipo de Contenido -->
+                                    <div class="shrink-0 mr-4 text-primary">
+                                        <icon-video v-if="content.is_file == 0" class="w-6 h-6" />
+                                        <icon-file v-else-if="content.is_file == 1" class="w-6 h-6" />
+                                        <icon-file-pdf v-else-if="content.is_file == 2" class="w-6 h-6" />
+                                        <svg v-else-if="content.is_file == 3" class="w-6 h-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M352 256c0 22.2-1.2 43.6-3.3 64l-185.3 0c-2.2-20.4-3.3-41.8-3.3-64s1.2-43.6 3.3-64l185.3 0c2.2 20.4 3.3 41.8 3.3 64z"/></svg>
+                                        <svg v-else-if="content.is_file == 4" class="w-6 h-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M0 64C0 28.7 28.7 0 64 0L224 0l0 128c0 17.7 14.3 32 32 32l128 0 0 38.6C310.1 219.5 256 287.4 256 368c0 59.1 29.1 111.3 73.7 143.3c-3.2 .5-6.4 .7-9.7 .7L64 512c-35.3 0-64-28.7-64-64L0 64z"/></svg>
+                                    </div>
+                                    <!-- Descripción -->
+                                    <div class="flex-1">
+                                        <h6 class="font-semibold text-gray-800 dark:text-white">{{ content.description }}</h6>
+                                    </div>
+                                    <!-- Flecha del Acordeón -->
+                                    <div class="shrink-0 ml-4">
+                                        <svg class="w-5 h-5 text-gray-500 transition-transform duration-300" :class="{ 'rotate-180': content.isExpanded }" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                </div>
+
+                                <!-- Contenido del Acordeón -->
+                                <div v-show="content.isExpanded" class="p-5 bg-gray-50 dark:bg-gray-900/50">
+                                    <!-- Acción del Contenido -->
+                                    <div class="mb-6">
+                                        <button v-if="content.is_file == 0" @click="openSelectedVideo(content)" type="button" class="btn btn-primary">Reproducir Video</button>
+                                        <a v-if="content.is_file == 1" :href="content.content" target="_blank" @click="saveStudentHistory(content)" class="btn btn-primary">Ir al Sitio</a>
+                                        <a v-if="content.is_file == 2" :href="getPath(content.content)" target="_blank" @click="saveStudentHistory(content)" class="btn btn-primary">Descargar PDF</a>
+                                        <a v-if="content.is_file == 3" :href="content.content" target="_blank" @click="saveStudentHistory(content)" class="btn btn-primary">Unirse a Videoconferencia</a>
+                                        <button v-if="content.is_file == 4" @click="openExamSolve(content)" type="button" class="btn btn-primary">Resolver Examen</button>
+                                    </div>
+
+                                    <!-- Sección de Comentarios (reutilizada) -->
+                                    <div>
+                                        <h5 class="pb-3 text-gray-900 border-b border-gray-400/50 dark:text-gray-50 dark:border-zinc-700">
+                                            COMENTARIOS DEL TEMA
+                                            <span class="text-xs text-gray-500">(Esta sección es para todo el tema)</span>
+                                        </h5>
+                                        <template v-if="commentsLoading">
+                                            <div class="flex items-center mt-4 animate-pulse">
+                                                <svg class="w-10 h-10 me-3 text-gray-200 dark:text-gray-700" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm0 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 13a8.949 8.949 0 0 1-4.951-1.488A3.987 3.987 0 0 1 9 13h2a3.987 3.987 0 0 1 3.951 3.512A8.949 8.949 0 0 1 10 18Z"/>
+                                                </svg>
+                                                <div>
+                                                    <div class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-32 mb-2"></div>
+                                                    <div class="w-48 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                                                </div>
+                                            </div>
+                                        </template>
+                                        <template v-else>
+                                            <div v-if="!commentsData || commentsData.length === 0" class="text-center py-6 text-gray-500">
+                                                Sé el primero en comentar.
+                                            </div>
+                                            <template v-if="commentsData && commentsData.length > 0">
+                                                <div v-for="(comment, index) in commentsData" :key="comment.id" class="mt-8">
+                                                    <div class="flex align-top">
+                                                        <div class="shrink-0">
+                                                            <img v-if="comment.user.avatar" class="p-1 rounded-full w-14 h-14 ring-2 ring-gray-100/20" :src="getImage(comment.user.avatar)" alt="img">
+                                                            <img v-else :src="'https://ui-avatars.com/api/?name='+comment.user.name+'&size=150&rounded=true'" class="p-1 rounded-full w-14 h-14 ring-2 ring-gray-100/20" :alt="comment.user.name"/>
+                                                        </div>
+                                                        <div class="ltr:ml-3 rtl:mr-3 grow">
+                                                            <small class="text-xs text-gray-500 ltr:float-right rtl:float-left dark:text-gray-300"><i class="uil uil-clock"></i> {{ comment.time_elapsed }}</small>
+                                                            <a href="javascript:(0)" class="text-gray-900 transition-all duration-500 ease-in-out hover:bg-violet-500 dark:text-gray-50"><h6 class="mb-0 text-16 mt-sm-0">{{ comment.user.name }}</h6></a>
+                                                            <p class="mb-0 text-sm text-gray-500 dark:text-gray-300">{{ comment.created_atx }}</p>
+
+                                                            <div v-show="comment.edit_status">
+                                                                <form @submit.prevent="editComment(comment,index)" class="mt-2 contact-form">
+                                                                    <div>
+                                                                        <textarea v-model="comment.description" :id="'ctnTextareaNew'+index" rows="3" class="form-textarea" placeholder="Escribe aqui..." required></textarea>
+                                                                    </div>
+
+                                                                    <div class="flex justify-end mt-4">
+                                                                        <button name="submit" type="submit" class="btn btn-danger hover:-translate-y-1" :class="{ 'opacity-25': comment.loading }" :disabled="comment.loading">
+                                                                            Editar mensaje
+                                                                            <svg v-if="comment.loading" aria-hidden="true" role="status" class="inline w-4 h-4 ml-2 text-gray-200 animate-spin dark:text-gray-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/><path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="#1C64F2"/></svg>
+                                                                            <icon-send v-else class="ml-2" />
+                                                                        </button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                            <p v-if="!comment.edit_status" class="mb-0 italic text-gray-500 dark:text-gray-300">{{ comment.description }}</p>
+
+                                                            <div class="mt-4">
+                                                                <ul class="flex space-x-4 rtl:space-x-reverse font-bold">
+                                                                    <li v-if="$page.props.auth.user.id == comment.user.id">
+                                                                        <a @click="activeEditComment(index)" href="javascript:;" class="flex items-center hover:text-primary">
+                                                                            <icon-edit class="mr-1 w-4 h-4" />
+                                                                            Editar
+                                                                        </a>
+                                                                    </li>
+                                                                    <li v-if="$page.props.auth.user.id == comment.user.id">
+                                                                        <a @click="destroyComment(comment,index)" href="javascript:;" class="flex items-center hover:text-primary">
+                                                                            <icon-trash class="mr-1 w-4 h-4" />
+                                                                            Eliminar
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </template>
+                                        </template>
+                                        <form @submit.prevent="createComment" class="mt-8 contact-form">
+                                            <div>
+                                                <label for="ctnTextareaNew">Dejar un comentario</label>
+                                                <textarea v-model="formComment.message" id="ctnTextareaNew" rows="3" class="form-textarea" placeholder="Escribe aqui..." required></textarea>
+                                                <InputError :message="formComment.errors.message" class="mt-2" />
+                                            </div>
+
+                                            <div class="flex justify-end mt-6">
+                                                <button name="submit" type="submit" :class="{ 'opacity-25': formComment.processing }" :disabled="formComment.processing" class="btn btn-primary hover:-translate-y-1">
+                                                    Enviar mensaje
+                                                    <svg v-if="formComment.processing" aria-hidden="true" role="status" class="inline w-4 h-4 ml-2 text-gray-200 animate-spin dark:text-gray-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/><path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="#1C64F2"/></svg>
+                                                    <icon-send v-else class="ml-2" />
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- =============================================================== -->
+            <!-- =========== FIN: NUEVA PROPUESTA DE INTERFAZ DE UX ============ -->
+            <!-- =============================================================== -->
+
         </div>
          <!-- Modal -->
         <TransitionRoot appear :show="displayModalVideo" as="template">
@@ -599,4 +892,3 @@
 
     </AppLayout>
 </template>
-
