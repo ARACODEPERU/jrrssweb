@@ -165,7 +165,7 @@
     const baseUrl = window.location.origin;
 
     const getImage = (path) => {
-        return baseUrl + 'storage/'+ path;
+        return baseUrl + '/storage/'+ path;
     }
 
     const selectedTab = ref('');
