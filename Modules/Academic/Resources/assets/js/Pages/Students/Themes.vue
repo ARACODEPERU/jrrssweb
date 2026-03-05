@@ -579,8 +579,8 @@
             <!-- Propuesta UX Moderna (Acordeón) -->
             <div class="mt-10 pt-10 border-t border-gray-200 dark:border-gray-700">
                 <div class="flex items-center justify-between mb-6">
-                    <h2 class="text-xl font-bold text-gray-800 dark:text-white">Contenido del Módulo (Vista Móvil/Acordeón)</h2>
-                    <span class="text-xs font-medium text-primary bg-primary/10 px-3 py-1 rounded-full">Nueva Propuesta</span>
+                    <h2 class="text-xl font-bold text-gray-800 dark:text-white">Contenido</h2>
+                    <!-- <span class="text-xs font-medium text-primary bg-primary/10 px-3 py-1 rounded-full">Nueva Propuesta</span> -->
                 </div>
                 
                 <div class="space-y-4">
