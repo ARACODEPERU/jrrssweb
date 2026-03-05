@@ -216,6 +216,17 @@
         }
     }
 
+    const activeAccordion = ref(null);
+
+    const toggleAccordion = (theme) => {
+        if (activeAccordion.value === theme.id) {
+            activeAccordion.value = null;
+        } else {
+            activeAccordion.value = theme.id;
+            selectTheme(theme);
+        }
+    }
+
 </script>
 <template>
     <AppLayout title="Mis Cursos">
@@ -452,7 +463,7 @@
                                     </div>
                                 </template>
                             </template>
-                            <div>
+                            <!-- <div>
                                 <h5 class="pb-3 text-gray-900 border-b border-gray-400/50 dark:text-gray-50 dark:border-zinc-700">
                                     COMENTARIOS
                                 </h5>
@@ -508,7 +519,6 @@
                                                                 Responder
                                                                 </a>
                                                             </li>
-                                                            <!-- megusta y no me gusta  -->
                                                            <li>
                                                                 <a href="javascript:;" class="flex items-center hover:text-primary">
                                                                     <font-awesome-icon :icon="faThumbsUp" class="mr-1" />
@@ -560,6 +570,133 @@
                                     </div>
                                 </form>
 
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Propuesta UX Moderna (Acordeón) -->
+            <div class="mt-10 pt-10 border-t border-gray-200 dark:border-gray-700">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-xl font-bold text-gray-800 dark:text-white">Contenido del Módulo (Vista Móvil/Acordeón)</h2>
+                    <span class="text-xs font-medium text-primary bg-primary/10 px-3 py-1 rounded-full">Nueva Propuesta</span>
+                </div>
+                
+                <div class="space-y-4">
+                    <div v-for="theme in module.themes" :key="theme.id" 
+                        class="border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden transition-all duration-300 bg-white dark:bg-[#1b2e4b]"
+                        :class="{'shadow-lg ring-1 ring-primary/30': activeAccordion === theme.id}"
+                    >
+                        <!-- Accordion Header -->
+                        <button 
+                            @click="toggleAccordion(theme)"
+                            class="w-full flex items-center justify-between p-4 text-left focus:outline-none hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
+                            :class="{'bg-gray-50 dark:bg-gray-800/50': activeAccordion === theme.id}"
+                        >
+                            <div class="flex items-center gap-4">
+                                <div class="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-colors"
+                                    :class="activeAccordion === theme.id ? 'bg-primary text-white' : 'bg-gray-100 dark:bg-gray-700 text-gray-500'"
+                                >
+                                    <icon-square-rotated v-if="activeAccordion !== theme.id" class="w-5 h-5" />
+                                    <svg v-else xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-gray-800 dark:text-gray-200 text-base">{{ theme.description }}</h3>
+                                    <p class="text-xs text-gray-500 mt-0.5">{{ theme.contents?.length || 0 }} recursos disponibles</p>
+                                </div>
+                            </div>
+                            <svg 
+                                class="w-5 h-5 text-gray-400 transition-transform duration-300"
+                                :class="{'rotate-180': activeAccordion === theme.id}"
+                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            >
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </button>
+
+                        <!-- Accordion Body -->
+                        <div v-show="activeAccordion === theme.id" class="border-t border-gray-100 dark:border-gray-700">
+                            <div class="p-4 space-y-3">
+                                <!-- Contents List -->
+                                <template v-if="theme.contents && theme.contents.length > 0">
+                                    <div v-for="content in theme.contents" :key="content.id" 
+                                        class="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/40 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors group"
+                                    >
+                                        <!-- Icon based on type -->
+                                        <div class="flex-shrink-0 text-primary">
+                                            <icon-video v-if="content.is_file == 0" class="w-6 h-6" />
+                                            <icon-file v-else-if="content.is_file == 1" class="w-6 h-6" />
+                                            <icon-file-pdf v-else-if="content.is_file == 2" class="w-6 h-6" />
+                                            <svg v-else-if="content.is_file == 3" class="w-6 h-6" fill="currentColor" viewBox="0 0 512 512"><path d="M352 256c0 22.2-1.2 43.6-3.3 64l-185.3 0c-2.2-20.4-3.3-41.8-3.3-64s1.2-43.6 3.3-64l185.3 0c2.2 20.4 3.3 41.8 3.3 64zm28.8-64l123.1 0c5.3 20.5 8.1 41.9 8.1 64s-2.8 43.5-8.1 64l-123.1 0c2.1-20.6 3.2-42 3.2-64s-1.1-43.4-3.2-64zm112.6-32l-116.7 0c-10-63.9-29.8-117.4-55.3-151.6c78.3 20.7 142 77.5 171.9 151.6zm-149.1 0l-176.6 0c6.1-36.4 15.5-68.6 27-94.7c10.5-23.6 22.2-40.7 33.5-51.5C239.4 3.2 248.7 0 256 0s16.6 3.2 27.8 13.8c11.3 10.8 23 27.9 33.5 51.5c11.6 26 20.9 58.2 27 94.7zm-209 0L18.6 160C48.6 85.9 112.2 29.1 190.6 8.4C165.1 42.6 145.3 96.1 135.3 160zM8.1 192l123.1 0c-2.1 20.6-3.2 42-3.2 64s1.1 43.4 3.2 64L8.1 320C2.8 299.5 0 278.1 0 256s2.8-43.5 8.1-64zM194.7 446.6c-11.6-26-20.9-58.2-27-94.6l176.6 0c-6.1 36.4-15.5 68.6-27 94.6c-10.5 23.6-22.2 40.7-33.5 51.5C272.6 508.8 263.3 512 256 512s-16.6-3.2-27.8-13.8c-11.3-10.8-23-27.9-33.5-51.5zM135.3 352c10 63.9 29.8 117.4 55.3 151.6C112.2 482.9 48.6 426.1 18.6 352l116.7 0zm358.1 0c-30 74.1-93.6 130.9-171.9 151.6c25.5-34.2 45.2-87.7 55.3-151.6l116.7 0z"/></svg>
+                                            <svg v-else-if="content.is_file == 4" class="w-6 h-6" fill="currentColor" viewBox="0 0 576 512"><path d="M0 64C0 28.7 28.7 0 64 0L224 0l0 128c0 17.7 14.3 32 32 32l128 0 0 38.6C310.1 219.5 256 287.4 256 368c0 59.1 29.1 111.3 73.7 143.3c-3.2 .5-6.4 .7-9.7 .7L64 512c-35.3 0-64-28.7-64-64L0 64zm384 64l-128 0L256 0 384 128zm48 96a144 144 0 1 1 0 288 144 144 0 1 1 0-288zm0 240a24 24 0 1 0 0-48 24 24 0 1 0 0 48zM368 321.6l0 6.4c0 8.8 7.2 16 16 16s16-7.2 16-16l0-6.4c0-5.3 4.3-9.6 9.6-9.6l40.5 0c7.7 0 13.9 6.2 13.9 13.9c0 5.2-2.9 9.9-7.4 12.3l-32 16.8c-5.3 2.8-8.6 8.2-8.6 14.2l0 14.8c0 8.8 7.2 16 16 16s16-7.2 16-16l0-5.1 23.5-12.3c15.1-7.9 24.5-23.6 24.5-40.6c0-25.4-20.6-45.9-45.9-45.9l-40.5 0c-23 0-41.6 18.6-41.6 41.6z"/></svg>
+                                        </div>
+                                        
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-medium text-gray-900 dark:text-white truncate">{{ content.description }}</p>
+                                            <p class="text-xs text-gray-500 truncate">
+                                                {{ content.is_file == 0 ? 'Video' : content.is_file == 1 ? 'Enlace' : content.is_file == 2 ? 'Documento' : content.is_file == 3 ? 'Videoconferencia' : 'Examen' }}
+                                            </p>
+                                        </div>
+
+                                        <div class="flex-shrink-0">
+                                            <button v-if="content.is_file == 0" @click="openSelectedVideo(content)" class="btn btn-sm btn-primary rounded-full w-8 h-8 p-0 flex items-center justify-center shadow-sm">
+                                                <svg class="w-3.5 h-3.5" viewBox="0 0 384 512" fill="currentColor"><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg>
+                                            </button>
+                                            <a v-else-if="content.is_file == 1 || content.is_file == 3" :href="content.content" target="_blank" @click="saveStudentHistory(content)" class="btn btn-sm btn-primary rounded-full w-8 h-8 p-0 flex items-center justify-center shadow-sm">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                                            </a>
+                                            <a v-else-if="content.is_file == 2" :href="getPath(content.content)" target="_blank" @click="saveStudentHistory(content)" class="btn btn-sm btn-primary rounded-full w-8 h-8 p-0 flex items-center justify-center shadow-sm">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                            </a>
+                                            <button v-else-if="content.is_file == 4" @click="openExamSolve(content)" class="btn btn-sm btn-primary rounded-full w-8 h-8 p-0 flex items-center justify-center shadow-sm">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </template>
+                                <div v-else class="text-center py-6 text-gray-400 bg-gray-50 dark:bg-gray-800/30 rounded-lg border border-dashed border-gray-200 dark:border-gray-700">
+                                    <p class="text-sm">No hay contenido disponible en este tema.</p>
+                                </div>
+
+                                <!-- Comments Section inside Accordion -->
+                                <div class="mt-6 pt-6 border-t border-dashed border-gray-200 dark:border-gray-700">
+                                    <h4 class="text-sm font-bold mb-4 text-gray-700 dark:text-gray-300 flex items-center gap-2">
+                                        <icon-message class="w-4 h-4" /> Comentarios
+                                    </h4>
+                                    
+                                    <!-- Loading State -->
+                                    <div v-if="commentsLoading" class="flex justify-center py-4">
+                                        <span class="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></span>
+                                    </div>
+
+                                    <!-- Comments List -->
+                                    <div v-else-if="commentsData && commentsData.length > 0" class="space-y-4 mb-4 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
+                                        <div v-for="(comment, idx) in commentsData" :key="comment.id" class="flex gap-3 text-sm group">
+                                            <img v-if="comment?.user?.avatar" class="w-8 h-8 rounded-full object-cover ring-2 ring-white dark:ring-gray-800" :src="getImage(comment.user.avatar)" alt="avatar">
+                                            <img v-else :src="'https://ui-avatars.com/api/?name='+(comment?.user?.name ?? 'X')+'&size=150&rounded=true'" class="w-8 h-8 rounded-full object-cover ring-2 ring-white dark:ring-gray-800" :alt="comment?.user?.name"/>
+                                            
+                                            <div class="flex-1 bg-gray-50 dark:bg-gray-800 p-3 rounded-2xl rounded-tl-none border border-gray-100 dark:border-gray-700">
+                                                <div class="flex justify-between items-start mb-1">
+                                                    <span class="font-semibold text-gray-800 dark:text-white">{{ comment?.user?.name }}</span>
+                                                    <span class="text-xs text-gray-400">{{ comment.time_elapsed }}</span>
+                                                </div>
+                                                <p class="text-gray-600 dark:text-gray-300 leading-relaxed">{{ comment.description }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div v-else class="text-center py-3 text-gray-400 text-xs italic bg-gray-50 dark:bg-gray-800/30 rounded-lg mb-4">
+                                        Sé el primero en comentar en este tema.
+                                    </div>
+
+                                    <!-- Comment Form -->
+                                    <form @submit.prevent="createComment" class="relative">
+                                        <input v-model="formComment.message" type="text" class="form-input pr-12 py-3 text-sm rounded-full bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700 focus:ring-primary focus:border-primary" placeholder="Escribe un comentario..." required>
+                                        <button type="submit" :disabled="formComment.processing" class="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 bg-primary text-white rounded-full hover:bg-primary-dark transition-colors disabled:opacity-50">
+                                            <icon-send class="w-3.5 h-3.5" />
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
