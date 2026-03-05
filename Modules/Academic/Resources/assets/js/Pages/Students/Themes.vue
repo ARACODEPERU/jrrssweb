@@ -1,7 +1,7 @@
 <script  setup>
     import AppLayout from "@/Layouts/Vristo/AppLayout.vue";
     import { ref, onMounted, computed, nextTick } from 'vue';
-    import { Link, useForm, router } from '@inertiajs/vue3';
+    import { Link, useForm, router, usePage } from '@inertiajs/vue3';
     import IconSend from '@/Components/vristo/icon/icon-send.vue';
     import IconSquareRotated from '@/Components/vristo/icon/icon-square-rotated.vue';
     import IconTrash from '@/Components/vristo/icon/icon-trash.vue';
@@ -25,6 +25,7 @@
         }
     });
 
+    const page = usePage();
     const themeSelected = ref(null);
     const displayModalVideo = ref(false);
     const videoSelected = ref(null);
@@ -190,7 +191,8 @@
             module_id: props.module.id,
             theme_id: content.theme_id,
             content_id: content.id,
-            type_content: content.is_file
+            type_content: content.is_file,
+            student_id: page.props.auth.user.id
         }
 
         axios.post(route('aca_students_history_store'), history);
@@ -653,7 +655,7 @@
                                         </div>
                                     </template>
                                 </template>
-                                <form @submit.prevent="createComment" class="mt-8 contact-form">
+                                <!-- <form @submit.prevent="createComment" class="mt-8 contact-form">
                                     <div>
                                         <label for="ctnTextarea">Dejar un comentario</label>
                                         <textarea v-model="formComment.message" id="ctnTextarea" rows="3" class="form-textarea" placeholder="Escribe aqui..." required></textarea>
@@ -670,7 +672,7 @@
                                             <icon-send v-else class="ml-2" />
                                         </button>
                                     </div>
-                                </form>
+                                </form> -->
 
                             </div>
                         </div>
