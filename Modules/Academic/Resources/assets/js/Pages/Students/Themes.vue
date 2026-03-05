@@ -291,7 +291,7 @@
                 <!-- End Profile -->
             </div>
 
-            <div class="grid grid-cols-6 gap-4">
+            <!-- <div class="grid grid-cols-6 gap-4">
                 <div class="panel col-span-6 sm:col-span-2">
                     <div class="flex justify-between items-center">
                         <h1 class="font-extrabold tracking-wider">Temas</h1>
@@ -463,7 +463,7 @@
                                     </div>
                                 </template>
                             </template>
-                            <!-- <div>
+                            <div>
                                 <h5 class="pb-3 text-gray-900 border-b border-gray-400/50 dark:text-gray-50 dark:border-zinc-700">
                                     COMENTARIOS
                                 </h5>
@@ -570,11 +570,11 @@
                                     </div>
                                 </form>
 
-                            </div> -->
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <!-- Propuesta UX Moderna (Acordeón) -->
             <div class="mt-10 pt-10 border-t border-gray-200 dark:border-gray-700">
