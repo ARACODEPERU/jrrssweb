@@ -179,7 +179,7 @@
     }
 
     const getPath = (path) => {
-        return baseUrl + 'storage/'+ path;
+        return baseUrl + '/storage/'+ path;
     }
 
     const saveStudentHistory = (content) => {
@@ -660,17 +660,15 @@
                                 </div>
 
                                 <!-- Comments Section inside Accordion -->
-                                <div class="mt-6 pt-6 border-t border-dashed border-gray-200 dark:border-gray-700">
+                                <!-- <div class="mt-6 pt-6 border-t border-dashed border-gray-200 dark:border-gray-700">
                                     <h4 class="text-sm font-bold mb-4 text-gray-700 dark:text-gray-300 flex items-center gap-2">
                                         <icon-message class="w-4 h-4" /> Comentarios
                                     </h4>
                                     
-                                    <!-- Loading State -->
                                     <div v-if="commentsLoading" class="flex justify-center py-4">
                                         <span class="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></span>
                                     </div>
 
-                                    <!-- Comments List -->
                                     <div v-else-if="commentsData && commentsData.length > 0" class="space-y-4 mb-4 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
                                         <div v-for="(comment, idx) in commentsData" :key="comment.id" class="flex gap-3 text-sm group">
                                             <img v-if="comment?.user?.avatar" class="w-8 h-8 rounded-full object-cover ring-2 ring-white dark:ring-gray-800" :src="getImage(comment.user.avatar)" alt="avatar">
@@ -689,14 +687,13 @@
                                         Sé el primero en comentar en este tema.
                                     </div>
 
-                                    <!-- Comment Form -->
                                     <form @submit.prevent="createComment" class="relative">
                                         <input v-model="formComment.message" type="text" class="form-input pr-12 py-3 text-sm rounded-full bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700 focus:ring-primary focus:border-primary" placeholder="Escribe un comentario..." required>
                                         <button type="submit" :disabled="formComment.processing" class="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 bg-primary text-white rounded-full hover:bg-primary-dark transition-colors disabled:opacity-50">
                                             <icon-send class="w-3.5 h-3.5" />
                                         </button>
                                     </form>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
