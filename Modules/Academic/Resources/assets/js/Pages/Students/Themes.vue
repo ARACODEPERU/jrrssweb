@@ -34,7 +34,7 @@
     const contentsData = ref(null);
     const commentsData = ref(null);
 
-    if(props.module.themes.length > 0){
+    if(props.module.themes && props.module.themes.length > 0){
         default_theme_id.value = props.module.themes[0].id;
         contentsData.value = props.module.themes[0].contents;
         getComment(default_theme_id.value);
