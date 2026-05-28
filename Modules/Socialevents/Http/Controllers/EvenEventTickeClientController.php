@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Modules\Socialevents\Entities\EvenEventTicketClient;
+use Modules\Socialevents\Entities\EvenEventTicketPrice;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 
