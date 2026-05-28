@@ -46,7 +46,7 @@
                                 Estamos seguros que será de gran bendición para su vida.
                             </p>
                             <div class="card-container">
-                                <img style="width: 100%;" src="{{ asset('img/ticket.jpg') }}" alt="">
+                                <img style="width: 100%;" src="{{ asset('img/ticket.jpeg') }}" alt="">
                             </div>
                         </div>
                         <div class="col-md-3"></div>
