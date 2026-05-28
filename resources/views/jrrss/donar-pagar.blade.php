@@ -64,23 +64,20 @@
     </div>
     @if ($preference_id)
         <script>
-            const mp = new MercadoPago("{{ env('MERCADOPAGO_KEY') }}", {
+            const mp = new MercadoPago("{{ config('services.mercadopago.key') }}", {
                 locale: 'es-PE'
             });
             const bricksBuilder = mp.bricks();
             const renderCardPaymentBrick = async (bricksBuilder) => {
                 const settings = {
                     initialization: {
-                        preferenceId: "{{ $preference_id }}",
                         amount: {{ $datos_form['amount'] }},
 
                     },
                     customization: {
                         visual: {
                             style: {
-                                customVariables: {
-                                    theme: 'bootstrap',
-                                }
+                                theme: 'bootstrap',
                             }
                         },
                         paymentMethods: {
@@ -120,9 +117,11 @@
                                     })
                                     .then((data) => {
                                         if (data.status == 'approved') {
+                                            resolve();
                                             window.location.href = data.url;
                                         } else {
                                             alert('No se pudo continuar el proceso');
+                                            reject();
                                             window.location.href = data.url;
                                         }
                                     })
@@ -134,6 +133,7 @@
                                             // Mostrar la alerta con el mensaje de error devuelto por el backend
                                             alert(error.message);
                                         }
+                                        reject();
                                     })
                             });
                         },
