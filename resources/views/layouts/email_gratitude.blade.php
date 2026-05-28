@@ -172,7 +172,7 @@
             Precio por unidad: S/ {{ $data->price }} <br>
         </p>
         <div class="card-container">
-            <img style="width: 100%;" src="{{ asset('img/ticket.jpg') }}" alt="">
+            <img style="width: 100%;" src="{{ asset('img/ticket.jpeg') }}" alt="">
         </div>
         <br>
         <p>
