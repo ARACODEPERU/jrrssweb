@@ -24,8 +24,8 @@
             }
         };
 
-        const eleanimation: any = document.querySelector('.animation');
-        eleanimation.addEventListener('animationend', function () {
+        const eleanimation: HTMLElement | null = document.querySelector('.animation');
+        eleanimation?.addEventListener('animationend', function () {
             appSetting.changeAnimation('remove');
         });
         store.toggleMainLoader();
@@ -127,4 +127,3 @@
         <ChatBox /> 
     </div>
 </template>
-

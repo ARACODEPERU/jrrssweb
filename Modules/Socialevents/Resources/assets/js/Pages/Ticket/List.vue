@@ -3,10 +3,8 @@
     import { useForm } from '@inertiajs/vue3';
     import Keypad from '@/Components/Keypad.vue';
     import Pagination from '@/Components/Pagination.vue';
-    import { Image } from 'ant-design-vue';
     import Swal2 from "sweetalert2";
     import { Link, router } from '@inertiajs/vue3';
-    import { faPencilAlt, faCheck, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
     const props = defineProps({
         tickets: {
@@ -59,8 +57,8 @@
 </script>
 
 <template>
-    <AppLayout title="Locales">
-        <div class="max-w-screen-2xl  mx-auto p-4 md:p-6 2xl:p-10">
+    <AppLayout title="Tickets">
+        <div class="max-w-screen-2xl mx-auto p-4 md:p-6 2xl:p-10">
             <!-- Breadcrumb Start -->
             <nav class="flex px-4 py-3 border border-stroke text-gray-700 mb-4 bg-gray-50 dark:bg-gray-800 dark:border-gray-700" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 md:space-x-3">
@@ -80,7 +78,7 @@
                     <li aria-current="page">
                         <div class="flex items-center">
                             <svg aria-hidden="true" class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Locales</span>
+                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Tickets</span>
                         </div>
                     </li>
                 </ol>
@@ -92,22 +90,19 @@
                     <div class="w-full p-4 border-b border-gray-200 bg-gray-50 dark:border-gray-600 dark:bg-gray-700">
                         <div class="grid grid-cols-3">
                             <div class="col-span-3 sm:col-span-1">
-                                <form id="form-search-items" @submit.prevent="form.get(route('even_categories_list'))">
+                                <form id="form-search-items" @submit.prevent="form.get(route('even_tickets_listado'))">
                                     <label for="table-search" class="sr-only">Search</label>
                                     <div class="relative">
                                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                             <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
                                         </div>
-                                        <input v-model="form.search" type="text" id="table-search-users" class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Buscar por Descripción">
+                                        <input v-model="form.search" type="text" id="table-search-users" class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Buscar por cliente">
                                     </div>
                                 </form>
                             </div>
                             <div class="col-span-3 sm:col-span-2">
                                 <Keypad>
                                     <template #botones>
-                                        <Link v-can="'even_local_nuevo'" :href="route('even_local_create')" class="flex items-center justify-center inline-block px-6 py-2.5 bg-blue-900 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
-                                            Nuevo
-                                        </Link>
                                     </template>
                                 </Keypad>
                             </div>
@@ -144,13 +139,13 @@
 
                                         </td>
                                         <td class="py-2 px-2 dark:border-strokedark">
-                                            {{ ticket.event.title }}
+                                            {{ ticket.event?.title ?? 'Evento no disponible' }}
                                         </td>
                                         <td class="py-2 px-2 dark:border-strokedark">
                                             {{ ticket.full_name }}
                                         </td>
                                         <td class="py-2 px-2 dark:border-strokedark">
-                                            {{ ticket.type.type_id }} S/. {{ ticket.type.price }}
+                                            {{ ticket.type?.type_id ?? 'Sin tipo' }} S/. {{ ticket.type?.price ?? 0 }}
                                         </td>
                                         <td class="text-right py-2 px-2 dark:border-strokedark">
                                             {{ ticket.quantity }}

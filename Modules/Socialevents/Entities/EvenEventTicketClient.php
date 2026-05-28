@@ -38,10 +38,15 @@ class EvenEventTicketClient extends Model
 
     public function event(): BelongsTo
     {
-        return $this->belongsTo(EvenEvent::class, 'event_id');
+        return $this->belongsTo(EvenEvent::class, 'event_id')->withDefault([
+            'title' => 'Evento no disponible',
+        ]);
     }
     public function type(): BelongsTo
     {
-        return $this->belongsTo(EvenEventTicketPrice::class, 'ticket_price_id');
+        return $this->belongsTo(EvenEventTicketPrice::class, 'ticket_price_id')->withDefault([
+            'type_id' => 'Sin tipo',
+            'price' => 0,
+        ]);
     }
 }
