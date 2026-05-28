@@ -119,21 +119,33 @@
                                         if (data.status == 'approved') {
                                             resolve();
                                             window.location.href = data.url;
+                                        } else if (data.status == 'pending' || data.status == 'in_process') {
+                                            resolve();
+                                            Swal.fire({
+                                                icon: 'info',
+                                                title: 'Pago en proceso',
+                                                text: data.message || 'Mercado Pago está revisando tu pago. Te avisaremos cuando se confirme.'
+                                            }).then(() => {
+                                                window.location.href = data.url;
+                                            });
                                         } else {
-                                            alert('No se pudo continuar el proceso');
-                                            reject();
-                                            window.location.href = data.url;
+                                            Swal.fire({
+                                                icon: 'warning',
+                                                title: 'Pago no aprobado',
+                                                text: data.message || 'Mercado Pago no aprobó el pago. Puedes revisar los datos e intentar nuevamente.'
+                                            });
+                                            reject(new Error(data.message || 'Pago no aprobado'));
                                         }
                                     })
                                     .catch((error) => {
                                         if (error instanceof SyntaxError) {
                                             // Si hay un error de sintaxis al analizar la respuesta JSON
-                                            alert('Error al procesar el pago.');
+                                            Swal.fire('Error', 'Error al procesar el pago.', 'error');
                                         } else {
                                             // Mostrar la alerta con el mensaje de error devuelto por el backend
-                                            alert(error.message);
+                                            Swal.fire('Error', error.message, 'error');
                                         }
-                                        reject();
+                                        reject(error);
                                     })
                             });
                         },

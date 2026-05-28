@@ -47,6 +47,7 @@ Route::get('/tmc26', [WebController::class, 'eventos'])->name('web_eventos');
 Route::get('/eventos-pagar/{id}/evento', [WebController::class, 'eventospagar'])->name('web_eventos_pagar');
 Route::get('/comprar-entrada/{id}', [WebController::class, 'entrada'])->name('web_comprar_entrada');
 Route::put('/comprar-entrada/procesar/{id}', [WebController::class, 'processPayment'])->name('web_process_payment');
+Route::post('/webhook', [WebController::class, 'mercadoPagoWebhook'])->name('mercadopago_webhook');
 Route::get('/benefactora', [WebController::class, 'benefactora'])->name('web_benefactora');
 Route::get('/el-cielo-en-la-tierra', [WebController::class, 'ecelt'])->name('web_ecelt');
 Route::get('/revolucion-juvenil', [WebController::class, 'revolucionjuvenil'])->name('web_revolucion_juvenil');

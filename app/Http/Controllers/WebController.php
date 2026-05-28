@@ -435,6 +435,9 @@ class WebController extends Controller
         MercadoPagoConfig::setAccessToken(env('MERCADOPAGO_TOKEN'));
 
         $client = new PaymentClient();
+        $payment = null;
+        $ticket = null;
+
         try {
             $ticket = EvenEventTicketClient::where('id', $id)
                 ->where('status', false)
@@ -450,7 +453,9 @@ class WebController extends Controller
                 "payment_method_id" => $request->get('payment_method_id'),
                 "transaction_amount" => (float) $ticket->total,
                 "installments" => $request->get('installments'),
-                "payer" => $request->get('payer')
+                "payer" => $request->get('payer'),
+                "description" => $ticket->event->title,
+                "external_reference" => "event_ticket:{$ticket->id}",
             ]);
 
             if ($payment->status == 'approved') {
@@ -493,7 +498,86 @@ class WebController extends Controller
 
             $message = $content['message'];
             return response()->json(['error' => 'Error al procesar el pago: ' . $message], 412);
+        } catch (\Throwable $e) {
+            \Log::error('Error posterior al intento de pago de entrada.', [
+                'exception' => $e,
+                'ticket_id' => $id,
+                'payment_id' => $payment?->id,
+                'payment_status' => $payment?->status,
+            ]);
+
+            if ($payment && $payment->status === 'approved' && $ticket) {
+                return response()->json([
+                    'status' => $payment->status,
+                    'message' => 'Pago aprobado. Estamos terminando de registrar tu entrada.',
+                    'url' => route('web_gracias_por_comprar_tu_entrada', $ticket->id)
+                ]);
+            }
+
+            return response()->json(['error' => 'No se pudo finalizar el registro del pago.'], 500);
         }
+    }
+
+    public function mercadoPagoWebhook(Request $request)
+    {
+        $paymentId = data_get($request->all(), 'data.id') ?? $request->get('id');
+        $topic = $request->get('type') ?? $request->get('topic');
+
+        if (!$paymentId || $topic !== 'payment') {
+            return response()->json(['received' => true]);
+        }
+
+        try {
+            MercadoPagoConfig::setAccessToken(env('MERCADOPAGO_TOKEN'));
+            $payment = (new PaymentClient())->get($paymentId);
+            $externalReference = $payment->external_reference ?? null;
+
+            if (!$externalReference || !str_starts_with($externalReference, 'event_ticket:')) {
+                return response()->json(['received' => true]);
+            }
+
+            $ticketId = (int) str_replace('event_ticket:', '', $externalReference);
+            $ticket = EvenEventTicketClient::with('event')->where('id', $ticketId)->first();
+
+            if (!$ticket) {
+                \Log::warning('Webhook Mercado Pago recibido para ticket inexistente.', [
+                    'payment_id' => $paymentId,
+                    'external_reference' => $externalReference,
+                ]);
+
+                return response()->json(['received' => true]);
+            }
+
+            $wasPending = !$ticket->status;
+            $ticket->status = $payment->status === 'approved';
+            $ticket->response_status = $payment->status;
+            $ticket->response_id = $payment->id;
+            $ticket->response_date_approved = $payment->date_approved
+                ? Carbon::parse($payment->date_approved)->format('Y-m-d')
+                : null;
+            $ticket->response_payer = json_encode($payment);
+            $ticket->response_payment_method_id = $payment->payment_method_id;
+            $ticket->save();
+
+            if ($wasPending && $ticket->status) {
+                try {
+                    Mail::to($ticket->email)->send(new ConfirmTicketEventMailable($ticket));
+                } catch (\Throwable $th) {
+                    \Log::error('Error al enviar correo desde webhook Mercado Pago.', [
+                        'exception' => $th,
+                        'ticket_id' => $ticket->id,
+                        'payment_id' => $payment->id,
+                    ]);
+                }
+            }
+        } catch (\Throwable $e) {
+            \Log::error('Error procesando webhook Mercado Pago.', [
+                'exception' => $e,
+                'payload' => $request->all(),
+            ]);
+        }
+
+        return response()->json(['received' => true]);
     }
 
     public function gracias(Request $request, $id)
@@ -1344,6 +1428,7 @@ class WebController extends Controller
         MercadoPagoConfig::setAccessToken(env('MERCADOPAGO_TOKEN'));
         $donationdata = $request->get('items');
         $client = new PaymentClient();
+        $payment = null;
 
         try {
             if (!is_array($donationdata)) {
@@ -1404,6 +1489,23 @@ class WebController extends Controller
             $content  = $response->getContent();
             $message = $content['message'];
             return response()->json(['error' => 'Error al procesar el pago: ' . $message], 412);
+        } catch (\Throwable $e) {
+            \Log::error('Error posterior al intento de pago de donación.', [
+                'exception' => $e,
+                'donation_data' => $donationdata,
+                'payment_id' => $payment?->id,
+                'payment_status' => $payment?->status,
+            ]);
+
+            if ($payment && $payment->status === 'approved' && is_array($donationdata)) {
+                return response()->json([
+                    'status' => $payment->status,
+                    'message' => 'Pago aprobado. Estamos terminando de registrar tu donación.',
+                    'url' => route('web_gracias_por_donar', $donationdata['nombre'] ?? 'donador')
+                ]);
+            }
+
+            return response()->json(['error' => 'No se pudo finalizar el registro del pago.'], 500);
         }
     }
 }
