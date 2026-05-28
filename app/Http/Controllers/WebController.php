@@ -358,7 +358,7 @@ class WebController extends Controller
         // )
         // ->orderBy('cms_section_items.position')
         // ->first();
-dd($events);
+
         return view('jrrss/eventos', [
             'events' => $events,
             'ubigeo' => $ubigeo,

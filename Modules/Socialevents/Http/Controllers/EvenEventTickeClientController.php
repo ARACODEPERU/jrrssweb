@@ -64,6 +64,9 @@ class EvenEventTickeClientController extends Controller
                 ->withInput();
         }
 
+        $price= EvenEventTicketPrice::find($request->get('tipo'))->price;
+        $quantity = $request->get('quantity');
+
         $pay = EvenEventTicketClient::create([
             'user_id' => Auth::id(),
             'event_id'  => $request->get('event_id'),
@@ -75,7 +78,9 @@ class EvenEventTickeClientController extends Controller
             'ubigeo' => null,
             'name_city' => $request->get('lugar'),
             'status' => false,
-            'quantity' => $request->get('quantity')
+            'quantity' => $request->get('quantity'),
+            'price' => $price,
+            'total' => $price * $quantity,
         ]);
 
 
