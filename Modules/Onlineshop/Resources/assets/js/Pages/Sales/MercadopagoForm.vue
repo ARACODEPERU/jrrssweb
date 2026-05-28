@@ -70,15 +70,12 @@
     const renderCardPaymentBrick = async (bricksBuilder, preference) => {
         const settings = {
             initialization: {
-                preferenceId: props.preference_id,
                 amount: totalSale.value,
             },
             customization: {
                 visual: {
                     style: {
-                        customVariables: {
-                            theme: "bootstrap",
-                        },
+                        theme: "bootstrap",
                     },
                 },
                 paymentMethods: {

@@ -436,26 +436,30 @@ class WebController extends Controller
 
         $client = new PaymentClient();
         try {
+            $ticket = EvenEventTicketClient::where('id', $id)
+                ->where('status', false)
+                ->first();
+
+            if (!$ticket) {
+                return response()->json(['error' => 'El ticket ya fue procesado o no existe.'], 404);
+            }
+
             $payment = $client->create([
                 "token" => $request->get('token'),
                 "issuer_id" => $request->get('issuer_id'),
                 "payment_method_id" => $request->get('payment_method_id'),
-                "transaction_amount" => (float) $request->get('transaction_amount'),
+                "transaction_amount" => (float) $ticket->total,
                 "installments" => $request->get('installments'),
                 "payer" => $request->get('payer')
             ]);
 
             if ($payment->status == 'approved') {
-                $ticket = EvenEventTicketClient::where('id', $id)
-                    ->where('status', false)
-                    ->first();
-
                 $ticket->status = true;
-                $ticket->response_status = $request->get('collection_status');
-                $ticket->response_id = $request->get('collection_id');
+                $ticket->response_status = $payment->status;
+                $ticket->response_id = $payment->id;
                 $ticket->response_date_approved = Carbon::now()->format('Y-m-d');
                 $ticket->response_payer = json_encode($request->all());
-                $ticket->response_payment_method_id = $request->get('payment_type');
+                $ticket->response_payment_method_id = $request->get('payment_method_id');
                 $ticket->save();
 
                 //envio de correo
@@ -1342,6 +1346,16 @@ class WebController extends Controller
         $client = new PaymentClient();
 
         try {
+            if (!is_array($donationdata)) {
+                return response()->json(['error' => 'Los datos de la donación no son válidos.'], 422);
+            }
+
+            $amount = isset($donationdata['monto']) ? (float) $donationdata['monto'] : 0;
+            $requestedAmount = (float) $request->get('transaction_amount');
+
+            if ($amount <= 0 || (int) round($amount * 100) !== (int) round($requestedAmount * 100)) {
+                return response()->json(['error' => 'El monto de la donación no es válido.'], 422);
+            }
 
             // dd($request->get('payer'));
 
@@ -1349,7 +1363,7 @@ class WebController extends Controller
                 "token" => $request->get('token'),
                 "issuer_id" => $request->get('issuer_id'),
                 "payment_method_id" => $request->get('payment_method_id'),
-                "transaction_amount" => (float) $request->get('transaction_amount'),
+                "transaction_amount" => $amount,
                 "installments" => $request->get('installments'),
                 "payer" => $request->get('payer')
             ]);
@@ -1360,11 +1374,11 @@ class WebController extends Controller
                 $ticket->monto = $donationdata['monto'];
                 $ticket->tipo_donacion = $donationdata['tipo'];
                 $ticket->status = true;
-                $ticket->response_status = $request->get('collection_status');
-                $ticket->response_id = $request->get('collection_id');
+                $ticket->response_status = $payment->status;
+                $ticket->response_id = $payment->id;
                 $ticket->response_date_approved = Carbon::now()->format('Y-m-d');
                 $ticket->response_payer = json_encode($request->all());
-                $ticket->response_payment_method_id = $request->get('payment_type');
+                $ticket->response_payment_method_id = $request->get('payment_method_id');
                 $ticket->origen_pago = "MercadoPago";
                 $ticket->tipo_moneda = "PEN";
                 $ticket->comision = 3.79; // % comision de  MercadoPago en 14 días es mayor si quieren al instante 3.99

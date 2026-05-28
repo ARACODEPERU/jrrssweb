@@ -46,15 +46,12 @@ onMounted(async () => {
 const renderCardPaymentBrick = async (bricksBuilder) => {
     const settings = {
         initialization: {
-            preferenceId: props.preference,
             amount: props.samount,
         },
         customization: {
             visual: {
                 style: {
-                    customVariables: {
-                        theme: "bootstrap",
-                    },
+                    theme: "bootstrap",
                 },
             },
             paymentMethods: {
