@@ -8,6 +8,7 @@
         <x-jrrss.header-area></x-jrrss.header-area>
         <!-- Header - area end -->
         <div role="main" class="main">
+            {{ dd($ticket) }}
             @if ($ticket)
                 <div class="container-lg container-xl-custom pt-5">
                     <div class="row pb-4">
