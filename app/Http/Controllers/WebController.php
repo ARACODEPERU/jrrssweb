@@ -358,7 +358,7 @@ class WebController extends Controller
         // )
         // ->orderBy('cms_section_items.position')
         // ->first();
-
+dd($events);
         return view('jrrss/eventos', [
             'events' => $events,
             'ubigeo' => $ubigeo,
@@ -405,7 +405,7 @@ class WebController extends Controller
                 dd($response); // Mostrar la respuesta para obtener más detalles
             }
         }
-        dd($ticket);
+
         return view('jrrss/eventos-pagar', [
             'ticket' => $ticket,
             'preference_id' => $preference_id
