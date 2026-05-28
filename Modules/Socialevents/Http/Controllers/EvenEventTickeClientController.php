@@ -83,7 +83,7 @@ class EvenEventTickeClientController extends Controller
             'price' => $price,
             'total' => $price * $quantity,
         ]);
-dd($pay, $price);
+
 
         $id = $pay->id;
         return to_route('web_eventos_pagar', ['id' => $id]);

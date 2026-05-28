@@ -25,7 +25,9 @@ class EvenEventTicketClient extends Model
         'ubigeo',
         'name_city',
         'quantity',
-        'status'
+        'status',
+        'price',
+        'total',
     ];
 
     protected static function newFactory(): EvenEventTickeClientFactory
