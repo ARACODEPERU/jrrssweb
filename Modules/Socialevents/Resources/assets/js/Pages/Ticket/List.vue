@@ -263,8 +263,12 @@
                                 <template v-for="(ticket, index) in tickets.data" :key="ticket.id">
                                     <tr class="border-b border-stroke">
                                         <td class="text-center py-2 dark:border-strokedark">
-                                            <button @click="sendTicketEmail(ticket)" type="button" class="inline-flex items-center justify-center px-3 py-1.5 bg-blue-700 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-600 hover:shadow-lg focus:bg-blue-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
-                                                Enviar correo
+                                            <button @click="sendTicketEmail(ticket)" type="button" title="Enviar correo" aria-label="Enviar correo" class="inline-flex items-center justify-center w-9 h-9 bg-blue-700 text-white rounded shadow-md hover:bg-blue-600 hover:shadow-lg focus:bg-blue-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
+                                                <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M4 6.75C4 5.78 4.78 5 5.75 5h12.5C19.22 5 20 5.78 20 6.75v10.5c0 .97-.78 1.75-1.75 1.75H5.75C4.78 19 4 18.22 4 17.25V6.75Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                                                    <path d="m5 7 7 5.25L19 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                                                    <path d="m8.5 11.5-3.25 3.25M15.5 11.5l3.25 3.25" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                                                </svg>
                                             </button>
                                         </td>
                                         <td class="py-2 px-2 dark:border-strokedark">
