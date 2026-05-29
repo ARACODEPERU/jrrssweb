@@ -21,16 +21,29 @@ class EvenEventTickeClientController extends Controller
     {
         $tickets = (new EvenEventTicketClient())->newQuery();
 
-        if (request()->has('search')) {
-            $tickets->where('full_name', 'Like', '%' . request()->input('search') . '%');
+        if (request()->filled('search')) {
+            $search = request()->input('search');
+
+            $tickets->where(function ($query) use ($search) {
+                $query->where('full_name', 'Like', '%' . $search . '%')
+                    ->orWhereHas('event', function ($eventQuery) use ($search) {
+                        $eventQuery->where('title', 'Like', '%' . $search . '%');
+                    });
+            });
         }
-        $tickets = $tickets->with('event');
-        $tickets = $tickets->with('type');
-        $tickets = $tickets->paginate(10);
+
+        if (request()->boolean('approved_only')) {
+            $tickets->where('status', true);
+        }
+
+        $tickets->with(['event', 'type']);
+        $ticketsExport = (clone $tickets)->get();
+        $tickets = $tickets->paginate(10)->withQueryString();
 
         return Inertia::render('Socialevents::Ticket/List', [
             'tickets' => $tickets,
-            'filters' => request()->all('search')
+            'ticketsExport' => $ticketsExport,
+            'filters' => request()->only('search', 'approved_only')
         ]);
     }
 
