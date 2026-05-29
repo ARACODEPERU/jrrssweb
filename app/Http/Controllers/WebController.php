@@ -582,9 +582,18 @@ class WebController extends Controller
 
     public function gracias(Request $request, $id)
     {
-        $ticket = EvenEventTicketClient::where('id', $id)
+        $ticket = EvenEventTicketClient::with(['event', 'type'])
+            ->where('id', $id)
             ->where('status', false)
             ->first();
+
+        if (!$ticket) {
+            return redirect()->route('web_gracias_por_comprar_tu_entrada', $id);
+        }
+
+        if ($request->get('collection_status') !== 'approved') {
+            return redirect()->route('web_eventos_pagar', $id);
+        }
 
         $ticket->status = true;
         $ticket->response_status = $request->get('collection_status');
@@ -593,7 +602,18 @@ class WebController extends Controller
         $ticket->response_payer = json_encode($request->all());
         $ticket->response_payment_method_id = $request->get('payment_type');
         $ticket->save();
-        // $ticket = $ticket->with('event')->with('type');
+
+        try {
+            Mail::to($ticket->email)->send(new ConfirmTicketEventMailable($ticket));
+        } catch (\Throwable $th) {
+            \Log::error('Error al enviar correo de confirmacion en retorno Mercado Pago.', [
+                'exception' => $th,
+                'ticket_id' => $ticket->id,
+                'email' => $ticket->email,
+            ]);
+        }
+
+        return redirect()->route('web_gracias_por_comprar_tu_entrada', $ticket->id);
     }
 
 

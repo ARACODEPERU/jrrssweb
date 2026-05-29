@@ -44,4 +44,6 @@ Route::middleware(['auth', 'verified'])->prefix('socialevents')->group(function 
     Route::middleware(['middleware' => 'permission:even_evento_eliminar'])->delete('events/destroy/{id}', [EvenEventController::class, 'destroy'])->name('even_eventos_destroy');
     Route::post('events/prices/tickets/store', [EvenEventTickePriceController::class, 'store'])->name('even_events_preices_ticket_store');
     Route::middleware(['middleware' => 'permission:even_ventas_listado'])->get('tickets', [EvenEventTickeClientController::class, 'index'])->name('even_tickets_listado');
+    Route::middleware(['middleware' => 'permission:even_ventas_listado'])->post('tickets/{id}/send-email', [EvenEventTickeClientController::class, 'sendConfirmationEmail'])->name('even_tickets_send_email');
+    Route::middleware(['middleware' => 'permission:even_ventas_listado'])->post('tickets/test-email', [EvenEventTickeClientController::class, 'sendTestConfirmationEmail'])->name('even_tickets_test_email');
 });

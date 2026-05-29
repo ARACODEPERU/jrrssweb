@@ -80,6 +80,64 @@
         XLSX.writeFile(workbook, 'tickets_eventos.xlsx');
     };
 
+    const sendTicketEmail = (ticket) => {
+        Swal2.fire({
+            title: 'Enviar correo',
+            text: `Se enviara la confirmacion a ${ticket.email || 'sin correo registrado'}.`,
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Enviar',
+            cancelButtonText: 'Cancelar',
+            showLoaderOnConfirm: true,
+            preConfirm: () => {
+                return axios.post(route('even_tickets_send_email', ticket.id)).then((res) => {
+                    return res.data;
+                }).catch((error) => {
+                    Swal2.showValidationMessage(error.response?.data?.message || 'No se pudo enviar el correo.');
+                });
+            },
+            allowOutsideClick: () => !Swal2.isLoading()
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal2.fire('Enviado', result.value?.message || 'Correo enviado correctamente.', 'success');
+            }
+        });
+    };
+
+    const sendTestEmail = () => {
+        Swal2.fire({
+            title: 'Correo prueba',
+            input: 'email',
+            inputLabel: 'Email de destino',
+            inputPlaceholder: 'correo@dominio.com',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Enviar prueba',
+            cancelButtonText: 'Cancelar',
+            showLoaderOnConfirm: true,
+            inputValidator: (value) => {
+                if (!value) {
+                    return 'Ingresa un email.';
+                }
+            },
+            preConfirm: (email) => {
+                return axios.post(route('even_tickets_test_email'), { email }).then((res) => {
+                    return res.data;
+                }).catch((error) => {
+                    Swal2.showValidationMessage(error.response?.data?.message || 'No se pudo enviar el correo de prueba.');
+                });
+            },
+            allowOutsideClick: () => !Swal2.isLoading()
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal2.fire('Enviado', result.value?.message || 'Correo de prueba enviado correctamente.', 'success');
+            }
+        });
+    };
+
     const destroyLocal = (id) => {
         Swal2.fire({
             title: '¿Estas seguro?',
@@ -166,6 +224,9 @@
                             <div class="col-span-3 sm:col-span-2">
                                 <Keypad>
                                     <template #botones>
+                                        <button v-on:click="sendTestEmail()" type="button" class="flex items-center justify-center inline-block px-6 py-2.5 bg-blue-900 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
+                                            Correo prueba
+                                        </button>
                                         <button v-on:click="downloadExcel()" type="button" class="flex items-center justify-center inline-block px-6 py-2.5 bg-green-700 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out">
                                             Exportar Excel
                                         </button>
@@ -202,7 +263,9 @@
                                 <template v-for="(ticket, index) in tickets.data" :key="ticket.id">
                                     <tr class="border-b border-stroke">
                                         <td class="text-center py-2 dark:border-strokedark">
-
+                                            <button @click="sendTicketEmail(ticket)" type="button" class="inline-flex items-center justify-center px-3 py-1.5 bg-blue-700 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-600 hover:shadow-lg focus:bg-blue-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
+                                                Enviar correo
+                                            </button>
                                         </td>
                                         <td class="py-2 px-2 dark:border-strokedark">
                                             {{ ticket.event?.title ?? 'Evento no disponible' }}

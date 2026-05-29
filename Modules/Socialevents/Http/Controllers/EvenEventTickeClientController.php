@@ -2,11 +2,14 @@
 
 namespace Modules\Socialevents\Http\Controllers;
 
+use App\Mail\ConfirmTicketEventMailable;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Modules\Socialevents\Entities\EvenEvent;
 use Modules\Socialevents\Entities\EvenEventTicketClient;
 use Modules\Socialevents\Entities\EvenEventTicketPrice;
 use Illuminate\Support\Facades\Validator;
@@ -116,6 +119,65 @@ class EvenEventTickeClientController extends Controller
     public function edit($id)
     {
         return view('socialevents::edit');
+    }
+
+    public function sendConfirmationEmail($id)
+    {
+        $ticket = EvenEventTicketClient::with(['event', 'type'])->findOrFail($id);
+
+        if (!$ticket->email) {
+            return response()->json([
+                'success' => false,
+                'message' => 'El ticket no tiene un correo registrado.',
+            ], 422);
+        }
+
+        Mail::to($ticket->email)->send(new ConfirmTicketEventMailable($ticket));
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Correo enviado correctamente.',
+        ]);
+    }
+
+    public function sendTestConfirmationEmail(Request $request)
+    {
+        $request->validate([
+            'email' => ['required', 'email'],
+        ]);
+
+        $ticket = new EvenEventTicketClient();
+        $ticket->forceFill([
+            'id' => 0,
+            'full_name' => 'Usuario de prueba',
+            'identification_number' => '00000000',
+            'phone' => '999999999',
+            'email' => $request->input('email'),
+            'name_city' => 'Lima',
+            'quantity' => 2,
+            'status' => true,
+            'price' => 50,
+            'total' => 100,
+            'response_status' => 'approved',
+            'response_id' => 'TEST-' . now()->format('YmdHis'),
+            'response_date_approved' => now()->format('Y-m-d'),
+            'response_payment_method_id' => 'visa',
+        ]);
+
+        $ticket->setRelation('event', new EvenEvent([
+            'title' => 'Evento de prueba',
+        ]));
+        $ticket->setRelation('type', new EvenEventTicketPrice([
+            'type_id' => 'Entrada general',
+            'price' => 50,
+        ]));
+
+        Mail::to($request->input('email'))->send(new ConfirmTicketEventMailable($ticket));
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Correo de prueba enviado correctamente.',
+        ]);
     }
 
     /**
