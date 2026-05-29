@@ -17,7 +17,7 @@ class ConfirmTicketEventMailable extends Mailable
 
     public function __construct(EvenEventTicketClient $ticket)
     {
-        $this->ticket = $ticket->loadMissing(['event', 'type']);
+        $this->ticket = $ticket->loadMissing(['event.locales.local', 'type']);
     }
 
     public function envelope(): Envelope
