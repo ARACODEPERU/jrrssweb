@@ -278,7 +278,7 @@
                         </tr>
                     </table>
 
-                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top: 24px;">
+                    {{-- <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top: 24px;">
                         <tr>
                             <td class="stack" width="48%" valign="top">
                                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" class="feature-card">
@@ -304,7 +304,7 @@
                                 </table>
                             </td>
                         </tr>
-                    </table>
+                    </table> --}}
 
                     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin: 28px 0 18px;">
                         <tr>
@@ -322,9 +322,9 @@
                         <a href="{{ route('web_eventos') }}" class="button">&#9672;&nbsp;&nbsp;Ver detalles del evento</a>
                     </div>
 
-                    <p class="muted" style="font-size: 14px; line-height: 1.5; margin: 0 0 22px; text-align: center;">
+                    {{-- <p class="muted" style="font-size: 14px; line-height: 1.5; margin: 0 0 22px; text-align: center;">
                         &#9826;&nbsp; Presenta tu c&oacute;digo QR al ingresar al evento.
-                    </p>
+                    </p> --}}
                 </td>
             </tr>
             <tr>
