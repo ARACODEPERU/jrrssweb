@@ -33,12 +33,54 @@
                                             action="{{ route('apisubscriber') }}" id="pageContactForm">
                                             <div class="row">
                                                 <div class="form-group col">
-                                                    {{-- <button data-loading-text="Loading..." id="submitPageContactButton"
-                                                        class="btn btn-outline btn-primary rounded-0 py-3 px-5 font-weight-semibold"
-                                                        style="font-size: 14px;">
-                                                        <i class="fa fa-cart-plus" aria-hidden="true"></i> Comprar Ahora
-                                                    </button> --}}
-                                                    <div id="cardPaymentBrick_container"></div>
+                                                    <!-- Accordion -->
+                                                    <div class="accordion-payment">
+                                                        <!-- Yape section -->
+                                                        <div class="border rounded mb-3">
+                                                            <button type="button" class="accordion-header w-100 text-start d-flex align-items-center justify-content-between px-4 py-3 border-0 bg-white fw-semibold" onclick="toggleAccordion('yape')">
+                                                                <span class="d-flex align-items-center gap-2">
+                                                                    <svg width="20" height="20" fill="#0d6efd" viewBox="0 0 24 24"><path d="M21 2H3a1 1 0 0 0-1 1v18a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1zm-7 13h-2V9h-2V7h4v8z"/></svg>
+                                                                    Pagar con Yape
+                                                                </span>
+                                                                <svg class="accordion-arrow" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                                                                </svg>
+                                                            </button>
+                                                            <div id="accordion-yape" class="accordion-content border-top px-4 py-3" style="display: none;">
+                                                                <p class="small mb-3 text-muted">
+                                                                    Abre tu app Yape, genera el código de aprobación/OTP para compras en línea y escríbelo aquí junto con tu celular.
+                                                                </p>
+                                                                <div class="row g-3">
+                                                                    <div class="col-md-4">
+                                                                        <input id="yapePhone" class="form-control" type="text" inputmode="numeric" maxlength="9" placeholder="Celular Yape">
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <input id="yapeOtp" class="form-control" type="text" inputmode="numeric" maxlength="6" placeholder="Codigo OTP">
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <input id="yapeEmail" class="form-control" type="email" value="{{ $ticket->email }}" placeholder="Correo">
+                                                                    </div>
+                                                                </div>
+                                                                <button id="yapePayButton" type="button" class="btn btn-primary rounded-0 py-2 px-4 font-weight-semibold mt-3">Pagar con Yape</button>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Tarjeta section -->
+                                                        <div class="border rounded mb-3">
+                                                            <button type="button" class="accordion-header w-100 text-start d-flex align-items-center justify-content-between px-4 py-3 border-0 bg-white fw-semibold" onclick="toggleAccordion('card')">
+                                                                <span class="d-flex align-items-center gap-2">
+                                                                    <svg width="20" height="20" fill="#0d6efd" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h16v12zM6 10h12v2H6v-2z"/></svg>
+                                                                    Pagar con Tarjeta
+                                                                </span>
+                                                                <svg class="accordion-arrow" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                                                                </svg>
+                                                            </button>
+                                                            <div id="accordion-card" class="accordion-content border-top px-4 py-3" style="display: none;">
+                                                                <div id="cardPaymentBrick_container"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </form>
@@ -62,10 +104,94 @@
     @if ($preference_id)
 
         <script>
+            // Accordion toggle function
+            let activeAccordion = null;
+            function toggleAccordion(section) {
+                const yapeContent = document.getElementById('accordion-yape');
+                const cardContent = document.getElementById('accordion-card');
+
+                if (activeAccordion === section) {
+                    if (section === 'yape') yapeContent.style.display = 'none';
+                    else cardContent.style.display = 'none';
+                    activeAccordion = null;
+                } else {
+                    if (activeAccordion === 'yape') yapeContent.style.display = 'none';
+                    else if (activeAccordion === 'card') cardContent.style.display = 'none';
+
+                    if (section === 'yape') yapeContent.style.display = 'block';
+                    else cardContent.style.display = 'block';
+                    activeAccordion = section;
+                }
+
+                document.querySelectorAll('.accordion-arrow').forEach(el => el.style.transform = 'rotate(0deg)');
+                if (activeAccordion === 'yape') {
+                    document.querySelectorAll('.accordion-arrow')[0].style.transform = 'rotate(180deg)';
+                } else if (activeAccordion === 'card') {
+                    document.querySelectorAll('.accordion-arrow')[1].style.transform = 'rotate(180deg)';
+                }
+            }
+
             const mp = new MercadoPago("{{ config('services.mercadopago.key') }}", {
                 locale: 'es-PE'
             });
             const bricksBuilder = mp.bricks();
+            const processYapePayment = async () => {
+                const button = document.getElementById('yapePayButton');
+                const phoneNumber = document.getElementById('yapePhone').value;
+                const otp = document.getElementById('yapeOtp').value;
+                const email = document.getElementById('yapeEmail').value;
+
+                if (!phoneNumber || !otp || !email) {
+                    Swal.fire('Datos incompletos', 'Ingresa celular, codigo OTP y correo.', 'warning');
+                    return;
+                }
+
+                button.disabled = true;
+                button.innerText = 'Procesando...';
+
+                try {
+                    const yape = mp.yape({ phoneNumber, otp });
+                    const token = await yape.create();
+                    const response = await fetch("{{ route('web_process_payment', $ticket->id) }}", {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                        },
+                        body: JSON.stringify({
+                            token: token.id || token,
+                            transaction_amount: {{ $ticket->total }},
+                            installments: 1,
+                            payment_method_id: 'yape',
+                            payer: { email },
+                            payer_email: email
+                        })
+                    });
+
+                    if (!response.ok) {
+                        const error = await response.json();
+                        throw new Error(error.error || 'Error al procesar Yape.');
+                    }
+
+                    const data = await response.json();
+                    if (data.status == 'approved') {
+                        window.location.href = data.url;
+                        return;
+                    }
+
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Pago no aprobado',
+                        text: data.message || 'Mercado Pago no aprobÃ³ el pago. Puedes revisar los datos e intentar nuevamente.'
+                    });
+                } catch (error) {
+                    Swal.fire('Error', error.message || 'Error al procesar Yape.', 'error');
+                } finally {
+                    button.disabled = false;
+                    button.innerText = 'Pagar con Yape';
+                }
+            };
+            document.getElementById('yapePayButton').addEventListener('click', processYapePayment);
             const renderCardPaymentBrick = async (bricksBuilder) => {
                 const settings = {
                     initialization: {

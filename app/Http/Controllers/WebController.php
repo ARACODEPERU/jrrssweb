@@ -28,6 +28,36 @@ use Illuminate\Support\Facades\Mail;
 
 class WebController extends Controller
 {
+    private function mercadoPagoIsTestMode(): bool
+    {
+        return str_starts_with((string) config('services.mercadopago.key'), 'TEST-')
+            || str_starts_with((string) config('services.mercadopago.token'), 'TEST-');
+    }
+
+    private function mercadoPagoYapePayer(Request $request): array
+    {
+        $payer = $request->get('payer');
+
+        if (!is_array($payer)) {
+            $payer = [];
+        }
+
+        $email = data_get($payer, 'email') ?? $request->get('payer_email') ?? $request->get('email');
+
+        if ($this->mercadoPagoIsTestMode()) {
+            $testEmail = config('services.mercadopago.test_payer_email');
+            if ($testEmail) {
+                $email = $testEmail;
+            }
+        }
+
+        if ($email) {
+            $payer['email'] = $email;
+        }
+
+        return $payer;
+    }
+
 
     public function index()
     {
@@ -447,16 +477,28 @@ class WebController extends Controller
                 return response()->json(['error' => 'El ticket ya fue procesado o no existe.'], 404);
             }
 
-            $payment = $client->create([
-                "token" => $request->get('token'),
-                "issuer_id" => $request->get('issuer_id'),
-                "payment_method_id" => $request->get('payment_method_id'),
-                "transaction_amount" => (float) $ticket->total,
-                "installments" => $request->get('installments'),
-                "payer" => $request->get('payer'),
-                "description" => $ticket->event->title,
-                "external_reference" => "event_ticket:{$ticket->id}",
-            ]);
+            if ($request->get('payment_method_id') === 'yape') {
+                $payment = $client->create([
+                    "token" => $request->get('token'),
+                    "payment_method_id" => "yape",
+                    "transaction_amount" => (float) $ticket->total,
+                    "installments" => 1,
+                    "payer" => $this->mercadoPagoYapePayer($request),
+                    "description" => $ticket->event->title,
+                    "external_reference" => "event_ticket:{$ticket->id}",
+                ]);
+            } else {
+                $payment = $client->create([
+                    "token" => $request->get('token'),
+                    "issuer_id" => $request->get('issuer_id'),
+                    "payment_method_id" => $request->get('payment_method_id'),
+                    "transaction_amount" => (float) $ticket->total,
+                    "installments" => $request->get('installments'),
+                    "payer" => $request->get('payer'),
+                    "description" => $ticket->event->title,
+                    "external_reference" => "event_ticket:{$ticket->id}",
+                ]);
+            }
 
             if ($payment->status == 'approved') {
                 $ticket->status = true;
@@ -1464,14 +1506,24 @@ class WebController extends Controller
 
             // dd($request->get('payer'));
 
-            $payment = $client->create([
-                "token" => $request->get('token'),
-                "issuer_id" => $request->get('issuer_id'),
-                "payment_method_id" => $request->get('payment_method_id'),
-                "transaction_amount" => $amount,
-                "installments" => $request->get('installments'),
-                "payer" => $request->get('payer')
-            ]);
+            if ($request->get('payment_method_id') === 'yape') {
+                $payment = $client->create([
+                    "token" => $request->get('token'),
+                    "payment_method_id" => "yape",
+                    "transaction_amount" => $amount,
+                    "installments" => 1,
+                    "payer" => $this->mercadoPagoYapePayer($request)
+                ]);
+            } else {
+                $payment = $client->create([
+                    "token" => $request->get('token'),
+                    "issuer_id" => $request->get('issuer_id'),
+                    "payment_method_id" => $request->get('payment_method_id'),
+                    "transaction_amount" => $amount,
+                    "installments" => $request->get('installments'),
+                    "payer" => $request->get('payer')
+                ]);
+            }
             //dd($payment);
             if ($payment->status == 'approved') {
                 $ticket = new EvenEventDonation();

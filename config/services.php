@@ -33,6 +33,7 @@ return [
 
     'mercadopago' => [
         'key' => env('MERCADOPAGO_KEY'),
-        'token' => env('MERCADOPAGO_TOKEN')
+        'token' => env('MERCADOPAGO_TOKEN'),
+        'test_payer_email' => env('MERCADOPAGO_TEST_PAYER_EMAIL'),
     ]
 ];

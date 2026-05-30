@@ -30,6 +30,37 @@ use Illuminate\Support\Facades\Mail;
 
 class MercadopagoController extends Controller
 {
+    private function mercadoPagoIsTestMode(): bool
+    {
+        return str_starts_with((string) config('services.mercadopago.key'), 'TEST-')
+            || str_starts_with((string) config('services.mercadopago.token'), 'TEST-');
+    }
+
+    private function mercadoPagoYapePayer(Request $request): array
+    {
+        $payer = $request->get('payer');
+
+        if (!is_array($payer)) {
+            $payer = [];
+        }
+
+        $email = data_get($payer, 'email') ?? $request->get('payer_email') ?? $request->get('email');
+
+        if ($this->mercadoPagoIsTestMode()) {
+            $testEmail = config('services.mercadopago.test_payer_email');
+            if ($testEmail) {
+                $email = $testEmail;
+            }
+        }
+
+        if ($email) {
+            $payer['email'] = $email;
+        }
+
+        return $payer;
+    }
+
+
     public function formPay(Request $request, $id)
     {
         $personInvoice = $request->get('personInvoice');
@@ -87,7 +118,7 @@ class MercadopagoController extends Controller
                 $createRequest = [
                     "description" => 'suscripcion ' . $sus->title,
                     "installments" => 1,
-                    "payer" => $request->get('payer'),
+                    "payer" => $this->mercadoPagoYapePayer($request),
                     "payment_method_id" => "yape",
                     "token" => $request->get('token'),
                     "transaction_amount" => (float) $request->get('transaction_amount'),
@@ -131,7 +162,9 @@ class MercadopagoController extends Controller
                     break;
             }
 
-            $url = route('web_gracias_por_comprar', $ssale->id);
+            $url = $payment->status === 'approved' && $ssale
+                ? route('web_gracias_por_comprar', $ssale->id)
+                : route('academic_step_verification', $id);
 
             return response()->json([
                 'status' => $payment->status,
@@ -251,7 +284,7 @@ class MercadopagoController extends Controller
 
                     $createRequest = [
                         "installments" => 1,
-                        "payer" => $request->get('payer'),
+                        "payer" => $this->mercadoPagoYapePayer($request),
                         "payment_method_id" => "yape",
                         "token" => $request->get('token'),
                         "transaction_amount" => $amount,
